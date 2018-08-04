@@ -50,6 +50,44 @@ bot.on('message', async message => {
   if (message.author.bot) return;
   if (message.channel.type === "dm") return;
 
+if (talkedRecently.has(message.author.id)) {
+    return;
+  } else {
+    // the user can type the command ... your command code goes here :)
+    if(message.content.toLowerCase().includes("stop")) {
+      talkedRecently.add(message.author.id);
+        setTimeout(() => {
+          // Removes the user from the set after a minute
+          talkedRecently.delete(message.author.id);
+        }, 300000);
+      return message.channel.send(`Why should I <@${message.author.id}>? You on your period or something bitch?`);
+    };
+    if (message.content.toLowerCase.includes("i see")) {
+      talkedRecently.add(message.author.id);
+        setTimeout(() => {
+          // Removes the user from the set after a minute
+          talkedRecently.delete(message.author.id);
+        }, 300000);
+      return message.channel.send(`We all see <@${message.author.id}>! Well except for blind twats like you that is.`);
+    };
+    if (message.content.toLowerCase.includes("oof")) {
+      talkedRecently.add(message.author.id);
+        setTimeout(() => {
+          // Removes the user from the set after a minute
+          talkedRecently.delete(message.author.id);
+        }, 300000);
+      return message.channel.send(`Fucking hell <@${message.author.id}>! Do you know how much of a gay cunt you sound like by saying that?`);
+    };
+    if (message.author.id == "452716084294975507") {
+      talkedRecently.add(message.author.id);
+        setTimeout(() => {
+          // Removes the user from the set after a minute
+          talkedRecently.delete(message.author.id);
+        }, 300000);
+      return message.channel.send("Well it appears we have a new law. The Great Fag Lord has just spoken.");
+    };
+  }; 
+
   let prefix = config.prefix;
   let messageArray = message.content.split(" ");
   let cmd = messageArray[0];
@@ -57,39 +95,7 @@ bot.on('message', async message => {
 
   let commandfile = bot.commands.get(cmd.slice(prefix.length));
   if (commandfile) commandfile.run(bot, message, args);
-  if (talkedRecently.has(message.author.id)) {
-    return;
-  } else {
-    // the user can type the command ... your command code goes here :)
-    if (message.content.includes("stop") || message.content.includes("Stop")) return message.channel.send(`Why should I <@${message.author.id}>? You on your period or something bitch?`).then({
-      talkedRecently.add(message.author.id);
-      setTimeout(() => {
-        // Removes the user from the set after a minute
-        talkedRecently.delete(message.author.id);
-      }, 300000);
-    });
-    if (message.content.includes("i see") || message.content.includes("I See") || message.content.includes("i See") || message.content.includes("I see")) return message.channel.send(`Well we all see <@${message.author.id}>. Well except blind ass bastards like you!`).then({
-      talkedRecently.add(message.author.id);
-      setTimeout(() => {
-        // Removes the user from the set after a minute
-        talkedRecently.delete(message.author.id);
-      }, 300000);
-    });
-    if (message.content.includes("oof") || message.content.includes("Oof") || message.content.includes("OOF")) return message.channel.send(`Fuck you <@${message.author.id}>! You know how gay you seem when saying that?`).then({
-      talkedRecently.add(message.author.id);
-      setTimeout(() => {
-        // Removes the user from the set after a minute
-        talkedRecently.delete(message.author.id);
-      }, 300000);
-    });
-    if (message.author.id == "452716084294975507") return message.channel.send("The supreme Fag Lord has spoken. Let it now be law.").then({
-      talkedRecently.add(message.author.id);
-      setTimeout(() => {
-        // Removes the user from the set after a minute
-        talkedRecently.delete(message.author.id);
-      }, 300000);
-    });;
-  }; 
+
   // if (cmd == `${prefix}stats`) {
   //   message.channel.send(`I am currently being worked on by JCoDog for the release in september of my core version 1.0.0 (i am currently ${info.version})`);
   // };
