@@ -57,36 +57,36 @@ bot.on('message', async message => {
 
   let commandfile = bot.commands.get(cmd.slice(prefix.length));
   if (commandfile) commandfile.run(bot, message, args);
-  if (talkedRecently.has(msg.author.id)) {
+  if (talkedRecently.has(message.author.id)) {
     return;
   } else {
     // the user can type the command ... your command code goes here :)
     if (message.content.includes("stop") || message.content.includes("Stop")) return message.channel.send(`Why should I <@${message.author.id}>? You on your period or something bitch?`).then({
-      talkedRecently.add(msg.author.id);
+      talkedRecently.add(message.author.id);
       setTimeout(() => {
         // Removes the user from the set after a minute
-        talkedRecently.delete(msg.author.id);
+        talkedRecently.delete(message.author.id);
       }, 300000);
     });
     if (message.content.includes("i see") || message.content.includes("I See") || message.content.includes("i See") || message.content.includes("I see")) return message.channel.send(`Well we all see <@${message.author.id}>. Well except blind ass bastards like you!`).then({
-      talkedRecently.add(msg.author.id);
+      talkedRecently.add(message.author.id);
       setTimeout(() => {
         // Removes the user from the set after a minute
-        talkedRecently.delete(msg.author.id);
+        talkedRecently.delete(message.author.id);
       }, 300000);
     });
     if (message.content.includes("oof") || message.content.includes("Oof") || message.content.includes("OOF")) return message.channel.send(`Fuck you <@${message.author.id}>! You know how gay you seem when saying that?`).then({
-      talkedRecently.add(msg.author.id);
+      talkedRecently.add(message.author.id);
       setTimeout(() => {
         // Removes the user from the set after a minute
-        talkedRecently.delete(msg.author.id);
+        talkedRecently.delete(message.author.id);
       }, 300000);
     });
     if (message.author.id == "452716084294975507") return message.channel.send("The supreme Fag Lord has spoken. Let it now be law.").then({
-      talkedRecently.add(msg.author.id);
+      talkedRecently.add(message.author.id);
       setTimeout(() => {
         // Removes the user from the set after a minute
-        talkedRecently.delete(msg.author.id);
+        talkedRecently.delete(message.author.id);
       }, 300000);
     });;
   }; 
