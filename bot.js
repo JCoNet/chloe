@@ -55,6 +55,7 @@ bot.on('message', async message => {
 
   let commandfile = bot.commands.get(cmd.slice(prefix.length));
   if (commandfile) commandfile.run(bot, message, args);
+  if (cmd == "stop" || cmd == "Stop") return message.channel.send(`Why should i <@${message.author.id}>? You on your period or something bitch?`);
 
   // if (cmd == `${prefix}stats`) {
   //   message.channel.send(`I am currently being worked on by JCoDog for the release in september of my core version 1.0.0 (i am currently ${info.version})`);
