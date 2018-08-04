@@ -59,7 +59,7 @@ bot.on('message', async message => {
   if (commandfile) commandfile.run(bot, message, args);
   if (talkedRecently.has(msg.author.id)) {
     return;
-    } else {
+  } else {
     // the user can type the command ... your command code goes here :)
     if (message.content.includes("stop") || message.content.includes("Stop")) return message.channel.send(`Why should I <@${message.author.id}>? You on your period or something bitch?`).then({
       talkedRecently.add(msg.author.id);
@@ -88,15 +88,8 @@ bot.on('message', async message => {
         // Removes the user from the set after a minute
         talkedRecently.delete(msg.author.id);
       }, 300000);
-    });
-
-    // Adds the user to the set so that they can't talk for a minute
-    talkedRecently.add(msg.author.id);
-    setTimeout(() => {
-      // Removes the user from the set after a minute
-      talkedRecently.delete(msg.author.id);
-    }, 300000);
-    }; 
+    });;
+  }; 
   // if (cmd == `${prefix}stats`) {
   //   message.channel.send(`I am currently being worked on by JCoDog for the release in september of my core version 1.0.0 (i am currently ${info.version})`);
   // };
