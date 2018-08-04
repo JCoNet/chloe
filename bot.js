@@ -58,7 +58,7 @@ bot.on('message', async message => {
   if (commandfile) commandfile.run(bot, message, args);
   if (message.content.includes("stop") || message.content.includes("Stop")) return message.channel.send(`Why should I <@${message.author.id}>? You on your period or something bitch?`);
   if (message.content.includes("i see") || message.content.includes("I See") || message.content.includes("i See") || message.content.includes("I see")) return message.channel.send(`Well we all see <@${message.author.id}>. Well except blind ass bastards like you!`);
-  if (messsage.author.username == "Ąlleīs#5215 ") return message.channel.send("As you all can see the Fag Lord has spoken.");
+  if (message.author.username == "Ąlleīs#5215 ") return message.channel.send("As you all can see the Fag Lord has spoken.");
 
   // if (cmd == `${prefix}stats`) {
   //   message.channel.send(`I am currently being worked on by JCoDog for the release in september of my core version 1.0.0 (i am currently ${info.version})`);
