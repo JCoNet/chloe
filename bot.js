@@ -42,7 +42,7 @@ bot.on('ready', () => {
   console.log("Michelle Activated.");
    // bot.user.setActivity("the epic failz of Army_Killa44",{type: "STREAMING", url: "https://www.twitch.tv/army_killa44"});
    // bot.user.setActivity("Developmental tunes w/MonsterCat", {type: "STREAMING", url: "https://www.twitch.tv/monstercat"});
-   bot.user.setActivity("Daddy (Samuel[BOT]) fuck Mommy (Chloe[BOT])", {type: "WATCHING"});
+   bot.user.setActivity("Daddy fuck Mommy (Chloe)", {type: "WATCHING"});
 });
 
 bot.on('message', async message => {
@@ -59,6 +59,7 @@ bot.on('message', async message => {
   if (message.content.includes("stop") || message.content.includes("Stop")) return message.channel.send(`Why should I <@${message.author.id}>? You on your period or something bitch?`);
   if (message.content.includes("i see") || message.content.includes("I See") || message.content.includes("i See") || message.content.includes("I see")) return message.channel.send(`Well we all see <@${message.author.id}>. Well except blind ass bastards like you!`);
   if (message.content.includes("oof") || message.content.includes("Oof") || message.content.includes("OOF")) return message.channel.send(`Fuck you <@${message.author.id}>! You know how gay you seem when saying that?`);
+  if (message.author.id == "452716084294975507") return message.channel.send("The supreme Fag Lord has spoken. Let it now be law.")
  
   // if (cmd == `${prefix}stats`) {
   //   message.channel.send(`I am currently being worked on by JCoDog for the release in september of my core version 1.0.0 (i am currently ${info.version})`);
