@@ -2,6 +2,7 @@ const Discord = require('discord.js');
 const bot = new Discord.Client();
 const config = require("./botconfig.json");
 const fs = require("fs");
+const talkedRecently = new Set();
 
 // const mysql = require("mysql");
 //
@@ -56,11 +57,23 @@ bot.on('message', async message => {
 
   let commandfile = bot.commands.get(cmd.slice(prefix.length));
   if (commandfile) commandfile.run(bot, message, args);
-  if (message.content.includes("stop") || message.content.includes("Stop")) return message.channel.send(`Why should I <@${message.author.id}>? You on your period or something bitch?`);
-  if (message.content.includes("i see") || message.content.includes("I See") || message.content.includes("i See") || message.content.includes("I see")) return message.channel.send(`Well we all see <@${message.author.id}>. Well except blind ass bastards like you!`);
-  if (message.content.includes("oof") || message.content.includes("Oof") || message.content.includes("OOF")) return message.channel.send(`Fuck you <@${message.author.id}>! You know how gay you seem when saying that?`);
-  if (message.author.id == "452716084294975507") return message.channel.send("The supreme Fag Lord has spoken. Let it now be law.")
- 
+  if (talkedRecently.has(msg.author.id)) {
+    return;
+    } else {
+    // the user can type the command ... your command code goes here :)
+    if (message.content.includes("stop") || message.content.includes("Stop")) return message.channel.send(`Why should I <@${message.author.id}>? You on your period or something bitch?`);
+    if (message.content.includes("i see") || message.content.includes("I See") || message.content.includes("i See") || message.content.includes("I see")) return message.channel.send(`Well we all see <@${message.author.id}>. Well except blind ass bastards like you!`);
+    if (message.content.includes("oof") || message.content.includes("Oof") || message.content.includes("OOF")) return message.channel.send(`Fuck you <@${message.author.id}>! You know how gay you seem when saying that?`);
+    if (message.author.id == "452716084294975507") return message.channel.send("The supreme Fag Lord has spoken. Let it now be law.")
+
+    // Adds the user to the set so that they can't talk for a minute
+    talkedRecently.add(msg.author.id);
+    setTimeout(() => {
+      // Removes the user from the set after a minute
+      talkedRecently.delete(msg.author.id);
+    }, 300000);
+    };
+
   // if (cmd == `${prefix}stats`) {
   //   message.channel.send(`I am currently being worked on by JCoDog for the release in september of my core version 1.0.0 (i am currently ${info.version})`);
   // };
