@@ -43,7 +43,7 @@ bot.on('ready', () => {
   console.log("Michelle Activated.");
    // bot.user.setActivity("the epic failz of Army_Killa44",{type: "STREAMING", url: "https://www.twitch.tv/army_killa44"});
    // bot.user.setActivity("Developmental tunes w/MonsterCat", {type: "STREAMING", url: "https://www.twitch.tv/monstercat"});
-   bot.user.setActivity("Daddy fuck Mommy (Chloe)", {type: "WATCHING"});
+   bot.user.setActivity("YouTube", {type: "WATCHING"});
 });
 
 bot.on('message', async message => {
