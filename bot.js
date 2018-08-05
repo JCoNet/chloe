@@ -50,7 +50,15 @@ bot.on('message', async message => {
   if (message.author.bot) return;
   if (message.channel.type === "dm") return;
 
-if (talkedRecently.has(message.author.id)) {
+  let prefix = config.prefix;
+  let messageArray = message.content.split(" ");
+  let cmd = messageArray[0];
+  let args = messageArray.slice(1);
+
+  let commandfile = bot.commands.get(cmd.slice(prefix.length));
+  if (commandfile) commandfile.run(bot, message, args);
+
+  if (talkedRecently.has(message.author.id)) {
     return;
   } else {
     // the user can type the command ... your command code goes here :)
@@ -87,14 +95,6 @@ if (talkedRecently.has(message.author.id)) {
       return message.channel.send("Well it appears we have a new law. The Great Fag Lord has just spoken.");
     };
   }; 
-
-  let prefix = config.prefix;
-  let messageArray = message.content.split(" ");
-  let cmd = messageArray[0];
-  let args = messageArray.slice(1);
-
-  let commandfile = bot.commands.get(cmd.slice(prefix.length));
-  if (commandfile) commandfile.run(bot, message, args);
 
   // if (cmd == `${prefix}stats`) {
   //   message.channel.send(`I am currently being worked on by JCoDog for the release in september of my core version 1.0.0 (i am currently ${info.version})`);
