@@ -70,7 +70,7 @@ bot.on('message', async message => {
         }, 300000);
       return message.channel.send(`Why should I <@${message.author.id}>? You on your period or something bitch?`);
     };
-    if (message.content.toLowerCase.includes("i see")) {
+    if (message.content.toLowerCase().includes("i see")) {
       talkedRecently.add(message.author.id);
         setTimeout(() => {
           // Removes the user from the set after a minute
@@ -78,7 +78,7 @@ bot.on('message', async message => {
         }, 300000);
       return message.channel.send(`We all see <@${message.author.id}>! Well except for blind twats like you that is.`);
     };
-    if (message.content.toLowerCase.includes("oof")) {
+    if (message.content.toLowerCase().includes("oof")) {
       talkedRecently.add(message.author.id);
         setTimeout(() => {
           // Removes the user from the set after a minute
