@@ -2,7 +2,6 @@ const Discord = require('discord.js');
 const bot = new Discord.Client();
 const config = require("./botconfig.json");
 const fs = require("fs");
-const talkedRecently = new Set();
 
 // const mysql = require("mysql");
 //
