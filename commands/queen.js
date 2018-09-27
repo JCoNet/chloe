@@ -36,6 +36,7 @@ Tell me why \
 I never want to hear you say \ \
 I want it that way");
     let embed2 = new Discord.RichEmbed()
+    .setColor("#33fede")
     .addField("Continuation", "Now I can see that weve fallen apart \
 From the way that it used to be Yeah \
 No matter the distance  \
