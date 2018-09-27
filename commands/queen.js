@@ -64,8 +64,8 @@ I never want to hear you say \
 (Never want to hear you say it) \
 I want it that way \
 Cause I want it that way");
-  id.send(embed);
-  id.send(embed2);
+  message.id.send(embed);
+  message.id.send(embed2);
 }
 
 module.exports.help ={
