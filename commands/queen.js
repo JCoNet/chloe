@@ -1,7 +1,7 @@
 const Discord = require("discord.js");
 
 module.exports.run = async (bot, message, args) => {
-	// let id = "481872616508882944";
+	let id = bot.users.get('481872616508882944');
 	let embed = new Discord.RichEmbed()
     .setTitle("I Want It That Way")
     .setDescription("By the Backstreet Boys")
@@ -64,8 +64,8 @@ I never want to hear you say \
 (Never want to hear you say it) \
 I want it that way \
 Cause I want it that way");
-  message.author.id('481872616508882944').send(embed);
-  message.author.id('481872616508882944').send(embed2);
+  id.send(embed);
+  id.send(embed2);
 }
 
 module.exports.help ={
