@@ -1,7 +1,7 @@
 const Discord = require("discord.js");
 
 module.exports.run = async (bot, message, args) => {
-	id = "481872616508882944";
+	let id = 481872616508882944;
 	let embed = new Discord.RichEmbed()
     .setTitle("I Want It That Way")
     .setDescription("By the Backstreet Boys")
