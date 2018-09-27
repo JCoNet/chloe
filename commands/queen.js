@@ -33,8 +33,9 @@ Tell me why \
 Aint nothin but a mistake \
 Tell me why \
 I never want to hear you say \ \
-I want it that way \
-Now I can see that weve fallen apart \
+I want it that way");
+    let ebed2 = new Discord.RichEmbed()
+    .addField("Continuation", "Now I can see that weve fallen apart \
 From the way that it used to be Yeah \
 No matter the distance  \
 I want you to know \
@@ -64,6 +65,7 @@ I never want to hear you say \
 I want it that way \
 Cause I want it that way");
   id.send(embed);
+  id.send(embed2);
 }
 
 module.exports.help ={
