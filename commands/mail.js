@@ -14,7 +14,7 @@ module.exports.run = async (bot, message, args) => {
   		.addField("From", sender)
   		.addField("Message", mail)
   		.setFooter("Reply by going to a server with this bot in and doing 'm/mail @user <message>'");
-  	id.send(embed);
+  	recepient.send(embed);
 }
 
 module.exports.help ={
