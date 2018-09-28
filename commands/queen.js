@@ -7,7 +7,7 @@ module.exports.run = async (bot, message, args) => {
     .setTitle("I Want It That Way")
     .setDescription("By the Backstreet Boys")
     .setColor("#33fede")
-    .addField("Link to song", "`[Here](https://www.youtube.com/watch?v=4fndeDfaWCg)`")
+    .addField("Link to song", `[Here](https://www.youtube.com/watch?v=4fndeDfaWCg)`)
     .addField("Lyrics", "Yeah-eh-heah \
 You are my fire \
 The one desire \
