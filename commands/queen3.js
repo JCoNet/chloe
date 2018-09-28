@@ -7,10 +7,10 @@ module.exports.run = async (bot, message, args) => {
     .setTitle("Intrigued")
     .setDescription("Just need to know more")
     .setColor("#ff0000")
-    .addField("Question", "Are you aware you are the most beautiful girl on Avalon and possibly all of discord?");
+    .addField("Question", "Is there anything in this world you think you cannot live without, like JCoDog cannot live without you?");
   id.send(embed);
 }
 
 module.exports.help ={
-  name: "queen2"
+  name: "queen3"
 }
