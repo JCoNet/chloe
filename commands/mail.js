@@ -11,7 +11,8 @@ module.exports.run = async (bot, message, args) => {
   		.setColor("#00ff00")
   		.addField("To", "You")
   		.addField("From", sender)
-  		.addField("Message", mail);
+  		.addField("Message", mail)
+  		.setFooter("Reply by going to a server with this bot in and doing 'm/mail @user <message>'");
   	id.send(embed);
 }
 
