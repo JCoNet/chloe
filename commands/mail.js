@@ -3,6 +3,7 @@ const Discord = require("discord.js");
 module.exports.run = async (bot, message, args) => {
 	let sender = message.author.username;
 	let id = message.mentions.users.first().id;
+	let recepient = bot.users.get(id);
   	let mail = args.join(" ").slice(22);
   	message.delete().catch();
   	let embed = new Discord.RichEmbed()
