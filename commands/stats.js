@@ -9,7 +9,7 @@ module.exports.run = async (bot, message, args) => {
     .setThumbnail(bicon)
     .addField("Name", bot.user.username)
     .addField("Created on", bot.user.createdAt)
-    .addField("Current version", "0.0.1");
+    .addField("Current version", "1.0.0");
   message.channel.send(statsembed);
 }
 
