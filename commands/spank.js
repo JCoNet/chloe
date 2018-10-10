@@ -7,7 +7,7 @@ module.exports.run = async (bot, message, args) => {
 	message.delete().catch();
 	let embed = new Discord.RichEmbed()
 		.setTitle("Spankings")
-		.setDescription("Sonebody just got spanked.")
+		.setDescription("Somebody just got spanked.")
 		.addField("Details", `<@${sender}> just spanked <@${recipient}>!!!!`);
 	message.channel.send(embed);
 
