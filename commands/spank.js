@@ -2,8 +2,7 @@ const Discord = require("discord.js");
 
 module.exports.run = async (bot, message, args) => {
 
-	let id = message.mentions.users.first().id;
-	let recepient = bot.users.get(id);
+	let id = message.mentions.users.first();
 	let spanker = message.author.username;
 	message.catch().delete()
 	let embed = new Discord.RichEmbed()
@@ -11,7 +10,7 @@ module.exports.run = async (bot, message, args) => {
 		.setDescrtiption(`You have just been spanked <@${id}>`)
 		.setColor("#33fede")
 		.addField("Spanked by", spanker);
-	recepient.send(embed);
+	message.channel.send(embed);
 
 }
 
