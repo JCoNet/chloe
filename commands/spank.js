@@ -7,11 +7,10 @@ module.exports.run = async (bot, message, args) => {
 	// if (!message.member.id.some(x => ["415067295715557376", "481872616508882944"].includes(x.id))) return message.reply("You idiot, that command is for legends only!");
 	
 	let ids = ["415067295715557376","481872616508882944"];
-	if (!ids.includes(message.author.id));
+	if (!ids.includes(message.author.id)) return message.reply("You idiot, that command is for legends only!");
 
 	let recipient = message.mentions.members.first().id;
-	let sender = message.author.idreturn message.reply("You idiot, that command is for legends only!");
-
+	let sender = message.author.id;
 	message.delete().catch();
 	let embed = new Discord.RichEmbed()
 		.setTitle("Spankings")
