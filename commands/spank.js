@@ -2,8 +2,9 @@ const Discord = require("discord.js");
 
 module.exports.run = async (bot, message, args) => {
 
-	if (message.author.id != "415067295715557376" || message.author.id != "481872616508882944") return message.reply("You idiot, that command is for legends only!");
+	// if (message.author.id != "415067295715557376" || message.author.id != "481872616508882944") return message.reply("You idiot, that command is for legends only!");
 
+	if (!message.member.id.some(x => ["415067295715557376", "481872616508882944"].includes(x.id))) return message.reply("You idiot, that command is for legends only!");
 	let recipient = message.mentions.members.first().id;
 	let sender = message.author.id;
 	message.delete().catch();
