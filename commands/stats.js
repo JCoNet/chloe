@@ -11,9 +11,9 @@ module.exports.run = async (bot, message, args) => {
     .addField("Name", bot.user.username)
     .addField("Created on", bot.user.createdAt)
     .addField("Current version", stats.version)
-    .addField("Other Statisatics")
+    .addField("Other Statisatics", " ")
     .addField("Guild count", bot.quilds.size)
-    .addField("Contributions")
+    .addField("Contributions", " ")
     .addField("Total contributions", "£20")
     .addField("Top contribution", "JCoDog - £20")
     .setFooter(`Lead developer: ${stats.author}`);
