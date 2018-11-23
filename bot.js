@@ -44,7 +44,7 @@ let date = d.getDate() + "/" + d.getMonth() + "/" + d.getFullYear();
 let time = d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds() + "." + d.getMilliseconds();
 
 bot.on('ready', () => {
-  console.log(`Michelle Activated on ${date} at ${time}`);
+  console.log(`JCoBot Activated on ${date} at ${time}`);
    // bot.user.setActivity("the epic failz of Army_Killa44",{type: "STREAMING", url: "https://www.twitch.tv/army_killa44"});
    // bot.user.setActivity("Sick tunes w/MonsterCat", {type: "STREAMING", url: "https://www.twitch.tv/monstercat"});
    // bot.user.setActivity("Development in progress.", {type: "WATCHING"});
