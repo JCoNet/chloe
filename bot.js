@@ -50,7 +50,7 @@ bot.on('ready', () => {
    // bot.user.setActivity("Development in progress.", {type: "WATCHING"});
    // bot.user.setStatus('dnd');
    // bot.user.setActivity("Some rubbish go down in DMs.", {type: "WATCHING"});
-   bot.user.setActivity(`Over ${bot.guilds.size}.`, {type: "WATCHING"});
+   bot.user.setActivity(`Over ${bot.guilds.size} guilds.`, {type: "WATCHING"});
 });
 
 bot.on('message', async message => {
