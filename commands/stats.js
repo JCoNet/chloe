@@ -12,7 +12,7 @@ module.exports.run = async (bot, message, args) => {
     .addField("Created on", bot.user.createdAt)
     .addField("Current version", stats.version)
     .addField("Other Statisatics", " ")
-    .addField("Guild count", bot.quilds.size)
+    .addField("Guild count", `${bot.guilds.size}`)
     .addField("Contributions", " ")
     .addField("Total contributions", "£20")
     .addField("Top contribution", "JCoDog - £20")
