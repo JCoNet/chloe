@@ -2,6 +2,7 @@ const Discord = require("discord.js");
 const stats = require("../package.json");
 
 module.exports.run = async (bot, message, args) => {
+  message.delete().catch();
   let bicon = bot.user.displayAvatarURL;
   let statsembed = new Discord.RichEmbed()
     .setTitle("Bot Statistics")
@@ -11,7 +12,6 @@ module.exports.run = async (bot, message, args) => {
     .addField("Name", bot.user.username)
     .addField("Created on", bot.user.createdAt)
     .addField("Current version", stats.version)
-    .addField("Other Statisatics", "Other things about the bot")
     .addField("Guild count", `${bot.guilds.size}`)
     // .addField("Contributions", "Information on the support (financially) for this project")
     // .addField("Total contributions", "£20")
