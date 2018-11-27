@@ -1,6 +1,6 @@
 {
-  "name": "JCoBot",
-  "version": "1.0.0",
+  "name": "Alessa",
+  "version": "0.0.1",
   "description": "The new interesting bot",
   "main": "bot.js",
   "scripts": {

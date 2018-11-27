@@ -13,9 +13,9 @@ module.exports.run = async (bot, message, args) => {
     .addField("Current version", stats.version)
     .addField("Other Statisatics", "Other things about the bot")
     .addField("Guild count", `${bot.guilds.size}`)
-    .addField("Contributions", "Information on the support (financially) for this project")
-    .addField("Total contributions", "£20")
-    .addField("Top contribution", "JCoDog - £20")
+    // .addField("Contributions", "Information on the support (financially) for this project")
+    // .addField("Total contributions", "£20")
+    // .addField("Top contribution", "JCoDog - £20")
     .setFooter(`Lead developer: ${stats.author}`);
   message.channel.send(statsembed);
 }
