@@ -15,7 +15,7 @@ moduile.exports.run = async (bot, message, args) => {
 
     const report = new Report({
 
-        ~_id: mongoose.Types.ObjectId(),
+        _id: mongoose.Types.ObjectId(),
         username: rUser.user.username,
         userID: rUser.id,
         reason: rReason,
