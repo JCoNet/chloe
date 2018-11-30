@@ -33,6 +33,6 @@ moduile.exports.run = async (bot, message, args) => {
 
 };
 
-moduile.exports.help = (
+module.exports.help = (
     name: "report"
 );
