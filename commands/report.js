@@ -2,7 +2,7 @@ const Discord = require("discord.js");
 const Report = require("../models/report.js");
 const mongoose = require('mongoose');
 
-moduile.exports.run = async (bot, message, args) => {
+module.exports.run = async (bot, message, args) => {
 
     await message.delete();
 
