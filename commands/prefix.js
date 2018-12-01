@@ -11,13 +11,8 @@ module.exports.run = async (bot, message, args, useprefix) => {
         if (err) console.log(err);
 
         if (!args[0]) return message.reply(`Hello there, you seem to need my help here. Have you tried "${useprefix}prefix <new prefix> yet?"`);
-
-        const newPrefix = new Prefixes({
-            prefix: args[0]
-        });
-        newPrefix.save().catch(err => {
-            if (err) console.log(err);
-        })
+        prefixes.prefix = args[0];
+        prefixes.save().catch(err => console.log(err));
     })
 }
 
