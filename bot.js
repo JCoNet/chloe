@@ -2,21 +2,9 @@ const Discord = require('discord.js');
 const bot = new Discord.Client();
 const config = require("./botconfig.json");
 const fs = require("fs");
+const mongoose = require("mongoose");
 
 var d = new Date();
-
-// const mysql = require("mysql");
-//
-// var con = mysql.createConnection({
-//   host: config.host,
-//   user: config.user,
-//   password: config.password
-// });
-//
-// con.connect(function(err) {
-//   if (err) throw err;
-//   console.log("Database Connected")
-// })
 
 bot.commands = new Discord.Collection();
 
@@ -51,6 +39,7 @@ bot.on('ready', () => {
    // bot.user.setStatus('dnd');
    // bot.user.setActivity("Some rubbish go down in DMs.", {type: "WATCHING"});
    bot.user.setActivity(`About in ${bot.guilds.size} discord servers.`, {type: "PLAYING"});
+  mongoose.connect(`mongodb+srv://alessa:${process.env.databasePassword}@cluster0-sltlx.mongodb.net/alessa`);
 });
 
 bot.on('message', async message => {
@@ -63,24 +52,5 @@ bot.on('message', async message => {
   let args = messageArray.slice(1);
   let commandfile = bot.commands.get(cmd.slice(prefix.length));
   if (commandfile) commandfile.run(bot, message, args);
-
-  // if (cmd == `${prefix}stats`) {
-  //   message.channel.send(`I am currently being worked on by JCoDog for the release in september of my core version 1.0.0 (i am currently ${info.version})`);
-  // };
-  // ^^^ Outdate code when embeds added
-
-  // if (cmd === `${prefix}stats`) {
-  //
-  //   // let bicon =bot.user.displayAvatarURL;
-  //   // let statsembed = new Discord.RichEmbed()
-  //   //   .setTitle("Bot Statistics")
-  //   //   .setDescription("The general information of the bot")
-  //   //   .setColor("#33fede")
-  //   //   .setThumbnail(bicon)
-  //   //   .addField("Name", bot.user.username)
-  //   //   .addField("Created on", bot.user.createdAt)
-  //   //   .addField("Current version", info.version);
-  //   // message.channel.send(statsembed);
-  // };
 
 });

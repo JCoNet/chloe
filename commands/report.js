@@ -1,12 +1,9 @@
 const Discord = require("discord.js");
 const Report = require("../models/report.js");
-const mongoose = require('mongoose');
 
 module.exports.run = async (bot, message, args) => {
 
     await message.delete();
-
-    mongoose.connect(`mongodb+srv://alessa:${process.env.databasePassword}@cluster0-sltlx.mongodb.net/alessa`);
 
     let rUser = message.mentions.members.first();
     if (!rUser) return message.reply("Sorry, but I cannot find any user by that name.");
@@ -26,7 +23,6 @@ module.exports.run = async (bot, message, args) => {
     });
 
     report.save()
-    .then(result => console.log(result))
     .catch(err => confirm.log(err));
 
     message.reply("Thank you for reporting, that has been saved to my database for future use.");
