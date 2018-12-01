@@ -7,6 +7,7 @@ mongoose.connect(`mongodb+srv://alessa:${process.env.databasePassword}@cluster0-
   useNewUrlParser: true
 });
 const Money = require("./models/money.js");
+const Prefixes = require("./models/prefixes.js");
 
 var d = new Date();
 
@@ -49,12 +50,27 @@ bot.on('ready', () => {
 bot.on('message', async message => {
   if (message.author.bot) return;
   if (message.channel.type === "dm") return;
-  let prefix = config.prefix;
+
+  Prefixes.findOne({serverID: message.guild.id}, (err, prefix) => {
+    if (err) console.log(err);
+    if (!prefix) {
+      const newServer = new Prefixes({
+        serverID: message.guild.id,
+        serverName: message.guild.name,
+        prefix: config.prefix
+      });
+      newServer.save().catch(err => CompositionEvent.log(err));
+    } else {
+      let useprefix = prefix
+    }
+  })
+
+  // let prefix = config.prefix;
   let messageArray = message.content.split(" ");
   let cmd = messageArray[0];
   let args = messageArray.slice(1);
-  if (message.content.startsWith(prefix)) {
-    let commandfile = bot.commands.get(cmd.slice(prefix.length));
+  if (message.content.startsWith(useprefix)) {
+    let commandfile = bot.commands.get(cmd.slice(useprefix.length));
     if (commandfile) commandfile.run(bot, message, args);
   } else {
     let coinstoadd = Math.ceil(Math.random() * 50);
