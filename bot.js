@@ -37,7 +37,7 @@ let date = d.getDate() + "/" + d.getMonth() + "/" + d.getFullYear();
 let time = d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds() + "." + d.getMilliseconds();
 
 bot.on('ready', () => {
-  console.log(`Alessa awoken on ${date} at ${time}`);
+  console.log(`Alessa awoken on ${date+1} at ${time}`);
    // bot.user.setActivity("the epic failz of Army_Killa44",{type: "STREAMING", url: "https://www.twitch.tv/army_killa44"});
    // bot.user.setActivity("Sick tunes w/MonsterCat", {type: "STREAMING", url: "https://www.twitch.tv/monstercat"});
    // bot.user.setActivity("Development in progress.", {type: "WATCHING"});
@@ -52,8 +52,7 @@ bot.on('message', async message => {
   if (message.channel.type === "dm") return;
   let useprefix;
 
-  Prefixes.findOne({serverID: message.guild.id}, (err, prefixes) => {
-    if (err) console.log(err);
+ const prefixes = await Prefixes.findOne({serverID: message.guild.id}, (err, prefixes) => {
     if (!prefixes) {
       const newServer = new Prefixes({
         serverID: message.guild.id,
@@ -61,7 +60,7 @@ bot.on('message', async message => {
         prefix: config.prefix
       });
       newServer.save().catch(err => CompositionEvent.log(err));
-      useprefix = config.prefix;
+      useprefix = prefixes.prefix;
       // console.log(`prefix set to: ${useprefix}`);
     } else {
       useprefix = prefixes.prefix;
