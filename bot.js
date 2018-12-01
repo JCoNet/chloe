@@ -60,10 +60,12 @@ bot.on('message', async message => {
         serverName: message.guild.name,
         prefix: config.prefix
       });
-      useprefix = prefixes.prefix;
       newServer.save().catch(err => CompositionEvent.log(err));
+      useprefix = config.prefix;
+      console.log(`prefix set to: ${useprefix}`);
     } else {
       useprefix = prefixes.prefix;
+      console.log(`prefix is: ${useprefix}`);
     }
   })
 
