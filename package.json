@@ -16,7 +16,10 @@
     "url": "https://github.com/blingdude1324/michelle/issues"
   },
   "dependencies": {
-    "discord.js": "^11.3.2",
-    "mongoose": "^5.3.14"
+    "buildtools": "^0.1.1",
+    "discord.js": "^11.4.2",
+    "mongoose": "^5.3.14",
+    "node-opus": "^0.3.1",
+    "ytdl-core": "^0.28.0"
   }
 }

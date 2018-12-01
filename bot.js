@@ -1,4 +1,4 @@
-const Discord = require('discord.js');
+const Discord = require("discord.js");
 const bot = new Discord.Client();
 const config = require("./botconfig.json");
 const fs = require("fs");
@@ -43,9 +43,14 @@ bot.on('ready', () => {
    // bot.user.setActivity("Development in progress.", {type: "WATCHING"});
    // bot.user.setStatus('dnd');
    // bot.user.setActivity("Some rubbish go down in DMs.", {type: "WATCHING"});
-   bot.user.setActivity(`About in ${bot.guilds.size} discord servers.`, {type: "PLAYING"});
-  
+   bot.user.setActivity(`About in ${bot.guilds.size} discord servers.`, {type: "PLAYING"})
 });
+
+bot.on('warn', console.warn);
+bot.on('error', console.error);
+bot.on('disconnect', console.error("I have disconnected, I will try to reconnect now."));
+bot.on('reconnecting', console.log("Reconnecting..."));
+
 
 bot.on('message', async message => {
   if (message.author.bot) return;
