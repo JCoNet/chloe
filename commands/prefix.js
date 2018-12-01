@@ -7,7 +7,7 @@ module.exports.run = async (bot, message, args, useprefix) => {
 
     if(!message.author.hasPermission("ADMINISTRATOR")) return message.reply("Unfortunately, under JCoNet operation policies i am not allowed to let anyone not ranked with permission ADMINISTRATOR to change any of my settings for servers.");
 
-    Prefixes.findOne({ serverID: message.guild.id }, (err, prefix) => {
+    Prefixes.findOne({ serverID: message.guild.id }, (err, prefixes) => {
         if (err) console.log(err);
 
         if (!args[0] || args[0 == help]) return message.reply(`Hello there, you seem to need my help here. Have you tried "${useprefix}prefix <new prefix> yet?"`);
