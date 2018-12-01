@@ -21,6 +21,6 @@ module.exports.run = async (bot, message, args) => {
     })
 }
 
-module.exporets.help = {
+module.exports.help = {
     name: "coins"
 }
