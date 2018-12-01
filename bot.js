@@ -73,7 +73,7 @@ bot.on('message', async message => {
   let args = messageArray.slice(1);
   if (message.content.startsWith(useprefix)) {
     let commandfile = bot.commands.get(cmd.slice(useprefix.length));
-    if (commandfile) commandfile.run(bot, message, args);
+    if (commandfile) commandfile.run(bot, message, args, useprefix);
   } else {
     let coinstoadd = Math.ceil(Math.random() * 50);
     Money.findOne({userID: message.author.id, serverID: message.guild.id}, (err, money) => {
