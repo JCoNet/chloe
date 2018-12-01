@@ -46,12 +46,6 @@ bot.on('ready', () => {
    bot.user.setActivity(`About in ${bot.guilds.size} discord servers.`, {type: "PLAYING"})
 });
 
-bot.on('warn', console.warn);
-bot.on('error', console.error);
-bot.on('disconnect', console.error("I have disconnected, I will try to reconnect now."));
-bot.on('reconnecting', console.log("Reconnecting..."));
-
-
 bot.on('message', async message => {
   if (message.author.bot) return;
   if (message.channel.type === "dm") return;
