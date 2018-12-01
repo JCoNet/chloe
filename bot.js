@@ -5,9 +5,9 @@ const fs = require("fs");
 const mongoose = require("mongoose");
 mongoose.connect(`mongodb+srv://alessa:${process.env.databasePassword}@cluster0-sltlx.mongodb.net/alessa`, {
   useNewUrlParser: true
-});
-const conn = mongoose.connection;
-conn.on('error', console.error.blind(console, 'connection error: '));
+}).catch(err, database) => {
+  if (err) console.error(err);
+};
 const Money = require("./models/money.js");
 
 var d = new Date();
