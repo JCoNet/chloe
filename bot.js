@@ -60,7 +60,7 @@ bot.on('message', async message => {
         prefix: config.prefix
       });
       newServer.save().catch(err => CompositionEvent.log(err));
-      let usePrefix = prefix;
+      let useprefix = prefix;
     } else {
       let useprefix = prefix;
     }
