@@ -2,11 +2,9 @@ const Discord = require("discord.js");
 const ytdl = require("ytdl-core");
 
 module.exports.run = async (bot, message, args) => {
-    await message.delete();
+    if (!message.member.voiceChannel) return message.reply("Wait a second. You need to be connected to a voice channel to play music.");
 
-    if (!message.author.voiceChannel) return message.reply("Wait a second. You need to be connected to a voice channel to play music.");
-
-    if (message.quild.me.voiceChannel) return message.reply("Sorry, but I am currently streaming amazing tunes to a voice channel already!");
+    if (message.guild.me.voiceChannel) return message.reply("Sorry, but I am currently streaming amazing tunes to a voice channel already!");
 
     if (!args[0]) return message.reply("Sorry, but you did not request I play a URL. Please get a youtube URL then try again.");
 
