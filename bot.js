@@ -52,7 +52,6 @@ bot.on('message', async message => {
   let useprefix;
 
   const prefixes = await Prefixes.findOne({serverID: message.guild.id}, (err, prefixes) => {
-    console.log(prefixes);
     if (!prefixes) {
       const newServer = new Prefixes({
         serverID: message.guild.id,
