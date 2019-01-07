@@ -59,7 +59,7 @@ bot.on('message', async message => {
         prefix: config.prefix
       });
       newServer.save().catch(err => CompositionEvent.log(err));
-      console.log(`prefix set to: ${useprefix}`);
+      console.log(`prefix set to: ${prefixes.prefix}`);
     };
     useprefix = prefixes.prefix;
       // console.log(`prefix is: ${useprefix}`);
