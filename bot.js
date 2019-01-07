@@ -52,19 +52,20 @@ bot.on('message', async message => {
   let useprefix;
 
   const prefixes = await Prefixes.findOne({serverID: message.guild.id}, (err, prefixes) => {
-    if (!prefixes) {
-      const newServer = new Prefixes({
-        serverID: message.guild.id,
-        serverName: message.guild.name,
-        prefix: config.prefix
-      });
-      newServer.save().catch(err => CompositionEvent.log(err));
-      useprefix = prefixes.prefix;
-      // console.log(`prefix set to: ${useprefix}`);
-    } else {
-    useprefix = prefixes.prefix;
-      // console.log(`prefix is: ${useprefix}`);
-    }
+    console.log(prefixes);
+    // if (!prefixes) {
+    //   const newServer = new Prefixes({
+    //     serverID: message.guild.id,
+    //     serverName: message.guild.name,
+    //     prefix: config.prefix
+    //   });
+    //   newServer.save().catch(err => CompositionEvent.log(err));
+    //   useprefix = prefixes.prefix;
+    //   // console.log(`prefix set to: ${useprefix}`);
+    // } else {
+    // useprefix = prefixes.prefix;
+    //   // console.log(`prefix is: ${useprefix}`);
+    // }
   })
 
   // let prefix = config.prefix;
