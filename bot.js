@@ -51,7 +51,7 @@ bot.on('message', async message => {
   if (message.channel.type === "dm") return;
   let useprefix;
 
- prefixes = await Prefixes.findOne({serverID: message.guild.id}, (err, prefixes) => {
+  const prefixes = await Prefixes.findOne({serverID: message.guild.id}, (err, prefixes) => {
     if (!prefixes) {
       const newServer = new Prefixes({
         serverID: message.guild.id,
@@ -59,11 +59,12 @@ bot.on('message', async message => {
         prefix: config.prefix
       });
       newServer.save().catch(err => CompositionEvent.log(err));
-      console.log(`prefix set to: ${prefixes.prefix}`);
-    };
+      useprefix = prefixes.prefix;
+      // console.log(`prefix set to: ${useprefix}`);
+    } else {
     useprefix = prefixes.prefix;
       // console.log(`prefix is: ${useprefix}`);
-
+    }
   })
 
   // let prefix = config.prefix;
