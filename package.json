@@ -1,6 +1,6 @@
 {
   "name": "Alessa",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "The new interesting bot",
   "main": "bot.js",
   "scripts": {
@@ -16,12 +16,7 @@
     "url": "https://github.com/blingdude1324/michelle/issues"
   },
   "dependencies": {
-    "buildtools": "^0.1.1",
     "discord.js": "^11.4.2",
-    "ffmpeg": "0.0.4",
-    "mongoose": "^5.3.14",
-    "node-opus": "^0.3.1",
-    "opusscript": "0.0.6",
-    "ytdl-core": "^0.28.0"
+    "mongoose": "^5.3.14"
   }
 }

@@ -3,7 +3,7 @@ const bot = new Discord.Client();
 const config = require("./botconfig.json");
 const fs = require("fs");
 const mongoose = require("mongoose");
-mongoose.connect(`mongodb+srv://alessa:${process.env.databasePassword}@cluster0-sltlx.mongodb.net/alessa`, {
+mongoose.connect(`mongodb+srv://${process.env.databaseName}:${process.env.databasePassword}@cluster0-sltlx.mongodb.net/${process.env.databaseName}`, {
   useNewUrlParser: true
 });
 const Money = require("./models/money.js");
