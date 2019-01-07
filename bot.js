@@ -43,7 +43,7 @@ bot.on('ready', () => {
    // bot.user.setActivity("Development in progress.", {type: "WATCHING"});
    // bot.user.setStatus('dnd');
    // bot.user.setActivity("Some rubbish go down in DMs.", {type: "WATCHING"});
-   bot.user.setActivity(`About in ${bot.guilds.size} discord servers.`, {type: "PLAYING"})
+   bot.user.setActivity(`in ${bot.guilds.size} discord servers.`, {type: "PLAYING"})
 });
 
 bot.on('message', async message => {
