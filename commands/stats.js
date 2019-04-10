@@ -14,7 +14,7 @@ module.exports.run = async (bot, message, args, useprefix) => {
     .addField("Current version", stats.version)
     .addField("Guild count", `${bot.guilds.size}`)
     .addField("This guild prefix", useprefix)
-    .addfield("Save on online retail and support JCoNet!", '[Get Honey](https://www.joinhoney.com/ref/k4lomc4 "Get the Honey Extension and start saving on all your online purchases")')
+    .addField("Save on online retail and support JCoNet!", '[Get Honey](https://www.joinhoney.com/ref/k4lomc4 "Get the Honey Extension and start saving on all your online purchases")')
     // .addField("Contributions", "Information on the support (financially) for this project")
     // .addField("Total contributions", "£20")
     // .addField("Top contribution", "JCoDog - £20")
