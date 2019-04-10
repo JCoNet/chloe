@@ -14,7 +14,8 @@ module.exports.run = async (bot, message, args) => {
         .addField("Kicked User", `${kUser} with the id ${kUser.id}`)
         .addField("Time", message.createdAt)
         .addField("Reason", kReason);
-    message.reply(kickEmbed)
+    
+    kUser.kick(kReason).then(message.reply(kickEmbed)).catch(err => console.log(err));
 }
 
 module.exports.help = {

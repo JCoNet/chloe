@@ -24,7 +24,7 @@ module.exports.run = async (bot, message, args) => {
     });
 
     report.save()
-    .catch(err => confirm.log(err));
+    .catch(err => console.log(err));
 
     message.reply("Thank you for reporting, that has been saved to my database for future use.");
 
