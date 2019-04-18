@@ -16,6 +16,7 @@ module.exports.run = async (bot, message, args, useprefix) => {
     .addField("This guild prefix", useprefix)
     .addField("Save on online retail and support JCoNet!", '[Get Honey](https://www.joinhoney.com/ref/k4lomc4 "Get the Honey Extension and start saving on all your online purchases.")')
     .addField("Support JCoNet another way!", '[Donate Here](http://jconet.xyz/support "Donate to JCoNet via PayPal on the JCoNet official website.")')
+    .addField("Affiliated with Streamlabs OBS", '[Get Streamlabs OBS Today](https://streamlabs.com/slobs/d/1789520 "Get Streamlabs OBS via our link to get the best streaming software and support future JCoNet streams and development.")');
     // .addField("Contributions", "Information on the support (financially) for this project")
     // .addField("Total contributions", "£20")
     // .addField("Top contribution", "JCoDog - £20")
