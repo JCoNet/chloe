@@ -1,6 +1,6 @@
 {
   "name": "Alessa",
-  "version": "2.0.0",
+  "version": "1.9.9/2.0.0 Beta",
   "description": "The new server moderation tool from JCoNet",
   "main": "bot.js",
   "scripts": {
