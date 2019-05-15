@@ -8,6 +8,7 @@ mongoose.connect(`mongodb+srv://${process.env.databaseName}:${process.env.databa
 });
 const Money = require("./models/money.js");
 const Prefixes = require("./models/prefixes.js");
+const stats = require("package.json");
 
 var d = new Date();
 
