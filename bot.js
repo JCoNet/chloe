@@ -8,6 +8,7 @@ mongoose.connect(`mongodb+srv://${process.env.databaseName}:${process.env.databa
 });
 const Money = require("./models/money.js");
 const Prefixes = require("./models/prefixes.js");
+const stats = require("./package.json");
 
 var d = new Date();
 
@@ -45,7 +46,7 @@ bot.on('ready', () => {
    // bot.user.setActivity("Some rubbish go down in DMs.", {type: "WATCHING"});
   //  bot.user.setActivity(`in ${bot.guilds.size} discord servers.`, {type: "PLAYING"});
   // bot.user.setActivity(`the clock. Going offline for maintenance in 2 min`, {type: "WATCHING"});
-  bot.user.setActivity(`With a new verion`, {type: "PLAYING"});
+  bot.user.setActivity(`With a new verion (${stats.version})`, {type: "PLAYING"});
 });
 
 bot.on('message', async message => {
