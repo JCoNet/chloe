@@ -16,7 +16,7 @@
     "url": "https://github.com/blingdude1324/michelle/issues"
   },
   "dependencies": {
-    "discord.js": "^11.4.2",
+    "discord.js": "^11.5.0",
     "mongoose": "^5.3.14"
   }
 }
