@@ -1,6 +1,7 @@
 const Discord = require("discord.js");
 
 module.exports.run = async (bot, message, args) => {
+  await message.delete();
     let kUser = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]));
     if (!kUser) return message.reply("The specified user could not be found.");
     let kReason = args.join(" ").slice(22);
@@ -14,7 +15,7 @@ module.exports.run = async (bot, message, args) => {
         .addField("Kicked User", `${kUser} with the id ${kUser.id}`)
         .addField("Time", message.createdAt)
         .addField("Reason", kReason);
-    kUser.kick(kReason).then(message.reply(kickEmbed)).catch(err => console.log(err));
+    message.guild.member(kUser).kick(kReason).then(message.reply(kickEmbed)).catch(err => console.log(err));
 }
 
 module.exports.help = {
