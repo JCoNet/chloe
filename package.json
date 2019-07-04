@@ -1,7 +1,7 @@
 {
-  "name": "Alessa",
+  "name": "Chloe",
   "version": "2.1.0",
-  "description": "The new server moderation tool from JCoNet",
+  "description": "The new server administration android from JCoNet",
   "main": "bot.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
