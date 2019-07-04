@@ -16,6 +16,8 @@ module.exports.run = async (bot, message, args) => {
         _id: mongoose.Types.ObjectId(),
         username: rUser.user.username,
         userID: rUser.id,
+        serverID: message.guild.id,
+        serverName: message.guild.name,
         reason: rReason,
         rUsername: message.author.username,
         rID: message.author.id,
