@@ -1,4 +1,6 @@
 const Discord = require("discord.js");
+const Incident = require("../models/incidents.js");
+const mongoose = require("mongoose");
 
 module.exports.run = async (bot, message, args) => {
   await message.delete();
@@ -16,6 +18,20 @@ module.exports.run = async (bot, message, args) => {
         .addField("Time", message.createdAt)
         .addField("Reason", kReason);
     message.guild.member(kUser).kick(kReason).then(message.reply(kickEmbed)).catch(err => console.log(err));
+
+    const incident = new Incident({
+
+      _id: mongoose.Types.ObjectId(),
+      type: "Kick",
+      username: kUser.user.username,
+      userID: kUser.id,
+      reason: kReason,
+      iUsername: message.author.username,
+      iID: message.author.id,
+      time: message.createdAt
+    });
+
+    incident.save().catch(err => console.log(err));
 }
 
 module.exports.help = {
