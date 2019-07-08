@@ -47,7 +47,7 @@ bot.on('ready', () => {
   //  bot.user.setActivity(`in ${bot.guilds.size} discord servers.`, {type: "PLAYING"});
   // bot.user.setActivity(`the clock. Going offline for maintenance in 2 min`, {type: "WATCHING"});
   // bot.user.setActivity(`With a new verion (${stats.version})`, {type: "PLAYING"});
-  bot.user.setActivity("A song to help lift your mood (use the 'mood' command)", {type: "LISTENING", url: "https://open.spotify.com/track/4yWCzA44dQyp0SoeM81bUb?si=644pr6FvTpCupR3J1rshIw"});
+  bot.user.setActivity("A song to help lift your mood (use the 'mood' command)", {type: "LISTENING", url: "https://open.spotify.com/album/5AEgsSGBHblhs5ZRFOLI4n?si=skWigbeiRd6Ud1HKG0uJJA"});
 });
 
 bot.on('message', async message => {
