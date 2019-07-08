@@ -16,7 +16,7 @@ module.exports.run = async (bot, message, args, useprefix) => {
         .addField("Kick", `${useprefix}kick @user <reason> - Kicks the selected user from the server. (Staff)`)
         .addField("Ban", `${useprefix}ban @user <reason> - Bans the selected user from the server. (Staff)`)
         .addField("Prefix", `${useprefix}prefix <new prefix> - Sets the new prefix for the server. (Admin)`);
-    message.reply(banEmbed).catch(err => console.log(err));
+    message.reply(helpEmbed).catch(err => console.log(err));
 
 };
 
