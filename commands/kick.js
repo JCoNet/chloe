@@ -20,7 +20,6 @@ module.exports.run = async (bot, message, args) => {
     message.guild.member(kUser).kick(kReason).then(message.reply(kickEmbed)).catch(err => console.log(err));
 
     const incident = new Incident({
-
       _id: mongoose.Types.ObjectId(),
       type: "Kick",
       username: kUser.user.username,

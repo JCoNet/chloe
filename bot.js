@@ -82,7 +82,7 @@ bot.on('message', async message => {
     if (commandfile) commandfile.run(bot, message, args, useprefix);
   } else {
     // console.log("b");
-    let coinstoadd = Math.ceil(Math.random() * 50);
+    let coinstoadd = 1;
     Money.findOne({userID: message.author.id, serverID: message.guild.id}, (err, money) => {
       if (err) console.log(err);
       if (!money) {
