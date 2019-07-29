@@ -39,15 +39,8 @@ let time = d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds() + "." + d.
 
 bot.on('ready', () => {
   console.log(`Chloe awoken on ${date+1} at ${time}`);
-   // bot.user.setActivity("the epic failz of Army_Killa44",{type: "STREAMING", url: "https://www.twitch.tv/army_killa44"});
-   // bot.user.setActivity("Sick tunes w/MonsterCat", {type: "STREAMING", url: "https://www.twitch.tv/monstercat"});
-    bot.user.setActivity("Service development down time.", {type: "WATCHING"});
-   // bot.user.setStatus('dnd');
-   // bot.user.setActivity("Some rubbish go down in DMs.", {type: "WATCHING"});
-  //  bot.user.setActivity(`in ${bot.guilds.size} discord servers.`, {type: "PLAYING"});
-  // bot.user.setActivity(`the clock. Going offline for maintenance in 2 min`, {type: "WATCHING"});
-  // bot.user.setActivity(`With a new verion (${stats.version})`, {type: "PLAYING"});
-  // bot.user.setActivity("A song to help lift your mood (use the 'mood' command)", {type: "LISTENING", url: "https://open.spotify.com/album/5AEgsSGBHblhs5ZRFOLI4n?si=skWigbeiRd6Ud1HKG0uJJA"});
+    // bot.user.setActivity("Service development down time.", {type: "WATCHING"});
+    bot.user.setActivity("A song to help lift your mood (use the 'mood' command)", {type: "LISTENING", url: "https://open.spotify.com/album/5AEgsSGBHblhs5ZRFOLI4n?si=skWigbeiRd6Ud1HKG0uJJA"});
 });
 
 bot.on('message', async message => {
@@ -78,9 +71,9 @@ bot.on('message', async message => {
   let args = messageArray.slice(1);
   if (message.content.startsWith(useprefix)) {
     // console.log("a");
-    // let commandfile = bot.commands.get(cmd.slice(useprefix.length));
-    // if (commandfile) commandfile.run(bot, message, args, useprefix);
-    message.reply("Sorry but my services are currently down for development and maintenance. I hope to have them back up shortly.");
+    let commandfile = bot.commands.get(cmd.slice(useprefix.length));
+    if (commandfile) commandfile.run(bot, message, args, useprefix);
+    // message.reply("Sorry but my services are currently down for development and maintenance. I hope to have them back up shortly.");
   } else {
     // console.log("b");
     let coinstoadd = 1;
