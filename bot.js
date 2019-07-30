@@ -40,7 +40,7 @@ let time = d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds() + "." + d.
 bot.on('ready', () => {
   console.log(`Chloe awoken on ${date+1} at ${time}`);
     // bot.user.setActivity("Service development down time.", {type: "WATCHING"});
-    bot.user.setActivity("A song to help lift your mood (use the 'mood' command)", {type: "LISTENING", url: "https://open.spotify.com/album/5AEgsSGBHblhs5ZRFOLI4n?si=skWigbeiRd6Ud1HKG0uJJA"});
+    bot.user.setActivity("Over you for safety.", {type: "WATCHING"});
 });
 
 bot.on('message', async message => {
