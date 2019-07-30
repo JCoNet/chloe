@@ -10,9 +10,10 @@ module.exports.run = async (bot, message, args) => {
         let embed = new Discord.RichEmbed()
             .setTitle("Coins")
             .setColor("#aa7ce2")
+            .setDescription(`Coin Balance for ${message.author.username} on ${message.guild.name}.`)
             .setThumbnail(message.author.displayAvatarURL);
         if (!money) {
-            embed.addField("Coins", "None", true);
+            embed.addField("Coins", 0, true);
             return message.channel.send(embed);
         } else {
             embed.addField("Coins", money.money, true);
