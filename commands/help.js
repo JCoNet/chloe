@@ -15,7 +15,8 @@ module.exports.run = async (bot, message, args, useprefix) => {
         .addField("Mute", `${useprefix}mute @user <time> - Mutes a user for the chosen time. (Staff)`)
         .addField("Kick", `${useprefix}kick @user <reason> - Kicks the selected user from the server. (Staff)`)
         .addField("Ban", `${useprefix}ban @user <reason> - Bans the selected user from the server. (Staff)`)
-        .addField("Prefix", `${useprefix}prefix <new prefix> - Sets the new prefix for the server. (Admin)`);
+        .addField("Prefix", `${useprefix}prefix <new prefix> - Sets the new prefix for the server. (Admin)`)
+        .addField("Ping All", `${useprefix}pingall <message> - Send the message with an everyone tag. (Staff)`);
     message.reply(helpEmbed).catch(err => console.log(err));
 
 };
