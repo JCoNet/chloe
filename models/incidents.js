@@ -5,6 +5,8 @@ const incidentSchema = mongoose.Schema({
     type: String,
 	username: String,
 	userID: String,
+	serverName: String,
+	serverID: String,
 	reason: String,
 	iUsername: String,
 	iID: String,

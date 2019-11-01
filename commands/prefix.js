@@ -10,7 +10,7 @@ module.exports.run = async (bot, message, args, useprefix) => {
     Prefixes.findOne({ serverID: message.guild.id }, (err, prefixes) => {
         if (err) console.log(err);
 
-        if (!args[0]) return message.reply(`Hello there, you seem to need my help here. Have you tried "${useprefix}prefix <new prefix> yet?"`);
+        if (!args[0]) return message.reply(`Hello there, you seem to need my help here. Have you tried "${useprefix}prefix <new prefix>" yet?`);
         prefixes.prefix = args[0];
         prefixes.save().catch(err => console.log(err));
     })

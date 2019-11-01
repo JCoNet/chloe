@@ -4,6 +4,8 @@ const muteSchema = mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
 	username: String,
 	userID: String,
+	serverName: String,
+	serverID: String,
 	duration: String,
 	mUsername: String,
 	mID: String,
