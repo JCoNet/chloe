@@ -1,6 +1,6 @@
 {
   "name": "Chloe",
-  "version": "3.0.8",
+  "version": "3.0.9",
   "frmwrk": "22.0.0",
   "description": "The new server administration android from JCoNet",
   "main": "bot.js",
