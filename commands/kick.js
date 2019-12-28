@@ -17,7 +17,7 @@ module.exports.run = async (bot, message, args) => {
         .addField("Kicked User", `${kUser} with the id ${kUser.id}`)
         .addField("Time", message.createdAt)
         .addField("Reason", kReason);
-    message.guild.member(kUser).kick(kReason).then(message.reply(kickEmbed)).catch(err => console.log(err));
+    kUser.sendMessage(`You have been kicked from ${message.guild.name} for ${kReason}`).then(message.guild.member(kUser).kick(kReason).then(message.reply(kickEmbed)).catch(err => console.log(err)));
 
     const incident = new Incident({
       _id: mongoose.Types.ObjectId(),
