@@ -22,8 +22,10 @@ module.exports.run = async (bot, message, args) => {
     const incident = new Incident({
       _id: mongoose.Types.ObjectId(),
       type: "Ban",
-      username: kUser.user.username,
+      userName: bUser.user.username,
       userID: bUser.id,
+      serverName: message.guild.name,
+      serverID: message.guild.id,
       reason: bReason,
       iUsername: message.author.username,
       iID: message.author.id,

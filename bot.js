@@ -40,7 +40,7 @@ let time = d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds() + "." + d.
 bot.on('ready', () => {
   console.log(`Chloe awoken on ${date+1} at ${time}`);
   // bot.user.setActivity("Service development down time.", {type: "WATCHING"});
-  bot.user.setActivity("Over you for safety.", {type: "WATCHING"});
+  bot.user.setActivity("the rivers of time pass by.", {type: "WATCHING"});
 });
 
 bot.on('message', async message => {
@@ -81,7 +81,9 @@ bot.on('message', async message => {
       if (!money) {
         const newMoney = new Money({
           userID: message.author.id,
+          userName: message.author.username,
           serverID: message.guild.id,
+          serverName: message.guild.name,
           money: coinstoadd
         })
 

@@ -1,16 +1,16 @@
 const mongoose = require("mongoose");
 
-const incidentSchema = mongoose.Schema({
+const warningSchema = mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
-    type: String,
 	userName: String,
 	userID: String,
 	serverName: String,
 	serverID: String,
-	reason: String,
+    reason: String,
+    warningNumber: Number,
 	iUsername: String,
 	iID: String,
 	time: String
 });
 
-module.exports = mongoose.model("Incident", incidentSchema);
+module.exports = mongoose.model("Warning", warningSchema);
