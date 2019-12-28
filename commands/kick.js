@@ -9,7 +9,7 @@ module.exports.run = async (bot, message, args) => {
     let kReason = args.join(" ").slice(22);
     if(!message.member.hasPermission("MANAGE_MESSAGES")) return message.reply("You have not got the right permissions.");
     if(kUser.hasPermission("MANAGE_MESSAGES")) return message.reply("That user cannot be kicked.");
-    let dmUser = message.guild.members.find(kUser);
+    let dmUser = message.guild.members.find(kUser.id);
 
     let kickEmbed = new Discord.RichEmbed()
         .setTitle("Kick")
