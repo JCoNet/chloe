@@ -40,7 +40,7 @@ let time = d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds() + "." + d.
 bot.on('ready', () => {
   console.log(`Chloe awoken on ${date+1} at ${time}`);
   // bot.user.setActivity("Service development down time.", {type: "WATCHING"});
-  bot.user.setActivity("the rivers of time pass by.", {type: "WATCHING"});
+  bot.user.setActivity("all the colours of the wind.", {type: "WATCHING"});
 });
 
 bot.on('message', async message => {
