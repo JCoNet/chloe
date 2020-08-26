@@ -2,7 +2,7 @@
   "name": "Chloe",
   "version": "3.9.8",
   "frmwrk": "22.6.7",
-  "description": "The new server administration android from JCoNet",
+  "description": "JCoNet Discord presents: Chloe. The new discord moderation tool for your JCoNet Integrated server! Here to help you with most if not all of your discord server administration needs.",
   "main": "bot.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

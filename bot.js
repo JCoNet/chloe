@@ -12,6 +12,8 @@ const stats = require("./package.json");
 
 var d = new Date();
 
+console.log(`${config.test}`);
+
 bot.commands = new Discord.Collection();
 
 fs.readdir("./commands", (err, file) => {
