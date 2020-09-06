@@ -4,7 +4,7 @@ const config = require("./botconfig.json");
 const fs = require("fs");
 const mongoose = require("mongoose");
 mongoose.connect(`mongodb+srv://${process.env.databaseName}:${process.env.databasePassword}@cluster0-sltlx.mongodb.net/${process.env.databaseName}`, {
-  useNewUrlParser: true
+  useUnifiedTopology: true; useNewUrlParser: true
 });
 const Money = require("./models/money.js");
 const Prefixes = require("./models/prefixes.js");
