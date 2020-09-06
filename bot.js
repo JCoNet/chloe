@@ -42,7 +42,7 @@ let time = d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds() + "." + d.
 bot.on('ready', () => {
   console.log(`Chloe awoken on ${date+1} at ${time}`);
   // bot.user.setActivity("Service development down time.", {type: "WATCHING"});
-  bot.user.setActivity("all the colours of the wind.", {type: "WATCHING"});
+  bot.user.setActivity("over safety for the servants of the void.", {type: "WATCHING"});
 });
 
 bot.on('message', async message => {
@@ -72,9 +72,9 @@ bot.on('message', async message => {
   let args = messageArray.slice(1);
   if (message.content.startsWith(useprefix)) {
     // console.log("a");
-    let commandfile = bot.commands.get(cmd.slice(useprefix.length));
-    if (commandfile) commandfile.run(bot, message, args, useprefix);
-    // message.reply("Sorry but my services are currently down for development and maintenance. I hope to have them back up shortly.");
+    // let commandfile = bot.commands.get(cmd.slice(useprefix.length));
+    // if (commandfile) commandfile.run(bot, message, args, useprefix);
+    message.reply("Sorry but my services are currently down for development and maintenance. I hope to have them back up shortly.");
   } else {
     // console.log("b");
     let coinstoadd = 1;
