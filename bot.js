@@ -14,9 +14,8 @@ const Prefixes = require("./models/prefixes.js");
 const stats = require("./package.json");
 
 var d = new Date();
-console.log(`Testing variables ${d}`);
 
-console.log(`${config.test}`);
+console.log(`${config.test} testing date/time: ${d}`);
 
 bot.commands = new Discord.Collection();
 
