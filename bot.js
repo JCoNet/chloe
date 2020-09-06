@@ -4,7 +4,10 @@ const config = require("./botconfig.json");
 const fs = require("fs");
 const mongoose = require("mongoose");
 mongoose.connect(`mongodb+srv://${process.env.databaseName}:${process.env.databasePassword}@cluster0-sltlx.mongodb.net/${process.env.databaseName}`, {
-  useUnifiedTopology: true; useNewUrlParser: true
+  useUnifiedTopology: true,
+  useNewUrlParser: true
+}).then(() => console.log('DB connected!')).catch(err => {
+  console.log(`DB Connection Error: ${err.message}`);
 });
 const Money = require("./models/money.js");
 const Prefixes = require("./models/prefixes.js");
