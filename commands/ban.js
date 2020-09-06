@@ -10,7 +10,7 @@ module.exports.run = async (bot, message, args) => {
     if(!message.member.hasPermission("MANAGE_MEMBERS")) return message.reply("You have not got the right permissions.");
     if(bUser.hasPermission("MANAGE_MEMBERS")) return message.reply("That user cannot be banned.");
 
-    let banEmbed = new Discord.RichEmbed()
+    let banEmbed = new Discord.MessageEmbed()
         .setTitle("Ban")
         .setDescription("The following ban took place")
         .setColor("#e68a00")
@@ -18,7 +18,7 @@ module.exports.run = async (bot, message, args) => {
         .addField("Time", message.createdAt)
         .addField("Reason", bReason);
     await bUser.sendMessage(`You have been banned from ${message.guild.name} for ${bReason}`);
-    message.guild.member(bUser).ban(bReason).then(message.reply(banEmbed)).catch(err => console.log(err));
+    message.guild.member(bUser).ban(bReason).then(message.channel.send(banEmbed)).catch(err => console.log(err));
 
     const incident = new Incident({
       _id: mongoose.Types.ObjectId(),

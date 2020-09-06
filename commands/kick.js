@@ -10,7 +10,7 @@ module.exports.run = async (bot, message, args) => {
     if(!message.member.hasPermission("MANAGE_MESSAGES")) return message.reply("You have not got the right permissions.");
     if(kUser.hasPermission("MANAGE_MESSAGES")) return message.reply("That user cannot be kicked.");
 
-    let kickEmbed = new Discord.RichEmbed()
+    let kickEmbed = new Discord.MessageEmbed()
         .setTitle("Kick")
         .setDescription("The following kick took place")
         .setColor("#e68a00")
@@ -18,7 +18,7 @@ module.exports.run = async (bot, message, args) => {
         .addField("Time", message.createdAt)
         .addField("Reason", kReason);
     await kUser.sendMessage(`You have been kicked from ${message.guild.name} for ${kReason}`);
-    message.guild.member(kUser).kick(kReason).then(message.reply(kickEmbed)).catch(err => console.log(err));
+    message.guild.member(kUser).kick(kReason).then(message.channel.send(kickEmbed)).catch(err => console.log(err));
 
     const incident = new Incident({
       _id: mongoose.Types.ObjectId(),

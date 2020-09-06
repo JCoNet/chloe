@@ -4,7 +4,7 @@ const stats = require("../package.json");
 module.exports.run = async (bot, message, args, useprefix) => {
   message.delete().catch();
   let bicon = bot.user.displayAvatarURL;
-  let statsembed = new Discord.RichEmbed()
+  let statsembed = new Discord.MessageEmbed()
     .setTitle("Bot Statistics")
     .setDescription(stats.description)
     .setColor("#33fede")

@@ -4,7 +4,7 @@ module.exports.run = async (bot, message, args, useprefix) => {
 
     await message.delete();
 
-    let helpEmbed = new Discord.RichEmbed()
+    let helpEmbed = new Discord.MessageEmbed()
         .setTitle("Chloe help")
         .setColor("#ff0000")
         .setDescription("A list of all the commands and how to use them.")
@@ -25,7 +25,7 @@ module.exports.run = async (bot, message, args, useprefix) => {
         .addField("Prefix", `${useprefix}prefix <new prefix> - Sets the new prefix for the server.`)
         .addField("Add Role", `${useprefix}addrole @user <role> - Gives the user the role you specified.`)
         .addField("Remove Role", `${useprefix}removerole @user <role> - Removes the user from the role you specified.`);
-    message.reply(helpEmbed).catch(err => console.log(err));
+    message.channel.send(helpEmbed).catch(err => console.log(err));
 
 };
 

@@ -7,7 +7,7 @@ module.exports.run = async (bot, message, args) => {
 
     Money.findOne({userID: message.author.id, serverID: message.guild.id}, (err, money) => {
         if (err) console.log(err);
-        let embed = new Discord.RichEmbed()
+        let embed = new Discord.MessageEmbed()
             .setTitle("Coins")
             .setColor("#aa7ce2")
             .setDescription(`Coin Balance for ${message.author.username} on ${message.guild.name}.`)
