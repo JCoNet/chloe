@@ -1,7 +1,7 @@
 {
   "name": "Chloe",
   "version": "3.9.8",
-  "frmwrk": "22.6.7",
+  "frmwrk": "30.4.1",
   "description": "JCoNet Discord presents: Chloe. The new discord moderation tool for your JCoNet Integrated server! Here to help you with most if not all of your discord server administration needs.",
   "main": "bot.js",
   "scripts": {
@@ -17,8 +17,8 @@
     "url": "https://github.com/blingdude1324/michelle/issues"
   },
   "dependencies": {
-    "discord.js": "^11.5.0",
-    "mongoose": "^5.3.14",
-    "ms": "^2.1.1"
+    "discord.js": "^12.3.1",
+    "mongoose": "^5.10.3",
+    "ms": "^2.1.2"
   }
 }
