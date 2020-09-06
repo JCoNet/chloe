@@ -13,7 +13,7 @@ module.exports.run = async (bot, message, args, useprefix) => {
     .addField("Created on", bot.user.createdAt)
     .addField("Current version", stats.version)
     .addField("Running On", `JCoNet BotFramework Version: ${stats.frmwrk}`)
-    .addField("Guild count", ${bot.guilds.cache.size})
+    .addField("Guild count", bot.guilds.cache.size)
     .addField("This guild prefix", useprefix)
     .addField("Save on online retail and support JCoNet!", '[Get Honey](https://www.joinhoney.com/ref/k4lomc4 "Get the Honey Extension and start saving on all your online purchases.")')
     .addField("Support JCoNet another way!", '[Donate Here](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=78GGH2NZ57WUJ&source=url "Donate to JCoNet via PayPal on the JCoNet official website.")')
