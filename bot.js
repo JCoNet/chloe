@@ -14,6 +14,7 @@ const Prefixes = require("./models/prefixes.js");
 const stats = require("./package.json");
 
 var d = new Date();
+console.log(`Testing variables ${d}`);
 
 console.log(`${config.test}`);
 
@@ -50,7 +51,7 @@ bot.on('ready', () => {
 
 bot.on('message', async message => {
   if (message.author.bot) return;
-  if (message.channel.type === "dm") return;
+  if (message.channel.type === "dm") return message.channel.send("Sorry but I currently do not function within Direct Messaging channels. This might be implemented in the future updates JCoNet Discord implement. Sorry for the inconvenience.");
   let useprefix;
 
   const prefixes = await Prefixes.findOne({serverID: message.guild.id}, (err, prefixes) => {
@@ -75,9 +76,9 @@ bot.on('message', async message => {
   let args = messageArray.slice(1);
   if (message.content.startsWith(useprefix)) {
     // console.log("a");
-    // let commandfile = bot.commands.get(cmd.slice(useprefix.length));
-    // if (commandfile) commandfile.run(bot, message, args, useprefix);
-    message.reply("Sorry but my services are currently down for development and maintenance. I hope to have them back up shortly.");
+    let commandfile = bot.commands.get(cmd.slice(useprefix.length));
+    if (commandfile) commandfile.run(bot, message, args, useprefix);
+    // message.reply("Sorry but my services are currently down for development and maintenance. I hope to have them back up shortly.");
   } else {
     // console.log("b");
     let coinstoadd = 1;
