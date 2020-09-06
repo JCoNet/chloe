@@ -15,7 +15,7 @@ const stats = require("./package.json");
 
 var d = new Date();
 
-console.log(`${config.test} testing date/time: ${d}`);
+console.log(`${config.test}`);
 
 bot.commands = new Discord.Collection();
 
@@ -39,11 +39,8 @@ fs.readdir("./commands", (err, file) => {
 
 bot.login(process.env.token);
 
-let date = d.getDate() + "/" + d.getMonth() + "/" + d.getFullYear();
-let time = d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds() + "." + d.getMilliseconds();
-
 bot.on('ready', () => {
-  console.log(`Chloe awoken on ${date+1} at ${time}`);
+  console.log(`Chloe sucessfully activated on ${d}, now ready for service.`);
   // bot.user.setActivity("Service development down time.", {type: "WATCHING"});
   bot.user.setActivity("over safety for the servants of the void.", {type: "WATCHING"});
 });
