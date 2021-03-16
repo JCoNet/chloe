@@ -11,7 +11,7 @@ const config = require("./botconfig.json");
 const fs = require("fs");
 const Money = require("./models/money.js");
 const Prefixes = require("./models/prefixes.js");
-const generalBotConf = require("./models/generalBotConfig.js");
+const generalBotConfig = require("./models/generalBotConfig.js");
 const stats = require("./package.json");
 
 var d = new Date();
@@ -39,7 +39,7 @@ fs.readdir("./commands", (err, file) => {
 });
 
 if (!generalBotConf) {
-  const standardConfig = new generalBotConf({
+  const standardConfig = new generalBotConfif({
     statusMessage: "Fresh build",
     statusType: "PLAYING",
     prefix: "bot/"
