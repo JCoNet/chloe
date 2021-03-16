@@ -38,9 +38,9 @@ fs.readdir("./commands", (err, file) => {
 
 });
 
-generalBotConfig.findOne({}, (err, money) => {
+generalBotConfig.findOne({}, (err, generalBotConf) => {
   if (err) console.log(err);
-  if (!generalBotConfig) {
+  if (!generalBotConf) {
     const standardConfig = new generalBotConfig({
       statusMessage: "Fresh build",
       statusType: "PLAYING",
