@@ -11,7 +11,7 @@ const config = require("./botconfig.json");
 const fs = require("fs");
 const Money = require("./models/money.js");
 const Prefixes = require("./models/prefixes.js");
-const generalBotConf = require(".models/generalBotConfig.js");
+const generalBotConf = require("./models/generalBotConfig.js");
 const stats = require("./package.json");
 
 var d = new Date();
