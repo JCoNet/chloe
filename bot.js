@@ -52,7 +52,7 @@ generalBotConfig.findOne({}, (err, generalBotConf) => {
   } else {
     console.log("Database collection generalBotConfig already exists and contains config data.");
   }
-}
+};
 
 bot.login(process.env.token);
 
