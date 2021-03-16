@@ -6,4 +6,4 @@ const generalBotConfigSchema = mongoose.Schema({
     prefix: String
 })
 
-module.exports = mongoose.model("generalBotConfig", generalBotConfigSchema);
+module.exports = mongoose.model("general_bot_config", generalBotConfigSchema);
