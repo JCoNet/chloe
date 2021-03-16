@@ -60,8 +60,8 @@ bot.on('ready', () => {
   console.log(`Chloe sucessfully activated on ${d}, now ready for service.`);
   // bot.user.setActivity("Service development down time.", {type: "WATCHING"});
   // bot.user.setActivity("over safety for the servants of the void.", {type: "WATCHING"});
-`  bot.user.setActivity(`${generalBotConf.statusMessage}`, {type: `${generalBotConf.statusType}`})
-`});
+  bot.user.setActivity(`${generalBotConf.statusMessage}`, {type: `${generalBotConf.statusType}`});
+});
 
 bot.on('message', async message => {
   if (message.author.bot) return;
