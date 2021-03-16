@@ -17,7 +17,7 @@ module.exports.run = async (bot, message, args) => {
         .addField("Kicked User", `${kUser} with the id ${kUser.id}`)
         .addField("Time", message.createdAt)
         .addField("Reason", kReason);
-    await kUser.sendMessage(`You have been kicked from ${message.guild.name} for ${kReason}`);
+    await kUser.send(`You have been kicked from ${message.guild.name} for ${kReason}`);
     message.guild.member(kUser).kick(kReason).then(message.channel.send(kickEmbed)).catch(err => console.log(err));
 
     const incident = new Incident({
