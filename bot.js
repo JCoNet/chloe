@@ -38,17 +38,20 @@ fs.readdir("./commands", (err, file) => {
 
 });
 
-if (!generalBotConfig) {
-  const standardConfig = new generalBotConfig({
-    statusMessage: "Fresh build",
-    statusType: "PLAYING",
-    prefix: "bot/"
-  })
+generalBotConfig.findOne({}, (err, money) => {
+  if (err) console.log(err);
+  if (!generalBotConfig) {
+    const standardConfig = new generalBotConfig({
+      statusMessage: "Fresh build",
+      statusType: "PLAYING",
+      prefix: "bot/"
+    })
 
-  standardConfig.save().catch(err => console.log(err));
-  console.log("Database collection generalBotConfig created and default values imported.")
-} else {
-  console.log("Database collection generalBotConfig already exists and contains config data.");
+    standardConfig.save().catch(err => console.log(err));
+    console.log("Database collection generalBotConfig created and default values imported.")
+  } else {
+    console.log("Database collection generalBotConfig already exists and contains config data.");
+  }
 }
 
 bot.login(process.env.token);
