@@ -61,7 +61,7 @@ bot.on('ready', () => {
   console.log(`Chloe sucessfully activated on ${d}, now ready for service.`);
   // bot.user.setActivity("Service development down time.", {type: "WATCHING"});
   // bot.user.setActivity("over safety for the servants of the void.", {type: "WATCHING"});
-  bot.user.setActivity(`${botConf.statusMessage}`, {type: `${botConf.statusType}`});
+  bot.user.setActivity(`${botConfig.statusMessage}`, {type: `${botConfig.statusType}`});
 });
 
 bot.on('message', async message => {
@@ -74,7 +74,7 @@ bot.on('message', async message => {
       const newServer = new Prefixes({
         serverID: message.guild.id,
         serverName: message.guild.name,
-        prefix: botConf.prefix
+        prefix: botConfig.prefix
       });
       newServer.save().catch(err => CompositionEvent.log(err));
       prefixes = Prefixes.findOne({serverID: message.guild.id});
