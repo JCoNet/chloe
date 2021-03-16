@@ -12,17 +12,6 @@ const fs = require("fs");
 const Money = require("./models/money.js");
 const Prefixes = require("./models/prefixes.js");
 const generalBotConf = require("./models/generalBotConfig.js");
-if (!generalBotConf) {
-  const standardConfig = new generalBotConf({
-    statusMessage: "Fresh build",
-    statusType: "PLAYING",
-    prefix: "bot/"
-  })
-
-  standardConfig.save().catch(err => console.log(err));
-} else {
-  return;
-}
 const stats = require("./package.json");
 
 var d = new Date();
@@ -48,6 +37,18 @@ fs.readdir("./commands", (err, file) => {
   });
 
 });
+
+if (!generalBotConf) {
+  const standardConfig = new generalBotConf({
+    statusMessage: "Fresh build",
+    statusType: "PLAYING",
+    prefix: "bot/"
+  })
+
+  standardConfig.save().catch(err => console.log(err));
+} else {
+  return;
+}
 
 bot.login(process.env.token);
 
