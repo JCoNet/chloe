@@ -46,8 +46,9 @@ if (!generalBotConfig) {
   })
 
   standardConfig.save().catch(err => console.log(err));
+  console.log("Database collection generalBotConfig created and default values imported.")
 } else {
-  console.log("Database collection generalBotConfig already exists and contains config data");
+  console.log("Database collection generalBotConfig already exists and contains config data.");
 }
 
 bot.login(process.env.token);
