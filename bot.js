@@ -13,7 +13,7 @@ const Money = require("./models/money.js");
 const Prefixes = require("./models/prefixes.js");
 const generalBotConf = require("./models/generalBotConfig.js");
 if (!generalBotConf) {
-  const standardConfig = new general_bot_config({
+  const standardConfig = new generalBotConfig({
     statusMessage: "Fresh build",
     statusType: "PLAYING",
     prefix: `${bot.user.username}/`
