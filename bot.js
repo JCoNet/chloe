@@ -38,6 +38,7 @@ fs.readdir("./commands", (err, file) => {
 
 });
 
+let botConf;
 generalBotConfig.findOne({}, (err, generalBotConf) => {
   if (err) console.log(err);
   if (!generalBotConf) {
@@ -51,7 +52,7 @@ generalBotConfig.findOne({}, (err, generalBotConf) => {
     console.log("Database collection generalBotConfig created and default values imported.")
   } else {
     console.log("Database collection generalBotConfig already exists and contains config data.");
-    const botConfig = generalBotConf;
+    botConf = generalBotConf;
   }
 });
 
@@ -61,7 +62,7 @@ bot.on('ready', () => {
   console.log(`Chloe sucessfully activated on ${d}, now ready for service.`);
   // bot.user.setActivity("Service development down time.", {type: "WATCHING"});
   // bot.user.setActivity("over safety for the servants of the void.", {type: "WATCHING"});
-  bot.user.setActivity(`${botConfig.statusMessage}`, {type: `${botConfig.statusType}`});
+  bot.user.setActivity(`${botConf.statusMessage}`, {type: `${botConf.statusType}`});
 });
 
 bot.on('message', async message => {
@@ -74,7 +75,7 @@ bot.on('message', async message => {
       const newServer = new Prefixes({
         serverID: message.guild.id,
         serverName: message.guild.name,
-        prefix: botConfig.prefix
+        prefix: botConf.prefix
       });
       newServer.save().catch(err => CompositionEvent.log(err));
       prefixes = Prefixes.findOne({serverID: message.guild.id});
