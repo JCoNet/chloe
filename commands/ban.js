@@ -7,6 +7,7 @@ module.exports.run = async (bot, message, args) => {
     let bUser = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]));
     if (!bUser) return message.reply("The specified user could not be found.");
     let bReason = args.join(" ").slice(22);
+    if (!bReason) return message.reply("Please provide a reason");
     if(!message.member.hasPermission("MANAGE_MEMBERS")) return message.reply("You have not got the right permissions.");
     if(bUser.hasPermission("MANAGE_MEMBERS")) return message.reply("That user cannot be banned.");
 
