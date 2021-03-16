@@ -16,12 +16,13 @@ if (!generalBotConf) {
   const standardConfig = new generalBotConf({
     statusMessage: "Fresh build",
     statusType: "PLAYING",
-    prefix: `bot/`
-  });
+    prefix: "bot/"
+  })
+
   standardConfig.save().catch(err => console.log(err));
 } else {
   return;
-};
+}
 const stats = require("./package.json");
 
 var d = new Date();
@@ -72,10 +73,10 @@ bot.on('message', async message => {
       prefixes = Prefixes.findOne({serverID: message.guild.id});
       useprefix = prefixes.prefix;
       // console.log(`prefix set to: ${useprefix}`);
-    };
+    }
 
     useprefix = prefixes.prefix;
-  });
+  })
 
   // let prefix = config.prefix;
   let messageArray = message.content.split(" ");
@@ -98,14 +99,14 @@ bot.on('message', async message => {
           serverID: message.guild.id,
           serverName: message.guild.name,
           money: coinstoadd
-        });
+        })
 
         newMoney.save().catch(err => console.log(err));
       } else {
         money.money = money.money + coinstoadd;
         money.save().catch(err => console.log(err));
-      };
-    });
+      }
+    })
   };
 
 });
