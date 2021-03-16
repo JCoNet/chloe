@@ -16,7 +16,7 @@ if (!generalBotConf) {
   const standardConfig = new generalBotConf({
     statusMessage: "Fresh build",
     statusType: "PLAYING",
-    prefix: `${bot.user.username}/`
+    prefix: `bot/`
   });
   standardConfig.save().catch(err => console.log(err));
 } else {
