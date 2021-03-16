@@ -17,7 +17,7 @@ module.exports.run = async (bot, message, args) => {
         .addField("Banned User", `${bUser} with the id ${bUser.id}`)
         .addField("Time", message.createdAt)
         .addField("Reason", bReason);
-    await bUser.send(`You have been banned from ${message.guild.name} for ${bReason}`);
+    await message.guild.member(bUser).send(`You have been banned from ${message.guild.name} for ${bReason}`).catch(err => console.log(err));
     message.guild.member(bUser).ban(bReason).then(message.channel.send(banEmbed)).catch(err => console.log(err));
 
     const incident = new Incident({
