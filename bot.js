@@ -38,8 +38,8 @@ fs.readdir("./commands", (err, file) => {
 
 });
 
-if (!generalBotConf) {
-  const standardConfig = new generalBotConfif({
+if (!generalBotConfig) {
+  const standardConfig = new generalBotConfig({
     statusMessage: "Fresh build",
     statusType: "PLAYING",
     prefix: "bot/"
@@ -47,7 +47,7 @@ if (!generalBotConf) {
 
   standardConfig.save().catch(err => console.log(err));
 } else {
-  return;
+  console.log("Database collection generalBotConfig already exists and contains config data");
 }
 
 bot.login(process.env.token);
