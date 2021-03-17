@@ -5,7 +5,7 @@ const mongoose = require("mongoose");
 module.exports.run = async (bot, message, args) => {
     await message.delete();
     console.log("test1 pass");
-    let bUser = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]));
+    let bUser = message.guild.member(message.mentions.users.first() || message.guild.members.cache.get(args[0]));
     console.log(`bUser returns: ${bUser}`);
     console.log("test2 pass");
     if (!bUser) return message.reply("The specified user could not be found.");
