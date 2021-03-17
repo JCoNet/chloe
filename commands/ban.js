@@ -6,6 +6,7 @@ module.exports.run = async (bot, message, args) => {
     await message.delete();
     console.log("test1 pass");
     let bUser = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]));
+    console.log(`bUser returns: ${bUser}`);
     console.log("test2 pass");
     if (!bUser) return message.reply("The specified user could not be found.");
     console.log("test3 pass");
@@ -15,7 +16,7 @@ module.exports.run = async (bot, message, args) => {
     console.log("test5 pass");
     if(!message.member.hasPermission("MANAGE_MEMBERS")) return message.reply("You have not got the right permissions.");
     console.log("test6 pass");
-    if(bUser.member.hasPermission("MANAGE_MEMBERS")) return message.reply("That user cannot be banned.");
+    if(message.guild.member(bUser).hasPermission("MANAGE_MEMBERS")) return message.reply("That user cannot be banned.");
     console.log("test7 pass");
 
     let banEmbed = new Discord.MessageEmbed()
