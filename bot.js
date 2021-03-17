@@ -1,6 +1,7 @@
 const Discord = require("discord.js");
-const bot = new Discord.Client();
 const mongoose = require("mongoose");
+const fs = require("fs");
+const bot = new Discord.Client();
 mongoose.connect(`mongodb+srv://${process.env.databaseName}:${process.env.databasePassword}@cluster0-sltlx.mongodb.net/${process.env.databaseName}`, {
   useUnifiedTopology: true,
   useNewUrlParser: true
@@ -8,7 +9,6 @@ mongoose.connect(`mongodb+srv://${process.env.databaseName}:${process.env.databa
   console.log(`DB Connection Error: ${err.message}`);
 });
 const config = require("./botconfig.json");
-const fs = require("fs");
 const Money = require("./models/money.js");
 const Prefixes = require("./models/prefixes.js");
 const generalBotConfig = require("./models/generalBotConfig.js");
