@@ -113,9 +113,8 @@ bot.on('message', async message => {
       if (!result[0]) connection.query(`INSERT INTO prefixes (guildID, prefix) VALUES ('${message.guild.id}', '${botConf.defaultPrefix}')`, function(err, result){
         if (err) console.log(err);
         useprefix = botConf.defaultPrefix;
-      }) else {
-        useprefix = result[0].prefix;
-      };
+      });
+      useprefix = result[0].prefix;
     });
   });
 
@@ -155,12 +154,11 @@ bot.on('message', async message => {
         if (err) console.log(err);
         if (!result[0]) connection.query(`INSERT INTO money (guildID, guildName, userID, userName, coins) VALUES '${message.guild.id}', '${message.guild.name}', '${message.author.id}', '${message.author.username}', '${coinstoadd}'`, function(err, result) {
           if (err) console.log(err);
-        }) else {
-          newBal = result[0].coins + coinstoadd;
-          connection.query(`UPDATE money SET coins = '${newbal}' WHERE guildID = '${message.guild.id}' AND userID = '${message.author.id}'`, function(err, result) {
-            if (err) console.log(err);
-          });
-        };
+        });
+        newBal = result[0].coins + coinstoadd;
+        connection.query(`UPDATE money SET coins = '${newbal}' WHERE guildID = '${message.guild.id}' AND userID = '${message.author.id}'`, function(err, result) {
+          if (err) console.log(err);
+        });
       });
     });
   };
