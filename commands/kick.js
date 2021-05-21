@@ -36,11 +36,8 @@ module.exports.run = async (bot, message, args) => {
 
     // await incident.save().catch(err => console.log(err));
     
-  Connection.connect(function(err) {
+  connection.query(`INSERT INTO (serverID, serverName, userID, userName, type, reason, dateAndTime, staffID, staffName) VALUES '${message.guild.id}', '${message.guild.name}', '${kUser.id}', '${kUser.user.username}', 'KICK', '${kReason}', '${message.createdAt}', '${message.author.id}', '${message.author.username}'`, function(err, result) {
     if (err) console.log(err);
-    connection.query(`INSERT INTO (serverID, serverName, userID, userName, type, reason, dateAndTime, staffID, staffName) VALUES '${message.guild.id}', '${message.guild.name}', '${kUser.id}', '${kUser.user.username}', 'KICK', '${kReason}', '${message.createdAt}', '${message.author.id}', '${message.author.username}'`, function(err, result) {
-      if (err) console.log(err);
-    });
   });
 
 };
