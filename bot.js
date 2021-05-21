@@ -57,7 +57,7 @@ generalBotConfig.findOne({}, (err, generalBotConf) => {
 });
 
 // bot.login(process.env.token);
-bot.login(process.env.beta-token);
+bot.login(process.env.betatoken);
 
 bot.on('ready', () => {
   console.log(`Chloe sucessfully activated on ${d}, now ready for service.`);
