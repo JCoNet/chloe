@@ -1,6 +1,6 @@
 const Discord = require("discord.js");
-const Warning = require("../models/warnings.js");
-const mongoose = require("mongoose");
+// const Warning = require("../models/warnings.js");
+// const mongoose = require("mongoose");
 
 module.exports.run = async (bot, message, args) => {
 

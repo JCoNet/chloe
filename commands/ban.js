@@ -1,7 +1,7 @@
 const Discord = require("discord.js");
-const Incident = require("../models/incidents.js");
-const mongoose = require("mongoose");
-const Connection = require("mysql/lib/Connection");
+// const Incident = require("../models/incidents.js");
+// const mongoose = require("mongoose");
+// const Connection = require("mysql/lib/Connection");
 
 module.exports.run = async (bot, message, args, connection) => {
   await message.delete();
@@ -37,7 +37,7 @@ module.exports.run = async (bot, message, args, connection) => {
 
   // await incident.save().catch(err => console.log(err));
 
-  Connection.connect(function(err) {
+  connection.connect(function(err) {
     if (err) console.log(err);
     connection.query(`INSERT INTO (serverID, serverName, userID, userName, type, reason, dateAndTime, staffID, staffName) VALUES '${message.guild.id}', '${message.guild.name}', '${bUser.id}', '${bUser.user.username}', 'BAN', '${bReason}', '${message.createdAt}', '${message.author.id}', '${message.author.username}'`, function(err, result) {
       if (err) console.log(err);

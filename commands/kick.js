@@ -1,6 +1,6 @@
 const Discord = require("discord.js");
-const Incident = require("../models/incidents.js");
-const mongoose = require("mongoose");
+// const Incident = require("../models/incidents.js");
+// const mongoose = require("mongoose");
 
 module.exports.run = async (bot, message, args) => {
   await message.delete();
