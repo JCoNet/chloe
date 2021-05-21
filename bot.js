@@ -18,7 +18,6 @@ connection.connect(function(err) {
   if (err) throw err;
   console.log("Connected to secure DB!");
 });
-connection.close();
 const config = require("./botconfig.json");
 const Money = require("./models/money.js");
 const Prefixes = require("./models/prefixes.js");
