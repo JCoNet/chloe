@@ -12,7 +12,7 @@ const connection = mysql.createConnection({
   host: `${process.env.dbHost}`,
   user: `${process.env.dbUser}`,
   password: `${process.env.dbPass}`,
-  database: `${dbName}`
+  database: `${process.env.dbName}`
 });
 connection.connect(function(err) {
   if (err) throw err;
@@ -74,7 +74,7 @@ connection.connect(function(err) {
     if (err) throw err;
     botConf = result[0];
   })
-})
+});
 
 // bot.login(process.env.token);
 bot.login(process.env.betatoken);
