@@ -11,7 +11,6 @@ module.exports.run = async (bot, message, args, useprefix) => {
         // Regular user commands
         .addField("----{Member Commands}----")
         .addField("Coins", `${useprefix}coins - Displays your coin count.`)
-        .addField("Report", `${useprefix}report @user <reason> - Reports a user for rule breaking annonomously to staff.`)
         .addField("Stats", `${useprefix}stats - General information about the bot and how to support it's development.`)
         // Moderator commands
         .addField("----{Staff Commands}----")

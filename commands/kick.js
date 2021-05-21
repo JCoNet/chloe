@@ -21,21 +21,29 @@ module.exports.run = async (bot, message, args) => {
     await kUser.send(`You have been kicked from ${message.guild.name} for ${kReason}`).catch(err => console.log(err));
     await kUser.kick(kReason).then(message.channel.send(kickEmbed)).catch(err => console.log(err));
 
-    const incident = new Incident({
-      _id: mongoose.Types.ObjectId(),
-      type: "Kick",
-      userName: kUser.user.username,
-      userID: kUser.id,
-      serverName: message.guild.name,
-      serverID: message.guild.id,
-      reason: kReason,
-      iUsername: message.author.username,
-      iID: message.author.id,
-      time: message.createdAt
-    });
+    // const incident = new Incident({
+    //   _id: mongoose.Types.ObjectId(),
+    //   type: "Kick",
+    //   userName: kUser.user.username,
+    //   userID: kUser.id,
+    //   serverName: message.guild.name,
+    //   serverID: message.guild.id,
+    //   reason: kReason,
+    //   iUsername: message.author.username,
+    //   iID: message.author.id,
+    //   time: message.createdAt
+    // });
 
-    await incident.save().catch(err => console.log(err));
-}
+    // await incident.save().catch(err => console.log(err));
+    
+  Connection.connect(function(err) {
+    if (err) console.log(err);
+    connection.query(`INSERT INTO (serverID, serverName, userID, userName, type, reason, dateAndTime, staffID, staffName) VALUES '${message.guild.id}', '${message.guild.name}', '${kUser.id}', '${kUser.user.username}', 'KICK', '${kReason}', '${message.createdAt}', '${message.author.id}', '${message.author.username}'`, function(err, result) {
+      if (err) console.log(err);
+    });
+  });
+
+};
 
 module.exports.help = {
   name: "kick"
