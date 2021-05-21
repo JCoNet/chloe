@@ -15,7 +15,7 @@ const connection = mysql.createConnection({
   database: `${process.env.dbName}`
 });
 connection.connect(function(err) {
-  if (err) throw err;
+  if (err) console.log(err);
   console.log("Connected to secure DB!");
 });
 const config = require("./botconfig.json");
@@ -28,25 +28,25 @@ var d = new Date();
 
 console.log(`${config.test}`);
 
-bot.commands = new Discord.Collection();
+// bot.commands = new Discord.Collection();
 
-fs.readdir("./commands", (err, file) => {
+// fs.readdir("./commands", (err, file) => {
 
-  if (err) consol.log(err);
+//   if (err) console.log(err);
 
-  let jsfile = file.filter(f => f.split(".").pop() === "js");
-  if (jsfile.length <= 0) {
-    console.log("No commands");
-    return;
-  };
+//   let jsfile = file.filter(f => f.split(".").pop() === "js");
+//   if (jsfile.length <= 0) {
+//     console.log("No commands");
+//     return;
+//   };
 
-  jsfile.forEach((f, i) => {
-    let props = require(`./commands/${f}`);
-    console.log(`${f} configured correctly and loaded into the bot`);
-    bot.commands.set(props.help.name, props)
-  });
+//   jsfile.forEach((f, i) => {
+//     let props = require(`./commands/${f}`);
+//     console.log(`${f} configured correctly and loaded into the bot`);
+//     bot.commands.set(props.help.name, props)
+//   });
 
-});
+// });
 
 // let botConf;
 // generalBotConfig.findOne({}, (err, generalBotConf) => {
