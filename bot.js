@@ -1,13 +1,22 @@
 const Discord = require("discord.js");
-const mongoose = require("mongoose");
+const mysql = require("mysql");
 const fs = require("fs");
 const bot = new Discord.Client();
-mongoose.connect(`mongodb+srv://${process.env.databaseName}:${process.env.databasePassword}@cluster0-sltlx.mongodb.net/${process.env.databaseName}`, {
-  useUnifiedTopology: true,
-  useNewUrlParser: true
-}).then(() => console.log('DB connected!')).catch(err => {
-  console.log(`DB Connection Error: ${err.message}`);
+// mongoose.connect(`mongodb+srv://${process.env.databaseName}:${process.env.databasePassword}@cluster0-sltlx.mongodb.net/${process.env.databaseName}`, {
+//   useUnifiedTopology: true,
+//   useNewUrlParser: true
+// }).then(() => console.log('DB connected!')).catch(err => {
+//   console.log(`DB Connection Error: ${err.message}`);
+// });
+const connection = mysql.createConnection({
+  host: `${process.env.dbHost}`,
+  user: `${process.env.dbUser}`,
+  password: `${process.env.dbPass}`
 });
+connection.connect(function(err) {
+  if (err) throw err;
+  console.log("Connected to secure DB!");
+};
 const config = require("./botconfig.json");
 const Money = require("./models/money.js");
 const Prefixes = require("./models/prefixes.js");
