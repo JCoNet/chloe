@@ -11,12 +11,14 @@ const bot = new Discord.Client();
 const connection = mysql.createConnection({
   host: `${process.env.dbHost}`,
   user: `${process.env.dbUser}`,
-  password: `${process.env.dbPass}`
+  password: `${process.env.dbPass}`,
+  database: `${dbName}`
 });
 connection.connect(function(err) {
   if (err) throw err;
   console.log("Connected to secure DB!");
-};
+});
+connection.close();
 const config = require("./botconfig.json");
 const Money = require("./models/money.js");
 const Prefixes = require("./models/prefixes.js");
@@ -47,23 +49,32 @@ fs.readdir("./commands", (err, file) => {
 
 });
 
-let botConf;
-generalBotConfig.findOne({}, (err, generalBotConf) => {
-  if (err) console.log(err);
-  if (!generalBotConf) {
-    const standardConfig = new generalBotConfig({
-      statusMessage: "Fresh build",
-      statusType: "PLAYING",
-      prefix: "bot/"
-    })
+// let botConf;
+// generalBotConfig.findOne({}, (err, generalBotConf) => {
+//   if (err) console.log(err);
+//   if (!generalBotConf) {
+//     const standardConfig = new generalBotConfig({
+//       statusMessage: "Fresh build",
+//       statusType: "PLAYING",
+//       prefix: "bot/"
+//     })
 
-    standardConfig.save().catch(err => console.log(err));
-    console.log("Database collection generalBotConfig created and default values imported.")
-  } else {
-    console.log("Database collection generalBotConfig already exists and contains config data.");
-    botConf = generalBotConf;
-  }
-});
+//     standardConfig.save().catch(err => console.log(err));
+//     console.log("Database collection generalBotConfig created and default values imported.")
+//   } else {
+//     console.log("Database collection generalBotConfig already exists and contains config data.");
+//     botConf = generalBotConf;
+//   }
+// });
+
+let botConf;
+connection.connect(function(err) {
+  if (err) throw err;
+  connection.query("SELECT statusMessage, statusType, defaultPrefix FROM defaultConfig", function(err, result) {
+    if (err) throw err;
+    botConf = result[0];
+  })
+})
 
 // bot.login(process.env.token);
 bot.login(process.env.betatoken);
@@ -85,7 +96,7 @@ bot.on('message', async message => {
       const newServer = new Prefixes({
         serverID: message.guild.id,
         serverName: message.guild.name,
-        prefix: botConf.prefix
+        prefix: botConf.defaultPrefix
       });
       newServer.save().catch(err => CompositionEvent.log(err));
       prefixes = Prefixes.findOne({serverID: message.guild.id});
