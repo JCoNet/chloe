@@ -68,9 +68,9 @@ fs.readdir("./commands", (err, file) => {
 
 let botConf;
 connection.connect(function(err) {
-  if (err) throw err;
+  if (err) console.log(err);
   connection.query("SELECT statusMessage, statusType, defaultPrefix FROM defaultConfig", function(err, result) {
-    if (err) throw err;
+    if (err) console.log(err);
     botConf = result[0];
   });
 });
