@@ -1,6 +1,5 @@
 const Discord = require('discord.js');
-// const mongoose = require('mongoose');
-// const Prefixes = require('../models/prefixes.js');
+const mysql = require("mysql2/promise");
 
 module.exports.run = async (bot, message, args, useprefix, connection) => {
     await message.delete();

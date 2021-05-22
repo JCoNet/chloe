@@ -1,4 +1,5 @@
 const Discord = require("discord.js");
+const mysql = require("mysql2/promise");
 
 module.exports.run = async (bot, message, args) => {
 

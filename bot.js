@@ -60,15 +60,10 @@ bot.on('message', async message => {
   if (result.length == 0) {
     await connection.query(`INSERT INTO prefixes SET guildID = '${message.guild.id}', prefix = '${botConf[0].defaultPrefix}'`);
     useprefix = botConf[0].defaultPrefix;
-    console.log(`prefix 1: ${useprefix}`);
   } else {
-    console.log(result[0])
     let results = result[0];
     useprefix = results[0].prefix;
-    console.log(`prefix 2: ${useprefix}`);
   };
-
-  console.log(`prefix 3: ${useprefix}`);
 
   // affect balance by message
   let messageArray = message.content.split(" ");
