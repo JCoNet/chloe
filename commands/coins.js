@@ -20,7 +20,7 @@ module.exports.run = async (bot, message, args, connection) => {
 //         embed.addField("Coins", result[0].coins, true);
 //         return message.channel.send(embed);
 //     };
-// }
+}
 
 module.exports.help = {
     name: "coins"
