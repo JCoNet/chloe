@@ -44,14 +44,12 @@ bot.on('ready', async () => {
   //set up botConf
   let result = await connection.query("SELECT statusMessage, statusType, defaultPrefix FROM defaultConfig");
   botConf = result[0];
-  console.log(`config: ${botConf[0]}`);
   // set up the bot status items when it conencts to api
   console.log(`Chloe sucessfully activated on ${d}, now ready for service.`);
   bot.user.setActivity(`${botConf[0].statusMessage}`, {type: `${botConf[0].statusType}`});
 });
 
 bot.on('message', async message => {
-  console.log(botConf[0]);
   if (message.author.bot) return;
   if (message.channel.type === "dm") return message.channel.send("JCoNet Development is restricting the number of variables that might cause me issues, meaning I am prohibited from running commands in DM. Sorry for the inconvenience.");
   
@@ -59,13 +57,14 @@ bot.on('message', async message => {
   let useprefix;
 
   let result = await connection.query(`SELECT prefix FROM prefixes WHERE guildID = '${message.guild.id}'`);
-  console.log(result);
   if (result.length == 0) {
     await connection.query(`INSERT INTO prefixes SET guildID = '${message.guild.id}', prefix = '${botConf[0].defaultPrefix}'`);
     useprefix = botConf[0].defaultPrefix;
     console.log(`prefix 1: ${useprefix}`);
   } else {
-    useprefix = result[0].prefix;
+    console.log(result[0])
+    let results = result[0];
+    useprefix = results[0].prefix;
     console.log(`prefix 2: ${useprefix}`);
   };
 
