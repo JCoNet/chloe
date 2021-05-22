@@ -48,13 +48,13 @@ bot.login(process.env.betatoken);
 bot.on('ready', async () => {
   //set up botConf
   botConf = await getConfig();
-  console.log(`config: ${botConf}`);
+  console.log(`config: ${botConf[0]}`);
   // set up the bot status items when it conencts to api
   console.log(`Chloe sucessfully activated on ${d}, now ready for service.`);
-  bot.user.setActivity(`${botConf.statusMessage}`, {type: `${botConf.statusType}`});
+  bot.user.setActivity(`${botConf[0].statusMessage}`, {type: `${botConf[0].statusType}`});
 });
 
-console.log(`config: ${botConf}`);
+console.log(`config: ${botConf[0]}`);
 
 bot.on('message', async message => {
   if (message.author.bot) return;
@@ -66,8 +66,8 @@ bot.on('message', async message => {
   let result = await connection.query(`SELECT prefix FROM prefixes WHERE guildID = '${message.guild.id}'`);
   console.log(result);
   if (result.length == 0) {
-    await connection.query(`INSERT INTO prefixes SET guildID = '${message.guild.id}', prefix = '${botConf.defaultPrefix}'`);
-    useprefix = botConf.defaultPrefix;
+    await connection.query(`INSERT INTO prefixes SET guildID = '${message.guild.id}', prefix = '${botConf[0].defaultPrefix}'`);
+    useprefix = botConf[0].defaultPrefix;
     console.log(`prefix 1: ${useprefix}`);
   } else {
     useprefix = result[0].prefix;
