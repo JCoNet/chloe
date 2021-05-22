@@ -2,6 +2,7 @@ const Discord = require('discord.js');
 const mysql = require("mysql2/promise");
 
 module.exports.run = async (bot, message, args, connection) => {
+    console.log(connection);
     await message.delete();
 
     let result = await connection.query(`SELECT coins FROM money WHERE guildID = '${message.guild.id}' AND userID = '${message.author.id}'`);
