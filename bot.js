@@ -109,7 +109,7 @@ bot.on('message', async message => {
     console.log("Test1");
     if (err) console.log(err);
     console.log("Test2");
-    if (result[0] = "") connection.query(`INSERT INTO prefixes (guildID, prefix) VALUES ('${message.guild.id}', '${botConf.defaultPrefix}')`, function(err, result){
+    if (result.length = 0) connection.query(`INSERT INTO prefixes (guildID, prefix) VALUES ('${message.guild.id}', '${botConf.defaultPrefix}')`, function(err, result){
       console.log("Test3");
       if (err) console.log(err);
       console.log("Test4");
@@ -153,10 +153,10 @@ bot.on('message', async message => {
 
     connection.query(`SELECT coins FROM money WHERE guildID = '${message.guild.id}' AND userID = '${message.author.id}'`, function(err, result) {
       if (err) console.log(err);
-      if (result[0] = "") connection.query(`INSERT INTO money (guildID, guildName, userID, userName, coins) VALUES '${message.guild.id}', '${message.guild.name}', '${message.author.id}', '${message.author.username}', '${coinstoadd}'`, function(err, result) {
+      if (result.length = 0) connection.query(`INSERT INTO money (guildID, guildName, userID, userName, coins) VALUES '${message.guild.id}', '${message.guild.name}', '${message.author.id}', '${message.author.username}', '${coinstoadd}'`, function(err, result) {
         if (err) console.log(err);
       });
-      newBal = result[0].coins + coinstoadd;
+      var newBal = result[0].coins + coinstoadd;
       connection.query(`UPDATE money SET coins = '${newbal}' WHERE guildID = '${message.guild.id}' AND userID = '${message.author.id}'`, function(err, result) {
         if (err) console.log(err);
       });
