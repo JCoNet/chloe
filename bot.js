@@ -38,7 +38,7 @@ async function getConfig() {
   let result = await connection.query("SELECT statusMessage, statusType, defaultPrefix FROM defaultConfig");
   return result[0];
 };
-let botConf = getConfig();
+let botConf = await getConfig();
 
 // connect to correct bot with login token
 // bot.login(process.env.token);
