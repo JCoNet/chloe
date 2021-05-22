@@ -8,16 +8,17 @@ const bot = new Discord.Client();
 // }).then(() => console.log('DB connected!')).catch(err => {
 //   console.log(`DB Connection Error: ${err.message}`);
 // });
-const connection = mysql.createConnection({
+const connection = await mysql.createConnection({
   host: `${process.env.dbHost}`,
   user: `${process.env.dbUser}`,
   password: `${process.env.dbPass}`,
   database: `${process.env.dbName}`
 });
-connection.connect(function(err) {
-  if (err) console.log(err);
-  console.log("Connected to secure DB!");
-});
+console.log("Connected to secure DB!");
+// connection.connect(function(err) {
+//   if (err) console.log(err);
+//   console.log("Connected to secure DB!");
+// });
 const config = require("./botconfig.json");
 // const Money = require("./models/money.js");
 // const Prefixes = require("./models/prefixes.js");
@@ -108,7 +109,7 @@ bot.on('message', async message => {
   connection.query(`SELECT prefix FROM prefixes WHERE guildID = '${message.guild.id}'`, function(err, result) {
     console.log("Test1");
     if (err) console.log(err);
-    console.log(`result is: ${result}`);
+    console.log(`result is: "${result}" this is equal to a no record found.`);
     console.log("Test2");
     // if (result.length = 0) connection.query(`INSERT INTO prefixes (guildID, prefix) VALUES ('${message.guild.id}', '${botConf.defaultPrefix}')`, function(err, result){
     //   console.log("Test3");
