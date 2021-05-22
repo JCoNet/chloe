@@ -111,16 +111,19 @@ bot.on('message', async message => {
     if (err) console.log(err);
     console.log(`result is: "${result}" this is equal to a no record found.`);
     console.log("Test2");
-    // if (result.length == 0) connection.query(`INSERT INTO prefixes (guildID, prefix) VALUES ('${message.guild.id}', '${botConf.defaultPrefix}')`, function(err, result){
-    //   console.log("Test3");
-    //   if (err) console.log(err);
-    //   console.log("Test4");
-    //   useprefix = botConf.defaultPrefix;
-    //   console.log("Test5");
-    // });
-    // console.log("Test6");
-    // useprefix = result[0].prefix;
-    // console.log("Test7");
+    if (result.length == 0) {
+      connection.query(`INSERT INTO prefixes (guildID, prefix) VALUES ('${message.guild.id}', '${botConf.defaultPrefix}')`, function(err, result){
+        console.log("Test3");
+        if (err) console.log(err);
+        console.log("Test4");
+        useprefix = botConf.defaultPrefix;
+        console.log("Test5");
+      });
+    } else {
+      console.log("Test6");
+      useprefix = result[0].prefix;
+      console.log("Test7");
+    };
   });
 
   // let prefix = config.prefix;
