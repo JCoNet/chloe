@@ -38,14 +38,16 @@ async function getConfig() {
   let result = await connection.query("SELECT statusMessage, statusType, defaultPrefix FROM defaultConfig");
   return result[0];
 };
-let botConf = await getConfig();
+let botConf;
 
 // connect to correct bot with login token
 // bot.login(process.env.token);
 bot.login(process.env.betatoken);
 
-// set up the bot status items when it conencts to api
 bot.on('ready', () => {
+  //set up botConf
+  botConf = await getConfig();
+  // set up the bot status items when it conencts to api
   console.log(`Chloe sucessfully activated on ${d}, now ready for service.`);
   bot.user.setActivity(`${botConf.statusMessage}`, {type: `${botConf.statusType}`});
 });
