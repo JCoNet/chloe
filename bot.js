@@ -84,6 +84,7 @@ bot.on('message', async message => {
     if (commandfile) commandfile.run(bot, message, args, useprefix, connection);
   } else {
     let coinstoadd = 1;
+    let newBal;
 
     connection.query(`SELECT coins FROM money WHERE guildID = '${message.guild.id}' AND userID = '${message.author.id}'`, function(err, result) {
       if (err) console.log(err);
@@ -92,8 +93,8 @@ bot.on('message', async message => {
           if (err) console.log(err);
         });
       } else {
-        let newBal = result[0].coins + coinstoadd;
-        connection.query(`UPDATE money SET coins = '${newbal}' WHERE guildID = '${message.guild.id}' AND userID = '${message.author.id}'`, function(err, result) {
+        newBal = result[0].coins + coinstoadd;
+        connection.query(`UPDATE money SET coins = '${newBal}' WHERE guildID = '${message.guild.id}' AND userID = '${message.author.id}'`, function(err, result) {
           if (err) console.log(err);
         });
       };
