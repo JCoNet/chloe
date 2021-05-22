@@ -73,6 +73,8 @@ bot.on('message', async message => {
     };
   });
 
+  console.log(`prefix: ${useprefix}`);
+
   // affect balance by message
   let messageArray = message.content.split(" ");
   let cmd = messageArray[0];
@@ -90,7 +92,7 @@ bot.on('message', async message => {
           if (err) console.log(err);
         });
       } else {
-        var newBal = result[0].coins + coinstoadd;
+        let newBal = result[0].coins + coinstoadd;
         connection.query(`UPDATE money SET coins = '${newbal}' WHERE guildID = '${message.guild.id}' AND userID = '${message.author.id}'`, function(err, result) {
           if (err) console.log(err);
         });
