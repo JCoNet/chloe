@@ -17,7 +17,7 @@ module.exports.run = async (bot, message, args, useprefix, connection) => {
 
     if (!args[0]) return message.channel.send(`Hello there, you seem to need my help here. Have you tried "${useprefix}prefix <new prefix>" yet?`);
 
-    connection.query(`UPDATE prefixes SET prefix = '${args[0]} WHERE guildID = '${message.guild.id}'`, function(err, result) {
+    connection.query(`UPDATE prefixes SET prefix = '${args[0]}' WHERE guildID = '${message.guild.id}'`, function(err, result) {
         if (err) console.log(err);
     });
 
