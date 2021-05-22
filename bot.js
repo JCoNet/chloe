@@ -54,9 +54,8 @@ bot.on('ready', async () => {
   bot.user.setActivity(`${botConf[0].statusMessage}`, {type: `${botConf[0].statusType}`});
 });
 
-console.log(`config: ${botConf[0]}`);
-
 bot.on('message', async message => {
+  console.log(botConf[0]);
   if (message.author.bot) return;
   if (message.channel.type === "dm") return message.channel.send("JCoNet Development is restricting the number of variables that might cause me issues, meaning I am prohibited from running commands in DM. Sorry for the inconvenience.");
   
