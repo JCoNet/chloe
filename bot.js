@@ -44,7 +44,7 @@ let botConf;
 // bot.login(process.env.token);
 bot.login(process.env.betatoken);
 
-bot.on('ready', () => {
+bot.on('ready', async () => {
   //set up botConf
   botConf = await getConfig();
   // set up the bot status items when it conencts to api
