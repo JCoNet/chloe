@@ -12,10 +12,6 @@ const connection = mysql.createPool({
   queueLimit: 0
 });
 console.log("Connected to secure DB!");
-// connection.connect(function(err) {
-//   if (err) console.log(err);
-//   console.log("Connected to secure DB!");
-// });
 const config = require("./botconfig.json");
 
 var d = new Date();
@@ -38,17 +34,14 @@ fs.readdir("./commands", (err, file) => {
   });
 });
 
-let botConf;
+let result = connection.query("SELECT statusMessage, statusType, defaultPrefix FROM defaultConfig");
+let botConf = result[0];
 
-connection.query("SELECT statusMessage, statusType, defaultPrefix FROM defaultConfig", function(err, result) {
-  if (err) console.log(err);
-  botConf = result[0];
-});
-
-
+// connect to correct bot with login token
 // bot.login(process.env.token);
 bot.login(process.env.betatoken);
 
+// set up the bot status items when it conencts to api
 bot.on('ready', () => {
   console.log(`Chloe sucessfully activated on ${d}, now ready for service.`);
   bot.user.setActivity(`${botConf.statusMessage}`, {type: `${botConf.statusType}`});
@@ -61,19 +54,15 @@ bot.on('message', async message => {
   // find and set prefix
   let useprefix;
 
-  await connection.query(`SELECT prefix FROM prefixes WHERE guildID = '${message.guild.id}'`, function(err, result) {
-    if (err) console.log(err);
-    if (result.length == 0) {
-      connection.query(`INSERT INTO prefixes SET guildID = '${message.guild.id}', prefix = '${botConf.defaultPrefix}'`, function(err, result){
-        if (err) console.log(err);
-        useprefix = botConf.defaultPrefix;
-        console.log(`prefix 1: ${useprefix}`);
-      });
-    } else {
-      useprefix = result[0].prefix;
-      console.log(`prefix 2: ${useprefix}`);
-    };
-  });
+  let result = await connection.query(`SELECT prefix FROM prefixes WHERE guildID = '${message.guild.id}'`);
+  if (result.length == 0) {
+    connection.query(`INSERT INTO prefixes SET guildID = '${message.guild.id}', prefix = '${botConf.defaultPrefix}'`);
+    useprefix = botConf.defaultPrefix;
+    console.log(`prefix 1: ${useprefix}`);
+  } else {
+    useprefix = result[0].prefix;
+    console.log(`prefix 2: ${useprefix}`);
+  };
 
   console.log(`prefix 3: ${useprefix}`);
 
@@ -88,19 +77,13 @@ bot.on('message', async message => {
     let coinstoadd = 1;
     let newBal;
 
-    connection.query(`SELECT coins FROM money WHERE guildID = '${message.guild.id}' AND userID = '${message.author.id}'`, function(err, result) {
-      if (err) console.log(err);
-      if (result.length == 0) {
-        connection.query(`INSERT INTO money SET guildID = '${message.guild.id}', guildName = '${message.guild.name}', userID = '${message.author.id}', userName = '${message.author.username}', coins = '${coinstoadd}'`, function(err, result) {
-          if (err) console.log(err);
-        });
-      } else {
-        newBal = result[0].coins + coinstoadd;
-        connection.query(`UPDATE money SET coins = '${newBal}' WHERE guildID = '${message.guild.id}' AND userID = '${message.author.id}'`, function(err, result) {
-          if (err) console.log(err);
-        });
-      };
-    });
+    let result = await connection.query(`SELECT coins FROM money WHERE guildID = '${message.guild.id}' AND userID = '${message.author.id}'`);
+    if (result.length == 0) {
+      connection.query(`INSERT INTO money SET guildID = '${message.guild.id}', guildName = '${message.guild.name}', userID = '${message.author.id}', userName = '${message.author.username}', coins = '${coinstoadd}'`);
+    } else {
+      newBal = result[0].coins + coinstoadd;
+      connection.query(`UPDATE money SET coins = '${newBal}' WHERE guildID = '${message.guild.id}' AND userID = '${message.author.id}'`);
+    };
   };
 
 });

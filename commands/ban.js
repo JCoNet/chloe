@@ -1,7 +1,4 @@
 const Discord = require("discord.js");
-// const Incident = require("../models/incidents.js");
-// const mongoose = require("mongoose");
-// const Connection = require("mysql/lib/Connection");
 
 module.exports.run = async (bot, message, args, connection) => {
   await message.delete();
@@ -22,25 +19,7 @@ module.exports.run = async (bot, message, args, connection) => {
   await bUser.send(`You have been banned from ${message.guild.name} for ${bReason}`).catch(err => console.log(err));
   await bUser.ban({reason: bReason}).then(message.channel.send(banEmbed)).catch(err => console.log(err));
 
-  // const incident = new Incident({
-  //   _id: mongoose.Types.ObjectId(),
-  //   type: "Ban",
-  //   userName: bUser.user.username,
-  //   userID: bUser.id,
-  //   serverName: message.guild.name,
-  //   serverID: message.guild.id,
-  //   reason: bReason,
-  //   iUsername: message.author.username,
-  //   iID: message.author.id,
-  //   time: message.createdAt
-  // });
-
-  // await incident.save().catch(err => console.log(err));
-
-  connection.query(`INSERT INTO (serverID = ${message.guild.id}, serverName = ${message.guild.name}, userID = ${bUser.id}, userName = ${bUser.user.username}, type = 'BAN', reason = ${bReason}, dateAndTime = ${message.createdAt}, staffID = ${message.author.id}, staffName = ${message.author.username}`, function(err, result) {
-    if (err) console.log(err);
-  });
-
+  connection.query(`INSERT INTO (serverID = ${message.guild.id}, serverName = ${message.guild.name}, userID = ${bUser.id}, userName = ${bUser.user.username}, type = 'BAN', reason = ${bReason}, dateAndTime = ${message.createdAt}, staffID = ${message.author.id}, staffName = ${message.author.username}`);
 
 };
 
