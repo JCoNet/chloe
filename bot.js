@@ -106,12 +106,19 @@ bot.on('message', async message => {
   // })
 
   connection.query(`SELECT prefix FROM prefixes WHERE guildID = '${message.guild.id}'`, function(err, result) {
+    console.log("Test1");
     if (err) console.log(err);
+    console.log("Test2");
     if (!result[0]) connection.query(`INSERT INTO prefixes (guildID, prefix) VALUES ('${message.guild.id}', '${botConf.defaultPrefix}')`, function(err, result){
+      console.log("Test3");
       if (err) console.log(err);
+      console.log("Test4");
       useprefix = botConf.defaultPrefix;
+      console.log("Test5");
     });
+    console.log("Test6");
     useprefix = result[0].prefix;
+    console.log("Test7");
   });
 
   // let prefix = config.prefix;
