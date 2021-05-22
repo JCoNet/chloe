@@ -1,5 +1,5 @@
 const Discord = require("discord.js");
-const mysql = require("mysql");
+const mysql = require("mysql2");
 const fs = require("fs");
 const bot = new Discord.Client();
 // mongoose.connect(`mongodb+srv://${process.env.databaseName}:${process.env.databasePassword}@cluster0-sltlx.mongodb.net/${process.env.databaseName}`, {
