@@ -36,6 +36,7 @@ fs.readdir("./commands", (err, file) => {
 
 async function getConfig() {
   let result = await connection.query("SELECT statusMessage, statusType, defaultPrefix FROM defaultConfig");
+  console.log(result);
   return result[0];
 };
 let botConf;
@@ -44,13 +45,16 @@ let botConf;
 // bot.login(process.env.token);
 bot.login(process.env.betatoken);
 
-bot.on('ready', async () => {
+bot.on('ready', () => {
   //set up botConf
   botConf = await getConfig();
+  console.log(`config: ${bonConf}`);
   // set up the bot status items when it conencts to api
   console.log(`Chloe sucessfully activated on ${d}, now ready for service.`);
   bot.user.setActivity(`${botConf.statusMessage}`, {type: `${botConf.statusType}`});
 });
+
+console.log(`config: ${botConf}`);
 
 bot.on('message', async message => {
   if (message.author.bot) return;
@@ -60,6 +64,7 @@ bot.on('message', async message => {
   let useprefix;
 
   let result = await connection.query(`SELECT prefix FROM prefixes WHERE guildID = '${message.guild.id}'`);
+  console.log(result);
   if (result.length == 0) {
     await connection.query(`INSERT INTO prefixes SET guildID = '${message.guild.id}', prefix = '${botConf.defaultPrefix}'`);
     useprefix = botConf.defaultPrefix;
