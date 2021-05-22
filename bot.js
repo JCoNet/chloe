@@ -44,7 +44,7 @@ bot.on('ready', async () => {
   //set up botConf
   let result = await connection.query("SELECT statusMessage, statusType, defaultPrefix FROM defaultConfig");
   botConf = result[0];
-  console.log(`config: ${botConf}`);
+  console.log(`config: ${botConf[0]}`);
   // set up the bot status items when it conencts to api
   console.log(`Chloe sucessfully activated on ${d}, now ready for service.`);
   bot.user.setActivity(`${botConf[0].statusMessage}`, {type: `${botConf[0].statusType}`});
