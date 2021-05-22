@@ -45,7 +45,7 @@ let botConf;
 // bot.login(process.env.token);
 bot.login(process.env.betatoken);
 
-bot.on('ready', () => {
+bot.on('ready', async () => {
   //set up botConf
   botConf = await getConfig();
   console.log(`config: ${bonConf}`);
