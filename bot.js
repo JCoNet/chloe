@@ -34,11 +34,6 @@ fs.readdir("./commands", (err, file) => {
   });
 });
 
-async function getConfig() {
-  let result = await connection.query("SELECT statusMessage, statusType, defaultPrefix FROM defaultConfig");
-  console.log(result[0]);
-  return result[0];
-};
 let botConf;
 
 // connect to correct bot with login token
@@ -47,8 +42,9 @@ bot.login(process.env.betatoken);
 
 bot.on('ready', async () => {
   //set up botConf
-  botConf = await getConfig();
-  console.log(`config: ${botConf[0]}`);
+  let result = await connection.query("SELECT statusMessage, statusType, defaultPrefix FROM defaultConfig");
+  botConf = result[0];
+  console.log(`config: ${botConf}`);
   // set up the bot status items when it conencts to api
   console.log(`Chloe sucessfully activated on ${d}, now ready for service.`);
   bot.user.setActivity(`${botConf[0].statusMessage}`, {type: `${botConf[0].statusType}`});
