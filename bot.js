@@ -37,8 +37,8 @@ fs.readdir("./commands", (err, file) => {
 let botConf;
 
 // connect to correct bot with login token
-// bot.login(process.env.token);
-bot.login(process.env.betatoken);
+bot.login(process.env.token);
+// bot.login(process.env.betatoken);
 
 bot.on('ready', async () => {
   //set up botConf
