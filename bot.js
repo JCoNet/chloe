@@ -8,7 +8,7 @@ const bot = new Discord.Client();
 // }).then(() => console.log('DB connected!')).catch(err => {
 //   console.log(`DB Connection Error: ${err.message}`);
 // });
-const connection = await mysql.createConnection({
+const connection = mysql.createConnection({
   host: `${process.env.dbHost}`,
   user: `${process.env.dbUser}`,
   password: `${process.env.dbPass}`,
@@ -111,7 +111,7 @@ bot.on('message', async message => {
     if (err) console.log(err);
     console.log(`result is: "${result}" this is equal to a no record found.`);
     console.log("Test2");
-    // if (result.length = 0) connection.query(`INSERT INTO prefixes (guildID, prefix) VALUES ('${message.guild.id}', '${botConf.defaultPrefix}')`, function(err, result){
+    // if (result.length == 0) connection.query(`INSERT INTO prefixes (guildID, prefix) VALUES ('${message.guild.id}', '${botConf.defaultPrefix}')`, function(err, result){
     //   console.log("Test3");
     //   if (err) console.log(err);
     //   console.log("Test4");
