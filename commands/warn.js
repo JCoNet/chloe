@@ -17,7 +17,7 @@ module.exports.run = async (bot, message, args) => {
         .addField("Reason", wReason);
     await message.channel.send(kickEmbed).catch(err => console.log(err));
 
-    connection.query(`INSERT INTO (serverID = ${message.guild.id}, serverName = ${message.guild.name}, userID = ${wUser.id}, userName = ${wUser.user.username}, type = 'WARNING', reason = ${wReason}, dateAndTime = ${message.createdAt}, staffID = ${message.author.id}, staffName = ${message.author.username}`);
+    await connection.query(`INSERT INTO (serverID = ${message.guild.id}, serverName = ${message.guild.name}, userID = ${wUser.id}, userName = ${wUser.user.username}, type = 'WARNING', reason = ${wReason}, dateAndTime = ${message.createdAt}, staffID = ${message.author.id}, staffName = ${message.author.username}`);
 
 };
 

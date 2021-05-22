@@ -34,7 +34,7 @@ fs.readdir("./commands", (err, file) => {
   });
 });
 
-let result = connection.query("SELECT statusMessage, statusType, defaultPrefix FROM defaultConfig");
+let result = await connection.query("SELECT statusMessage, statusType, defaultPrefix FROM defaultConfig");
 let botConf = result[0];
 
 // connect to correct bot with login token
@@ -56,7 +56,7 @@ bot.on('message', async message => {
 
   let result = await connection.query(`SELECT prefix FROM prefixes WHERE guildID = '${message.guild.id}'`);
   if (result.length == 0) {
-    connection.query(`INSERT INTO prefixes SET guildID = '${message.guild.id}', prefix = '${botConf.defaultPrefix}'`);
+    await connection.query(`INSERT INTO prefixes SET guildID = '${message.guild.id}', prefix = '${botConf.defaultPrefix}'`);
     useprefix = botConf.defaultPrefix;
     console.log(`prefix 1: ${useprefix}`);
   } else {
@@ -79,10 +79,10 @@ bot.on('message', async message => {
 
     let result = await connection.query(`SELECT coins FROM money WHERE guildID = '${message.guild.id}' AND userID = '${message.author.id}'`);
     if (result.length == 0) {
-      connection.query(`INSERT INTO money SET guildID = '${message.guild.id}', guildName = '${message.guild.name}', userID = '${message.author.id}', userName = '${message.author.username}', coins = '${coinstoadd}'`);
+      await connection.query(`INSERT INTO money SET guildID = '${message.guild.id}', guildName = '${message.guild.name}', userID = '${message.author.id}', userName = '${message.author.username}', coins = '${coinstoadd}'`);
     } else {
       newBal = result[0].coins + coinstoadd;
-      connection.query(`UPDATE money SET coins = '${newBal}' WHERE guildID = '${message.guild.id}' AND userID = '${message.author.id}'`);
+      await connection.query(`UPDATE money SET coins = '${newBal}' WHERE guildID = '${message.guild.id}' AND userID = '${message.author.id}'`);
     };
   };
 
