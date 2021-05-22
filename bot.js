@@ -108,17 +108,18 @@ bot.on('message', async message => {
   connection.query(`SELECT prefix FROM prefixes WHERE guildID = '${message.guild.id}'`, function(err, result) {
     console.log("Test1");
     if (err) console.log(err);
+    console.log(`result is: ${result}`);
     console.log("Test2");
-    if (result.length = 0) connection.query(`INSERT INTO prefixes (guildID, prefix) VALUES ('${message.guild.id}', '${botConf.defaultPrefix}')`, function(err, result){
-      console.log("Test3");
-      if (err) console.log(err);
-      console.log("Test4");
-      useprefix = botConf.defaultPrefix;
-      console.log("Test5");
-    });
-    console.log("Test6");
-    useprefix = result[0].prefix;
-    console.log("Test7");
+    // if (result.length = 0) connection.query(`INSERT INTO prefixes (guildID, prefix) VALUES ('${message.guild.id}', '${botConf.defaultPrefix}')`, function(err, result){
+    //   console.log("Test3");
+    //   if (err) console.log(err);
+    //   console.log("Test4");
+    //   useprefix = botConf.defaultPrefix;
+    //   console.log("Test5");
+    // });
+    // console.log("Test6");
+    // useprefix = result[0].prefix;
+    // console.log("Test7");
   });
 
   // let prefix = config.prefix;
@@ -151,16 +152,16 @@ bot.on('message', async message => {
     //   }
     // })
 
-    connection.query(`SELECT coins FROM money WHERE guildID = '${message.guild.id}' AND userID = '${message.author.id}'`, function(err, result) {
-      if (err) console.log(err);
-      if (result.length = 0) connection.query(`INSERT INTO money (guildID, guildName, userID, userName, coins) VALUES '${message.guild.id}', '${message.guild.name}', '${message.author.id}', '${message.author.username}', '${coinstoadd}'`, function(err, result) {
-        if (err) console.log(err);
-      });
-      var newBal = result[0].coins + coinstoadd;
-      connection.query(`UPDATE money SET coins = '${newbal}' WHERE guildID = '${message.guild.id}' AND userID = '${message.author.id}'`, function(err, result) {
-        if (err) console.log(err);
-      });
-    });
+    // connection.query(`SELECT coins FROM money WHERE guildID = '${message.guild.id}' AND userID = '${message.author.id}'`, function(err, result) {
+    //   if (err) console.log(err);
+    //   if (result.length = 0) connection.query(`INSERT INTO money (guildID, guildName, userID, userName, coins) VALUES '${message.guild.id}', '${message.guild.name}', '${message.author.id}', '${message.author.username}', '${coinstoadd}'`, function(err, result) {
+    //     if (err) console.log(err);
+    //   });
+    //   var newBal = result[0].coins + coinstoadd;
+    //   connection.query(`UPDATE money SET coins = '${newbal}' WHERE guildID = '${message.guild.id}' AND userID = '${message.author.id}'`, function(err, result) {
+    //     if (err) console.log(err);
+    //   });
+    // });
   };
 
 });
