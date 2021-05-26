@@ -56,12 +56,12 @@ bot.on('message', async message => {
   // find and set prefix
   let useprefix;
 
-  let result = await connection.query(`SELECT prefix FROM prefixes WHERE guildID = '${message.guild.id}'`);
+  let result = await connection.query(`SELECT prefix FROM prefixes WHERE guildID = "${message.guild.id}"`);
   let results = result[0];
   console.log(`result 1: ${result}`);
   if (results.length == 0) {
     console.log(`result 2: ${result}`);
-    await connection.query(`INSERT INTO prefixes SET guildID = '${message.guild.id}', prefix = '${botConf[0].defaultPrefix}'`);
+    await connection.query(`INSERT INTO prefixes SET guildID = "${message.guild.id}", prefix = "${botConf[0].defaultPrefix}"`);
     useprefix = botConf[0].defaultPrefix;
   } else {
     console.log(`result 3: ${result}`);
@@ -80,13 +80,13 @@ bot.on('message', async message => {
     let coinstoadd = 1;
     let newBal;
 
-    let result = await connection.query(`SELECT coins FROM money WHERE guildID = '${message.guild.id}' AND userID = '${message.author.id}'`);
+    let result = await connection.query(`SELECT coins FROM money WHERE guildID = "${message.guild.id}" AND userID = "${message.author.id}"`);
     let results = result[0];
     if (results.length == 0) {
-      await connection.query(`INSERT INTO money SET guildID = '${message.guild.id}', guildName = '${message.guild.name}', userID = '${message.author.id}', userName = '${message.author.username}', coins = ${coinstoadd}`);
+      await connection.query(`INSERT INTO money SET guildID = "${message.guild.id}", guildName = "${message.guild.name}", userID = "${message.author.id}", userName = "${message.author.username}", coins = ${coinstoadd}`);
     } else {
       newBal = results[0].coins + coinstoadd;
-      await connection.query(`UPDATE money SET coins = ${newBal} WHERE guildID = '${message.guild.id}' AND userID = '${message.author.id}'`);
+      await connection.query(`UPDATE money SET coins = ${newBal} WHERE guildID = "${message.guild.id}" AND userID = "${message.author.id}"`);
     };
   };
 

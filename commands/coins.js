@@ -4,7 +4,7 @@ const mysql = require("mysql2/promise");
 module.exports.run = async (bot, message, args, connection) => {
     await message.delete();
 
-    let result = await connection.query(`SELECT coins FROM money WHERE guildID = '${message.guild.id}' AND userID = '${message.author.id}'`);
+    let result = await connection.query(`SELECT coins FROM money WHERE guildID = "${message.guild.id}" AND userID = "${message.author.id}"`);
     let results = result[0];
     let embed = new Discord.MessageEmbed()
         .setTitle("Coins")

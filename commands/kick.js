@@ -20,7 +20,7 @@ module.exports.run = async (bot, message, args) => {
     await kUser.send(`You have been kicked from ${message.guild.name} for ${kReason}`).catch(err => console.log(err));
     await kUser.kick(kReason).then(message.channel.send(kickEmbed)).catch(err => console.log(err));
     
-  await connection.query(`INSERT INTO (serverID = ${message.guild.id}, serverName = ${message.guild.name}, userID = ${kUser.id}, userName = ${kUser.user.username}, type = 'KICK', reason = ${kReason}, dateAndTime = ${message.createdAt}, staffID = ${message.author.id}, staffName = ${message.author.username}`);
+  await connection.query(`INSERT INTO (serverID = "${message.guild.id}", serverName = "${message.guild.name}", userID = "${kUser.id}", userName = "${kUser.user.username}", type = "KICK", reason = "${kReason}", dateAndTime = "${message.createdAt}", staffID = "${message.author.id}", staffName = "${message.author.username}"`);
 
 };
 
