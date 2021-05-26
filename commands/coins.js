@@ -11,7 +11,7 @@ module.exports.run = async (bot, message, args, connection) => {
         .setColor("#aa7ce2")
         .setDescription(`Coin Balance for ${message.author.username} on ${message.guild.name}.`)
         .setThumbnail(message.author.displayAvatarURL);
-    if(!result[0]) {
+    if(results.length == 0) {
         embed.addField("Total", 0, true);
         return message.channel.send(embed);
     } else {

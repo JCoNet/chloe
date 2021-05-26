@@ -82,7 +82,7 @@ bot.on('message', async message => {
 
     let result = await connection.query(`SELECT coins FROM money WHERE guildID = '${message.guild.id}' AND userID = '${message.author.id}'`);
     let results = result[0];
-    if (result.length == 0) {
+    if (results.length == 0) {
       await connection.query(`INSERT INTO money SET guildID = '${message.guild.id}', guildName = '${message.guild.name}', userID = '${message.author.id}', userName = '${message.author.username}', coins = ${coinstoadd}`);
     } else {
       newBal = results[0].coins + coinstoadd;
