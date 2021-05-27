@@ -71,12 +71,13 @@ bot.on('message', async message => {
   
   // find and set prefix
   let useprefix;
-  let updated = "no";
+  let updated;
 
   let result = await connection.query(`SELECT prefix FROM guildConfig WHERE guildID = "${message.guild.id}"`).catch(err => console.log(err));
   let results = result[0];
   if (results.length == 0) {
     useprefix = botConf[0].defaultPrefix;
+    updated = "no";
   } else {
     useprefix = results[0].prefix;
     updated = "yes";
@@ -93,9 +94,7 @@ bot.on('message', async message => {
     if (commandfile) commandfile.run(bot, message, args, connection, useprefix);
   } else {
     // isn't command, affect balance by message
-    if (updated == "yes") {
-      return;
-    } else {
+    if (updated == "no") {
       let errorEmbed = new Discord.MessageEmbed()
         .setTitle("Important Notice")
         .setColor("#ff0000")
