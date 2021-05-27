@@ -61,19 +61,16 @@ bot.on('message', async message => {
   
   // find and set prefix
   let useprefix;
+  let updated;
 
   let result = await connection.query(`SELECT prefix FROM guildConfig WHERE guildID = "${message.guild.id}"`).catch(err => console.log(err));
   let results = result[0];
   if (results.length == 0) {
     useprefix = botConf[0].defaultPrefix;
-    let errorEmbed = new Discord.MessageEmbed()
-      .setTitle("Important Notice")
-      .setColor("#ff0000")
-      .setDescription("It seems this guild has not been updated to utilise my new features, please get an admin to run the following command to enable these features!")
-      .addField("Command", `${useprefix}updateguild`);
-    message.channel.send(errorEmbed).catch(err => console.log(err));
+    updated = "no";
   } else {
     useprefix = results[0].prefix;
+    updated = "yes";
   };
   
   // define params for command/message
@@ -87,6 +84,16 @@ bot.on('message', async message => {
     if (commandfile) commandfile.run(bot, message, args, connection, useprefix);
   } else {
     // isn't command, affect balance by message
+    if (updated == "yes") {
+      return;
+    } else {
+      let errorEmbed = new Discord.MessageEmbed()
+        .setTitle("Important Notice")
+        .setColor("#ff0000")
+        .setDescription("It seems this guild has not been updated to utilise my new features, please get an admin to run the following command to enable these features!")
+        .addField("Command", `${useprefix}updateguild`);
+      message.channel.send(errorEmbed).catch(err => console.log(err));
+    }
     let coinstoadd = 1;
     let newBal;
 
