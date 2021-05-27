@@ -99,7 +99,8 @@ bot.on('message', async message => {
         .setTitle("Important Notice")
         .setColor("#ff0000")
         .setDescription("It seems this guild has not been updated to utilise my new features, please get an admin to run the following command to enable these features!")
-        .addField("Command", `${useprefix}updateguild`);
+        .addField("Command", `${useprefix}updateguild`)
+        .setFooter(`Any questions please contact: customer_support@jconet.xyz or visit our website and use our live chat https://jconet.xyz`);
       message.channel.send(errorEmbed).catch(err => console.log(err));
     }
     let coinstoadd = 1;
