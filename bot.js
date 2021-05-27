@@ -50,7 +50,7 @@ bot.on('ready', async () => {
 });
 
 bot.on('guildCreate', async guild => {
-  let defaultChannel = await guild.channels.get(channel => channel.type === 'text' && channel.permissionsFor(guild.me).has('SEND_MESSAGES'));
+  let defaultChannel = await guild.channels.find(channel => channel.type === 'text' && channel.permissionsFor(guild.me).has('SEND_MESSAGES'));
   await connection.query(`INSERT INTO guildConfig SET guildName = "${guild.name}", guildID = "${guild.id}", prefix = "${botConf[0].defaultPrefix}", ownerName = "${guild.owner.username}", ownerID = "${guild.ownerID}", systemChannelName = "${guild.systemChannel}", systemChannelID = "${guild.systemChannelID}", announcementChannelName = "${defaultChannel.name}", announcementChannelID = "${defaultChannel.id}", welcomeChannelName = "${defaultChannel.name}", welcomeChannelID = "${defaultChannel.id}", welcomeMessage = "Welcome to the server!"`).catch(err => console.log(err));
   await guild.systemChannel.send("Thank you for adding me to your server do chloe/help to find out all the commands I offer!").catch(err => console.log(err));
 });
@@ -75,15 +75,18 @@ bot.on('message', async message => {
   } else {
     useprefix = results[0].prefix;
   };
-
-  // affect balance by message
+  
+  // define params for command/message
   let messageArray = message.content.split(" ");
   let cmd = messageArray[0];
   let args = messageArray.slice(1);
+  // check if is a command or not
   if (message.content.startsWith(useprefix)) {
+    // is command, execute command
     let commandfile = bot.commands.get(cmd.slice(useprefix.length));
     if (commandfile) commandfile.run(bot, message, args, connection, useprefix);
   } else {
+    // isn't command, affect balance by message
     let coinstoadd = 1;
     let newBal;
 
