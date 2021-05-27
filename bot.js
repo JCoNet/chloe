@@ -54,7 +54,7 @@ bot.on('guildCreate', async guild => {
   let sysChannel = message.guild.sysChannel;
   let sysChannelName;
   let sysChannelID;
-  if {sysChannel.length == 0} {
+  if (sysChannel.length == 0) {
     sysChannelName = defaultChannel.name;
     sysChannelID = defaultChannel.id;
   } else {
