@@ -66,7 +66,7 @@ bot.on('message', async message => {
   let results = result[0];
   if (results.length == 0) {
     useprefix = botConf[0].defaultPrefix;
-    let errorEmbed = Discord.MessageEmbed()
+    let errorEmbed = new Discord.MessageEmbed()
       .setTitle("Important Notice")
       .setColor("#ff0000")
       .setDescription("It seems this guild has not been updated to utilise my new features, please get an admin to run the following command to enable these features!")
