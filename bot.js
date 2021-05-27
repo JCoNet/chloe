@@ -50,7 +50,7 @@ bot.on('ready', async () => {
 });
 
 bot.on('guildCreate', async guild => {
-  let defaultChannel = await guild.channels.find(channel => channel.type === 'text' && channel.permissionsFor(guild.me).has('SEND_MESSAGES'));
+  let defaultChannel = await guild.channels.get(channel => channel.type === 'text' && channel.permissionsFor(guild.me).has('SEND_MESSAGES'));
   await connection.query(`INSERT INTO guildConfig SET guildName = "${guild.name}", guildID = "${guild.id}", prefix = "${botConf[0].defaultPrefix}", ownerName = "${guild.owner.username}", ownerID = "${guild.ownerID}", systemChannelName = "${guild.systemChannel}", systemChannelID = "${guild.systemChannelID}", announcementChannelName = "${defaultChannel.name}", announcementChannelID = "${defaultChannel.id}", welcomeChannelName = "${defaultChannel.name}", welcomeChannelID = "${defaultChannel.id}", welcomeMessage = "Welcome to the server!"`).catch(err => console.log(err));
   await guild.systemChannel.send("Thank you for adding me to your server do chloe/help to find out all the commands I offer!").catch(err => console.log(err));
 });
