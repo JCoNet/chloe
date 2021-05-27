@@ -61,13 +61,12 @@ bot.on('message', async message => {
   
   // find and set prefix
   let useprefix;
-  let updated;
+  let updated = "no";
 
   let result = await connection.query(`SELECT prefix FROM guildConfig WHERE guildID = "${message.guild.id}"`).catch(err => console.log(err));
   let results = result[0];
   if (results.length == 0) {
     useprefix = botConf[0].defaultPrefix;
-    updated = "no";
   } else {
     useprefix = results[0].prefix;
     updated = "yes";
