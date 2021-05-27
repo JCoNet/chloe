@@ -49,6 +49,12 @@ bot.on('ready', async () => {
   bot.user.setActivity(`${botConf[0].statusMessage}`, {type: `${botConf[0].statusType}`});
 });
 
+bot.on('guildCreate', async guild => {
+  let defaultChannel = await guild.channels.find(channel => channel.type === 'text' && channel.permissionsFor(guild.me).has('SEND_MESSAGES'));
+  await connection.query(`INSERT INTO guildConfig SET guildName = "${guild.name}", guildID = "${guild.id}", prefix = "${botConf[0].defaultPrefix}", ownerName = "${guild.owner.username}", ownerID = "${guild.ownerID}", systemChannelName = "${guild.systemChannel}", systemChannelID = "${guild.systemChannelID}", announcementChannelName = "${defaultChannel.name}", announcementChannelID = "${defaultChannel.id}", welcomeChannelName = "${defaultChannel.name}", welcomeChannelID = "${defaultChannel.id}", welcomeMessage = "Welcome to the server!"`).catch(err => console.log(err));
+  await guild.systemChannel.send("Thank you for adding me to your server do chloe/help to find out all the commands I offer!").catch(err => console.log(err));
+});
+
 bot.on('message', async message => {
   if (message.author.bot) return;
   if (message.channel.type === "dm") return message.channel.send("JCoNet Development is restricting the number of variables that might cause me issues, meaning I am prohibited from running commands in DM. Sorry for the inconvenience.");
@@ -56,11 +62,16 @@ bot.on('message', async message => {
   // find and set prefix
   let useprefix;
 
-  let result = await connection.query(`SELECT prefix FROM prefixes WHERE guildID = "${message.guild.id}"`);
+  let result = await connection.query(`SELECT prefix FROM guildConfig WHERE guildID = "${message.guild.id}"`).catch(err => console.log(err));
   let results = result[0];
   if (results.length == 0) {
-    await connection.query(`INSERT INTO prefixes SET guildID = "${message.guild.id}", prefix = "${botConf[0].defaultPrefix}"`);
     useprefix = botConf[0].defaultPrefix;
+    let errorEmbed = Discord.MessageEmbed()
+      .setTitle("Important Notice")
+      .setColor("#ff0000")
+      .setDescription("It seems this guild has not been updated to utilise my new features, please get an admin to run the following command to enable these features!")
+      .addField("Command", `${useprefix}updateguild`);
+    message.channel.send(errorEmbed).catch(err => console.log(err));
   } else {
     useprefix = results[0].prefix;
   };
@@ -76,13 +87,13 @@ bot.on('message', async message => {
     let coinstoadd = 1;
     let newBal;
 
-    let result = await connection.query(`SELECT coins FROM money WHERE guildID = "${message.guild.id}" AND userID = "${message.author.id}"`);
+    let result = await connection.query(`SELECT coins FROM money WHERE guildID = "${message.guild.id}" AND userID = "${message.author.id}"`).catch(err => console.log(err));
     let results = result[0];
     if (results.length == 0) {
-      await connection.query(`INSERT INTO money SET guildID = "${message.guild.id}", guildName = "${message.guild.name}", userID = "${message.author.id}", userName = "${message.author.username}", coins = ${coinstoadd}`);
+      await connection.query(`INSERT INTO money SET guildID = "${message.guild.id}", guildName = "${message.guild.name}", userID = "${message.author.id}", userName = "${message.author.username}", coins = ${coinstoadd}`).catch(err => console.log(err));
     } else {
       newBal = results[0].coins + coinstoadd;
-      await connection.query(`UPDATE money SET coins = ${newBal} WHERE guildID = "${message.guild.id}" AND userID = "${message.author.id}"`);
+      await connection.query(`UPDATE money SET coins = ${newBal} WHERE guildID = "${message.guild.id}" AND userID = "${message.author.id}"`).catch(err => console.log(err));
     };
   };
 
