@@ -72,11 +72,11 @@ bot.on('guildCreate', async guild => {
     .setThumbnail(bot.user.displayAvatarURL())
     .addField("Quickly Re-Add Chloe Beta if we told you to remove and re-add her.", '[Invite link for Chloe Beta](https://discord.com/oauth2/authorize?client_id=845392640920518666&permissions=8&scope=bot "Invite for chloe beta")');
 
-  guild.systemChannel.send(newGuildEmbed);
+  await guild.systemChannel.send(newGuildEmbed);
 
   
   // let guildOwnerID = guild.ownerID;
-  let guildOwner = await guild.members.fetch(`${guild.ownerID}`);
+  let guildOwner = await guild.members.fetch(guild.ownerID);
 
   // let result = await connection.query(`SELECT * FROM guildConfig WHERE guildID="${guild.id}"`);
   // let results = result[0];
@@ -85,7 +85,7 @@ bot.on('guildCreate', async guild => {
   //   await connection.query(`INSERT INTO guildConfig SET guildName = "${guild.name}", guildID = "${guild.id}", prefix = "${botConf[0].defaultPrefix}", ownerName = "${guildOwner.user.username}", ownerID = "${guildOwner.user.id}", systemChannelName = "${sysChannelName}", systemChannelID = "${sysChannelID}", announcementChannelName = "${defaultChannel.name}", announcementChannelID = "${defaultChannel.id}", welcomeChannelName = "${defaultChannel.name}", welcomeChannelID = "${defaultChannel.id}", welcomeMessage = "Welcome to the server!"`).catch(err => console.log(err));
   // };
 
-  guild.systemChannel.send(`owner: ${guildOwner[0]}`);
+  guild.systemChannel.send(`owner: ${guildOwner}`);
   guild.systemChannel.send(`ownerID: ${guild.ownerID}`);
 
 });
