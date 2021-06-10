@@ -37,8 +37,8 @@ fs.readdir("./commands", (err, file) => {
 let botConf;
 
 // connect to correct bot with login token
-bot.login(process.env.token);
-// bot.login(process.env.betatoken);
+// bot.login(process.env.token);
+bot.login(process.env.betatoken);
 
 bot.on('ready', async () => {
   //set up botConf
@@ -62,7 +62,17 @@ bot.on('guildCreate', async guild => {
     sysChannelID = guild.sysChannel.id;
   };
   await connection.query(`INSERT INTO guildConfig SET guildName = "${guild.name}", guildID = "${guild.id}", prefix = "${botConf[0].defaultPrefix}", ownerName = "${guild.owner.user.username}", ownerID = "${guild.owner.user.id}", systemChannelName = "${sysChannelName}", systemChannelID = "${sysChannelID}", announcementChannelName = "${defaultChannel.name}", announcementChannelID = "${defaultChannel.id}", welcomeChannelName = "${defaultChannel.name}", welcomeChannelID = "${defaultChannel.id}", welcomeMessage = "Welcome to the server!"`).catch(err => console.log(err));
-  guild.systemChannel.send("Thank you for adding me to your server do chloe/help to find out all the commands I offer!").catch(err => console.log(err));
+  await guild.systemChannel.send("Thank you for adding me to your server do chloe/help to find out all the commands I offer!").catch(err => console.log(err));
+
+  let newGuildEmbed = new Discord.MessageEmbed()
+    .setTitle("Chloe Beta Requirements")
+    .setDescription("Using Chloe Beta means you are required to follow our requirements including regular feedback about the bot useage and reporting any bugs.")
+    .setURL("https://chloe.jconet.xyz/")
+    .setAuthor('JCoNet Development', 'https://jconet.xyz/resources/JCN.jpg', 'https://jconet.xyz')
+    .setThumbnail(bot.user.displayAvatarURL());
+
+  guild.systemChannel.send(newGuildEmbed);
+
 });
 
 bot.on('message', async message => {
@@ -75,7 +85,7 @@ bot.on('message', async message => {
 
   let result = await connection.query(`SELECT prefix FROM guildConfig WHERE guildID = "${message.guild.id}"`).catch(err => console.log(err));
   let results = result[0];
-  if (results.length == 0) {
+  if (result.length == 0) {
     useprefix = botConf[0].defaultPrefix;
     updated = "no";
   } else {
