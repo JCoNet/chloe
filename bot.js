@@ -94,6 +94,7 @@ bot.on('guildCreate', async guild => {
 });
 
 bot.on('guildMemberAdd', async member => {
+  var d = new Date();
   // member.guild.channels.get('channelID').send("Welcome"); 
   let result = await connection.query(`SELECT welcomeChannelID, welcomeMessage, welcomeEnabled FROM guildConfig WHERE guildID="${member.guild.id}"`).catch(err => console.log(err));
   let results = result[0];
@@ -101,16 +102,30 @@ bot.on('guildMemberAdd', async member => {
   let welcomeEnabled = await results[0].welcomeEnabled;
   let welcomeMessage = await results[0].welcomeMessage;
   let welcomeChannel = await member.guild.channels.cache.get(results[0].welcomeChannelID);
-  console.log(`enabled: ${welcomeEnabled}`);
-  console.log(`message: ${welcomeMessage}`);
-  console.log(`channel: ${welcomeChannel}`);
-  // if (welcomeEnabled == 1){
-  //   // welcome embed
-  //   console.log(welcomeChannel);
-  //   console.log(welcomeMessage);
-  // } else {
-  //   return;
-  // };
+  // console.log(`enabled: ${welcomeEnabled}`);
+  // console.log(`message: ${welcomeMessage}`);
+  // console.log(`channel: ${welcomeChannel}`);
+  if (welcomeEnabled == 1){
+    // welcome embed
+    let welcomeEmbed = new Discord.MessageEmbed()
+    .setColor("#3efa67")
+    .setTitle("New User Joined")
+    .setDescription("Somebody new has joined the server!")
+    .setThumbnail(member.user.displayAvatarURL())
+    .setAuthor(`${member.guild.name}`, `${member.guild.iconURL()}`)
+    .addFields(
+      {name: "Welcome message", value: `${welcomeMessage}`},
+      {name: "name", value: `${member.user.username}`, inline: true},
+      {name: "Joined", value: `${d}`, inline: true},
+      {name: "mention", value: `<@${member.user.id}>`},
+    )
+    .setFooter(`The owner of this server is ${member.guild.owner.user.username}`);
+
+    welcomeChannel.send(welcomeEmbed);
+
+  } else {
+    return;
+  };
 
 });
 
