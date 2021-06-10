@@ -106,10 +106,6 @@ bot.on('guildMemberAdd', async member => {
   let serverIcon;
   if (!check) {
     serverIcon = "https://jconet.xyz/resources/JCN.png";
-    console.log("1");
-  } else if (check == null) {
-    serverIcon = "https://jconet.xyz/resources/JCN.png";
-    console.log("2");
   } else {
     serverIcon = check;
   };
@@ -121,13 +117,13 @@ bot.on('guildMemberAdd', async member => {
     let welcomeEmbed = new Discord.MessageEmbed()
     .setColor("#3efa67")
     .setTitle("New User Joined")
-    .setDescription("Somebody new has joined the server!")
+    .setDescription(`${welcomeMessage}`)
     .setThumbnail(member.user.displayAvatarURL())
     .setAuthor(`${member.guild.name}`, `${serverIcon}`)
     .addFields(
-      {name: "Welcome message", value: `${welcomeMessage}`},
       {name: "name", value: `${member.user.username}`, inline: true},
-      {name: "Joined", value: `${d}`, inline: true},
+      {name: "Join date", value: `${d.getFullYear()+'-'+d.getMonth()+'-'+d.getDate()}`, inline: true},
+      {name: "Join time", value: `${d.getHours()+':'+d.getMinutes+':'+d.getSeconds()}`, inline: true},
       {name: "mention", value: `<@${member.user.id}>`},
     )
     .setFooter(`The owner of this server is ${member.guild.owner.user.username}`);
