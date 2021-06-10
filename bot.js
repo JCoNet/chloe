@@ -62,6 +62,15 @@ bot.on('guildCreate', async guild => {
     sysChannelID = guild.sysChannel.id;
   };
 
+  let guildOwner = await guild.members.fetch(guild.ownerID);
+
+  let result = await connection.query(`SELECT * FROM guildConfig WHERE guildID="${guild.id}"`);
+  let results = result[0];
+
+  if (results.length == 0) {
+    await connection.query(`INSERT INTO guildConfig SET guildName = "${guild.name}", guildID = "${guild.id}", prefix = "${botConf[0].defaultPrefix}", ownerName = "${guildOwner.user.username}", ownerID = "${guildOwner.user.id}", systemChannelName = "${sysChannelName}", systemChannelID = "${sysChannelID}", announcementChannelName = "${defaultChannel.name}", announcementChannelID = "${defaultChannel.id}", welcomeChannelName = "${defaultChannel.name}", welcomeChannelID = "${defaultChannel.id}", welcomeMessage = "Welcome to the server!"`).catch(err => console.log(err));
+  };
+
   await guild.systemChannel.send("Thank you for adding me to your server do chloe/help to find out all the commands I offer!").catch(err => console.log(err));
 
   let newGuildEmbed = new Discord.MessageEmbed()
@@ -73,19 +82,6 @@ bot.on('guildCreate', async guild => {
     .addField("Quickly Re-Add Chloe Beta if we told you to remove and re-add her.", '[Invite link for Chloe Beta](https://discord.com/oauth2/authorize?client_id=845392640920518666&permissions=8&scope=bot "Invite for chloe beta")');
 
   await guild.systemChannel.send(newGuildEmbed);
-
-  
-  // let guildOwnerID = guild.ownerID;
-  let guildOwner = await guild.members.fetch(guild.ownerID);
-
-  // let result = await connection.query(`SELECT * FROM guildConfig WHERE guildID="${guild.id}"`);
-  // let results = result[0];
-
-  // if (results.length == 0) {
-  //   await connection.query(`INSERT INTO guildConfig SET guildName = "${guild.name}", guildID = "${guild.id}", prefix = "${botConf[0].defaultPrefix}", ownerName = "${guildOwner.user.username}", ownerID = "${guildOwner.user.id}", systemChannelName = "${sysChannelName}", systemChannelID = "${sysChannelID}", announcementChannelName = "${defaultChannel.name}", announcementChannelID = "${defaultChannel.id}", welcomeChannelName = "${defaultChannel.name}", welcomeChannelID = "${defaultChannel.id}", welcomeMessage = "Welcome to the server!"`).catch(err => console.log(err));
-  // };
-
-  guild.systemChannel.send(`owner: ${guildOwner.user.username}`);
 
 });
 
