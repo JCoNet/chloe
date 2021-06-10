@@ -66,7 +66,7 @@ bot.on('guildCreate', async guild => {
 
   let guildOwner = await guild.members.fetch(guild.ownerID);
 
-  let result = await connection.query(`SELECT * FROM guildConfig WHERE guildID="${guild.id}"`);
+  let result = await connection.query(`SELECT * FROM guildConfig WHERE guildID="${guild.id}"`).catch(err => console.log(err));
   let results = result[0];
 
   if (results.length == 0) {
@@ -90,6 +90,24 @@ bot.on('guildCreate', async guild => {
     .setFooter(`Lead developer: ${stats.author}`);
 
   await guild.systemChannel.send(newGuildEmbed);
+
+});
+
+bot.on('guildMemberAdd', async member => {
+  // member.guild.channels.get('channelID').send("Welcome"); 
+  let result = await connection.query(`SELECT welcomeChannelID, welcomeMessage, welcomeEnabled FROM guildConfig WHERE guildID="${member.guild.id}"`).catch(err => console.log(err));
+  let results = result[0];
+  
+  let welcomeEnabled = await results[0].welcomeEnabled;
+  let welcomeMessage = await results[0].welcomeMessage;
+  let welcomeChannel = await member.guild.channels.cache.get(results[0].welcomeChannelID);
+  if (welcomeEnabled == 1){
+    // welcome embed
+    console.log(welcomeChannel);
+    console.log(welcomeMessage);
+  } else {
+    return;
+  };
 
 });
 
