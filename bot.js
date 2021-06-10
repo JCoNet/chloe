@@ -41,7 +41,7 @@ let botConf;
 // bot.login(process.env.token);
 bot.login(process.env.betatoken);
 
-bot.on('ready', async () => {
+bot.once('ready', async () => {
   //set up botConf
   var d = new Date();
   let result = await connection.query("SELECT statusMessage, statusType, defaultPrefix FROM defaultConfig");
