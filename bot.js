@@ -69,13 +69,14 @@ bot.on('guildCreate', async guild => {
     .setDescription("Using Chloe Beta means you are required to follow our requirements including regular feedback about the bot useage and reporting any bugs.")
     .setURL("https://chloe.jconet.xyz/")
     .setAuthor('JCoNet Development', 'https://jconet.xyz/resources/JCN.png', 'https://jconet.xyz')
-    .setThumbnail(bot.user.displayAvatarURL());
+    .setThumbnail(bot.user.displayAvatarURL())
+    .addField("Quickly Re-Add Chloe Beta if we told you to remove and re-add her.", '[Invite link for Chloe Beta](https://discord.com/oauth2/authorize?client_id=845392640920518666&permissions=8&scope=bot "Invite for chloe beta")');
 
   guild.systemChannel.send(newGuildEmbed);
 
   
   // let guildOwnerID = guild.ownerID;
-  // let guildOwner = guild.members.cache.get(guildOwnerID);
+  let guildOwner = guild.members.fetch(guild.ownerID);
 
   // let result = await connection.query(`SELECT * FROM guildConfig WHERE guildID="${guild.id}"`);
   // let results = result[0];
@@ -84,7 +85,7 @@ bot.on('guildCreate', async guild => {
   //   await connection.query(`INSERT INTO guildConfig SET guildName = "${guild.name}", guildID = "${guild.id}", prefix = "${botConf[0].defaultPrefix}", ownerName = "${guildOwner.user.username}", ownerID = "${guildOwner.user.id}", systemChannelName = "${sysChannelName}", systemChannelID = "${sysChannelID}", announcementChannelName = "${defaultChannel.name}", announcementChannelID = "${defaultChannel.id}", welcomeChannelName = "${defaultChannel.name}", welcomeChannelID = "${defaultChannel.id}", welcomeMessage = "Welcome to the server!"`).catch(err => console.log(err));
   // };
 
-  guild.systemChannel.send(`owner: ${guild.members.fetch(guild.ownerID)}`);
+  guild.systemChannel.send(`owner: ${guildOwner.user.username}`);
   guild.systemChannel.send(`ownerID: ${guild.ownerID}`);
 
 });
