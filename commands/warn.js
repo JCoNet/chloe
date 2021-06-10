@@ -1,7 +1,7 @@
 const Discord = require("discord.js");
 const mysql = require("mysql2/promise");
 
-module.exports.run = async (bot, message, args) => {
+module.exports.run = async (bot, message, args, connection) => {
 
     if(!message.member.hasPermission("MANAGE_MESSAGES")) return message.reply("Sorry, I am not allowed to let non moderator users to run this command.");
     let wUser = message.guild.member(message.mentions.users.first()) || message.guild.members.get(args[0]);

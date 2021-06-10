@@ -1,7 +1,7 @@
 const Discord = require("discord.js");
 const mysql = require("mysql2/promise");
 
-module.exports.run = async (bot, message, args) => {
+module.exports.run = async (bot, message, args, connection) => {
   await message.delete();
     let kUser = message.guild.member(message.mentions.users.first() || message.guild.members.cache.get(args[0]));
     if (!kUser) return message.reply("The specified user could not be found.");
