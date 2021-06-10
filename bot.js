@@ -84,7 +84,7 @@ bot.on('guildCreate', async guild => {
   //   await connection.query(`INSERT INTO guildConfig SET guildName = "${guild.name}", guildID = "${guild.id}", prefix = "${botConf[0].defaultPrefix}", ownerName = "${guildOwner.user.username}", ownerID = "${guildOwner.user.id}", systemChannelName = "${sysChannelName}", systemChannelID = "${sysChannelID}", announcementChannelName = "${defaultChannel.name}", announcementChannelID = "${defaultChannel.id}", welcomeChannelName = "${defaultChannel.name}", welcomeChannelID = "${defaultChannel.id}", welcomeMessage = "Welcome to the server!"`).catch(err => console.log(err));
   // };
 
-  guild.systemChannel.send(`owner: ${guild.members.get(guild.ownerID)}`);
+  guild.systemChannel.send(`owner: ${guild.members.fetch(guild.ownerID)}`);
   guild.systemChannel.send(`ownerID: ${guild.ownerID}`);
 
 });
