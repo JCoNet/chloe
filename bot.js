@@ -74,15 +74,18 @@ bot.on('guildCreate', async guild => {
   guild.systemChannel.send(newGuildEmbed);
 
   
-  let guildOwnerID = guild.ownerID;
-  let guildOwner = guild.members.cache.get(guildOwnerID);
+  // let guildOwnerID = guild.ownerID;
+  // let guildOwner = guild.members.cache.get(guildOwnerID);
 
-  let result = await connection.query(`SELECT * FROM guildConfig WHERE guildID="${guild.id}"`);
-  let results = result[0];
+  // let result = await connection.query(`SELECT * FROM guildConfig WHERE guildID="${guild.id}"`);
+  // let results = result[0];
 
-  if (results.length == 0) {
-    await connection.query(`INSERT INTO guildConfig SET guildName = "${guild.name}", guildID = "${guild.id}", prefix = "${botConf[0].defaultPrefix}", ownerName = "${guildOwner.user.username}", ownerID = "${guildOwner.user.id}", systemChannelName = "${sysChannelName}", systemChannelID = "${sysChannelID}", announcementChannelName = "${defaultChannel.name}", announcementChannelID = "${defaultChannel.id}", welcomeChannelName = "${defaultChannel.name}", welcomeChannelID = "${defaultChannel.id}", welcomeMessage = "Welcome to the server!"`).catch(err => console.log(err));
-  };
+  // if (results.length == 0) {
+  //   await connection.query(`INSERT INTO guildConfig SET guildName = "${guild.name}", guildID = "${guild.id}", prefix = "${botConf[0].defaultPrefix}", ownerName = "${guildOwner.user.username}", ownerID = "${guildOwner.user.id}", systemChannelName = "${sysChannelName}", systemChannelID = "${sysChannelID}", announcementChannelName = "${defaultChannel.name}", announcementChannelID = "${defaultChannel.id}", welcomeChannelName = "${defaultChannel.name}", welcomeChannelID = "${defaultChannel.id}", welcomeMessage = "Welcome to the server!"`).catch(err => console.log(err));
+  // };
+
+  guild.systemChannel.send(`owner: ${guild.owner}`);
+  guild.systemChannel.send(`ownerID: ${guild.ownerID}`);
 
 });
 
