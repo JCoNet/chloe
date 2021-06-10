@@ -68,8 +68,8 @@ bot.on('guildCreate', async guild => {
     .setTitle("Chloe Beta Requirements")
     .setDescription("Using Chloe Beta means you are required to follow our requirements including regular feedback about the bot useage and reporting any bugs.")
     .setURL("https://chloe.jconet.xyz/")
-    .setAuthor('JCoNet Development', 'https://jconet.xyz/resources/JCN.jpg', 'https://jconet.xyz')
-    .setThumbnail(bot.defaultAvatarURL());
+    .setAuthor('JCoNet Development', 'https://jconet.xyz/resources/JCN.png', 'https://jconet.xyz')
+    .setThumbnail(bot.user.defaultAvatarURL());
 
   guild.systemChannel.send(newGuildEmbed);
 
