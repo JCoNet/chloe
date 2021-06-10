@@ -61,7 +61,12 @@ bot.on('guildCreate', async guild => {
     sysChannelName = guild.sysChannel.name;
     sysChannelID = guild.sysChannel.id;
   };
-  await connection.query(`INSERT INTO guildConfig SET guildName = "${guild.name}", guildID = "${guild.id}", prefix = "${botConf[0].defaultPrefix}", ownerName = "${guild.owner.user.username}", ownerID = "${guild.owner.user.id}", systemChannelName = "${sysChannelName}", systemChannelID = "${sysChannelID}", announcementChannelName = "${defaultChannel.name}", announcementChannelID = "${defaultChannel.id}", welcomeChannelName = "${defaultChannel.name}", welcomeChannelID = "${defaultChannel.id}", welcomeMessage = "Welcome to the server!"`).catch(err => console.log(err));
+  let result = await connection.query(`SELECT * FROM guildConfig WHERE guildID="${guild.id}"`);
+
+  if (result.length == 0) {
+    await connection.query(`INSERT INTO guildConfig SET guildName = "${guild.name}", guildID = "${guild.id}", prefix = "${botConf[0].defaultPrefix}", ownerName = "${guild.owner.user.username}", ownerID = "${guild.owner.user.id}", systemChannelName = "${sysChannelName}", systemChannelID = "${sysChannelID}", announcementChannelName = "${defaultChannel.name}", announcementChannelID = "${defaultChannel.id}", welcomeChannelName = "${defaultChannel.name}", welcomeChannelID = "${defaultChannel.id}", welcomeMessage = "Welcome to the server!"`).catch(err => console.log(err));
+  };
+
   await guild.systemChannel.send("Thank you for adding me to your server do chloe/help to find out all the commands I offer!").catch(err => console.log(err));
 
   let newGuildEmbed = new Discord.MessageEmbed()
@@ -69,7 +74,7 @@ bot.on('guildCreate', async guild => {
     .setDescription("Using Chloe Beta means you are required to follow our requirements including regular feedback about the bot useage and reporting any bugs.")
     .setURL("https://chloe.jconet.xyz/")
     .setAuthor('JCoNet Development', 'https://jconet.xyz/resources/JCN.jpg', 'https://jconet.xyz')
-    .setThumbnail(bot.user.displayAvatarURL());
+    .setThumbnail(bot.displayAvatarURL());
 
   guild.systemChannel.send(newGuildEmbed);
 
