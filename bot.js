@@ -1,6 +1,7 @@
 const Discord = require("discord.js");
 const mysql = require("mysql2/promise");
 const fs = require("fs");
+const stats = require("../package.json");
 const bot = new Discord.Client();
 const connection = mysql.createPool({
   host: process.env.dbHost,
@@ -71,7 +72,7 @@ bot.on('guildCreate', async guild => {
     await connection.query(`INSERT INTO guildConfig SET guildName = "${guild.name}", guildID = "${guild.id}", prefix = "${botConf[0].defaultPrefix}", ownerName = "${guildOwner.user.username}", ownerID = "${guildOwner.user.id}", systemChannelName = "${sysChannelName}", systemChannelID = "${sysChannelID}", announcementChannelName = "${defaultChannel.name}", announcementChannelID = "${defaultChannel.id}", welcomeChannelName = "${defaultChannel.name}", welcomeChannelID = "${defaultChannel.id}", welcomeMessage = "Welcome to the server!"`).catch(err => console.log(err));
   };
 
-  await guild.systemChannel.send("Thank you for adding me to your server do chloe/help to find out all the commands I offer!").catch(err => console.log(err));
+  await defaultChannel.send("Thank you for adding me to your server do chloe/help to find out all the commands I offer!").catch(err => console.log(err));
 
   let newGuildEmbed = new Discord.MessageEmbed()
     .setColor('#24d3f2')
