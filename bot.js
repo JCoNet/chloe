@@ -1,8 +1,11 @@
 const Discord = require("discord.js");
 const mysql = require("mysql2/promise");
 const fs = require("fs");
-const stats = require("../package.json");
+const stats = require("./package.json");
+const config = require("./botconfig.json");
+
 const bot = new Discord.Client();
+
 const connection = mysql.createPool({
   host: process.env.dbHost,
   user: process.env.dbUser,
@@ -13,9 +16,6 @@ const connection = mysql.createPool({
   queueLimit: 0
 });
 console.log("Connected to secure DB!");
-const config = require("./botconfig.json");
-
-var d = new Date();
 
 console.log(`${config.test}`);
 
@@ -43,6 +43,7 @@ bot.login(process.env.betatoken);
 
 bot.on('ready', async () => {
   //set up botConf
+  var d = new Date();
   let result = await connection.query("SELECT statusMessage, statusType, defaultPrefix FROM defaultConfig");
   botConf = result[0];
   // set up the bot status items when it conencts to api
