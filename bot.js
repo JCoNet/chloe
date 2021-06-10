@@ -62,8 +62,9 @@ bot.on('guildCreate', async guild => {
     sysChannelID = guild.sysChannel.id;
   };
   let result = await connection.query(`SELECT * FROM guildConfig WHERE guildID="${guild.id}"`);
+  let results = result[0];
 
-  if (result.length == 0) {
+  if (results.length == 0) {
     await connection.query(`INSERT INTO guildConfig SET guildName = "${guild.name}", guildID = "${guild.id}", prefix = "${botConf[0].defaultPrefix}", ownerName = "${guild.owner.user.username}", ownerID = "${guild.owner.user.id}", systemChannelName = "${sysChannelName}", systemChannelID = "${sysChannelID}", announcementChannelName = "${defaultChannel.name}", announcementChannelID = "${defaultChannel.id}", welcomeChannelName = "${defaultChannel.name}", welcomeChannelID = "${defaultChannel.id}", welcomeMessage = "Welcome to the server!"`).catch(err => console.log(err));
   };
 
@@ -74,7 +75,7 @@ bot.on('guildCreate', async guild => {
     .setDescription("Using Chloe Beta means you are required to follow our requirements including regular feedback about the bot useage and reporting any bugs.")
     .setURL("https://chloe.jconet.xyz/")
     .setAuthor('JCoNet Development', 'https://jconet.xyz/resources/JCN.jpg', 'https://jconet.xyz')
-    .setThumbnail(bot.displayAvatarURL());
+    .setThumbnail(bot.defaultAvatarURL());
 
   guild.systemChannel.send(newGuildEmbed);
 
