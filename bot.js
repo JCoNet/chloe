@@ -62,16 +62,6 @@ bot.on('guildCreate', async guild => {
     sysChannelID = guild.sysChannel.id;
   };
 
-  let guildOwnerID = guild.ownerID;
-  let guildOwner = guild.members.get(guildOwnerID);
-
-  let result = await connection.query(`SELECT * FROM guildConfig WHERE guildID="${guild.id}"`);
-  let results = result[0];
-
-  if (results.length == 0) {
-    await connection.query(`INSERT INTO guildConfig SET guildName = "${guild.name}", guildID = "${guild.id}", prefix = "${botConf[0].defaultPrefix}", ownerName = "${guildOwner.user.username}", ownerID = "${guildOwner.user.id}", systemChannelName = "${sysChannelName}", systemChannelID = "${sysChannelID}", announcementChannelName = "${defaultChannel.name}", announcementChannelID = "${defaultChannel.id}", welcomeChannelName = "${defaultChannel.name}", welcomeChannelID = "${defaultChannel.id}", welcomeMessage = "Welcome to the server!"`).catch(err => console.log(err));
-  };
-
   await guild.systemChannel.send("Thank you for adding me to your server do chloe/help to find out all the commands I offer!").catch(err => console.log(err));
 
   let newGuildEmbed = new Discord.MessageEmbed()
@@ -82,6 +72,17 @@ bot.on('guildCreate', async guild => {
     .setThumbnail(bot.defaultAvatarURL());
 
   guild.systemChannel.send(newGuildEmbed);
+
+  
+  let guildOwnerID = guild.ownerID;
+  let guildOwner = guild.members.cache.get(guildOwnerID);
+
+  let result = await connection.query(`SELECT * FROM guildConfig WHERE guildID="${guild.id}"`);
+  let results = result[0];
+
+  if (results.length == 0) {
+    await connection.query(`INSERT INTO guildConfig SET guildName = "${guild.name}", guildID = "${guild.id}", prefix = "${botConf[0].defaultPrefix}", ownerName = "${guildOwner.user.username}", ownerID = "${guildOwner.user.id}", systemChannelName = "${sysChannelName}", systemChannelID = "${sysChannelID}", announcementChannelName = "${defaultChannel.name}", announcementChannelID = "${defaultChannel.id}", welcomeChannelName = "${defaultChannel.name}", welcomeChannelID = "${defaultChannel.id}", welcomeMessage = "Welcome to the server!"`).catch(err => console.log(err));
+  };
 
 });
 
