@@ -101,13 +101,16 @@ bot.on('guildMemberAdd', async member => {
   let welcomeEnabled = await results[0].welcomeEnabled;
   let welcomeMessage = await results[0].welcomeMessage;
   let welcomeChannel = await member.guild.channels.cache.get(results[0].welcomeChannelID);
-  if (welcomeEnabled == 1){
-    // welcome embed
-    console.log(welcomeChannel);
-    console.log(welcomeMessage);
-  } else {
-    return;
-  };
+  console.log(`enabled: ${welcomeEnabled}`);
+  console.log(`message: ${welcomeMessage}`);
+  console.log(`channel: ${welcomeChannel}`);
+  // if (welcomeEnabled == 1){
+  //   // welcome embed
+  //   console.log(welcomeChannel);
+  //   console.log(welcomeMessage);
+  // } else {
+  //   return;
+  // };
 
 });
 
