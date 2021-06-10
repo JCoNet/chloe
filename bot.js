@@ -74,12 +74,17 @@ bot.on('guildCreate', async guild => {
   await guild.systemChannel.send("Thank you for adding me to your server do chloe/help to find out all the commands I offer!").catch(err => console.log(err));
 
   let newGuildEmbed = new Discord.MessageEmbed()
+    .setColor('#24d3f2')
     .setTitle("Chloe Beta Requirements")
     .setDescription("Using Chloe Beta means you are required to follow our requirements including regular feedback about the bot useage and reporting any bugs.")
     .setURL("https://chloe.jconet.xyz/")
     .setAuthor('JCoNet Development', 'https://jconet.xyz/resources/JCN.png', 'https://jconet.xyz')
-    .setThumbnail(bot.user.displayAvatarURL())
-    .addField("Quickly Re-Add Chloe Beta if we told you to remove and re-add her.", '[Invite link for Chloe Beta](https://discord.com/oauth2/authorize?client_id=845392640920518666&permissions=8&scope=bot "Invite for chloe beta")');
+    .setThumbnail(bot.user.displayAvatarURL()
+    .addField("Requirements", "The introduction of Chloe Beta opens up many issues such as possibilities of crashes and commands not working. the requirements on you are that you do not spam commands and report any commands not working or not showing the results properly to our proper communication options below. You are also required to give us feedback and thoughts on how the bot is working in your server and how it operates. Other suggestions to changing the command layouts etc are welcomed.")
+    .addField("Email us", 'chloe-beta@jconet.xyz', true)
+    .addField("Talk to our team", '[JCoNet Live Support](https://tawk.to/jcnsupport "JCoNet Support Live Chat Link")', true)
+    .addField("Submit a ticket", '[JCoNet Knowledge Base](https://jconet.tawk.help "JCoNet Knowledge Base Link (tickets submitted through here)")', true)
+    .setFooter('Quickly Re-Add Chloe Beta if we told you to remove and re-add her. [Invite link for Chloe Beta](https://discord.com/oauth2/authorize?client_id=845392640920518666&permissions=8&scope=bot "Invite for chloe beta")');
 
   await guild.systemChannel.send(newGuildEmbed);
 
