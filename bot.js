@@ -63,7 +63,7 @@ bot.on('guildCreate', async guild => {
   };
 
   let guildOwnerID = guild.ownerID;
-  let guildOwner = guild.members.cache.get(guildOwnerID);
+  let guildOwner = guild.members.get(guildOwnerID);
 
   let result = await connection.query(`SELECT * FROM guildConfig WHERE guildID="${guild.id}"`);
   let results = result[0];
@@ -95,7 +95,7 @@ bot.on('message', async message => {
 
   let result = await connection.query(`SELECT prefix FROM guildConfig WHERE guildID = "${message.guild.id}"`).catch(err => console.log(err));
   let results = result[0];
-  if (result.length == 0) {
+  if (results.length == 0) {
     useprefix = botConf[0].defaultPrefix;
     updated = "no";
   } else {
