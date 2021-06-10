@@ -123,7 +123,7 @@ bot.on('guildMemberAdd', async member => {
     .setTitle("New User Joined")
     .setDescription("Somebody new has joined the server!")
     .setThumbnail(member.user.displayAvatarURL())
-    .setAuthor(`${member.guild.name}`, `${}`)
+    .setAuthor(`${member.guild.name}`, `${serverIcon}`)
     .addFields(
       {name: "Welcome message", value: `${welcomeMessage}`},
       {name: "name", value: `${member.user.username}`, inline: true},
