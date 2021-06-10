@@ -79,7 +79,7 @@ bot.on('guildCreate', async guild => {
     .setDescription("Using Chloe Beta means you are required to follow our requirements including regular feedback about the bot useage and reporting any bugs.")
     .setURL("https://chloe.jconet.xyz/")
     .setAuthor('JCoNet Development', 'https://jconet.xyz/resources/JCN.png', 'https://jconet.xyz')
-    .setThumbnail(bot.user.displayAvatarURL()
+    .setThumbnail(bot.user.displayAvatarURL())
     .addField("Requirements", "The introduction of Chloe Beta opens up many issues such as possibilities of crashes and commands not working. the requirements on you are that you do not spam commands and report any commands not working or not showing the results properly to our proper communication options below. You are also required to give us feedback and thoughts on how the bot is working in your server and how it operates. Other suggestions to changing the command layouts etc are welcomed.")
     .addField("Email us", 'chloe-beta@jconet.xyz', true)
     .addField("Talk to our team", '[JCoNet Live Support](https://tawk.to/jcnsupport "JCoNet Support Live Chat Link")', true)
