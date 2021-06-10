@@ -102,6 +102,17 @@ bot.on('guildMemberAdd', async member => {
   let welcomeEnabled = await results[0].welcomeEnabled;
   let welcomeMessage = await results[0].welcomeMessage;
   let welcomeChannel = await member.guild.channels.cache.get(results[0].welcomeChannelID);
+  let check = member.guild.iconURL();
+  let serverIcon;
+  if (!check) {
+    serverIcon = "https://jconet.xyz/resources/JCN.png";
+    console.log("1");
+  } else if (check == null) {
+    serverIcon = "https://jconet.xyz/resources/JCN.png";
+    console.log("2");
+  } else {
+    serverIcon = check;
+  };
   // console.log(`enabled: ${welcomeEnabled}`);
   // console.log(`message: ${welcomeMessage}`);
   // console.log(`channel: ${welcomeChannel}`);
@@ -112,7 +123,7 @@ bot.on('guildMemberAdd', async member => {
     .setTitle("New User Joined")
     .setDescription("Somebody new has joined the server!")
     .setThumbnail(member.user.displayAvatarURL())
-    .setAuthor(`${member.guild.name}`, `${member.guild.iconURL()}`)
+    .setAuthor(`${member.guild.name}`, `${}`)
     .addFields(
       {name: "Welcome message", value: `${welcomeMessage}`},
       {name: "name", value: `${member.user.username}`, inline: true},
