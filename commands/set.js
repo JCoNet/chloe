@@ -57,12 +57,12 @@ module.exports.run = async (bot, message, args, connection, useprefix) => {
     .addComponent(sysbut)
     .addComponent(announcebut);
 
-    const dismiss = new MessageActionRow()
+    const nevermind = new MessageActionRow()
     .addComponent(cancel);
 
     message.channel.send({
         embed: setEmbed,
-        component:[channels, dismiss]
+        components:[channels, nevermind]
     });
 };
 
