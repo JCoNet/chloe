@@ -29,7 +29,7 @@ module.exports.run = async (bot, message, args, connection, useprefix) => {
     console.log(`len: ${len}`);
     for (var i = 0; i < len; i++) {
         sendToGuild = await bot.guilds.cache.get(results[i].guildID)
-        let sendTo = await sendToGuildchannels.cache.get(results[i].announcementChannelID);
+        let sendTo = await sendToGuild.channels.cache.get(results[i].announcementChannelID);
         // sendTo.send(newfeatEmbed);
         console.log(`results[0]: ${results[0]}`);
         console.log(`sendTo: ${sendTo}`);
