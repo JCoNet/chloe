@@ -5,7 +5,7 @@ module.exports.run = async (bot, message, args, connection, useprefix) => {
 
     await message.delete();
 
-    let result = await connection.query(`SELECT welcomeChannelID, announcementChannelID, systemChannelID FROM guildConfig WHERE guildID = "${message.guild.id}"`).catch(err => console.log(err));
+    let result = await connection.query(`SELECT welcomeChannelID, systemChannelID, announcementChannelID FROM guildConfig WHERE guildID = "${message.guild.id}"`).catch(err => console.log(err));
     let results = result[0];
     let welcome = await message.guild.channels.cache.get(results[0].welcomeChannelID);
     let system = await message.guild.channels.cache.get(results[0].systemChannelID);
