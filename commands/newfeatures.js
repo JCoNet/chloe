@@ -32,5 +32,5 @@ module.exports.run = async (bot, message, args, connection, useprefix) => {
 };
 
 module.exports.help = {
-    name: "prefix"
+    name: "newfeatures"
 }
