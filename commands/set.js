@@ -1,5 +1,5 @@
 const Discord = require("discord.js");
-const { MessageButton } = require("discord-buttons");
+const { MessageButton, MessageActionRow } = require("discord-buttons");
 
 module.exports.run = async (bot, message, args, connection, useprefix) => {
 
@@ -52,9 +52,17 @@ module.exports.run = async (bot, message, args, connection, useprefix) => {
     .setLabel("CANCEL")
     .setID("cancel");
 
+    const channels = new MessageActionRow()
+    .addComponent(welcbut)
+    .addComponent(sysbut)
+    .addComponent(announcebut);
+
+    const dismiss = new MessageActionRow()
+    .addComponent(cancel);
+
     message.channel.send({
-        buttons:[welcbut, sysbut, announcebut, cancel],
-        embed: setEmbed
+        embed: setEmbed,
+        component:[channels, dismiss]
     });
 };
 

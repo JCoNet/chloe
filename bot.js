@@ -7,6 +7,7 @@ const config = require("./botconfig.json");
 const bot = new Discord.Client();
 
 require("discord-buttons")(bot);
+const { MessageButton, MessageActionRow } = require("discord-buttons");
 
 const connection = mysql.createPool({
   host: process.env.dbHost,
@@ -189,4 +190,12 @@ bot.on('message', async message => {
     };
   };
 
+});
+
+bot.on('clickButton', async (button) => {
+  if (button.id == "cancel") {
+    button.defer();
+    button.message.delete();
+    button.channel.send(`Cancelled channel setup for ${button.guild.name}.`).then(msg => msg.delete({timeout: 3000})).catch(err => console.log(err));
+  };
 });
