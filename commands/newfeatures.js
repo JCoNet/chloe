@@ -24,18 +24,10 @@ module.exports.run = async (bot, message, args, connection, useprefix) => {
     let result = await connection.query("SELECT systemChannelID, guildID FROM guildConfig").catch(err => console.log(err));
     let results = result[0];
     var len = results.length;
-    console.log(`result: ${JSON.stringify(result)}`);
-    console.log(`results: ${JSON.stringify(results)}`);
-    console.log(`len: ${len}`);
     for (var i = 0; i < len; i++) {
-        console.log(`results[${i}]: ${JSON.stringify(results[i])}`);
-        console.log(`results[${i}].guildID: ${results[i].guildID}`);
         let sendToGuild = await bot.guilds.cache.get(results[i].guildID);
-        console.log(`sendToGuild: ${sendToGuild}`);
-        console.log(`results[${i}].announcementChannelID: ${results[i].systemChannelID}`);
         let sendTo = await sendToGuild.channels.cache.get(results[i].systemChannelID);
-        // sendTo.send(newfeatEmbed);
-        console.log(`sendTo: ${sendTo}`);
+        sendTo.send(newfeatEmbed);
     };
 
 };
