@@ -19,6 +19,7 @@ module.exports.run = async (bot, message, args, connection, useprefix) => {
         )
     if (message.member.hasPermission("MANAGE_MESSAGES")) {
         helpEmbed.addFields(
+            
             {name: "Moderator Commands", value: '\u200B', inline:false},
             {name: `${useprefix}clear <num to delete>`, value: "removes set number of messages from chat.", inline: true},
             {name: `${useprefix}pingall <message>`, value: "Send the message as Chloe with an everyone tag.", inline: true},
@@ -34,6 +35,7 @@ module.exports.run = async (bot, message, args, connection, useprefix) => {
     };
     if (message.member.hasPermission("ADMINISTRATOR")) {
         helpEmbed.addFields(
+            {name: "\u200B", value: '\u200B', inline:false},
             {name: "Administrator Commands", value: "\u200B", inline: false},
             {name: `${useprefix}updateguild`, value: "Updates our database about info regarding your server. [only run when bot tells you to]", inline: true},
             {name: `${useprefix}set`, value: "Will start the configurator for message channels using the channel it is run in as the channel you want the message channel set to.", inline: true},
