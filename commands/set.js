@@ -4,7 +4,7 @@ const { MessageButton, MessageActionRow } = require("discord-buttons");
 module.exports.run = async (bot, message, args, connection, useprefix) => {
 
     await message.delete();
-
+    if(!message.member.hasPermission("ADMINISTRATOR")) return message.reply("Unfortunately, under JCoNet operation policies i am not allowed to let anyone not ranked with permission ADMINISTRATOR to change any of my settings for servers.").then(msg => msg.delete({timeout: 9000})).catch(err => console.log(err));
     let result = await connection.query(`SELECT welcomeChannelID, systemChannelID, announcementChannelID FROM guildConfig WHERE guildID = "${message.guild.id}"`).catch(err => console.log(err));
     let results = result[0];
     let welcome = await message.guild.channels.cache.get(results[0].welcomeChannelID);
@@ -18,7 +18,7 @@ module.exports.run = async (bot, message, args, connection, useprefix) => {
         serverIcon = check;
     };
 
-    const setEmbed = new Discord.MessageEmbed()
+    let setEmbed = new Discord.MessageEmbed()
     .setAuthor('JCoNet Development', 'https://jconet.xyz/resources/JCN.png', 'https://jconet.xyz')
     .setColor('#f59e2c')
     .setTitle(`Set Guild Channels for ${message.guild.name}`)
@@ -32,38 +32,38 @@ module.exports.run = async (bot, message, args, connection, useprefix) => {
     )
     .setFooter("Select the channel you want to set with the buttons bellow");
     
-    const welcbut = new MessageButton()
+    let welcbut = new MessageButton()
     .setStyle('blurple')
     .setLabel("Welcome Channel")
     .setID("welcome");
 
-    const sysbut = new MessageButton()
+    let sysbut = new MessageButton()
     .setStyle('blurple')
     .setLabel("System Channel")
     .setID("System");
 
-    const announcebut = new MessageButton()
+    let announcebut = new MessageButton()
     .setStyle('blurple')
     .setLabel("Announcement Channel")
-    .setID("wannoucement");
+    .setID("annoucement");
 
-    const cancel = new MessageButton()
+    let cancel = new MessageButton()
     .setStyle('red')
     .setLabel("CANCEL")
-    .setID("cancel");
+    .setID("admincancel");
 
-    const channels = new MessageActionRow()
+    let channels = new MessageActionRow()
     .addComponent(welcbut)
     .addComponent(sysbut)
     .addComponent(announcebut);
 
-    const nevermind = new MessageActionRow()
+    let embedcontrol = new MessageActionRow()
     .addComponent(cancel);
 
     message.channel.send({
         embed: setEmbed,
-        components:[channels, nevermind]
-    });
+        components:[channels, embedcontrol]
+    }).catch(err => console.log(err));
 };
 
 module.exports.help = {
