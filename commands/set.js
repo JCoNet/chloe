@@ -40,7 +40,7 @@ module.exports.run = async (bot, message, args, connection, useprefix) => {
     let sysbut = new MessageButton()
     .setStyle('blurple')
     .setLabel("System Channel")
-    .setID("System");
+    .setID("system");
 
     let announcebut = new MessageButton()
     .setStyle('blurple')
