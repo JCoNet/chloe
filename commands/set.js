@@ -6,9 +6,9 @@ module.exports.run = async (bot, message, args, connection, disbut, useprefix) =
 
     let result = await connection.query(`SELECT welcomeChannelID, announcementChannelID, systemChannelID FROM guildConfig WHERE guildID = "${message.guild.id}"`).catch(err => console.log(err));
     let results = result[0];
-    let welcome = await member.guild.channels.cache.get(results[0].welcomeChannelID);
-    let system = await member.guild.channels.cache.get(results[0].systemChannelID);
-    let announcement = await member.guild.channels.cache.get(results[0].announcementChannelID);
+    let welcome = await message.guild.channels.cache.get(results[0].welcomeChannelID);
+    let system = await message.guild.channels.cache.get(results[0].systemChannelID);
+    let announcement = await message.guild.channels.cache.get(results[0].announcementChannelID);
     let check = member.guild.iconURL();
     let serverIcon;
     if (!check) {
