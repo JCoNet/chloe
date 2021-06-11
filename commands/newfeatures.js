@@ -32,7 +32,8 @@ module.exports.run = async (bot, message, args, connection, useprefix) => {
         console.log(`results[${i}].guildID: ${results[i].guildID}`);
         let sendToGuild = await bot.guilds.cache.get(results[i].guildID);
         console.log(`sendToGuild: ${sendToGuild}`);
-        let sendTo = await bot.guild.channels.cache.get(results[i].announcementChannelID);
+        console.log(`results[${i}].announcementChannelID: ${results[i].announcementChannelID}`);
+        let sendTo = await sendToGuild.channels.cache.get(results[i].announcementChannelID);
         // sendTo.send(newfeatEmbed);
         console.log(`sendTo: ${sendTo}`);
     };
