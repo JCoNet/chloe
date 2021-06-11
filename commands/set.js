@@ -33,22 +33,22 @@ module.exports.run = async (bot, message, args, connection, useprefix) => {
     .setFooter("Select the channel you want to set with the buttons bellow");
     
     const welcbut = new MessageButton()
-    .setStyle("blurple")
+    .setStyle('blurple')
     .setLabel("Welcome Channel")
     .setID("welcome");
 
     const sysbut = new MessageButton()
-    .setStyle("blurple")
+    .setStyle('blurple')
     .setLabel("System Channel")
     .setID("System");
 
     const announcebut = new MessageButton()
-    .setStyle("blurple")
+    .setStyle('blurple')
     .setLabel("Announcement Channel")
     .setID("wannoucement");
 
     const cancel = new MessageButton()
-    .setStyle("red")
+    .setStyle('red')
     .setLabel("CANCEL")
     .setID("cancel");
 
