@@ -201,7 +201,7 @@ bot.on('clickButton', async (button) => {
       button.message.delete();
       button.channel.send(`Cancelled channel setup for ${button.guild.name}.`).then(msg => msg.delete({timeout: 3000})).catch(err => console.log(err));
     } else {
-      button.clicker.send(`You tried to use admin only buttons in ${button.guild.name} and we thought we would let you know that you cannot do that.`);
+      button.clicker.member.send(`You tried to use admin only buttons in ${button.guild.name} and we thought we would let you know that you cannot do that.`);
     };
   };
   
@@ -214,7 +214,7 @@ bot.on('clickButton', async (button) => {
       await connection.query(`UPDATE guildConfig SET welcomeChannelName = "${button.channel.name}", welcomeChannelID ="${button.channel.id}" WHERE guildID = "${button.guild.id}"`).catch(err => console.log(err));
       button.channel.send(`Welcome channel set to ${button.channel} in ${button.guild.name}.`).then(msg => msg.delete({timeout: 3000})).catch(err => console.log(err));
     } else {
-      button.clicker.send(`You tried to use admin only buttons in ${button.guild.name} and we thought we would let you know that you cannot do that.`);
+      button.clicker.memeber.send(`You tried to use admin only buttons in ${button.guild.name} and we thought we would let you know that you cannot do that.`);
     };
   } else if (button.id == "system") {
     if (button.clicker.member.hasPermission("ADMINISTRATOR")) {
@@ -224,7 +224,7 @@ bot.on('clickButton', async (button) => {
       await connection.query(`UPDATE guildConfig SET systemChannelName = "${button.channel.name}", systemChannelID ="${button.channel.id}" WHERE guildID = "${button.guild.id}"`).catch(err => console.log(err));
       button.channel.send(`System channel set to ${button.channel} in ${button.guild.name}.`).then(msg => msg.delete({timeout: 3000})).catch(err => console.log(err));
     } else {
-      button.clicker.send(`You tried to use admin only buttons in ${button.guild.name} and we thought we would let you know that you cannot do that.`);
+      button.clicker.member.send(`You tried to use admin only buttons in ${button.guild.name} and we thought we would let you know that you cannot do that.`);
     };
   } else if (button.id == "announcement") {
     if (button.clicker.member.hasPermission("ADMINISTRATOR")) {
@@ -234,7 +234,7 @@ bot.on('clickButton', async (button) => {
       await connection.query(`UPDATE guildConfig SET announcementChannelName = "${button.channel.name}", announcementChannelID ="${button.channel.id}" WHERE guildID = "${button.guild.id}"`).catch(err => console.log(err));
       button.channel.send(`Announcement channel set to ${button.channel} in ${button.guild.name}.`).then(msg => msg.delete({timeout: 3000})).catch(err => console.log(err));
     } else {
-      button.clicker.send(`You tried to use admin only buttons in ${button.guild.name} and we thought we would let you know that you cannot do that.`);
+      button.clicker.member.send(`You tried to use admin only buttons in ${button.guild.name} and we thought we would let you know that you cannot do that.`);
     };
   };
 });
