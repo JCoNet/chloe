@@ -9,7 +9,7 @@ module.exports.run = async (bot, message, args, connection, disbut, useprefix) =
     let welcome = await message.guild.channels.cache.get(results[0].welcomeChannelID);
     let system = await message.guild.channels.cache.get(results[0].systemChannelID);
     let announcement = await message.guild.channels.cache.get(results[0].announcementChannelID);
-    let check = member.guild.iconURL();
+    let check = message.guild.iconURL();
     let serverIcon;
     if (!check) {
         serverIcon = "https://jconet.xyz/resources/JCN.png";
