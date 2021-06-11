@@ -10,7 +10,7 @@ module.exports.run = async (bot, message, args, connection, useprefix) => {
         .setDescription("A list of all the commands and how to use them.")
         .setThumbnail(bot.user.displayAvatarURL())
         .setAuthor('JCoNet Development', 'https://jconet.xyz/resources/JCN.png', 'https://jconet.xyz')
-        .setFooter("New commands are developed and added frequently."),
+        .setFooter("New commands are developed and added frequently.")
         .addFields(
             {name: "User Commands", value: '\u200B', inline: false},
             {name: `${useprefix}coins`, value: "Displays your coin balance for this server.", inline: true},
@@ -23,7 +23,7 @@ module.exports.run = async (bot, message, args, connection, useprefix) => {
             {name: `${useprefix}clear <num to delete>`, value: "removes set number of messages from chat.", inline: true},
             {name: `${useprefix}pingall <message>`, value: "Send the message as Chloe with an everyone tag.", inline: true},
             {name: `${useprefix}say <message>`, value: "Send a message as Chloe.", inline: true},
-            {name: `${useprefix}warn @user <reason>`, value: "Warns the selected user in the server." inline: true},
+            {name: `${useprefix}warn @user <reason>`, value: "Warns the selected user in the server.", inline: true},
         )
     }
     if (message.member.hasPermission("KICK_MEMBERS")) {
