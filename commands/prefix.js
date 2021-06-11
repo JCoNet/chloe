@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
 const mysql = require("mysql2/promise");
 
-module.exports.run = async (bot, message, args, connection, disbut, useprefix) => {
+module.exports.run = async (bot, message, args, connection, useprefix) => {
     await message.delete();
 
     if(!message.member.hasPermission("ADMINISTRATOR")) return message.reply("Unfortunately, under JCoNet operation policies i am not allowed to let anyone not ranked with permission ADMINISTRATOR to change any of my settings for servers.");

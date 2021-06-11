@@ -1,6 +1,6 @@
 const Discord = require("discord.js");
 
-module.exports.run = async (bot, message, args, connection, disbut, useprefix) => {
+module.exports.run = async (bot, message, args, connection, useprefix) => {
 
     await message.delete();
 

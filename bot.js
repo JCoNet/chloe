@@ -6,7 +6,7 @@ const config = require("./botconfig.json");
 
 const bot = new Discord.Client();
 
-const disbut = require("discord-buttons")(bot);
+require("discord-buttons")(bot);
 
 const connection = mysql.createPool({
   host: process.env.dbHost,
@@ -164,7 +164,7 @@ bot.on('message', async message => {
   if (message.content.startsWith(useprefix)) {
     // is command, execute command
     let commandfile = bot.commands.get(cmd.slice(useprefix.length));
-    if (commandfile) commandfile.run(bot, message, args, connection, disbut, useprefix);
+    if (commandfile) commandfile.run(bot, message, args, connection, useprefix);
   } else {
     // isn't command, affect balance by message
     if (updated == "no") {
