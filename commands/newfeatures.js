@@ -21,15 +21,17 @@ module.exports.run = async (bot, message, args, connection, useprefix) => {
     )
     .setFooter(`Lead developer: ${stats.author}`);
 
-    let result = await connection.query("SELECT systemChannelID FROM guildConfig").catch(err => console.log(err));
+    let result = await connection.query("SELECT systemChannelID, guildID FROM guildConfig").catch(err => console.log(err));
     let results = result[0];
     var len = results.length;
     console.log(`result: ${result}`);
     console.log(`results: ${results}`);
     console.log(`len: ${len}`);
     for (var i = 0; i < len; i++) {
-        let sendTo = await message.guild.channels.cache.get(results[0].announcementChannelID);
+        sendToGuild = await bot.guilds.cache.get(results[i].guildID)
+        let sendTo = await sendToGuildchannels.cache.get(results[i].announcementChannelID);
         // sendTo.send(newfeatEmbed);
+        console.log(`results[0]: ${results[0]}`);
         console.log(`sendTo: ${sendTo}`);
     };
 
