@@ -1,7 +1,7 @@
 const Discord = require("discord.js");
 const stats = require("../package.json");
 
-module.exports.run = async (bot, message, args, connection, useprefix) => {
+module.exports.run = async (bot, message, args, connection, disbut, useprefix) => {
   message.delete().catch();
   let bicon = bot.user.displayAvatarURL;
   let statsembed = new Discord.MessageEmbed()
