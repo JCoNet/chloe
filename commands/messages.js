@@ -91,39 +91,62 @@ module.exports.run = async (bot, message, args, connection, useprefix) => {
     .setLabel("CLOSE CONFIG")
     .setID("admincancel");
 
-    let emessages = new MessageActionRow()
-    if (welcome == 0) {
-        emessages.addComponent(ewelcbut);
-    };
-    
-    if (newfeat == 0) {
-        emessages.addComponent(enewfeatbut);
-    };
-    
-    if (announcement == 0) {
-        emessages.addComponent(eannouncebut);
-    }
+    let enable = "false";
+    let disable = "false";
 
-    let dmessages = new MessageActionRow()
-    if (welcome == 1) {
-        dmessages.addComponent(dwelcbut);
+    if (welcome == 0 || newfeat == 0 || announcement == 0) {
+        enable = "true";
+        let emessages = new MessageActionRow()
+        if (welcome == 0) {
+            emessages.addComponent(ewelcbut);
+        };
+        
+        if (newfeat == 0) {
+            emessages.addComponent(enewfeatbut);
+        };
+        
+        if (announcement == 0) {
+            emessages.addComponent(eannouncebut);
+        };
     };
-    
-    if (newfeat == 1) {
-        dmessages.addComponent(dnewfeatbut);
+
+    if (welcome == 1 || newfeat == 1 || announcement == 1) {
+        disable = "true";
+        let dmessages = new MessageActionRow()
+        if (welcome == 1) {
+            dmessages.addComponent(dwelcbut);
+        };
+        
+        if (newfeat == 1) {
+            dmessages.addComponent(dnewfeatbut);
+        };
+        
+        if (announcement == 1) {
+            dmessages.addComponent(dannouncebut);
+        };
     };
-    
-    if (announcement == 1) {
-        dmessages.addComponent(dannouncebut);
-    }
 
     let embedcontrol = new MessageActionRow()
     .addComponent(cancel);
 
-    message.channel.send({
-        embed: setEmbed,
-        components:[emessages, dmessages, embedcontrol]
-    }).catch(err => console.log(err));
+    if (enabled == "true" && disable == "false") {
+        message.channel.send({
+            embed: setEmbed,
+            components:[dmessages, embedcontrol]
+        }).catch(err => console.log(err));
+    } else if ( enabled == "false" && disable == "true") {
+        message.channel.send({
+            embed: setEmbed,
+            components:[emessages, embedcontrol]
+        }).catch(err => console.log(err));
+    } else if ( enabled == "true" && disable == "true") {
+        message.channel.send({
+            embed: setEmbed,
+            components:[emessages, dmessages, embedcontrol]
+        }).catch(err => console.log(err));
+    } else {
+        message.channel.send("I ran into an error please report to JCN Development that you have an issue with command 'messages' via the JCoNet Website").then(msg => msg.delete({timeout: 3000})).catch(err => console.log(err));
+    };
 };
 
 module.exports.help = {
