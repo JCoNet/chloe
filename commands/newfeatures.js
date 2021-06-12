@@ -15,9 +15,7 @@ module.exports.run = async (bot, message, args, connection, useprefix) => {
     .setTitle("Chloe New Features")
     .setDescription(`JCoNet Development has been hard at work on some new features, here is a rundown of everything that changed in version ${stats.version}!`)
     .addFields(
-        {name: "[+] Set Channels", value: `Admins can now use the set command to change the channels Chloe uses for system, welcome and announcement messages.`, inline: true},
-        {name: "[+] Welcome Messages", value: `We can now welcome users to your server. To get this activated please talk to ${stats.author} so that we can make sure the message is how you want it before we enable welcome messages in your server.`, inline: true},
-        {name: "[+] New Feature Message", value: "From this version on, when we complete development work, Chloe will send an embed like this to your system channel to let you know what we added (and removed if we removed anything)"},
+        {name: "[+] Automated Message toggler", value: "We added a messages command to allow you to toggle the automated messages within your server from Chloe. Admins learn how to use it with the help command.", inline: true},
     )
     .setFooter(`Lead developer: ${stats.author}`);
 
