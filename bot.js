@@ -237,4 +237,46 @@ bot.on('clickButton', async (button) => {
       button.clicker.user.send(`You tried to use admin only buttons in ${button.guild.name} and we thought we would let you know that you cannot do that.`);
     };
   };
+
+  // enable messages
+  if (button.id == "enablewelc") {
+    if (button.clicker.member.hasPermission("ADMINISTRATOR")) {
+      // enable welcome and update the embed to say its enabled and remove button
+    } else {
+      button.clicker.user.send(`You tried to use admin only buttons in ${button.guild.name} and we thought we would let you know that you cannot do that.`);
+    };
+  } else if (button.id == "enableann") {
+    if (button.clicker.member.hasPermission("ADMINISTRATOR")) {
+      // enable annoucnements and update the embed to say its enabled and remove button
+    } else {
+      button.clicker.user.send(`You tried to use admin only buttons in ${button.guild.name} and we thought we would let you know that you cannot do that.`);
+    };
+  } else if (button.id == "enablenewfeat") {
+    if (button.clicker.member.hasPermission("ADMINISTRATOR")) {
+      // enable newfeatures and update the embed to say its enabled and remove button
+    } else {
+      button.clicker.user.send(`You tried to use admin only buttons in ${button.guild.name} and we thought we would let you know that you cannot do that.`);
+    };
+  };
+
+  // disable messages
+  if (button.id == "disablewelc") {
+    if (button.clicker.member.hasPermission("ADMINISTRATOR")) {
+      // enable welcome and update the embed to say its enabled and remove button
+    } else {
+      button.clicker.user.send(`You tried to use admin only buttons in ${button.guild.name} and we thought we would let you know that you cannot do that.`);
+    };
+  } else if (button.id == "disableann") {
+    if (button.clicker.member.hasPermission("ADMINISTRATOR")) {
+      // enable annoucnements and update the embed to say its enabled and remove button
+    } else {
+      button.clicker.user.send(`You tried to use admin only buttons in ${button.guild.name} and we thought we would let you know that you cannot do that.`);
+    };
+  } else if (button.id == "disablenewfeat") {
+    if (button.clicker.member.hasPermission("ADMINISTRATOR")) {
+      // disable newfeatures and update the embed to say its enabled and remove button
+    } else {
+      button.clicker.user.send(`You tried to use admin only buttons in ${button.guild.name} and we thought we would let you know that you cannot do that.`);
+    };
+  };
 });

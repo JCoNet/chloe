@@ -1,0 +1,131 @@
+const Discord = require("discord.js");
+const { MessageButton, MessageActionRow } = require("discord-buttons");
+
+module.exports.run = async (bot, message, args, connection, useprefix) => {
+
+    await message.delete();
+    if(!message.member.hasPermission("ADMINISTRATOR")) return message.reply("Unfortunately, under JCoNet operation policies i am not allowed to let anyone not ranked with permission ADMINISTRATOR to change any of my settings for servers.").then(msg => msg.delete({timeout: 9000})).catch(err => console.log(err));
+    let result = await connection.query(`SELECT welcomeEnabled, announcementEnabled, newfeatureEnabled FROM guildConfig WHERE guildID = "${message.guild.id}"`).catch(err => console.log(err));
+    let results = result[0];
+    let welcome = await results[0].welcomeEnabled;
+    let newfeat = await results[0].newfeatureEnabled;
+    let announcement = await results[0].announcementEnabled;
+    let welcomeState;
+    let newfeatState;
+    let announcementState;
+
+    // set welcome state
+    if (welcome == 1) {
+        welcomeState = "ENABLED";
+    } else {
+        welcomeState = "DISABLED"
+    };
+
+    // set newfeat state
+    if (newfeat == 1) {
+        newfeatState = "ENABLED";
+    } else {
+        newfeatState = "DISABLED"
+    };
+
+    // set announcement state
+    if (announcement == 1) {
+        announcementState = "ENABLED";
+    } else {
+        announcementState = "DISABLED"
+    };
+
+    let check = message.guild.iconURL();
+    let serverIcon;
+    if (!check) {
+        serverIcon = "https://jconet.xyz/resources/JCN.png";
+    } else {
+        serverIcon = check;
+    };
+
+    let setEmbed = new Discord.MessageEmbed()
+    .setAuthor('JCoNet Development', 'https://jconet.xyz/resources/JCN.png', 'https://jconet.xyz')
+    .setColor('#f59e2c')
+    .setTitle(`Set messages for ${message.guild.name}`)
+    .setDescription("This is the message to configure the messages we send automatically to your server.")
+    .setThumbnail(serverIcon)
+    .addFields(
+        {name: "Welcome Message", value: `${welcomeState}`, inline: true},
+        {name: "Current System Channel", value: `${newfeatState}`, inline: true},
+        {name: "Current Announcement Channel", value: `${announcementState}`, inline: true},
+    )
+    .setFooter("Click the buttons bellow to change the states above or close the config. You have 5 minutes before you have to re-run the command.");
+    
+    let ewelcbut = new MessageButton()
+    .setStyle('green')
+    .setLabel("Enable Welcomes")
+    .setID("enablewelc");
+
+    let enewfeatbut = new MessageButton()
+    .setStyle('green')
+    .setLabel("Enable New Features")
+    .setID("enablenewfeat");
+
+    let eannouncebut = new MessageButton()
+    .setStyle('green')
+    .setLabel("Enable Announcements")
+    .setID("enableann");
+
+    let dwelcbut = new MessageButton()
+    .setStyle('red')
+    .setLabel("Disable Welcomes")
+    .setID("disablewelc");
+
+    let dnewfeatbut = new MessageButton()
+    .setStyle('red')
+    .setLabel("Disable New Features")
+    .setID("disablenewfeat");
+
+    let dannouncebut = new MessageButton()
+    .setStyle('red')
+    .setLabel("Disable Announcements")
+    .setID("disableann");
+
+    let cancel = new MessageButton()
+    .setStyle('blurple')
+    .setLabel("CLOSE CONFIG")
+    .setID("admincancel");
+
+    let emessages = new MessageActionRow()
+    if (welcome == 0) {
+        emessages.addComponent(ewelcbut);
+    };
+    
+    if (newfeat == 0) {
+        emessages.addComponent(enewfeatbut);
+    };
+    
+    if (announcement == 0) {
+        emessages.addComponent(eannouncebut);
+    }
+
+    let dmessages = new MessageActionRow()
+    if (welcome == 1) {
+        dmessages.addComponent(dwelcbut);
+    };
+    
+    if (newfeat == 1) {
+        dmessages.addComponent(dnewfeatbut);
+    };
+    
+    if (announcement == 1) {
+        dmessages.addComponent(dannouncebut);
+    }
+
+    let embedcontrol = new MessageActionRow()
+    .addComponent(cancel);
+
+    message.channel.send({
+        embed: setEmbed,
+        components:[emessages, dmessages, embedcontrol]
+    }).catch(err => console.log(err));
+};
+
+module.exports.help = {
+    name: "messages"
+};
