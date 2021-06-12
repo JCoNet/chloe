@@ -39,6 +39,7 @@ module.exports.run = async (bot, message, args, connection, useprefix) => {
             {name: "Administrator Commands", value: "\u200B", inline: false},
             {name: `${useprefix}updateguild`, value: "Updates our database about info regarding your server. [only run when bot tells you to]", inline: true},
             {name: `${useprefix}set`, value: "Will start the configurator for message channels using the channel it is run in as the channel you want the message channel set to.", inline: true},
+            {name: `${useprefix}messages`, value: "Allows you to enable/disable the automated messages Chloe sends in your server.", inline: true},
             {name: `${useprefix}prefix <new prefix>`, value: "Sets the new prefix for the server", inline: true},
             {name: `${useprefix}addrole @user <role>`, value: "Gives the user the role you specified. [currently disabled in all servers]", inline: true},
             {name: `${useprefix}removerole @user <role>`, value: "Removes the user from the role you specified. [currently disabled in all servers]", inline: true},
