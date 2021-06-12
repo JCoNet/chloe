@@ -24,8 +24,8 @@ module.exports.run = async (bot, message, args, connection, useprefix) => {
     var len = results.length;
     for (var i = 0; i < len; i++) {
         let canSend = await results[i].newfeatureEnabled;
-        let sendToGuild = await bot.guilds.cache.get(results[i].guildID).catch(err => console.log(err));;
-        let sendTo = await sendToGuild.channels.cache.get(results[i].systemChannelID).catch(err => console.log(err));;
+        let sendToGuild = await bot.guilds.cache.get(results[i].guildID);
+        let sendTo = await sendToGuild.channels.cache.get(results[i].systemChannelID);
         if (canSend == 1) {
             sendTo.send(newfeatEmbed).catch(err => console.log(err));;
         };
