@@ -93,10 +93,12 @@ module.exports.run = async (bot, message, args, connection, useprefix) => {
 
     let enable = "false";
     let disable = "false";
+    let emessages;
+    let dmessages;
 
     if (welcome == 0 || newfeat == 0 || announcement == 0) {
         enable = "true";
-        let emessages = new MessageActionRow()
+        emessages = new MessageActionRow()
         if (welcome == 0) {
             emessages.addComponent(ewelcbut);
         };
@@ -112,7 +114,7 @@ module.exports.run = async (bot, message, args, connection, useprefix) => {
 
     if (welcome == 1 || newfeat == 1 || announcement == 1) {
         disable = "true";
-        let dmessages = new MessageActionRow()
+        dmessages = new MessageActionRow()
         if (welcome == 1) {
             dmessages.addComponent(dwelcbut);
         };
