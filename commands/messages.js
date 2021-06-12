@@ -132,12 +132,12 @@ module.exports.run = async (bot, message, args, connection, useprefix) => {
     if (enable == "true" && disable == "false") {
         message.channel.send({
             embed: setEmbed,
-            components:[dmessages, embedcontrol]
+            components:[emessages, embedcontrol]
         }).catch(err => console.log(err));
     } else if ( enable == "false" && disable == "true") {
         message.channel.send({
             embed: setEmbed,
-            components:[emessages, embedcontrol]
+            components:[dmessages, embedcontrol]
         }).catch(err => console.log(err));
     } else if ( enable == "true" && disable == "true") {
         message.channel.send({
