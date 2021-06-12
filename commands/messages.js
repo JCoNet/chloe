@@ -129,17 +129,17 @@ module.exports.run = async (bot, message, args, connection, useprefix) => {
     let embedcontrol = new MessageActionRow()
     .addComponent(cancel);
 
-    if (enabled == "true" && disable == "false") {
+    if (enable == "true" && disable == "false") {
         message.channel.send({
             embed: setEmbed,
             components:[dmessages, embedcontrol]
         }).catch(err => console.log(err));
-    } else if ( enabled == "false" && disable == "true") {
+    } else if ( enable == "false" && disable == "true") {
         message.channel.send({
             embed: setEmbed,
             components:[emessages, embedcontrol]
         }).catch(err => console.log(err));
-    } else if ( enabled == "true" && disable == "true") {
+    } else if ( enable == "true" && disable == "true") {
         message.channel.send({
             embed: setEmbed,
             components:[emessages, dmessages, embedcontrol]
