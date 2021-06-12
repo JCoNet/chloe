@@ -54,7 +54,7 @@ module.exports.run = async (bot, message, args, connection, useprefix) => {
         {name: "Current System Channel", value: `${newfeatState}`, inline: true},
         {name: "Current Announcement Channel", value: `${announcementState}`, inline: true},
     )
-    .setFooter("Click the buttons bellow to change the states above or close the config. You have 5 minutes before you have to re-run the command.");
+    .setFooter("Click the buttons bellow to change the states above or close the config. You have to run the command again for each action you take.");
     
     let ewelcbut = new MessageButton()
     .setStyle('green')
