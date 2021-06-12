@@ -227,7 +227,7 @@ bot.on('clickButton', async (button) => {
       button.clicker.user.send(`You tried to use admin only buttons in ${button.guild.name} and we thought we would let you know that you cannot do that.`);
     };
   } else if (button.id == "announcement") {
-     button.defer();
+    button.defer();
     if (button.clicker.member.hasPermission("ADMINISTRATOR")) {
       button.message.delete();
       // set announcement channel

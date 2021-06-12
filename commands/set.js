@@ -45,7 +45,7 @@ module.exports.run = async (bot, message, args, connection, useprefix) => {
     let announcebut = new MessageButton()
     .setStyle('blurple')
     .setLabel("Announcement Channel")
-    .setID("annoucement");
+    .setID("announcement");
 
     let cancel = new MessageButton()
     .setStyle('red')
