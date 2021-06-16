@@ -3,7 +3,7 @@ const mysql = require("mysql2/promise");
 
 module.exports.run = async (bot, message, args, connection) => {
   await message.delete();
-  let bUser = message.guild.member(message.mentions.users.first() || message.guild.members.cache.get(args[0]));
+  let bUser = message.mentions.users.first() || message.guild.members.cache.get(args[0]);
   if (!bUser) return message.reply("The specified user could not be found.");
   let bReason = args.join(" ").slice(22);
   if (!bReason) return message.reply("Please provide a reason");
