@@ -20,8 +20,6 @@ const connection = mysql.createPool({
 });
 console.log("Connected to secure DB!");
 
-const fetch = require('node-fetch');
-
 console.log(`${config.test}`);
 
 bot.commands = new Discord.Collection();
