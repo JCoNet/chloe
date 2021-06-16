@@ -4,9 +4,8 @@ module.exports.run = async (bot, message, args, connection, useprefix) => {
     if (!message.member.hasPermission("MANAGE_ROLES")) return message.channel.send("You do not have the required permissions to run this command.").then(msg => msg.delete({timeout: 3000})).catch(err => console.error(err));
     
     let operation = args[0].toLowerCase().trim();
-    let user = message.mentions.members.first() || await message.guild.members.fetch(args[1]) || message.guild.members.cache.find(u => u.name.toLowerCase().includes(args[1].toLowerCase()));
-    let role = message.mentions.roles.first() || message.guild.roles.cache.get(args[2]) || message.guild.roles.cache.find(r => r.name.toLowerCase().includes(args[2].toLowerCase()));
-
+    let user = message.mentions.members.first() || message.guild.members.cache.find(u => u.name.toLowerCase().includes(args[1].toLowerCase())) || await message.guild.members.fetch(args[1]) || undefined;
+    let role = message.mentions.roles.first() || message.guild.roles.cache.find(r => r.name.toLowerCase().includes(args[2].toLowerCase())) || message.guild.roles.cache.get(args[2]) || undefined;
     // check the arguments and variables exist.
     if (!operation) return message.channel.send("Please ensure you specify the operation for this command. (add/remove)").then(msg => msg.delete({timeout: 3000})).catch(err => console.error(err));
     if (!user) return message.channel.send("Please ensure you specify a user either by name, ID or mention.").then(msg => msg.delete({timeout: 3000})).catch(err => console.error(err));
