@@ -1,20 +1,16 @@
 const Discord = require("discord.js");
 
 module.exports.run = async (bot, message, args, connection, useprefix) => {
-    await message.delete();
     if (!message.member.hasPermission("MANAGE_ROLES")) return message.channel.send("You do not have the required permissions to run this command.").then(msg => msg.delete({timeout: 3000})).catch(err => console.error(err));
-    let operation = args[0].toLowerCase();
-    let s1 = args[1].toLowerCase();
-    let s2 = args[2].toLowerCase();
-    let user = message.mentions.members.first() || message.guild.members.cache.get(s1) || message.guild.members.cache.find(u => u.name === s1);
-    let role = message.mentions.roles.first() || message.guild.roles.cache.get(s2) || message.guild.roles.cache.find(r => r.name === s2);
+    
+    let operation = args[0].toLowerCase().trim();
+    let user = message.mentions.members.first() || await message.guild.members.fetch(args[1]) || message.guild.members.cache.find(u => u.name.toLowerCase().includes(args[1].toLowerCase()));
+    let role = message.mentions.roles.first() || message.guild.roles.cache.get(args[2]) || message.guild.roles.cache.find(r => r.name.toLowerCase().includes(args[2].toLowerCase()));
 
     // check the arguments and variables exist.
-    if (!args[0]) return message.channel.send("Please ensure you specify the operation for this command. (add/remove)").then(msg => msg.delete({timeout: 3000})).catch(err => console.error(err));
-    if (!args[1]) return message.channel.send("Please ensure you specify a user either by name, ID or mention.").then(msg => msg.delete({timeout: 3000})).catch(err => console.error(err));
-    if (!user) return message.channel.send("I could not find the specified user in the server.").then(msg => msg.delete({timeout: 3000})).catch(err => console.error(err));
-    if (!args[2]) return message.channel.send("Please ensure you specify a role either by name, ID or mention.").then(msg => msg.delete({timeout: 3000})).catch(err => console.error(err));
-    if (!role) return message.channel.send("I could not find the specified role in the server.").then(msg => msg.delete({timeout: 3000})).catch(err => console.error(err));
+    if (!operation) return message.channel.send("Please ensure you specify the operation for this command. (add/remove)").then(msg => msg.delete({timeout: 3000})).catch(err => console.error(err));
+    if (!user) return message.channel.send("Please ensure you specify a user either by name, ID or mention.").then(msg => msg.delete({timeout: 3000})).catch(err => console.error(err));
+    if (!role) return message.channel.send("Please ensure you specify a role either by name, ID or mention.").then(msg => msg.delete({timeout: 3000})).catch(err => console.error(err));
 
     if (operation != "add" || operation != "remove") return message.channel.send("Please only specify valid command operations. (add/remove)").then(msg => msg.delete({timeout: 3000})).catch(err => console.error(err));
 
@@ -24,14 +20,14 @@ module.exports.run = async (bot, message, args, connection, useprefix) => {
 
     // add/remove the role
     if (operation == "add") {
-        await user.roles.add(role.id).catch(err => console.error(err));
+        user.roles.add(role.id).catch(err => console.error(err));
         message.channel.send(`You successfully added ${user} to the ${role} role!`).then(msg => msg.delete({timeout: 3000})).catch(err => console.error(err));
     } else if (operation == "remove") {
-        await user.roles.remove(role.id).catch(err => console.error(err));
+        user.roles.remove(role.id).catch(err => console.error(err));
         message.channel.send(`You successfully removed ${user} from the ${role} role!`).then(msg => msg.delete({timeout: 3000})).catch(err => console.error(err));
-    } else {
-        return;
-    };
+    }
+    
+    await message.delete();
 };
 
 module.exports.help = {
