@@ -6,7 +6,7 @@ module.exports.run = async (bot, message, args, connection, useprefix) => {
     let operation = args[0].toLowerCase();
     let s1 = args[1].toLowerCase();
     let s2 = args[2].toLowerCase();
-    let user = message.mentions.members.first() || message.guild.members.cache.get(s1);
+    let user = message.guild.member(message.mentions.members.first() || message.guild.members.cache.get(s1));
     let role = message.mentions.roles.first() || message.guild.roles.cache.get(s2);
 
     // check the arguments and variables exist.
@@ -25,10 +25,10 @@ module.exports.run = async (bot, message, args, connection, useprefix) => {
     // add/remove the role
     if (operation == "add") {
         await user.roles.add(role.id).catch(err => console.error(err));
-        message.channel.send(`You successfully added ${user.name} to the ${role.name} role!`).then(msg => msg.delete({timeout: 3000})).catch(err => console.error(err));
+        message.channel.send(`You successfully added ${user} to the ${role.name} role!`).then(msg => msg.delete({timeout: 3000})).catch(err => console.error(err));
     } else if (operation == "remove") {
         await user.roles.remove(role.id).catch(err => console.error(err));
-        message.channel.send(`You successfully removed ${user.name} from the ${role.name} role!`).then(msg => msg.delete({timeout: 3000})).catch(err => console.error(err));
+        message.channel.send(`You successfully removed ${user} from the ${role.name} role!`).then(msg => msg.delete({timeout: 3000})).catch(err => console.error(err));
     } else {
         return;
     };
