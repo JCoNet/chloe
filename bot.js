@@ -127,7 +127,7 @@ bot.on('guildMemberAdd', async member => {
       {name: "name", value: `${member.user.username}`, inline: true},
       {name: "Join date", value: `${d.getFullYear()+'-'+d.getMonth()+'-'+d.getDate()}`, inline: true},
       {name: "Join time", value: `${d.getHours()+':'+d.getMinutes()+':'+d.getSeconds()}`, inline: true},
-      {name: "mention", value: `<@${member.user.id}>`},
+      {name: "mention", value: `<@!${member.user.id}>`},
     )
     .setFooter(`The owner of this server is ${member.guild.owner.user.username}`);
 
