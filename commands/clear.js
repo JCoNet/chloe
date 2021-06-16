@@ -6,7 +6,7 @@ module.exports.run = async (bot, message, args) => {
   let toDelete = Math.floor(parseInt(args[0])+1);
   // console.log(toDelete)
   message.channel.bulkDelete(toDelete).then(() => {
-    message.channel.send(`Deleted ${args[0]} messages.`).then(msg => msg.delete({timeout: 3000})).catch(err => console.log(err));
+    message.channel.send(`Deleted ${args[0]} messages.`).then(msg => msg.delete({timeout: 3000})).catch(err => console.error(err));
   });
 }
 

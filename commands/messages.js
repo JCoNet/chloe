@@ -4,8 +4,8 @@ const { MessageButton, MessageActionRow } = require("discord-buttons");
 module.exports.run = async (bot, message, args, connection, useprefix) => {
 
     await message.delete();
-    if(!message.member.hasPermission("ADMINISTRATOR")) return message.reply("Unfortunately, under JCoNet operation policies i am not allowed to let anyone not ranked with permission ADMINISTRATOR to change any of my settings for servers.").then(msg => msg.delete({timeout: 9000})).catch(err => console.log(err));
-    let result = await connection.query(`SELECT welcomeEnabled, announcementEnabled, newfeatureEnabled FROM guildConfig WHERE guildID = "${message.guild.id}"`).catch(err => console.log(err));
+    if(!message.member.hasPermission("ADMINISTRATOR")) return message.reply("Unfortunately, under JCoNet operation policies i am not allowed to let anyone not ranked with permission ADMINISTRATOR to change any of my settings for servers.").then(msg => msg.delete({timeout: 9000})).catch(err => console.error(err));
+    let result = await connection.query(`SELECT welcomeEnabled, announcementEnabled, newfeatureEnabled FROM guildConfig WHERE guildID = "${message.guild.id}"`).catch(err => console.error(err));
     let results = result[0];
     let welcome = await results[0].welcomeEnabled;
     let newfeat = await results[0].newfeatureEnabled;
@@ -133,19 +133,19 @@ module.exports.run = async (bot, message, args, connection, useprefix) => {
         message.channel.send({
             embed: setEmbed,
             components:[emessages, embedcontrol]
-        }).catch(err => console.log(err));
+        }).catch(err => console.error(err));
     } else if ( enable == "false" && disable == "true") {
         message.channel.send({
             embed: setEmbed,
             components:[dmessages, embedcontrol]
-        }).catch(err => console.log(err));
+        }).catch(err => console.error(err));
     } else if ( enable == "true" && disable == "true") {
         message.channel.send({
             embed: setEmbed,
             components:[emessages, dmessages, embedcontrol]
-        }).catch(err => console.log(err));
+        }).catch(err => console.error(err));
     } else {
-        message.channel.send("I ran into an error please report to JCN Development that you have an issue with command 'messages' via the JCoNet Website").then(msg => msg.delete({timeout: 3000})).catch(err => console.log(err));
+        message.channel.send("I ran into an error please report to JCN Development that you have an issue with command 'messages' via the JCoNet Website").then(msg => msg.delete({timeout: 3000})).catch(err => console.error(err));
     };
 };
 

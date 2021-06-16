@@ -4,8 +4,8 @@ const { MessageButton, MessageActionRow } = require("discord-buttons");
 module.exports.run = async (bot, message, args, connection, useprefix) => {
 
     await message.delete();
-    if(!message.member.hasPermission("ADMINISTRATOR")) return message.reply("Unfortunately, under JCoNet operation policies i am not allowed to let anyone not ranked with permission ADMINISTRATOR to change any of my settings for servers.").then(msg => msg.delete({timeout: 9000})).catch(err => console.log(err));
-    let result = await connection.query(`SELECT welcomeChannelID, systemChannelID, announcementChannelID FROM guildConfig WHERE guildID = "${message.guild.id}"`).catch(err => console.log(err));
+    if(!message.member.hasPermission("ADMINISTRATOR")) return message.reply("Unfortunately, under JCoNet operation policies i am not allowed to let anyone not ranked with permission ADMINISTRATOR to change any of my settings for servers.").then(msg => msg.delete({timeout: 9000})).catch(err => console.error(err));
+    let result = await connection.query(`SELECT welcomeChannelID, systemChannelID, announcementChannelID FROM guildConfig WHERE guildID = "${message.guild.id}"`).catch(err => console.error(err));
     let results = result[0];
     let welcome = await message.guild.channels.cache.get(results[0].welcomeChannelID);
     let system = await message.guild.channels.cache.get(results[0].systemChannelID);
@@ -63,7 +63,7 @@ module.exports.run = async (bot, message, args, connection, useprefix) => {
     message.channel.send({
         embed: setEmbed,
         components:[channels, embedcontrol]
-    }).catch(err => console.log(err));
+    }).catch(err => console.error(err));
 };
 
 module.exports.help = {

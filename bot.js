@@ -25,7 +25,7 @@ console.log(`${config.test}`);
 bot.commands = new Discord.Collection();
 
 fs.readdir("./commands", (err, file) => {
-  if (err) console.log(err);
+  if (err) console.error(err);
   let jsfile = file.filter(f => f.split(".").pop() === "js");
   if (jsfile.length <= 0) {
     console.log("No commands");
@@ -69,14 +69,14 @@ bot.on('guildCreate', async guild => {
 
   let guildOwner = await guild.members.fetch(guild.ownerID);
 
-  let result = await connection.query(`SELECT * FROM guildConfig WHERE guildID="${guild.id}"`).catch(err => console.log(err));
+  let result = await connection.query(`SELECT * FROM guildConfig WHERE guildID="${guild.id}"`).catch(err => console.error(err));
   let results = result[0];
 
   if (results.length == 0) {
-    await connection.query(`INSERT INTO guildConfig SET guildName = "${guild.name}", guildID = "${guild.id}", prefix = "${botConf[0].defaultPrefix}", ownerName = "${guildOwner.user.username}", ownerID = "${guildOwner.user.id}", systemChannelName = "${sysChannelName}", systemChannelID = "${sysChannelID}", announcementChannelName = "${defaultChannel.name}", announcementChannelID = "${defaultChannel.id}", welcomeChannelName = "${defaultChannel.name}", welcomeChannelID = "${defaultChannel.id}", welcomeMessage = "Welcome to the server!"`).catch(err => console.log(err));
+    await connection.query(`INSERT INTO guildConfig SET guildName = "${guild.name}", guildID = "${guild.id}", prefix = "${botConf[0].defaultPrefix}", ownerName = "${guildOwner.user.username}", ownerID = "${guildOwner.user.id}", systemChannelName = "${sysChannelName}", systemChannelID = "${sysChannelID}", announcementChannelName = "${defaultChannel.name}", announcementChannelID = "${defaultChannel.id}", welcomeChannelName = "${defaultChannel.name}", welcomeChannelID = "${defaultChannel.id}", welcomeMessage = "Welcome to the server!"`).catch(err => console.error(err));
   };
 
-  await defaultChannel.send("Thank you for adding me to your server do chloe/help to find out all the commands I offer!").catch(err => console.log(err));
+  await defaultChannel.send("Thank you for adding me to your server do chloe/help to find out all the commands I offer!").catch(err => console.error(err));
 
   let newGuildEmbed = new Discord.MessageEmbed()
     .setColor('#24d3f2')
@@ -99,7 +99,7 @@ bot.on('guildCreate', async guild => {
 bot.on('guildMemberAdd', async member => {
   var d = new Date();
   // member.guild.channels.get('channelID').send("Welcome"); 
-  let result = await connection.query(`SELECT welcomeChannelID, welcomeMessage, welcomeEnabled FROM guildConfig WHERE guildID="${member.guild.id}"`).catch(err => console.log(err));
+  let result = await connection.query(`SELECT welcomeChannelID, welcomeMessage, welcomeEnabled FROM guildConfig WHERE guildID="${member.guild.id}"`).catch(err => console.error(err));
   let results = result[0];
   
   let welcomeEnabled = await results[0].welcomeEnabled;
@@ -147,7 +147,7 @@ bot.on('message', async message => {
   let useprefix;
   let updated;
 
-  let result = await connection.query(`SELECT prefix FROM guildConfig WHERE guildID = "${message.guild.id}"`).catch(err => console.log(err));
+  let result = await connection.query(`SELECT prefix FROM guildConfig WHERE guildID = "${message.guild.id}"`).catch(err => console.error(err));
   let results = result[0];
   if (results.length == 0) {
     useprefix = botConf[0].defaultPrefix;
@@ -175,18 +175,18 @@ bot.on('message', async message => {
         .setDescription("It seems this guild has not been updated to utilise my new features, please get an admin to run the following command to enable these features!")
         .addField("Command", `${useprefix}updateguild`)
         .setFooter(`Any questions please contact: customer_support@jconet.xyz or visit our website and use our live chat https://jconet.xyz`);
-      message.channel.send(errorEmbed).catch(err => console.log(err));
+      message.channel.send(errorEmbed).catch(err => console.error(err));
     }
     let coinstoadd = 1;
     let newBal;
 
-    let result = await connection.query(`SELECT coins FROM money WHERE guildID = "${message.guild.id}" AND userID = "${message.author.id}"`).catch(err => console.log(err));
+    let result = await connection.query(`SELECT coins FROM money WHERE guildID = "${message.guild.id}" AND userID = "${message.author.id}"`).catch(err => console.error(err));
     let results = result[0];
     if (results.length == 0) {
-      await connection.query(`INSERT INTO money SET guildID = "${message.guild.id}", guildName = "${message.guild.name}", userID = "${message.author.id}", userName = "${message.author.username}", coins = ${coinstoadd}`).catch(err => console.log(err));
+      await connection.query(`INSERT INTO money SET guildID = "${message.guild.id}", guildName = "${message.guild.name}", userID = "${message.author.id}", userName = "${message.author.username}", coins = ${coinstoadd}`).catch(err => console.error(err));
     } else {
       newBal = results[0].coins + coinstoadd;
-      await connection.query(`UPDATE money SET coins = ${newBal} WHERE guildID = "${message.guild.id}" AND userID = "${message.author.id}"`).catch(err => console.log(err));
+      await connection.query(`UPDATE money SET coins = ${newBal} WHERE guildID = "${message.guild.id}" AND userID = "${message.author.id}"`).catch(err => console.error(err));
     };
   };
 
@@ -199,7 +199,7 @@ bot.on('clickButton', async (button) => {
     button.defer();
     if (button.clicker.member.hasPermission("ADMINISTRATOR")) {
       button.message.delete();
-      button.channel.send(`Cancelled setup embed for ${button.guild.name}.`).then(msg => msg.delete({timeout: 3000})).catch(err => console.log(err));
+      button.channel.send(`Cancelled setup embed for ${button.guild.name}.`).then(msg => msg.delete({timeout: 3000})).catch(err => console.error(err));
     } else {
       button.clicker.user.send(`You tried to use admin only buttons in ${button.guild.name} and we thought we would let you know that you cannot do that.`);
     };
@@ -211,8 +211,8 @@ bot.on('clickButton', async (button) => {
     if (button.clicker.member.hasPermission("ADMINISTRATOR")) {
       button.message.delete();
       // set welcome channel
-      await connection.query(`UPDATE guildConfig SET welcomeChannelName = "${button.channel.name}", welcomeChannelID ="${button.channel.id}" WHERE guildID = "${button.guild.id}"`).catch(err => console.log(err));
-      button.channel.send(`Welcome channel set to ${button.channel} in ${button.guild.name}.`).then(msg => msg.delete({timeout: 3000})).catch(err => console.log(err));
+      await connection.query(`UPDATE guildConfig SET welcomeChannelName = "${button.channel.name}", welcomeChannelID ="${button.channel.id}" WHERE guildID = "${button.guild.id}"`).catch(err => console.error(err));
+      button.channel.send(`Welcome channel set to ${button.channel} in ${button.guild.name}.`).then(msg => msg.delete({timeout: 3000})).catch(err => console.error(err));
     } else {
       button.clicker.user.send(`You tried to use admin only buttons in ${button.guild.name} and we thought we would let you know that you cannot do that.`);
     };
@@ -221,8 +221,8 @@ bot.on('clickButton', async (button) => {
     if (button.clicker.member.hasPermission("ADMINISTRATOR")) {
       button.message.delete();
       // set system channel
-      await connection.query(`UPDATE guildConfig SET systemChannelName = "${button.channel.name}", systemChannelID ="${button.channel.id}" WHERE guildID = "${button.guild.id}"`).catch(err => console.log(err));
-      button.channel.send(`System channel set to ${button.channel} in ${button.guild.name}.`).then(msg => msg.delete({timeout: 3000})).catch(err => console.log(err));
+      await connection.query(`UPDATE guildConfig SET systemChannelName = "${button.channel.name}", systemChannelID ="${button.channel.id}" WHERE guildID = "${button.guild.id}"`).catch(err => console.error(err));
+      button.channel.send(`System channel set to ${button.channel} in ${button.guild.name}.`).then(msg => msg.delete({timeout: 3000})).catch(err => console.error(err));
     } else {
       button.clicker.user.send(`You tried to use admin only buttons in ${button.guild.name} and we thought we would let you know that you cannot do that.`);
     };
@@ -231,8 +231,8 @@ bot.on('clickButton', async (button) => {
     if (button.clicker.member.hasPermission("ADMINISTRATOR")) {
       button.message.delete();
       // set announcement channel
-      await connection.query(`UPDATE guildConfig SET announcementChannelName = "${button.channel.name}", announcementChannelID ="${button.channel.id}" WHERE guildID = "${button.guild.id}"`).catch(err => console.log(err));
-      button.channel.send(`Announcement channel set to ${button.channel} in ${button.guild.name}.`).then(msg => msg.delete({timeout: 3000})).catch(err => console.log(err));
+      await connection.query(`UPDATE guildConfig SET announcementChannelName = "${button.channel.name}", announcementChannelID ="${button.channel.id}" WHERE guildID = "${button.guild.id}"`).catch(err => console.error(err));
+      button.channel.send(`Announcement channel set to ${button.channel} in ${button.guild.name}.`).then(msg => msg.delete({timeout: 3000})).catch(err => console.error(err));
     } else {
       button.clicker.user.send(`You tried to use admin only buttons in ${button.guild.name} and we thought we would let you know that you cannot do that.`);
     };
@@ -244,8 +244,8 @@ bot.on('clickButton', async (button) => {
     if (button.clicker.member.hasPermission("ADMINISTRATOR")) {
       // enable welcome and update the embed to say its enabled and remove button
       button.message.delete();
-      await connection.query(`UPDATE guildConfig SET welcomeEnabled = true WHERE guildID = "${button.guild.id}"`).catch(err => console.log(err));
-      button.channel.send(`You have enabled welcome messages for ${button.guild.name}.`).then(msg => msg.delete({timeout: 3000})).catch(err => console.log(err));
+      await connection.query(`UPDATE guildConfig SET welcomeEnabled = true WHERE guildID = "${button.guild.id}"`).catch(err => console.error(err));
+      button.channel.send(`You have enabled welcome messages for ${button.guild.name}.`).then(msg => msg.delete({timeout: 3000})).catch(err => console.error(err));
     } else {
       button.clicker.user.send(`You tried to use admin only buttons in ${button.guild.name} and we thought we would let you know that you cannot do that.`);
     };
@@ -254,8 +254,8 @@ bot.on('clickButton', async (button) => {
     if (button.clicker.member.hasPermission("ADMINISTRATOR")) {
       // enable annoucnements and update the embed to say its enabled and remove button
       button.message.delete();
-      await connection.query(`UPDATE guildConfig SET announcementEnabled = true WHERE guildID = "${button.guild.id}"`).catch(err => console.log(err));
-      button.channel.send(`You have enabled announcement messages for ${button.guild.name}.`).then(msg => msg.delete({timeout: 3000})).catch(err => console.log(err));
+      await connection.query(`UPDATE guildConfig SET announcementEnabled = true WHERE guildID = "${button.guild.id}"`).catch(err => console.error(err));
+      button.channel.send(`You have enabled announcement messages for ${button.guild.name}.`).then(msg => msg.delete({timeout: 3000})).catch(err => console.error(err));
     } else {
       button.clicker.user.send(`You tried to use admin only buttons in ${button.guild.name} and we thought we would let you know that you cannot do that.`);
     };
@@ -264,8 +264,8 @@ bot.on('clickButton', async (button) => {
     if (button.clicker.member.hasPermission("ADMINISTRATOR")) {
       // enable newfeatures and update the embed to say its enabled and remove button
       button.message.delete();
-      await connection.query(`UPDATE guildConfig SET newfeatureEnabled = true WHERE guildID = "${button.guild.id}"`).catch(err => console.log(err));
-      button.channel.send(`You have enabled new features messages for ${button.guild.name}.`).then(msg => msg.delete({timeout: 3000})).catch(err => console.log(err));
+      await connection.query(`UPDATE guildConfig SET newfeatureEnabled = true WHERE guildID = "${button.guild.id}"`).catch(err => console.error(err));
+      button.channel.send(`You have enabled new features messages for ${button.guild.name}.`).then(msg => msg.delete({timeout: 3000})).catch(err => console.error(err));
     } else {
       button.clicker.user.send(`You tried to use admin only buttons in ${button.guild.name} and we thought we would let you know that you cannot do that.`);
     };
@@ -277,8 +277,8 @@ bot.on('clickButton', async (button) => {
     if (button.clicker.member.hasPermission("ADMINISTRATOR")) {
       // enable welcome and update the embed to say its enabled and remove button
       button.message.delete();
-      await connection.query(`UPDATE guildConfig SET welcomeEnabled = false WHERE guildID = "${button.guild.id}"`).catch(err => console.log(err));
-      button.channel.send(`You have disabled welcome messages for ${button.guild.name}.`).then(msg => msg.delete({timeout: 3000})).catch(err => console.log(err));
+      await connection.query(`UPDATE guildConfig SET welcomeEnabled = false WHERE guildID = "${button.guild.id}"`).catch(err => console.error(err));
+      button.channel.send(`You have disabled welcome messages for ${button.guild.name}.`).then(msg => msg.delete({timeout: 3000})).catch(err => console.error(err));
     } else {
       button.clicker.user.send(`You tried to use admin only buttons in ${button.guild.name} and we thought we would let you know that you cannot do that.`);
     };
@@ -287,8 +287,8 @@ bot.on('clickButton', async (button) => {
     if (button.clicker.member.hasPermission("ADMINISTRATOR")) {
       // enable annoucnements and update the embed to say its enabled and remove button
       button.message.delete();
-      await connection.query(`UPDATE guildConfig SET announcementEnabled = false WHERE guildID = "${button.guild.id}"`).catch(err => console.log(err));
-      button.channel.send(`You have disabled announcement messages for ${button.guild.name}.`).then(msg => msg.delete({timeout: 3000})).catch(err => console.log(err));
+      await connection.query(`UPDATE guildConfig SET announcementEnabled = false WHERE guildID = "${button.guild.id}"`).catch(err => console.error(err));
+      button.channel.send(`You have disabled announcement messages for ${button.guild.name}.`).then(msg => msg.delete({timeout: 3000})).catch(err => console.error(err));
     } else {
       button.clicker.user.send(`You tried to use admin only buttons in ${button.guild.name} and we thought we would let you know that you cannot do that.`);
     };
@@ -297,8 +297,8 @@ bot.on('clickButton', async (button) => {
     if (button.clicker.member.hasPermission("ADMINISTRATOR")) {
       // disable newfeatures and update the embed to say its enabled and remove button
       button.message.delete();
-      await connection.query(`UPDATE guildConfig SET newfeatureEnabled = false WHERE guildID = "${button.guild.id}"`).catch(err => console.log(err));
-      button.channel.send(`You have disabled new features messages for ${button.guild.name}.`).then(msg => msg.delete({timeout: 3000})).catch(err => console.log(err));
+      await connection.query(`UPDATE guildConfig SET newfeatureEnabled = false WHERE guildID = "${button.guild.id}"`).catch(err => console.error(err));
+      button.channel.send(`You have disabled new features messages for ${button.guild.name}.`).then(msg => msg.delete({timeout: 3000})).catch(err => console.error(err));
     } else {
       button.clicker.user.send(`You tried to use admin only buttons in ${button.guild.name} and we thought we would let you know that you cannot do that.`);
     };

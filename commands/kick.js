@@ -17,8 +17,8 @@ module.exports.run = async (bot, message, args, connection) => {
         .addField("Kicked User", `${kUser} with the id ${kUser.id}`)
         .addField("Time", message.createdAt)
         .addField("Reason", kReason);
-    await kUser.send(`You have been kicked from ${message.guild.name} for ${kReason}`).catch(err => console.log(err));
-    await kUser.kick(kReason).then(message.channel.send(kickEmbed)).catch(err => console.log(err));
+    await kUser.send(`You have been kicked from ${message.guild.name} for ${kReason}`).catch(err => console.error(err));
+    await kUser.kick(kReason).then(message.channel.send(kickEmbed)).catch(err => console.error(err));
     
   await connection.query(`INSERT INTO incidents SET serverID = "${message.guild.id}", serverName = "${message.guild.name}", userID = "${kUser.id}", userName = "${kUser.user.username}", type = "KICK", reason = "${kReason}", dateAndTime = "${message.createdAt}", staffID = "${message.author.id}", staffName = "${message.author.username}"`);
 

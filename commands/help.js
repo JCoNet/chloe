@@ -46,7 +46,7 @@ module.exports.run = async (bot, message, args, connection, useprefix) => {
         )
     };
         
-    message.channel.send(helpEmbed).then(msg => msg.delete({timeout: 60000})).catch(err => console.log(err));
+    message.channel.send(helpEmbed).then(msg => msg.delete({timeout: 60000})).catch(err => console.error(err));
 
 };
 
