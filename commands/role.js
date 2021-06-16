@@ -10,8 +10,8 @@ module.exports.run = async (bot, message, args, connection, useprefix) => {
     let s2 = args[2].toLowerCase();
     console.log(`arg 1: ${args[1]} arg 2: ${args[2]}`);
     console.log(`s1: ${s1} s2: ${s2}`);
-    let user = message.mentions.members.first() || message.guild.members.cache.get(s1) || message.guild.members.cache.get(bot.users.cache.find(u => u.tag === s1).id);
-    let role = message.mentions.roles.first() || message.guild.roles.cache.get(s2);
+    let user = message.mentions.members.first() || message.guild.members.cache.get(s1) || message.guild.members.cache.find(u => u.tag === `${s1}`);
+    let role = message.mentions.roles.first() || message.guild.roles.cache.get(s2) || message.guild.roles.cache.find(r => r. name === `${s2}`);
     console.log(`user: ${user} role: ${role}`);
 
     // check the arguments and variables exist.
@@ -21,7 +21,9 @@ module.exports.run = async (bot, message, args, connection, useprefix) => {
     if (!args[2]) return message.channel.send("Please ensure you specify a role either by name, ID or mention.").then(msg => msg.delete({timeout: 3000})).catch(err => console.error(err));
     if (!role) return message.channel.send("I could not find the specified role in the server.").then(msg => msg.delete({timeout: 3000})).catch(err => console.error(err));
 
-    if (operation != "add" || operation != "remove") return message.channel.send("Please only specify valid command operations. (add/remove)").then(msg => msg.delete({timeout: 3000})).catch(err => console.error(err));
+    let check1 = "add";
+    let check2 = "remove";
+    if (operation != check1 || operation != check2) return message.channel.send("Please only specify valid command operations. (add/remove)").then(msg => msg.delete({timeout: 3000})).catch(err => console.error(err));
 
     // check roles and permissions
     if (user.roles.highest.position >= message.member.roles.highest.position) return message.channel.send("The specified user is ranked the same or higher than you, therefore I cannot allow you to modify this user's roles.").then(msg => msg.delete({timeout: 3000})).catch(err => console.error(err));
