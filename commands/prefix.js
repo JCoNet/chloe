@@ -8,7 +8,7 @@ module.exports.run = async (bot, message, args, connection, useprefix) => {
 
     if (!args[0]) return message.channel.send(`Hello there, you seem to need my help here. Have you tried "${useprefix}prefix <new prefix>" yet?`);
 
-    await connection.query(`UPDATE prefixes SET prefix = "${args[0]}" WHERE guildID = "${message.guild.id}"`).catch(err => console.error(err));
+    await connection.query(`UPDATE guildConfig SET prefix = "${args[0]}" WHERE guildID = "${message.guild.id}"`).catch(err => console.error(err));
 
 };
 
