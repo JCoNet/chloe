@@ -5,12 +5,11 @@ module.exports.run = async (bot, message, args, connection, useprefix) => {
 
     await message.delete();
     if(!message.member.hasPermission("ADMINISTRATOR")) return message.reply("Unfortunately, under JCoNet operation policies i am not allowed to let anyone not ranked with permission ADMINISTRATOR to change any of my settings for servers.").then(msg => msg.delete({timeout: 9000})).catch(err => console.log(err));
-    let result = await connection.query(`SELECT welcomeChannelID, systemChannelID, announcementChannelID, twitchChannelID FROM guildConfig WHERE guildID = "${message.guild.id}"`).catch(err => console.log(err));
+    let result = await connection.query(`SELECT welcomeChannelID, systemChannelID, announcementChannelID FROM guildConfig WHERE guildID = "${message.guild.id}"`).catch(err => console.log(err));
     let results = result[0];
     let welcome = await message.guild.channels.cache.get(results[0].welcomeChannelID);
     let system = await message.guild.channels.cache.get(results[0].systemChannelID);
     let announcement = await message.guild.channels.cache.get(results[0].announcementChannelID);
-    let twitch = await message.guild.channels.cache.get(results[0].twitchChannelID);
     let check = message.guild.iconURL();
     let serverIcon;
     if (!check) {
@@ -30,7 +29,6 @@ module.exports.run = async (bot, message, args, connection, useprefix) => {
         {name: "Current Welcome Channel", value: `${welcome}`, inline: true},
         {name: "Current System Channel", value: `${system}`, inline: true},
         {name: "Current Announcement Channel", value: `${announcement}`, inline: true},
-        {name: "Current Twitch Channel", value: `${twitch}`, inline: true},
     )
     .setFooter("Select the channel you want to set with the buttons bellow");
     
@@ -49,11 +47,6 @@ module.exports.run = async (bot, message, args, connection, useprefix) => {
     .setLabel("Announcement Channel")
     .setID("announcement");
 
-    let twitchbut = new MessageButton()
-    .setStyle('blurple')
-    .setLabel("Twitch Channel")
-    .setID("twitch");
-
     let cancel = new MessageButton()
     .setStyle('red')
     .setLabel("CANCEL")
@@ -62,8 +55,7 @@ module.exports.run = async (bot, message, args, connection, useprefix) => {
     let channels = new MessageActionRow()
     .addComponent(welcbut)
     .addComponent(sysbut)
-    .addComponent(announcebut)
-    .addComponent(twitchbut);
+    .addComponent(announcebut);
 
     let embedcontrol = new MessageActionRow()
     .addComponent(cancel);
