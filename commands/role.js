@@ -25,10 +25,10 @@ module.exports.run = async (bot, message, args, connection, useprefix) => {
     // add/remove the role
     if (operation == "add") {
         await user.roles.add(role.id).catch(err => console.error(err));
-        message.channel.send(`You successfully added ${user} to the ${role.name} role!`).then(msg => msg.delete({timeout: 3000})).catch(err => console.error(err));
+        message.channel.send(`You successfully added ${user.username} to the ${role.name} role!`).then(msg => msg.delete({timeout: 3000})).catch(err => console.error(err));
     } else if (operation == "remove") {
         await user.roles.remove(role.id).catch(err => console.error(err));
-        message.channel.send(`You successfully removed ${user} from the ${role.name} role!`).then(msg => msg.delete({timeout: 3000})).catch(err => console.error(err));
+        message.channel.send(`You successfully removed ${user.username} from the ${role.name} role!`).then(msg => msg.delete({timeout: 3000})).catch(err => console.error(err));
     } else {
         return;
     };
