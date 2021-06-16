@@ -3,6 +3,8 @@ const Discord = require("discord.js");
 module.exports.run = async (bot, message, args, connection, useprefix) => {
     if (!message.member.hasPermission("MANAGE_ROLES")) return message.channel.send("You do not have the required permissions to run this command.").then(msg => msg.delete({timeout: 3000})).catch(err => console.error(err));
     
+    if (!args[0] || !args[1] || !args[2]) return message.channel.send("You did not provide enough arguments!");
+
     let operation = args[0].toLowerCase().trim();
     let user = message.mentions.members.first() || message.guild.members.cache.find(u => u.name.toLowerCase().includes(args[1].toLowerCase())) || await message.guild.members.fetch(args[1]) || undefined;
     let role = message.mentions.roles.first() || message.guild.roles.cache.find(r => r.name.toLowerCase().includes(args[2].toLowerCase())) || message.guild.roles.cache.get(args[2]) || undefined;
