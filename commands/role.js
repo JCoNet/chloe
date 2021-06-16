@@ -4,7 +4,7 @@ module.exports.run = async (bot, message, args, connection, useprefix) => {
     await message.delete();
     if (!message.member.hasPermission("MANAGE_ROLES")) return message.channel.send("You do not have the required permissions to run this command.").then(msg => msg.delete({timeout: 3000})).catch(err => console.error(err));
     let operation = args[0].toLowerCase();
-    let user = message.mentions.members.first() || message.guild.members.cache.get(args[1]) || message.guild.members.cache.find(u => u.username === args[1]);
+    let user = message.mentions.members.first() || message.guild.members.cache.get(args[1]) || message.guild.members.cache.find(u => u.name === args[1]);
     let role = message.mentions.roles.first() || message.guild.roles.cache.get(args[2]) || message.guild.roles.cache.find(r => r.name === args[2]);
 
     // check the arguments and variables exist.
