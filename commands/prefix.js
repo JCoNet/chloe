@@ -10,6 +10,27 @@ module.exports.run = async (bot, message, args, connection, useprefix) => {
 
     await connection.query(`UPDATE guildConfig SET prefix = "${args[0]}" WHERE guildID = "${message.guild.id}"`).catch(err => console.error(err));
 
+    let check = message.guild.iconURL();
+    let serverIcon;
+    if (!check) {
+        serverIcon = "https://jconet.xyz/resources/JCN.png";
+    } else {
+        serverIcon = check;
+    };
+
+    let prefixEmbed = new Discord.MessageEmbed()
+    .setAuthor(`${memssage.guild.name}`, `${serverIcon}`)
+    .setTitle("Guild Prefix")
+    .setDescription("The guild prefix has been changed!")
+    .addFields(
+        {name: "Old prefix", value: `${useprefix}`, inline: true},
+        {name: "New prefix", value: `${args[0]}`, inline: true},
+    )
+    .setFooter(`To change again please do ${args[0]}prefix <newprefix>`);
+
+    message.channel.send(prefixEmbed).then(msg => msg.delete({timeout: 120000})).catch(err => console.error(err));
+
+
 };
 
 module.exports.help = {
