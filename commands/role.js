@@ -10,8 +10,8 @@ module.exports.run = async (bot, message, args, connection, useprefix) => {
     let s2 = args[2].toLowerCase();
     console.log(`arg 1: ${args[1]} arg 2: ${args[2]}`);
     console.log(`s1: ${s1} s2: ${s2}`);
-    let user = message.mentions.members.first() || message.guild.members.cache.get(s1) || message.guild.members.cache.find(u => u.name === s1);
-    let role = message.mentions.roles.first() || message.guild.roles.cache.get(s2) || message.guild.roles.cache.find(r => r.name === s2);
+    let user = message.mentions.members.first() || message.guild.members.cache.get(s1) || message.guild.members.cache.fetch(u => u.name === s1);
+    let role = message.mentions.roles.first() || message.guild.roles.cache.get(s2) || message.guild.roles.cache.fetch(r => r.name === s2);
     console.log(`user: ${user} role: ${role}`);
 
     // check the arguments and variables exist.
