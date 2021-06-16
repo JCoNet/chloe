@@ -73,7 +73,7 @@ bot.on('guildCreate', async guild => {
   let results = result[0];
 
   if (results.length == 0) {
-    await connection.query(`INSERT INTO guildConfig SET guildName = "${guild.name}", guildID = "${guild.id}", prefix = "${botConf[0].defaultPrefix}", ownerName = "${guildOwner.user.username}", ownerID = "${guildOwner.user.id}", systemChannelName = "${sysChannelName}", systemChannelID = "${sysChannelID}", announcementChannelName = "${defaultChannel.name}", announcementChannelID = "${defaultChannel.id}", welcomeChannelName = "${defaultChannel.name}", welcomeChannelID = "${defaultChannel.id}", welcomeMessage = "Welcome to the server!"`).catch(err => console.log(err));
+    await connection.query(`INSERT INTO guildConfig SET guildName = "${guild.name}", guildID = "${guild.id}", prefix = "${botConf[0].defaultPrefix}", ownerName = "${guildOwner.user.username}", ownerID = "${guildOwner.user.id}", systemChannelName = "${sysChannelName}", systemChannelID = "${sysChannelID}", announcementChannelName = "${defaultChannel.name}", announcementChannelID = "${defaultChannel.id}", welcomeChannelName = "${defaultChannel.name}", welcomeChannelID = "${defaultChannel.id}", welcomeMessage = "Welcome to the server!", twitchChannelName = "${defaultChannel.name}", twitchChannelID = "${defaultChannel.id}"`).catch(err => console.log(err));
   };
 
   await defaultChannel.send("Thank you for adding me to your server do chloe/help to find out all the commands I offer!").catch(err => console.log(err));
@@ -236,6 +236,16 @@ bot.on('clickButton', async (button) => {
     } else {
       button.clicker.user.send(`You tried to use admin only buttons in ${button.guild.name} and we thought we would let you know that you cannot do that.`);
     };
+  } else if (button.id == "twitch") {
+    button.defer();
+    if (button.clicker.member.hasPermission("ADMINISTRATOR")) {
+      button.message.delete();
+      // set announcement channel
+      await connection.query(`UPDATE guildConfig SET twitchChannelName = "${button.channel.name}", twitchChannelID ="${button.channel.id}" WHERE guildID = "${button.guild.id}"`).catch(err => console.log(err));
+      button.channel.send(`Twitch channel set to ${button.channel} in ${button.guild.name}.`).then(msg => msg.delete({timeout: 3000})).catch(err => console.log(err));
+    } else {
+      button.clicker.user.send(`You tried to use admin only buttons in ${button.guild.name} and we thought we would let you know that you cannot do that.`);
+    };
   };
 
   // enable messages
@@ -269,6 +279,16 @@ bot.on('clickButton', async (button) => {
     } else {
       button.clicker.user.send(`You tried to use admin only buttons in ${button.guild.name} and we thought we would let you know that you cannot do that.`);
     };
+  } else if (button.id == "enabletwitch") {
+    button.defer();
+    if (button.clicker.member.hasPermission("ADMINISTRATOR")) {
+      // enable newfeatures and update the embed to say its enabled and remove button
+      button.message.delete();
+      await connection.query(`UPDATE guildConfig SET twitchEnabled = true WHERE guildID = "${button.guild.id}"`).catch(err => console.log(err));
+      button.channel.send(`You have enabled twitch messages for ${button.guild.name}.`).then(msg => msg.delete({timeout: 3000})).catch(err => console.log(err));
+    } else {
+      button.clicker.user.send(`You tried to use admin only buttons in ${button.guild.name} and we thought we would let you know that you cannot do that.`);
+    };
   };
 
   // disable messages
@@ -299,6 +319,16 @@ bot.on('clickButton', async (button) => {
       button.message.delete();
       await connection.query(`UPDATE guildConfig SET newfeatureEnabled = false WHERE guildID = "${button.guild.id}"`).catch(err => console.log(err));
       button.channel.send(`You have disabled new features messages for ${button.guild.name}.`).then(msg => msg.delete({timeout: 3000})).catch(err => console.log(err));
+    } else {
+      button.clicker.user.send(`You tried to use admin only buttons in ${button.guild.name} and we thought we would let you know that you cannot do that.`);
+    };
+  } else if (button.id == "disabletwitch") {
+    button.defer();
+    if (button.clicker.member.hasPermission("ADMINISTRATOR")) {
+      // disable newfeatures and update the embed to say its enabled and remove button
+      button.message.delete();
+      await connection.query(`UPDATE guildConfig SET twitchEnabled = false WHERE guildID = "${button.guild.id}"`).catch(err => console.log(err));
+      button.channel.send(`You have disabled twitch messages for ${button.guild.name}.`).then(msg => msg.delete({timeout: 3000})).catch(err => console.log(err));
     } else {
       button.clicker.user.send(`You tried to use admin only buttons in ${button.guild.name} and we thought we would let you know that you cannot do that.`);
     };

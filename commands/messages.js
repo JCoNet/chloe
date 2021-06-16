@@ -5,34 +5,42 @@ module.exports.run = async (bot, message, args, connection, useprefix) => {
 
     await message.delete();
     if(!message.member.hasPermission("ADMINISTRATOR")) return message.reply("Unfortunately, under JCoNet operation policies i am not allowed to let anyone not ranked with permission ADMINISTRATOR to change any of my settings for servers.").then(msg => msg.delete({timeout: 9000})).catch(err => console.log(err));
-    let result = await connection.query(`SELECT welcomeEnabled, announcementEnabled, newfeatureEnabled FROM guildConfig WHERE guildID = "${message.guild.id}"`).catch(err => console.log(err));
+    let result = await connection.query(`SELECT welcomeEnabled, announcementEnabled, newfeatureEnabled, twitchEnabled FROM guildConfig WHERE guildID = "${message.guild.id}"`).catch(err => console.log(err));
     let results = result[0];
     let welcome = await results[0].welcomeEnabled;
     let newfeat = await results[0].newfeatureEnabled;
     let announcement = await results[0].announcementEnabled;
+    let twitch = await results[0].twitchEnabled;
     let welcomeState;
     let newfeatState;
     let announcementState;
+    let twitchState;
 
     // set welcome state
     if (welcome == 1) {
         welcomeState = "ENABLED";
     } else {
-        welcomeState = "DISABLED"
+        welcomeState = "DISABLED";
     };
 
     // set newfeat state
     if (newfeat == 1) {
         newfeatState = "ENABLED";
     } else {
-        newfeatState = "DISABLED"
+        newfeatState = "DISABLED";
     };
 
     // set announcement state
     if (announcement == 1) {
         announcementState = "ENABLED";
     } else {
-        announcementState = "DISABLED"
+        announcementState = "DISABLED";
+    };
+
+    if(twitch == 1) {
+        twitchState = "ENABLED";
+    } else {
+        twitchState = "DISABLED";
     };
 
     let check = message.guild.iconURL();
@@ -51,8 +59,9 @@ module.exports.run = async (bot, message, args, connection, useprefix) => {
     .setThumbnail(serverIcon)
     .addFields(
         {name: "Welcome Message", value: `${welcomeState}`, inline: true},
-        {name: "Current System Channel", value: `${newfeatState}`, inline: true},
-        {name: "Current Announcement Channel", value: `${announcementState}`, inline: true},
+        {name: "System Message", value: `${newfeatState}`, inline: true},
+        {name: "Announcement Message", value: `${announcementState}`, inline: true},
+        {name: "Twitch Message", value: `${twitchState}`, inline: true},
     )
     .setFooter("Click the buttons bellow to change the states above or close the config. You have to run the command again for each action you take.");
     
@@ -71,6 +80,11 @@ module.exports.run = async (bot, message, args, connection, useprefix) => {
     .setLabel("Enable Announcements")
     .setID("enableann");
 
+    let etwitchbut = new MessageButton()
+    .setStyle('green')
+    .setLabel("Enable Twitch")
+    .setID("enabletwitch");
+
     let dwelcbut = new MessageButton()
     .setStyle('red')
     .setLabel("Disable Welcomes")
@@ -86,6 +100,11 @@ module.exports.run = async (bot, message, args, connection, useprefix) => {
     .setLabel("Disable Announcements")
     .setID("disableann");
 
+    let dtwitchbut = new MessageButton()
+    .setStyle('red')
+    .setLabel("Disable Twitch")
+    .setID("disabletwitch");
+
     let cancel = new MessageButton()
     .setStyle('blurple')
     .setLabel("CLOSE CONFIG")
@@ -96,7 +115,7 @@ module.exports.run = async (bot, message, args, connection, useprefix) => {
     let emessages = new MessageActionRow();
     let dmessages = new MessageActionRow();
 
-    if (welcome == 0 || newfeat == 0 || announcement == 0) {
+    if (welcome == 0 || newfeat == 0 || announcement == 0 || twitch == 0) {
         enable = "true";
         if (welcome == 0) {
             emessages.addComponent(ewelcbut);
@@ -109,9 +128,13 @@ module.exports.run = async (bot, message, args, connection, useprefix) => {
         if (announcement == 0) {
             emessages.addComponent(eannouncebut);
         };
+
+        if (twitch == 0) {
+            emessages.addComponent(etwitchbut);
+        };
     };
 
-    if (welcome == 1 || newfeat == 1 || announcement == 1) {
+    if (welcome == 1 || newfeat == 1 || announcement == 1 || twitch == 1) {
         disable = "true";
         if (welcome == 1) {
             dmessages.addComponent(dwelcbut);
@@ -123,6 +146,10 @@ module.exports.run = async (bot, message, args, connection, useprefix) => {
         
         if (announcement == 1) {
             dmessages.addComponent(dannouncebut);
+        };
+
+        if (twitch == 1) {
+            dmessages.addComponent(dtwitchbut);
         };
     };
 
