@@ -57,7 +57,7 @@ bot.once('ready', async () => {
     status: "dnd",  // You can show online, idle... Do not disturb is dnd
     activity: {
         name: `${botConf[0].statusMessage}`,  // The message shown
-        type: `${botConf[0].statusType}` // PLAYING, WATCHING, LISTENING, STREAMING,
+        // type: `${botConf[0].statusType}` // PLAYING, WATCHING, LISTENING, STREAMING,
     }
   });
 });
