@@ -55,7 +55,7 @@ bot.once('ready', async () => {
   // bot.user.setStatus("dnd");
   bot.user.setPresence({
     status: "dnd",  // You can show online, idle... Do not disturb is dnd
-    game: {
+    activity: {
         name: `${botConf[0].statusMessage}`,  // The message shown
         type: `${botConf[0].statusType}` // PLAYING, WATCHING, LISTENING, STREAMING,
     }
