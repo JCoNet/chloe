@@ -53,7 +53,7 @@ bot.once('ready', async () => {
   console.log(`Chloe sucessfully activated on ${d}, now ready for service. Operating on version ${stats.version} and framework ${stats.frmwrk}.`);
   // bot.user.setActivity(`${botConf[0].statusMessage}`, {type: `${botConf[0].statusType}`});
   // bot.user.setStatus("dnd");
-  client.user.setPresence({
+  bot.user.setPresence({
     status: "dnd",  // You can show online, idle... Do not disturb is dnd
     game: {
         name: `${botConf[0].statusMessage}`,  // The message shown
