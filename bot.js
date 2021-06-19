@@ -51,7 +51,13 @@ bot.once('ready', async () => {
   botConf = result[0];
   // set up the bot status items when it conencts to api
   console.log(`Chloe sucessfully activated on ${d}, now ready for service. Operating on version ${stats.version} and framework ${stats.frmwrk}.`);
-  bot.user.setActivity(`${botConf[0].statusMessage}`, {type: `${botConf[0].statusType}`});
+  // bot.user.setPresence(`${botConf[0].statusMessage}`, {type: `${botConf[0].statusType}`});
+  bot.user.setPresence({
+    status: "DND",
+    game: {
+      name: "Enjoying the new features!"
+    }
+  });
 });
 
 bot.on('guildCreate', async guild => {
