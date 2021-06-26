@@ -186,7 +186,7 @@ bot.on('message', async message => {
         let reply = `You didn't provide any arguments!`;
 
         if (command.usage) {
-            reply += `\nThe proper usage would be: \`${prefix}${command.name} ${command.usage}\``;
+            reply += `\nThe proper usage would be: \`${useprefix}${command.name} ${command.usage}\``;
         }
 
         return message.reply(reply);
