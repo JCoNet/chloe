@@ -43,6 +43,7 @@ for (const folder of commandFolders) {
         }
 	}
 }
+
 console.log(table.toString());
 
 let botConf;
@@ -174,10 +175,10 @@ bot.on('message', async message => {
   
   // define params for command/message
   let messageArray = message.content.split(" ");
-  let commandName = messageArray[0].slice(prefix.length).toLowerCase();
+  let commandName = messageArray[0].slice(useprefix.length).toLowerCase();
   let args = messageArray.slice(1);
 
-  if (message.content.startsWith(prefix)) {
+  if (message.content.startsWith(useprefix)) {
     let command = bot.commands.get(commandName) || bot.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
     if (!command) return;
 
