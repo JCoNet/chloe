@@ -1,6 +1,6 @@
 module.exports = {
-    name: "ban",
-    description: "Ban a user!",
+    name: "yeet",
+    description: "Throw a user!",
     args: true,
     usage: "<user>",
     async execute(Discord, bot, connection, message, args, useprefix) {
