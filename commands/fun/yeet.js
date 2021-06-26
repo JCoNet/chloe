@@ -17,7 +17,7 @@ module.exports = {
         };
 
         let newbal = results[0].coins - cost;
-        await connection.query(`UPDATE money SET coins="${newbal}" WHERE guildID="${message.guild.id}" ANDS userID="${message.author.id}"`).catch(err => console.error(err));
+        await connection.query(`UPDATE money SET coins="${newbal}" WHERE guildID="${message.guild.id}" AND userID="${message.author.id}"`).catch(err => console.error(err));
 
         let yeetee = message.guild.member(message.mentions.users.first() || message.guild.members.cache.get(args[0]));
         let distance = Math.floor(Math.random() * 1000) +10;
@@ -33,5 +33,7 @@ module.exports = {
             {name: "Distance", value: `${distance}ft`, inline: true},
         )
         .setFooter(`This command cost ${message.author.username} ${cost} coins to use...`);
+
+        msg.edit(embed).catch(err => console.error(err));
     },
 };
