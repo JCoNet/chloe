@@ -34,6 +34,6 @@ module.exports = {
         )
         .setFooter(`This command cost ${message.author.username} ${cost} coins to use...`);
 
-        msg.edit(embed).catch(err => console.error(err));
+        message.channel.send(embed).catch(err => console.error(err));
     },
 };
