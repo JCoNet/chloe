@@ -43,6 +43,7 @@ for (const folder of commandFolders) {
         }
 	}
 }
+console.log(table.toString());
 
 let botConf;
 
