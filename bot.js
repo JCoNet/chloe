@@ -22,21 +22,26 @@ console.log("Connected to secure DB!");
 
 console.log(`${config.test}`);
 
-bot.commands = new Discord.Collection();
+table = new ascii().setHeading("Command File", "Load Status");
 
-fs.readdir("./commands", (err, file) => {
-  if (err) console.error(err);
-  let jsfile = file.filter(f => f.split(".").pop() === "js");
-  if (jsfile.length <= 0) {
-    console.log("No commands");
-    return;
-  };
-  jsfile.forEach((f, i) => {
-    let props = require(`./commands/${f}`);
-    console.log(`${f} configured correctly and loaded into the bot`);
-    bot.commands.set(props.help.name, props)
-  });
-});
+bot.commands = new Discord.Collection();
+const commandFolders = fs.readdirSync('./commands');
+
+for (const folder of commandFolders) {
+	const commandFiles = fs.readdirSync(`./commands/${folder}`).filter(file => file.endsWith('.js'));
+	for (const file of commandFiles) {
+		const command = require(`./commands/${folder}/${file}`);
+        // console.log(`Attempting to load command ${command.name}`);
+		if (command.name) {
+            bot.commands.set(command.name, command);
+            table.addRow(file.split('.').slice(0, -1).join('.'), '✔');
+            continue;
+        } else {
+            table.addRow(file.split('.').slice(0, -1).join('.'), '❌ => This command is missing something and cannot load.');
+            continue;
+        }
+	}
+}
 
 let botConf;
 
@@ -167,13 +172,29 @@ bot.on('message', async message => {
   
   // define params for command/message
   let messageArray = message.content.split(" ");
-  let cmd = messageArray[0];
+  let commandName = messageArray[0].slice(prefix.length).toLowerCase();
   let args = messageArray.slice(1);
-  // check if is a command or not
-  if (message.content.startsWith(useprefix)) {
-    // is command, execute command
-    let commandfile = bot.commands.get(cmd.slice(useprefix.length));
-    if (commandfile) commandfile.run(bot, message, args, connection, useprefix);
+
+  if (message.content.startsWith(prefix)) {
+    let command = bot.commands.get(commandName) || bot.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
+    if (!command) return;
+
+    if (command.args && !args.length) {
+        let reply = `You didn't provide any arguments!`;
+
+        if (command.usage) {
+            reply += `\nThe proper usage would be: \`${prefix}${command.name} ${command.usage}\``;
+        }
+
+        return message.reply(reply);
+    }
+
+    try {
+      command.execute(Discord, bot, connection, message, args, useprefix);
+    } catch (error) {
+        console.error(error);
+        message.reply('There was an unexpected error in executing that command, please check the bot logs for more information.');
+    }
   } else {
     // isn't command, affect balance by message
     if (updated == "no") {
