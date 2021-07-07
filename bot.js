@@ -183,7 +183,7 @@ bot.on('message', async message => {
   let blacklist = [];
   var len = blresult.length;
   for (var i = 0; i < len; i++) {
-    blacklist[i] = blresults[i].word;
+    blacklist.push(blresults[i].word);
   };
   console.log(blacklist);
 
