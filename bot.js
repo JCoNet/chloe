@@ -178,6 +178,7 @@ bot.on('message', async message => {
   let commandName = messageArray[0].slice(useprefix.length).toLowerCase();
   let args = messageArray.slice(1);
 
+  // blacklist words auto ban
   let blresult = await connection.query("SELECT word FROM blacklistWords").catch(err => console.error(err));
   let blresults = blresult[0];
   let blacklist = [];
@@ -216,7 +217,7 @@ bot.on('message', async message => {
       )
       .setFooter("This is an automated action to protect the server on the behalf of JCoNet Development.");
 
-      let reason = "You said a word on the blacklist that is an automated ban.";
+      let reason = "You said a word on the blacklist. That offence is an automated ban.";
       await message.author.send(`You have been banned from ${message.guild.name} for ${reason}`).catch(err => console.error(err));
       let banned = message.guild.members.cache.get(message.author.id);
       await banned.ban({days: 7, reason: reason}).then(message.channel.send(blEmbed)).catch(err => console.error(err));
