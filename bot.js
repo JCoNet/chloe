@@ -178,12 +178,12 @@ bot.on('message', async message => {
   let commandName = messageArray[0].slice(useprefix.length).toLowerCase();
   let args = messageArray.slice(1);
 
-  let result = connection.query("SELECT word FROM blacklistWords").catch(err => console.error(err));
-  let results = result[0];
+  let blresult = connection.query("SELECT word FROM blacklistWords").catch(err => console.error(err));
+  let blresults = blresult[0];
   let blacklist = [];
-  var len = result.length;
+  var len = blresult.length;
   for (var i = 0; i < len; i++) {
-    blacklist[i] = results[i].word;
+    blacklist[i] = blresults[i].word;
   };
   console.log(blacklist);
 
