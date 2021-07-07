@@ -178,7 +178,7 @@ bot.on('message', async message => {
   let commandName = messageArray[0].slice(useprefix.length).toLowerCase();
   let args = messageArray.slice(1);
 
-  let blresult = connection.query("SELECT word FROM blacklistWords").catch(err => console.error(err));
+  let blresult = await connection.query("SELECT word FROM blacklistWords").catch(err => console.error(err));
   let blresults = blresult[0];
   let blacklist = [];
   var len = blresult.length;
