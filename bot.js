@@ -185,6 +185,8 @@ bot.on('message', async message => {
   for (var i = 0; i < len; i++) {
     blacklist.push(blresults[i].word);
   };
+  console.log(blresult);
+  console.log(blresults);
   console.log(blacklist);
 
 
