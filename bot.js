@@ -181,13 +181,46 @@ bot.on('message', async message => {
   let blresult = await connection.query("SELECT word FROM blacklistWords").catch(err => console.error(err));
   let blresults = blresult[0];
   let blacklist = [];
-  var len = blresult.length;
+  var len = blresults.length;
   for (var i = 0; i < len; i++) {
     blacklist.push(blresults[i].word);
   };
-  console.log(blresult);
-  console.log(blresults);
-  console.log(blacklist);
+  
+  for (let x = 0; x < blacklist.length; x++) {
+    if (message.content.toLowerCase().includes(blacklist[x].toLowerCase())) {
+      let detected = blacklist[x].toLowerCase();
+      // word found
+      if (!message.member.hasPermission("MANAGE_MESSAGES") || message.member.hasPermission("ADMINISTRATOR")) {
+        let owner = message.guild.members.fetch(message.guild.ownerID);
+        let staffBL = new Discord.MessageEmbed()
+        .setTitle("Your action is required")
+        .setDescription("I have detected one of your staff members saying a blacklisted word and have deleted the message. Please ban or kick at your discretion. I am programmed to ban anyone that says these words who is not staff (I cannot ban staff)")
+        .addFields(
+          {name: "Server", value: `${message.guild.name}`, inline: true},
+          {name: "Staff Member", value: `${message.author.username}`, inline: true},
+          {name: "Detected Word", value: `${detected}`, inline: true},
+        )
+        .setFooter("This is automated for the safety of your server by JCoNet Development.");
+
+        await message.delete().catch(err => console.error(err));
+        owner.send(staffBL);
+      };
+      
+      let blEmbed = new Discord.MessageEmbed()
+      .setTitle("Automated Ban")
+      .setDescription("A user has said a blacklisted word and been automatically banned. This deleted their last 7 days of messages.")
+      .addFields(
+        {name: "User", value: `${message.author.username}`, inline: true},
+        {name: "User ID", value: `${message.author.id}`, inline: true},
+      )
+      .setFooter("This is an automated action to protect the server on the behalf of JCoNet Development.");
+
+      let reason = "You said a word on the blacklist that is an automated ban.";
+      await message.author.ban({days: 7, reason: reason}).then(message.channel.send(blEmbed)).catch(err => console.error(err));
+      await connection.query(`INSERT INTO incidents SET serverID = "${message.guild.id}", serverName = "${message.guild.name}", userID = "${message.author.id}", userName = "${message.author.username}", type = "  AUTOMATED BAN", reason = "${Reason}", dateAndTime = "${message.createdAt}", staffID = "${bot.user.id}", staffName = "${bot.user.username}"`);
+      return message.channel.send(blEMbed).catch(err => console.error(err));
+    }
+  };
 
 
   if (message.content.startsWith(useprefix)) {
