@@ -204,6 +204,7 @@ bot.on('message', async message => {
 
         await message.delete().catch(err => console.error(err));
         owner.send(staffBL);
+        return;
       };
       
       let blEmbed = new Discord.MessageEmbed()
