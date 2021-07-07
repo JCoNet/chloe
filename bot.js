@@ -178,6 +178,16 @@ bot.on('message', async message => {
   let commandName = messageArray[0].slice(useprefix.length).toLowerCase();
   let args = messageArray.slice(1);
 
+  let result = connection.query("SELECT word FROM blacklistWords").catch(err => console.error(err));
+  let results = result[0];
+  let blacklist = [];
+  var len = result.length;
+  for (var i = 0; i < len; i++) {
+    blacklist[i] = results[i].word;
+  };
+  console.log(blacklist);
+
+
   if (message.content.startsWith(useprefix)) {
     let command = bot.commands.get(commandName) || bot.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
     if (!command) return;
