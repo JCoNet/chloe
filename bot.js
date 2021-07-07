@@ -216,6 +216,7 @@ bot.on('message', async message => {
       .setFooter("This is an automated action to protect the server on the behalf of JCoNet Development.");
 
       let reason = "You said a word on the blacklist that is an automated ban.";
+      await message.author.send(`You have been banned from ${message.guild.name} for ${reason}`).catch(err => console.error(err));
       await message.author.ban({days: 7, reason: reason}).then(message.channel.send(blEmbed)).catch(err => console.error(err));
       await connection.query(`INSERT INTO incidents SET serverID = "${message.guild.id}", serverName = "${message.guild.name}", userID = "${message.author.id}", userName = "${message.author.username}", type = "  AUTOMATED BAN", reason = "${Reason}", dateAndTime = "${message.createdAt}", staffID = "${bot.user.id}", staffName = "${bot.user.username}"`);
       return message.channel.send(blEMbed).catch(err => console.error(err));
