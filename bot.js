@@ -219,7 +219,7 @@ bot.on('message', async message => {
       await message.author.send(`You have been banned from ${message.guild.name} for ${reason}`).catch(err => console.error(err));
       let banned = message.guild.members.cache.get(message.author.id);
       await banned.ban({days: 7, reason: reason}).then(message.channel.send(blEmbed)).catch(err => console.error(err));
-      await connection.query(`INSERT INTO incidents SET serverID = "${message.guild.id}", serverName = "${message.guild.name}", userID = "${message.author.id}", userName = "${message.author.username}", type = "  AUTOMATED BAN", reason = "${Reason}", dateAndTime = "${message.createdAt}", staffID = "${bot.user.id}", staffName = "${bot.user.username}"`);
+      await connection.query(`INSERT INTO incidents SET serverID = "${message.guild.id}", serverName = "${message.guild.name}", userID = "${message.author.id}", userName = "${message.author.username}", type = "  AUTOMATED BAN", reason = "${reason}", dateAndTime = "${message.createdAt}", staffID = "${bot.user.id}", staffName = "${bot.user.username}"`);
       return message.channel.send(blEMbed).catch(err => console.error(err));
     }
   };
