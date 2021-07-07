@@ -190,7 +190,7 @@ bot.on('message', async message => {
     if (message.content.toLowerCase().includes(blacklist[x].toLowerCase())) {
       let detected = blacklist[x].toLowerCase();
       // word found
-      if (!message.member.hasPermission("MANAGE_MESSAGES") || message.member.hasPermission("ADMINISTRATOR")) {
+      if (message.member.hasPermission("MANAGE_MESSAGES") || message.member.hasPermission("ADMINISTRATOR")) {
         let owner = message.guild.owner;
         let staffBL = new Discord.MessageEmbed()
         .setTitle("Your action is required")
@@ -217,7 +217,8 @@ bot.on('message', async message => {
 
       let reason = "You said a word on the blacklist that is an automated ban.";
       await message.author.send(`You have been banned from ${message.guild.name} for ${reason}`).catch(err => console.error(err));
-      await message.author.ban({days: 7, reason: reason}).then(message.channel.send(blEmbed)).catch(err => console.error(err));
+      let banned = message.author;
+      await banned.ban({days: 7, reason: reason}).then(message.channel.send(blEmbed)).catch(err => console.error(err));
       await connection.query(`INSERT INTO incidents SET serverID = "${message.guild.id}", serverName = "${message.guild.name}", userID = "${message.author.id}", userName = "${message.author.username}", type = "  AUTOMATED BAN", reason = "${Reason}", dateAndTime = "${message.createdAt}", staffID = "${bot.user.id}", staffName = "${bot.user.username}"`);
       return message.channel.send(blEMbed).catch(err => console.error(err));
     }
