@@ -11,7 +11,7 @@ module.exports = {
         let wReason = args.join(" ").slice(22);
     
         let kickEmbed = new Discord.MessageEmbed()
-            .setTitle("Kick")
+            .setTitle("Warn")
             .setDescription("The following warning took place")
             .setColor("#e68a00")
             .addField("Warned User", `${wUser} with the id ${wUser.id}`)
