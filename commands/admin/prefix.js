@@ -15,7 +15,7 @@ module.exports = {
         let check = message.guild.iconURL();
         let serverIcon;
         if (!check) {
-            serverIcon = "https://jconet.xyz/resources/JCN.png";
+            serverIcon = "https://jconet.co.uk/resources/JCN.png";
         } else {
             serverIcon = check;
         };

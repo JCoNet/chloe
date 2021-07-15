@@ -99,10 +99,10 @@ bot.on('guildCreate', async guild => {
     .setTitle("Chloe Beta Requirements")
     .setDescription("Using Chloe Beta means you are required to follow our requirements including regular feedback about the bot useage and reporting any bugs.")
     .setURL("https://chloe.jconet.xyz/")
-    .setAuthor('JCoNet Development', 'https://jconet.xyz/resources/JCN.png', 'https://jconet.xyz')
+    .setAuthor('JCoNet Development', 'https://jconet.co.uk/resources/JCN.png', 'https://jconet.co.uk')
     .setThumbnail(bot.user.displayAvatarURL())
     .addField("Requirements", "The introduction of Chloe Beta opens up many issues such as possibilities of crashes and commands not working. the requirements on you are that you do not spam commands and report any commands not working or not showing the results properly to our proper communication options below. You are also required to give us feedback and thoughts on how the bot is working in your server and how it operates. Other suggestions to changing the command layouts etc are welcomed.")
-    .addField("Email us", 'chloe-beta@jconet.xyz')
+    .addField("Email us", 'chloe_beta@jconet.co.uk')
     .addField("Talk to our team", '[JCoNet Live Support](https://tawk.to/jcnsupport "JCoNet Support Live Chat Link")')
     .addField("Submit a ticket", '[JCoNet Knowledge Base](https://jconet.tawk.help "JCoNet Knowledge Base Link (tickets submitted through here)")')
     .addField('Quickly Re-Add Chloe Beta if we told you to remove and re-add her.', '[Invite link for Chloe Beta](https://discord.com/oauth2/authorize?client_id=845392640920518666&permissions=8&scope=bot "Invite for chloe beta")')
@@ -124,7 +124,7 @@ bot.on('guildMemberAdd', async member => {
   let check = member.guild.iconURL();
   let serverIcon;
   if (!check) {
-    serverIcon = "https://jconet.xyz/resources/JCN.png";
+    serverIcon = "https://jconet.co.uk/resources/JCN.png";
   } else {
     serverIcon = check;
   };
@@ -255,7 +255,7 @@ bot.on('message', async message => {
         .setColor("#ff0000")
         .setDescription("It seems this guild has not been updated to utilise my new features, please get an admin to run the following command to enable these features!")
         .addField("Command", `${useprefix}updateguild`)
-        .setFooter(`Any questions please contact: customer_support@jconet.xyz or visit our website and use our live chat https://jconet.xyz`);
+        .setFooter(`Any questions please contact: customer_support@jconet.co.uk or visit our website and use our live chat https://jconet.co.uk`);
       message.channel.send(errorEmbed).catch(err => console.error(err));
     }
     let coinstoadd = 1;

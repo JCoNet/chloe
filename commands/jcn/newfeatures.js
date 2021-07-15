@@ -10,7 +10,7 @@ module.exports = {
         if (message.author.id !== config.developer) return message.author.send("You are not allowed to use a JCoNet Developer only command.").catch(err => console.error(err));
 
         let newfeatEmbed = new Discord.MessageEmbed()
-        .setAuthor('JCoNet Development', 'https://jconet.xyz/resources/JCN.png', 'https://jconet.xyz')
+        .setAuthor('JCoNet Development', 'https://jconet.co.uk/resources/JCN.png', 'https://jconet.co.uk')
         .setColor('#f59e2c')
         .setThumbnail(bot.user.displayAvatarURL())
         .setTitle("Chloe New Features")

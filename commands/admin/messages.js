@@ -40,13 +40,13 @@ module.exports = {
         let check = message.guild.iconURL();
         let serverIcon;
         if (!check) {
-            serverIcon = "https://jconet.xyz/resources/JCN.png";
+            serverIcon = "https://jconet.co.uk/resources/JCN.png";
         } else {
             serverIcon = check;
         };
     
         let setEmbed = new Discord.MessageEmbed()
-        .setAuthor('JCoNet Development', 'https://jconet.xyz/resources/JCN.png', 'https://jconet.xyz')
+        .setAuthor('JCoNet Development', 'https://jconet.co.uk/resources/JCN.png', 'https://jconet.co.uk')
         .setColor('#f59e2c')
         .setTitle(`Set messages for ${message.guild.name}`)
         .setDescription("This is the message to configure the messages we send automatically to your server.")

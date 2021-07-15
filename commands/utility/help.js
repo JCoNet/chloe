@@ -10,7 +10,7 @@ module.exports = {
             .setColor("#ff0000")
             .setDescription("A list of all the commands and how to use them.")
             .setThumbnail(bot.user.displayAvatarURL())
-            .setAuthor('JCoNet Development', 'https://jconet.xyz/resources/JCN.png', 'https://jconet.xyz')
+            .setAuthor('JCoNet Development', 'https://jconet.co.uk/resources/JCN.png', 'https://jconet.co.uk')
             .setFooter("New commands are developed and added frequently.")
             .addFields(
                 {name: "User Commands", value: '\u200B', inline: false},
