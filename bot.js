@@ -398,18 +398,18 @@ const { ClientCredentialsAuthProvider } = require('twitch-auth');
 const { EnvPortAdapter, EventSubListener } = require('twitch-eventsub');
 
 const clientId = process.env.CLIENT_ID;
-  const clientSecret = process.env.CLIENT_SECRET;
+const clientSecret = process.env.CLIENT_SECRET;
 
-  const authProvider = new ClientCredentialsAuthProvider(clientId, clientSecret);
-  const apiClient = new ApiClient({ authProvider });
+const authProvider = new ClientCredentialsAuthProvider(clientId, clientSecret);
+const apiClient = new ApiClient({ authProvider });
 
-  const listener = new EventSubListener(apiClient, new EnvPortAdapter({
-    hostName: 'chloe-hosting.herokuapp.com'
-  }), process.env.EVENT_SECRET);
-  if (listener) {
-    console.log("Twitch Listener Working.")
-  }
-  await listener.listen();
+const listener = new EventSubListener(apiClient, new EnvPortAdapter({
+  hostName: 'chloe-hosting.herokuapp.com'
+}), process.env.EVENT_SECRET);
+if (listener) {
+  console.log("Twitch Listener Working.")
+}
+listener.listen();
 
 async function newSubscription(userName) {
   let user = await apiClient.helix.users.getUserByName(userName);
