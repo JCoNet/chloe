@@ -393,16 +393,18 @@ const { ClientCredentialsAuthProvider } = require('twitch-auth');
 const { EnvPortAdapter, EventSubListener } = require('twitch-eventsub');
 
 async function startTwitch() {
-    const clientId = process.env.CLIENT_ID;
+  const clientId = process.env.CLIENT_ID;
   const clientSecret = process.env.CLIENT_SECRET;
 
   const authProvider = new ClientCredentialsAuthProvider(clientId, clientSecret);
   const apiClient = new ApiClient({ authProvider });
 
+  console.log(authProvider);
+  console.log(apiClient);
+
   const listener = new EventSubListener(apiClient, new EnvPortAdapter({
     hostName: 'https://chloe-hosting.herokuapp.com/'
   }), process.env.EVENT_SECRET);
-  console.log(listener);
   await listener.listen();
 
   const userId = '60270844';
