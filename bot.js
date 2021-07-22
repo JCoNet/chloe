@@ -400,7 +400,7 @@ async function startTwitch() {
   const apiClient = new ApiClient({ authProvider });
 
   const listener = new EventSubListener(apiClient, new EnvPortAdapter({
-    hostName: 'chloe-hosting.herokuapp.com/'
+    hostName: 'chloe-hosting.herokuapp.com'
   }), process.env.EVENT_SECRET);
   await listener.listen();
 
