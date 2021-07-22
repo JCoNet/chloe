@@ -74,7 +74,7 @@ const user = apiClient.helix.users.getUserByName(userName);
 const userID = user.id;
 const streamChannel = bot.channels.cache.get('673427499396628493');
 // we need to track the previous status of the stream because there are other state changes than the live/offline switch
-let prevStream = apiClient.helix.streams.getStreamByUserID(userID);
+let prevStream = apiClient.helix.streams.getStreamByUserId(userID);
 
 const subscription = listener.subscribeToStreamChanges(userId, async stream => {
     if (stream) {
