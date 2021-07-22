@@ -1,6 +1,6 @@
 {
   "name": "chloe",
-  "version": "6.12.16",
+  "version": "6.13.0",
   "frmwrk": "76.6.4",
   "description": "JCoNet Discord presents: Chloe. The new discord moderation tool for your JCoNet Integrated server! Here to help you with most if not all of your discord server administration needs.",
   "main": "bot.js",
@@ -21,6 +21,8 @@
     "discord-buttons": "^3.2.1",
     "discord.js": "^12.5.3",
     "ms": "^2.1.3",
-    "mysql2": "^2.2.5"
+    "mysql2": "^2.2.5",
+    "twitch": "^4.6.4",
+    "twitch-webhooks": "^4.6.4"
   }
 }

@@ -52,6 +52,40 @@ let botConf;
 // bot.login(process.env.token);
 bot.login(process.env.betatoken);
 
+// setup twitch
+import { ApiClient } from 'twitch';
+import { ClientCredentialsAuthProvider } from 'twitch-auth';
+import { SimpleAdapter, WebHookListener } from 'twitch-webhooks';
+
+const clientId = process.env.CLIENT_ID;
+const clientSecret = process.env.CLIENT_SECRET;
+
+const authProvider = new ClientCredentialsAuthProvider(clientId, clientSecret);
+const apiClient = new ApiClient({ authProvider });
+
+const listener = new WebHookListener(apiClient, new EnvPortAdapter({
+    hostName: 'https://chloe-hosting.herokuapp.com/'
+}));
+await listener.listen();
+
+const userId = 'jconet';
+const streamChannel = bot.channels.cache.get('673427499396628493');
+// we need to track the previous status of the stream because there are other state changes than the live/offline switch
+let prevStream = await apiClient.helix.streams.getStreamByUserId(userId);
+
+const subscription = await listener.subscribeToStreamChanges(userId, async stream => {
+    if (stream) {
+        if (!prevStream) {
+            streamChannel.send(`${stream.userDisplayName} just went live with title: ${stream.title}`);
+        }
+    } else {
+        // no stream, no display name
+        const user = await apiClient.helix.users.getUserById(userId);
+        streamChannel.send(`${user.displayName} just went offline`);
+    }
+    prevStream = stream ?? null;
+});
+
 bot.once('ready', async () => {
   //set up botConf
   var d = new Date();
