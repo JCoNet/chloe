@@ -81,7 +81,7 @@ async function setVars() {
   return {three, four, five};
 }
 
-const [userId, streamChannel, prevStream] = setVars();
+const {userId, streamChannel, prevStream} = setVars();
 
 const subscription = listener.subscribeToStreamChanges(userId, async stream => {
     if (stream) {
