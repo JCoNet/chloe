@@ -399,13 +399,9 @@ async function startTwitch() {
   const authProvider = new ClientCredentialsAuthProvider(clientId, clientSecret);
   const apiClient = new ApiClient({ authProvider });
 
-  console.log(authProvider);
-  console.log(apiClient);
-
   const listener = new EventSubListener(apiClient, new EnvPortAdapter({
     hostName: 'https://chloe-hosting.herokuapp.com/'
   }), process.env.EVENT_SECRET);
-  await listener.listen();
 
   const userId = '60270844';
 
@@ -416,6 +412,8 @@ async function startTwitch() {
     console.log('live');
     streamChannel.send(`${e.broadcasterDisplayName} just went live!`);
   });
+
+  await listener.listen();
 };
 
 startTwitch();
