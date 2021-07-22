@@ -28,6 +28,8 @@ module.exports = {
             console.log(checkGuild);
             if (checkGuild == undefined) {
                 connection.query(`DELETE FROM guildConfig WHERE guildID = '${results[i].guildID}'`).catch(err => console.error(err));
+                connection.query(`DELETE FROM money WHERE guildID = '${results[i].guildID}'`).catch(err => console.error(err));
+                connection.query(`DELETE FROM incidents WHERE guildID = '${results[i].guildID}'`).catch(err => console.error(err));
                 message.channel.send(`Not in ${results[i].guildName} anymore, deleted record from database.`)
             }
         };

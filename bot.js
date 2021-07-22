@@ -112,6 +112,11 @@ bot.on('guildCreate', async guild => {
 
 });
 
+bot.on('guildDelete', async guild => {
+  connection.query(`DELETE FROM guildConfig WHERE guildID = '${guild.id}'`).catch(err => console.error(err));
+  connection.query(`DELETE FROM money WHERE guildID = '${guild.id}'`).catch(err => console.error(err));
+});
+
 bot.on('guildMemberAdd', async member => {
   var d = new Date();
   // member.guild.channels.get('channelID').send("Welcome"); 
@@ -392,8 +397,7 @@ const { ApiClient } = require('twitch');
 const { ClientCredentialsAuthProvider } = require('twitch-auth');
 const { EnvPortAdapter, EventSubListener } = require('twitch-eventsub');
 
-async function startTwitch() {
-  const clientId = process.env.CLIENT_ID;
+const clientId = process.env.CLIENT_ID;
   const clientSecret = process.env.CLIENT_SECRET;
 
   const authProvider = new ClientCredentialsAuthProvider(clientId, clientSecret);
@@ -402,9 +406,12 @@ async function startTwitch() {
   const listener = new EventSubListener(apiClient, new EnvPortAdapter({
     hostName: 'chloe-hosting.herokuapp.com'
   }), process.env.EVENT_SECRET);
+  if (listener) {
+    console.log("Twitch Listener Working.")
+  }
   await listener.listen();
 
-  const userName = "kiykills";
+async function newSubscription(userName) {
   let user = await apiClient.helix.users.getUserByName(userName);
   const userId = user.id;
 
@@ -417,4 +424,4 @@ async function startTwitch() {
   });
 };
 
-startTwitch();
+newSubscription("kiykills");
