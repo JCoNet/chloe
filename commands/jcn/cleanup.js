@@ -2,7 +2,7 @@ const config = require("../../botconfig.json");
 const stats = require("../../package.json");
 
 module.exports = {
-    name: "newfeatures",
+    name: "cleanup",
     description: "JCoNet only command!",
     args: false,
     async execute(Discord, bot, connection, message, args, useprefix) {
