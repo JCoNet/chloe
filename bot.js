@@ -388,12 +388,12 @@ bot.on('clickButton', async (button) => {
 
 // twitch integration
 
-async function startTwitch() {
-  const { ApiClient } = require('twitch');
-  const { ClientCredentialsAuthProvider } = require('twitch-auth');
-  const { EnvPortAdapter, EventSubListener } = require('twitch-eventsub');
+const { ApiClient } = require('twitch');
+const { ClientCredentialsAuthProvider } = require('twitch-auth');
+const { EnvPortAdapter, EventSubListener } = require('twitch-eventsub');
 
-  const clientId = process.env.CLIENT_ID;
+async function startTwitch() {
+    const clientId = process.env.CLIENT_ID;
   const clientSecret = process.env.CLIENT_SECRET;
 
   const authProvider = new ClientCredentialsAuthProvider(clientId, clientSecret);
@@ -402,6 +402,7 @@ async function startTwitch() {
   const listener = new EventSubListener(apiClient, new EnvPortAdapter({
     hostName: 'https://chloe-hosting.herokuapp.com/'
   }), process.env.EVENT_SECRET);
+  console.log(listener);
   await listener.listen();
 
   const userId = '60270844';
