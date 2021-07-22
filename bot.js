@@ -401,18 +401,18 @@ async function startTwitch() {
 
   const listener = new EventSubListener(apiClient, new EnvPortAdapter({
     hostName: 'chloe-hosting.herokuapp.com'
-  }), process.env.EVENT_SECRET);
+  }), process.env.EVENT_SECRET).catch(err => console.error(err));
   await listener.listen();
 
-  const userId = '60270844';
+  const userName = "jconet";
+  let user = await apiClient.helix.users.getUserByName(userName);
+  const userId = user.id;
 
-  const streamChannel = bot.channels.cache.get('673427499396628493')
-  console.log(streamChannel);
+  const streamChannel = bot.channels.cache.get('818685046302965801')
 
   const onlineSubscription = await listener.subscribeToStreamOnlineEvents(userId, e => {
-    console.log('live');
-    streamChannel.send(`${e.broadcasterDisplayName} just went live!`);
-  });
+    streamChannel.send(`${e.broadcasterDisplayName} just went live! Catch the good vibes at https://twitch.tv/${userName} :KiyKillsLetsGo: :KiyKillsBigLuv:!!!!`);
+  }).catch(err => console.error(err));
 };
 
 startTwitch();
