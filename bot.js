@@ -55,7 +55,7 @@ bot.login(process.env.betatoken);
 // setup twitch
 const { ApiClient } = require('twitch');
 const { ClientCredentialsAuthProvider } = require('twitch-auth');
-const { SimpleAdapter, WebHookListener } = require('twitch-webhooks');
+const { EnvPortAdapter, WebHookListener } = require('twitch-webhooks');
 
 const clientId = process.env.CLIENT_ID;
 const clientSecret = process.env.CLIENT_SECRET;
@@ -63,11 +63,11 @@ const clientSecret = process.env.CLIENT_SECRET;
 const authProvider = new ClientCredentialsAuthProvider(clientId, clientSecret);
 const apiClient = new ApiClient({ authProvider });
 
-const listener = new WebHookListener(apiClient, new SimpleAdapter({
-    hostName: 'https://twitch.jconet.co.uk',
-    listenerPort: 443
-}));
-// const listener = new WebHookListener(apiClient, new EnvPortAdapter({ hostName: 'https://chloe-hosting.herokuapp.com/' }));
+// const listener = new WebHookListener(apiClient, new SimpleAdapter({
+//     hostName: 'https://twitch.jconet.co.uk',
+//     listenerPort: 80
+// }));
+const listener = new WebHookListener(apiClient, new EnvPortAdapter({ hostName: 'https://chloe-hosting.herokuapp.com/' }));
 listener.listen();
 
 async function setVars() {
