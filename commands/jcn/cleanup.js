@@ -20,13 +20,14 @@ module.exports = {
         )
         .setFooter(`Lead developer: ${stats.author}`);
 
-        let result = await connection.query("SELECT guildID FROM guildConfig").catch(err => console.error(err));
+        let result = await connection.query("SELECT guildName, guildID FROM guildConfig").catch(err => console.error(err));
         let results = result[0];
         var len = results.length;
         for (var i = 0; i < (len); i++) {
-            let checkGuild = await bot.guilds.cache.get(results[0].guildID);
+            let checkGuild = await bot.guilds.cache.get(results[i].guildID);
             if (checkGuild == 'undefined') {
                 connection.query("DELETE FROM guildConfig WHERE guildID = '${results[0].guildID}'").catch(err => console.error(err));
+                message,channel.send(`Not in ${results[i].guildName} anymore, deleted record from database.`)
             }
         };
     },
