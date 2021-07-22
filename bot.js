@@ -401,7 +401,7 @@ async function startTwitch() {
 
   const listener = new EventSubListener(apiClient, new EnvPortAdapter({
     hostName: 'chloe-hosting.herokuapp.com'
-  }), process.env.EVENT_SECRET).catch(err => console.error(err));
+  }), process.env.EVENT_SECRET);
   await listener.listen();
 
   const userName = "jconet";
@@ -412,7 +412,7 @@ async function startTwitch() {
 
   const onlineSubscription = await listener.subscribeToStreamOnlineEvents(userId, e => {
     streamChannel.send(`${e.broadcasterDisplayName} just went live! Catch the good vibes at https://twitch.tv/${userName} :KiyKillsLetsGo: :KiyKillsBigLuv:!!!!`);
-  }).catch(err => console.error(err));
+  });
 };
 
 startTwitch();
