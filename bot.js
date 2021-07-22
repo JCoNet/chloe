@@ -390,7 +390,7 @@ bot.on('clickButton', async (button) => {
 
 const { ApiClient } = require('twitch');
 const { ClientCredentialsAuthProvider } = require('twitch-auth');
-const { ReverseProxyAdapter, EventSubListener } = require('twitch-eventsub');
+const { EnvPortAdapter, EventSubListener } = require('twitch-eventsub');
 
 async function startTwitch() {
   const clientId = process.env.CLIENT_ID;
@@ -399,9 +399,8 @@ async function startTwitch() {
   const authProvider = new ClientCredentialsAuthProvider(clientId, clientSecret);
   const apiClient = new ApiClient({ authProvider });
 
-  const listener = new EventSubListener(apiClient, new ReverseProxyAdapter({
-    hostName: 'twitch.jconet.co.uk',
-    externalPort: 443
+  const listener = new EventSubListener(apiClient, new EnvPortAdapter({
+    hostName: 'chloe-hosting.herokuapp.com'
   }), process.env.EVENT_SECRET);
   await listener.listen();
 
