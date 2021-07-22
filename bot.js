@@ -388,7 +388,7 @@ bot.on('clickButton', async (button) => {
 
 // twitch integration
 
-(async () => {
+async () => {
   const { ApiClient } = require('twitch');
   const { ClientCredentialsAuthProvider } = require('twitch-auth');
   const { EnvPortAdapter, EventSubListener } = require('twitch-eventsub');
@@ -413,4 +413,4 @@ bot.on('clickButton', async (button) => {
     console.log('live');
     streamChannel.send(`${e.broadcasterDisplayName} just went live!`);
   });
-});
+};
