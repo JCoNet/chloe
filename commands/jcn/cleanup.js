@@ -20,16 +20,14 @@ module.exports = {
         )
         .setFooter(`Lead developer: ${stats.author}`);
 
-        let result = await connection.query("SELECT systemChannelID, guildID, newfeatureEnabled FROM guildConfig").catch(err => console.error(err));
+        let result = await connection.query("SELECT guildID FROM guildConfig").catch(err => console.error(err));
         let results = result[0];
         var len = results.length;
-        for (var i = 0; i < (len+1); i++) {
-            let canSend = await results[i].newfeatureEnabled;
-            let sendToGuild = await bot.guilds.cache.get(results[i].guildID);
-            let sendTo = await sendToGuild.channels.cache.get(results[i].systemChannelID);
-            if (canSend == 1) {
-                sendTo.send(newfeatEmbed).catch(err => console.error(err));;
-            };
+        for (var i = 0; i < (len); i++) {
+            let checkGuild = await bot.guilds.cache.get(results[0].guildID);
+            if (checkGuild == 'undefined') {
+                connection.query("DELETE FROM guildConfig WHERE guildID = '${results[0].guildID}'").catch(err => console.error(err));
+            }
         };
     },
 };
