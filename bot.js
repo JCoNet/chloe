@@ -52,50 +52,6 @@ let botConf;
 // bot.login(process.env.token);
 bot.login(process.env.betatoken);
 
-// setup twitch
-const { ApiClient } = require('twitch');
-const { ClientCredentialsAuthProvider } = require('twitch-auth');
-const { EnvPortAdapter, WebHookListener } = require('twitch-webhooks');
-
-const clientId = process.env.CLIENT_ID;
-const clientSecret = process.env.CLIENT_SECRET;
-
-const authProvider = new ClientCredentialsAuthProvider(clientId, clientSecret);
-const apiClient = new ApiClient({ authProvider });
-
-// const listener = new WebHookListener(apiClient, new SimpleAdapter({
-//     hostName: 'https://twitch.jconet.co.uk',
-//     listenerPort: 80
-// }));
-const listener = new WebHookListener(apiClient, new EnvPortAdapter({ hostName: 'https://chloe-hosting.herokuapp.com/' }));
-listener.listen();
-
-async function setVars(apiClient, bot) {
-  const one = 'jconet';
-  const two = await apiClient.helix.users.getUserByName(one);
-  const three = two.id;
-  const four = bot.channels.cache.get('673427499396628493');
-  // we need to track the previous status of the stream because there are other state changes than the live/offline switch
-  let five = await apiClient.helix.streams.getStreamByUserId(three);
-
-  return {three, four, five};
-}
-
-const {userId, streamChannel, prevStream} = setVars(apiClient, bot);
-
-const subscription = listener.subscribeToStreamChanges(userId, async stream => {
-    if (stream) {
-        if (!prevStream) {
-            streamChannel.send(`${stream.userDisplayName} just went live with title: ${stream.title}`);
-        }
-    } else {
-        // no stream, no display name
-        const user = apiClient.helix.users.getUserById(userId);
-        streamChannel.send(`${user.displayName} just went offline`);
-    }
-    prevStream = stream ?? null;
-});
-
 bot.once('ready', async () => {
   //set up botConf
   var d = new Date();
@@ -428,4 +384,29 @@ bot.on('clickButton', async (button) => {
       button.clicker.user.send(`You tried to use admin only buttons in ${button.guild.name} and we thought we would let you know that you cannot do that.`);
     };
   };
+});
+
+// twitch integration
+
+const { ApiClient } = require('twitch');
+const { ClientCredentialsAuthProvider } = require('twitch-auth');
+const { EnvPortAdapter, EventSubListener } = require('twitch-eventsub');
+
+const clientId = process.env.CLIENT_ID;
+const clientSecret = process.env.CLIENT_SECRET;
+
+const authProvider = new ClientCredentialsAuthProvider(clientId, clientSecret);
+const apiClient = new ApiClient({ authProvider });
+
+const listener = new EventSubListener(client, new EnvPortAdapter({
+	hostName: 'https://chloe-hosting.herokuapp.com/'
+}), 'qcuSpJHnKGFdUjooCrgd');
+await listener.listen();
+
+const userId = '60270844';
+
+const streamChannel = bot.channels.cache.get('673427499396628493')
+
+const onlineSubscription = await listener.subscribeToStreamOnlineEvents(userId, e => {
+	streamChannel.send(`${e.broadcasterDisplayName} just went live!`);
 });
