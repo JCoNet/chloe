@@ -26,7 +26,7 @@ module.exports = {
         for (var i = 0; i < (len); i++) {
             let checkGuild = await bot.guilds.cache.get(results[i].guildID);
             console.log(checkGuild);
-            if (checkGuild == 'undefined') {
+            if (checkGuild == undefined) {
                 connection.query("DELETE FROM guildConfig WHERE guildID = '${results[0].guildID}'").catch(err => console.error(err));
                 message,channel.send(`Not in ${results[i].guildName} anymore, deleted record from database.`)
             }
