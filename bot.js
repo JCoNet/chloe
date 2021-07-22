@@ -64,7 +64,7 @@ const authProvider = new ClientCredentialsAuthProvider(clientId, clientSecret);
 const apiClient = new ApiClient({ authProvider });
 
 const listener = new WebHookListener(apiClient, new SimpleAdapter({
-    hostName: 'https://chloe-hosting.herokuapp.com/',
+    hostName: 'https://twitch.jconet.co.uk',
     listenerPort: 8090
 }));
 listener.listen();
@@ -72,7 +72,7 @@ listener.listen();
 const userId = 'jconet';
 const streamChannel = bot.channels.cache.get('673427499396628493');
 // we need to track the previous status of the stream because there are other state changes than the live/offline switch
-let prevStream = apiClient.helix.streams.getStreamByUserId(userId);
+let prevStream = apiClient.helix.streams.getStreamByName(userId);
 
 const subscription = listener.subscribeToStreamChanges(userId, async stream => {
     if (stream) {
