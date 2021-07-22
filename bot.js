@@ -66,7 +66,7 @@ const apiClient = new ApiClient({ authProvider });
 const listener = new WebHookListener(apiClient, new EnvPortAdapter({
     hostName: 'https://chloe-hosting.herokuapp.com/'
 }));
-await listener.listen();
+listener.listen();
 
 const userId = 'jconet';
 const streamChannel = bot.channels.cache.get('673427499396628493');
