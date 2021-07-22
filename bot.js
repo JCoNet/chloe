@@ -71,16 +71,16 @@ listener.listen();
 const userId = 'jconet';
 const streamChannel = bot.channels.cache.get('673427499396628493');
 // we need to track the previous status of the stream because there are other state changes than the live/offline switch
-let prevStream = await apiClient.helix.streams.getStreamByUserId(userId);
+let prevStream = apiClient.helix.streams.getStreamByUserId(userId);
 
-const subscription = await listener.subscribeToStreamChanges(userId, async stream => {
+const subscription = listener.subscribeToStreamChanges(userId, async stream => {
     if (stream) {
         if (!prevStream) {
             streamChannel.send(`${stream.userDisplayName} just went live with title: ${stream.title}`);
         }
     } else {
         // no stream, no display name
-        const user = await apiClient.helix.users.getUserById(userId);
+        const user = apiClient.helix.users.getUserById(userId);
         streamChannel.send(`${user.displayName} just went offline`);
     }
     prevStream = stream ?? null;
