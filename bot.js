@@ -63,11 +63,11 @@ const clientSecret = process.env.CLIENT_SECRET;
 const authProvider = new ClientCredentialsAuthProvider(clientId, clientSecret);
 const apiClient = new ApiClient({ authProvider });
 
-// const listener = new WebHookListener(apiClient, new SimpleAdapter({
-//     hostName: 'https://twitch.jconet.co.uk',
-//     listenerPort: 8090
-// }));
-const listener = new WebHookListener(apiClient, new EnvPortAdapter({ hostName: 'https://chloe-hosting.herokuapp.com/' }));
+const listener = new WebHookListener(apiClient, new SimpleAdapter({
+    hostName: 'https://twitch.jconet.co.uk',
+    listenerPort: 8090
+}));
+// const listener = new WebHookListener(apiClient, new EnvPortAdapter({ hostName: 'https://chloe-hosting.herokuapp.com/' }));
 listener.listen();
 
 const userName = 'jconet';
