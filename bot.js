@@ -411,4 +411,6 @@ bot.on('clickButton', async (button) => {
   const onlineSubscription = await listener.subscribeToStreamOnlineEvents(userId, e => {
     streamChannel.send(`${e.broadcasterDisplayName} just went live!`);
   });
+
+  await onlineSubscription.start()
 });
