@@ -405,7 +405,7 @@ async function startTwitch() {
 
   const userId = '60270844';
 
-  const streamChannel = bot.channels.cache.get('673427499396628493')
+  const streamChannel = await bot.channels.cache.get('673427499396628493')
   console.log(streamChannel);
 
   const onlineSubscription = await listener.subscribeToStreamOnlineEvents(userId, e => {
