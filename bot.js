@@ -409,9 +409,11 @@ async function startTwitch() {
   const userId = user.id;
 
   const streamChannel = bot.channels.cache.get('818685046302965801')
+  const bigluv = bot.emojis.cache.find(emoji => emoji.name === "KiyKillsBigLuv");
+  const letsgo = bot.emojis.cache.find(emoji => emoji.name === "KiyKillsLetsGo");
 
   const onlineSubscription = await listener.subscribeToStreamOnlineEvents(userId, e => {
-    streamChannel.send(`${e.broadcasterDisplayName} just went live! Catch the good vibes at https://twitch.tv/${userName} :KiyKillsLetsGo: :KiyKillsBigLuv:!!!!`);
+    streamChannel.send(`${e.broadcasterDisplayName} just went live! Catch the good vibes at https://twitch.tv/${userName} ${letsgo} ${bigluv}!!!!`);
   });
 };
 
