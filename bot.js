@@ -53,9 +53,9 @@ let botConf;
 bot.login(process.env.betatoken);
 
 // setup twitch
-import { ApiClient } from 'twitch';
-import { ClientCredentialsAuthProvider } from 'twitch-auth';
-import { SimpleAdapter, WebHookListener } from 'twitch-webhooks';
+const { ApiClient } = require('twitch');
+const { ClientCredentialsAuthProvider } = require('twitch-auth');
+const { SimpleAdapter, WebHookListener } = require('twitch-webhooks');
 
 const clientId = process.env.CLIENT_ID;
 const clientSecret = process.env.CLIENT_SECRET;
