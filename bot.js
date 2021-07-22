@@ -399,7 +399,7 @@ async function startTwitch() {
   const authProvider = new ClientCredentialsAuthProvider(clientId, clientSecret);
   const apiClient = new ApiClient({ authProvider });
 
-  const listener = new EventSubListener(client, new EnvPortAdapter({
+  const listener = new EventSubListener(apiClient, new EnvPortAdapter({
     hostName: 'https://chloe-hosting.herokuapp.com/'
   }), process.env.EVENT_SECRET);
   await listener.listen();
