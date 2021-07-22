@@ -16,8 +16,7 @@ module.exports = {
         .setTitle("Chloe New Features")
         .setDescription(`JCoNet Development has been hard at work on some new features, here is a rundown of everything that changed in version ${stats.version}!`)
         .addFields(
-            {name: "[+] Automated blacklist word ban", value: "To protect servers we monitor from certain words we have enabled a blacklist that automatically bans any users that say the words within it. To view the blacklist please message JCoDog.", inline: true},
-            {name: "[!] Ban configuration", value: "Previously any bans this bot did were not removing any messages. So we updated the ban configuration to now delete the last 7 days of messages from the banned user be it manual or automated ban. 7 days is the most we can delete when banning a user through the discord api.", inline: true},
+            {name: "[+] Twitch live notifications [alpha]", value: "We added twitch api to Chloe to enable go live notifications in the alpha form of the feature. As this is an alpha feature it is only set up for one user and one server selected due to their massive support of this project. This feature will be adapted and modified to bring it to the beta as soon as possible.", inline: true}
         )
         .setFooter(`Lead developer: ${stats.author}`);
 

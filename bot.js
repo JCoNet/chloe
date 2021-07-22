@@ -404,7 +404,7 @@ async function startTwitch() {
   }), process.env.EVENT_SECRET);
   await listener.listen();
 
-  const userName = "jconet";
+  const userName = "kiykills";
   let user = await apiClient.helix.users.getUserByName(userName);
   const userId = user.id;
 
