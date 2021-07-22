@@ -392,6 +392,9 @@ const { ApiClient } = require('twitch');
 const { ClientCredentialsAuthProvider } = require('twitch-auth');
 const { EnvPortAdapter, EventSubListener } = require('twitch-eventsub');
 
+const streamChannel = bot.channels.cache.get('673427499396628493')
+console.log(streamChannel);
+
 async function startTwitch() {
   const clientId = process.env.CLIENT_ID;
   const clientSecret = process.env.CLIENT_SECRET;
@@ -402,18 +405,14 @@ async function startTwitch() {
   const listener = new EventSubListener(apiClient, new EnvPortAdapter({
     hostName: 'https://chloe-hosting.herokuapp.com/'
   }), process.env.EVENT_SECRET);
+  await listener.listen();
 
   const userId = '60270844';
-
-  const streamChannel = await bot.channels.cache.get('673427499396628493')
-  console.log(streamChannel);
 
   const onlineSubscription = await listener.subscribeToStreamOnlineEvents(userId, e => {
     console.log('live');
     streamChannel.send(`${e.broadcasterDisplayName} just went live!`);
   });
-
-  await listener.listen();
 };
 
 startTwitch();
