@@ -8,5 +8,5 @@ const options = {
 
 https.createServer(options, function (req, res) {
   res.writeHead(200);
-  res.end("CHLOE HOST 1 IS ONLINE\n");
+  res.end("CHLOE HOST 1 IS ONLINE.\n");
 }).listen(8000);
