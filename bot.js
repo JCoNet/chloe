@@ -1,3 +1,4 @@
+require('dotenv').config()
 const Discord = require("discord.js");
 const mysql = require("mysql2/promise");
 const fs = require("fs");
