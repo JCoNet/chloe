@@ -1,11 +1,11 @@
-require('dotenv').config()
+require('dotenv').config('.env');
 
 const Discord = require("discord.js");
 const mysql = require("mysql2/promise");
 const fs = require("fs");
-const ascii = require("ascii-table");
 const stats = require("./package.json");
 const config = require("./botconfig.json");
+const ascii = require("ascii-table");
 
 const bot = new Discord.Client();
 
@@ -30,12 +30,12 @@ console.log(`${config.test}`);
 table = new ascii().setHeading("Command File", "Load Status");
 
 bot.commands = new Discord.Collection();
-const commandFolders = fs.readdirSync(path.resolve(__dirname, '/commands'));
+const commandFolders = fs.readdirSync('./commands');
 
 for (const folder of commandFolders) {
-	const commandFiles = fs.readdirSync(path.resolve(__dirname, `/commands/${folder}`)).filter(file => file.endsWith('.js'));
+	const commandFiles = fs.readdirSync(`./commands/${folder}`).filter(file => file.endsWith('.js'));
 	for (const file of commandFiles) {
-		const command = require(path.resolve(__dirname, `/commands/${folder}/${file}`));
+		const command = require(`./commands/${folder}/${file}`);
         // console.log(`Attempting to load command ${command.name}`);
 		if (command.name) {
             bot.commands.set(command.name, command);
