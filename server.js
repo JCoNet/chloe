@@ -1,9 +1,12 @@
-const http = require('http');
+const https = require('https');
+const fs = require('fs');
 
-const requestListener = function (req, res) {
+const options = {
+  key: fs.readFileSync('key.pem'),
+  cert: fs.readFileSync('cert.pem')
+};
+
+https.createServer(options, function (req, res) {
   res.writeHead(200);
-  res.end('Hello, World!');
-}
-
-const server = http.createServer(requestListener);
-server.listen(8080);
+  res.end("Chloe-Host-1 online\n");
+}).listen(8000);
