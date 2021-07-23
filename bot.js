@@ -3,9 +3,9 @@ require('dotenv').config()
 const Discord = require("discord.js");
 const mysql = require("mysql2/promise");
 const fs = require("fs");
+const ascii = require("ascii-table");
 const stats = require("./package.json");
 const config = require("./botconfig.json");
-const ascii = require("ascii-table");
 
 const bot = new Discord.Client();
 
@@ -30,12 +30,12 @@ console.log(`${config.test}`);
 table = new ascii().setHeading("Command File", "Load Status");
 
 bot.commands = new Discord.Collection();
-const commandFolders = fs.readdirSync('./commands');
+const commandFolders = fs.readdirSync(path.resolve(__dirname, '/commands'));
 
 for (const folder of commandFolders) {
-	const commandFiles = fs.readdirSync(`./commands/${folder}`).filter(file => file.endsWith('.js'));
+	const commandFiles = fs.readdirSync(path.resolve(__dirname, `/commands/${folder}`)).filter(file => file.endsWith('.js'));
 	for (const file of commandFiles) {
-		const command = require(`./commands/${folder}/${file}`);
+		const command = require(path.resolve(__dirname, `/commands/${folder}/${file}`));
         // console.log(`Attempting to load command ${command.name}`);
 		if (command.name) {
             bot.commands.set(command.name, command);
@@ -102,7 +102,7 @@ bot.on('guildCreate', async guild => {
     .setColor('#24d3f2')
     .setTitle("Chloe Beta Requirements")
     .setDescription("Using Chloe Beta means you are required to follow our requirements including regular feedback about the bot useage and reporting any bugs.")
-    .setURL("https://chloe.jconet.xyz/")
+    .setURL("https://chloe.jconet.co.uk/")
     .setAuthor('JCoNet Development', 'https://jconet.co.uk/resources/JCN.png', 'https://jconet.co.uk')
     .setThumbnail(bot.user.displayAvatarURL())
     .addField("Requirements", "The introduction of Chloe Beta opens up many issues such as possibilities of crashes and commands not working. the requirements on you are that you do not spam commands and report any commands not working or not showing the results properly to our proper communication options below. You are also required to give us feedback and thoughts on how the bot is working in your server and how it operates. Other suggestions to changing the command layouts etc are welcomed.")
