@@ -1,4 +1,5 @@
 require('dotenv').config()
+
 const Discord = require("discord.js");
 const mysql = require("mysql2/promise");
 const fs = require("fs");
@@ -20,7 +21,9 @@ const connection = mysql.createPool({
   connectionLimit: 1,
   queueLimit: 0
 });
-console.log("Connected to secure DB!");
+if (connection) {
+  console.log("Connected to secure DB!");
+};
 
 console.log(`${config.test}`);
 
