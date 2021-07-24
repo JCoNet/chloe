@@ -399,7 +399,7 @@ bot.on('clickButton', async (button) => {
 
 const { ApiClient } = require('twitch');
 const { ClientCredentialsAuthProvider } = require('twitch-auth');
-const { ReverseProxyAdapter, EventSubListener } = require('twitch-eventsub');
+const { DirectConnectionAdapter, EventSubListener } = require('twitch-eventsub');
 
 const clientId = process.env.CLIENT_ID;
 const clientSecret = process.env.CLIENT_SECRET;
@@ -407,9 +407,12 @@ const clientSecret = process.env.CLIENT_SECRET;
 const authProvider = new ClientCredentialsAuthProvider(clientId, clientSecret);
 const apiClient = new ApiClient({ authProvider });
 
-const listener = new EventSubListener(apiClient, new ReverseProxyAdapter({
+const listener = new EventSubListener(apiClient, new DirectConnectionAdapter({
   hostName: 'chloe-host-1.jconet.co.uk',
-  externalPort: 443
+	sslCert: {
+		key: fs.readFileSync('chloe/key.pem'),
+		cert: fs.readFileSync('chloe/cert.pem')
+	}
 }), process.env.EVENT_SECRET);
 if (listener) {
   console.log("Twitch Listener Working on port 8000.")
