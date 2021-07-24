@@ -397,29 +397,27 @@ bot.on('clickButton', async (button) => {
 
 // twitch integration
 
-const { ApiClient } = require('twitch');
-const { ClientCredentialsAuthProvider } = require('twitch-auth');
-const { DirectConnectionAdapter, EventSubListener } = require('twitch-eventsub');
+async function startTwitchListener(userName) {
+  const { ApiClient } = require('twitch');
+  const { ClientCredentialsAuthProvider } = require('twitch-auth');
+  const { DirectConnectionAdapter, EventSubListener } = require('twitch-eventsub');
 
-const clientId = process.env.CLIENT_ID;
-const clientSecret = process.env.CLIENT_SECRET;
+  const clientId = process.env.CLIENT_ID;
+  const clientSecret = process.env.CLIENT_SECRET;
 
-const authProvider = new ClientCredentialsAuthProvider(clientId, clientSecret);
-const apiClient = new ApiClient({ authProvider });
+  const authProvider = new ClientCredentialsAuthProvider(clientId, clientSecret);
+  const apiClient = new ApiClient({ authProvider });
 
-const listener = new EventSubListener(apiClient, new DirectConnectionAdapter({
-  hostName: 'chloe-host-1.jconet.co.uk',
-	sslCert: {
-		key: fs.readFileSync('chloe/key.pem'),
-		cert: fs.readFileSync('chloe/cert.pem')
-	}
-}), process.env.EVENT_SECRET);
-if (listener) {
-  console.log("Twitch Listener Working on port 8000.")
-}
-listener.listen();
+  const listener = new EventSubListener(apiClient, new DirectConnectionAdapter({
+    hostName: '80.209.234.155',
+    sslCert: {
+      key: fs.readFileSync('chloe/key.pem'),
+      cert: fs.readFileSync('chloe/cert.pem')
+    }
+  }), process.env.EVENT_SECRET);
+  await listener.listen();
+  console.log("Twitch listener started!");
 
-async function newSubscription(userName) {
   let user = await apiClient.helix.users.getUserByName(userName);
   const userId = user.id;
 
@@ -432,4 +430,4 @@ async function newSubscription(userName) {
   });
 };
 
-newSubscription("jconet");
+startTwitchListener('jconet');
