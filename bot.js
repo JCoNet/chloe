@@ -22,7 +22,7 @@ const connection = mysql.createPool({
   queueLimit: 0
 });
 if (connection) {
-  console.log("Connected to secure DB!");
+  console.log("Connected to the secure JCoNet DB!");
 };
 
 console.log(`${config.test}`);
