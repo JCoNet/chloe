@@ -423,7 +423,7 @@ async function newSubscription(userName) {
   const bigluv = bot.emojis.cache.find(emoji => emoji.name === "KiyKillsBigLuv");
   const letsgo = bot.emojis.cache.find(emoji => emoji.name === "KiyKillsLetsGo");
 
-  const onlineSubscription;
+  let onlineSubscription;
 
   onlineSubscription.stop();
 
