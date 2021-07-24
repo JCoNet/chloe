@@ -30,10 +30,10 @@ console.log(`${config.test}`);
 table = new ascii().setHeading("Command File", "Load Status");
 
 bot.commands = new Discord.Collection();
-const commandFolders = fs.readdirSync('chloe/commands');
+const commandFolders = fs.readdirSync('commands');
 
 for (const folder of commandFolders) {
-	const commandFiles = fs.readdirSync(`chloe/commands/${folder}`).filter(file => file.endsWith('.js'));
+	const commandFiles = fs.readdirSync(`commands/${folder}`).filter(file => file.endsWith('.js'));
 	for (const file of commandFiles) {
 		const command = require(`./commands/${folder}/${file}`);
         // console.log(`Attempting to load command ${command.name}`);
