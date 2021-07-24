@@ -423,10 +423,14 @@ async function newSubscription(userName) {
   const bigluv = bot.emojis.cache.find(emoji => emoji.name === "KiyKillsBigLuv");
   const letsgo = bot.emojis.cache.find(emoji => emoji.name === "KiyKillsLetsGo");
 
-  const onlineSubscription = await listener.subscribeToStreamOnlineEvents(userId, e => {
+  const onlineSubscription;
+
+  onlineSubscription.stop();
+
+  onlineSubscription = await listener.subscribeToStreamOnlineEvents(userId, e => {
     streamChannel.send(`What is up @everyone? ${e.broadcasterDisplayName} just went live! Catch the good vibes at https://twitch.tv/${userName} ${letsgo} ${bigluv}!!!!`);
   });
 };
 
-onlineSubscription.stop();
+
 newSubscription("kiykills");
