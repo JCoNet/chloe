@@ -30,7 +30,7 @@ console.log(`${config.test}`);
 table = new ascii().setHeading("Command File", "Load Status");
 
 bot.commands = new Discord.Collection();
-const commandFolders = fs.readdirSync('chloe.commands');
+const commandFolders = fs.readdirSync('chloe/commands');
 
 for (const folder of commandFolders) {
 	const commandFiles = fs.readdirSync(`chloe/commands/${folder}`).filter(file => file.endsWith('.js'));
