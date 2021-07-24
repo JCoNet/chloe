@@ -408,13 +408,12 @@ const authProvider = new ClientCredentialsAuthProvider(clientId, clientSecret);
 const apiClient = new ApiClient({ authProvider });
 
 const listener = new EventSubListener(apiClient, new ReverseProxyAdapter({
-  hostName: 'chloe-host-1.jconet.co.uk',
-  externalPort: 8000
+  hostName: 'chloe-host-1.jconet.co.uk'
 }), process.env.EVENT_SECRET);
 if (listener) {
   console.log("Twitch Listener Working on port 8000.")
 }
-listener.listen();
+listener.listen(8000);
 
 async function newSubscription(userName) {
   let user = await apiClient.helix.users.getUserByName(userName);
