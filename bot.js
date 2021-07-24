@@ -429,4 +429,5 @@ async function newSubscription(userName) {
   });
 };
 
+onlineSubscription.stop();
 newSubscription("kiykills");
