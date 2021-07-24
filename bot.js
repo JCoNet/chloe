@@ -409,7 +409,7 @@ const apiClient = new ApiClient({ authProvider });
 
 const listener = new EventSubListener(apiClient, new ReverseProxyAdapter({
   hostName: 'chloe-host-1.jconet.co.uk',
-  externalPort: 8080
+  externalPort: 8000
 }), process.env.EVENT_SECRET);
 if (listener) {
   console.log("Twitch Listener Working.")
