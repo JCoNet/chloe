@@ -35,7 +35,7 @@ const commandFolders = fs.readdirSync('chloe/commands');
 for (const folder of commandFolders) {
 	const commandFiles = fs.readdirSync(`chloe/commands/${folder}`).filter(file => file.endsWith('.js'));
 	for (const file of commandFiles) {
-		const command = require(`chloe/commands/${folder}/${file}`);
+		const command = require(`./commands/${folder}/${file}`);
         // console.log(`Attempting to load command ${command.name}`);
 		if (command.name) {
             bot.commands.set(command.name, command);
