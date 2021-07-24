@@ -412,7 +412,7 @@ const listener = new EventSubListener(apiClient, new ReverseProxyAdapter({
   externalPort: 8000
 }), process.env.EVENT_SECRET);
 if (listener) {
-  console.log("Twitch Listener Working.")
+  console.log("Twitch Listener Working on port 8000.")
 }
 listener.listen();
 
