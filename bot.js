@@ -409,7 +409,7 @@ const apiClient = new ApiClient({ authProvider });
 
 const listener = new EventSubListener(apiClient, new ReverseProxyAdapter({
   hostName: 'chloe-host-1.jconet.co.uk',
-  externalPort: 8080
+  externalPort: 443
 }), process.env.EVENT_SECRET);
 if (listener) {
   console.log("Twitch Listener Working on port 8000.")
@@ -425,8 +425,8 @@ async function newSubscription(userName) {
   const letsgo = bot.emojis.cache.find(emoji => emoji.name === "KiyKillsLetsGo");
 
   const onlineSubscription = await listener.subscribeToStreamOnlineEvents(userId, e => {
-    streamChannel.send(`What is up @everyone? ${e.broadcasterDisplayName} just went live! Catch the good vibes at https://twitch.tv/${userName} ${letsgo} ${bigluv}!!!!`);
+    streamChannel.send(`What is up? ${e.broadcasterDisplayName} just went live! Catch the good vibes at https://twitch.tv/${userName} ${letsgo} ${bigluv}!!!!`);
   });
 };
 
-newSubscription("kiykills");
+newSubscription("jconet");
