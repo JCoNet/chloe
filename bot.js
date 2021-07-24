@@ -42,7 +42,7 @@ for (const folder of commandFolders) {
             table.addRow(file.split('.').slice(0, -1).join('.'), '✔');
             continue;
         } else {
-            table.addRow(file.split('.').slice(0, -1).join('.'), '❌ => This command is missing something and cannot load.');
+            table.addRow(file.split('.').slice(0, -1).join('.'), '❌ => This command is missing something and cannot be loaded.');
             continue;
         }
 	}
