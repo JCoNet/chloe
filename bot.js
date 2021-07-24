@@ -409,10 +409,10 @@ async function startTwitchListener(userName) {
   const apiClient = new ApiClient({ authProvider });
 
   const listener = new EventSubListener(apiClient, new DirectConnectionAdapter({
-    hostName: '80.209.234.155',
+    hostName: 'chloe-host-1.jconet.co.uk',
     sslCert: {
-      key: fs.readFileSync('chloe/key.pem'),
-      cert: fs.readFileSync('chloe/cert.pem')
+      key: fs.readFileSync('etc/letsencrypt/live/chloe-host-1.jconet.co.uk/privkey.pem'),
+      cert: fs.readFileSync('etc/letsencrypt/live/chloe-host-1.jconet.co.uk/fullchain.pem')
     }
   }), process.env.EVENT_SECRET);
   await listener.listen();
