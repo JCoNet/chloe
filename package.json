@@ -1,10 +1,11 @@
 {
   "name": "chloe",
-  "version": "6.13.30",
-  "frmwrk": "76.6.4",
+  "version": "6.13.31",
+  "frmwrk": "80.2.1",
   "description": "JCoNet Discord presents: Chloe. The new discord moderation tool for your JCoNet Integrated server! Here to help you with most if not all of your discord server administration needs.",
   "main": "bot.js",
   "scripts": {
+    "start": "npm i && node bot.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
