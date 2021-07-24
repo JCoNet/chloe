@@ -408,12 +408,13 @@ const authProvider = new ClientCredentialsAuthProvider(clientId, clientSecret);
 const apiClient = new ApiClient({ authProvider });
 
 const listener = new EventSubListener(apiClient, new ReverseProxyAdapter({
-  hostName: 'chloe-host-1.jconet.co.uk'
+  hostName: 'chloe-host-1.jconet.co.uk',
+  externalPort: 8080
 }), process.env.EVENT_SECRET);
 if (listener) {
   console.log("Twitch Listener Working on port 8000.")
 }
-listener.listen(8000);
+listener.listen();
 
 async function newSubscription(userName) {
   let user = await apiClient.helix.users.getUserByName(userName);
@@ -422,10 +423,6 @@ async function newSubscription(userName) {
   const streamChannel = bot.channels.cache.get('818685046302965801')
   const bigluv = bot.emojis.cache.find(emoji => emoji.name === "KiyKillsBigLuv");
   const letsgo = bot.emojis.cache.find(emoji => emoji.name === "KiyKillsLetsGo");
-
-  const Subscriptions = listener.resumeExistingSubscriptions();
-
-  Subscriptions.stop();
 
   const onlineSubscription = await listener.subscribeToStreamOnlineEvents(userId, e => {
     streamChannel.send(`What is up @everyone? ${e.broadcasterDisplayName} just went live! Catch the good vibes at https://twitch.tv/${userName} ${letsgo} ${bigluv}!!!!`);
