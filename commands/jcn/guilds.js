@@ -1,6 +1,6 @@
 const config = require("../../botconfig.json");
 const stats = require("../../package.json");
-const { AsciiTable3, AlignmentEnum } = require('ascii-table3');
+const { AsciiTable3 } = require('ascii-table3');
 
 module.exports = {
     name: "guilds",
@@ -8,8 +8,7 @@ module.exports = {
     args: false,
     async execute(Discord, bot, connection, message, args, useprefix) {
         var table = new AsciiTable3('Chloe Guilds')
-        .setHeading('Server Name', 'Server ID')
-        .setWidths([25,25]);
+        .setHeading('Server Name', 'Server ID');
 
         let guilds = [];
         bot.guilds.cache.each(g => guilds.push({ name: g.name, id: g.id }));
