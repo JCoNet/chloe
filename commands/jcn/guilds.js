@@ -7,9 +7,9 @@ module.exports = {
     description: "JCoNet only command!",
     args: false,
     async execute(Discord, bot, connection, message, args, useprefix) {
-        var table = new AsciiTable3('Sample table')
+        var table = new AsciiTable3('Chloe Guilds')
         .setHeading('Server Name', 'Server ID')
-        .setAlignCenter(12, AlignmentEnum.CENTER)
+        .setAlignCenter(2, AlignmentEnum.CENTER)
         .setStyle('unicode-single');
 
         let guilds = [];
