@@ -12,16 +12,24 @@ module.exports = {
         .setWidths([30,30])
         .setCellMargin(0)
 
-        const embed = new Discord.RichEmbed()
+        const embed = new Discord.MessageEmbed()
         .setTitle("Chloe Guilds")
+        .addFields(
+            {name: "Server Name", value: '\u200B', inline:true},
+            {name: "Server ID", value: '\u200B', inline:true},
+            {name: "\u200B", value: '\u200B', inline:true},
+        );
 
         let guilds = [];
         bot.guilds.cache.each(g => guilds.push({ name: g.name, id: g.id }));
         var len = guilds.length;
         for (var i = 0; i < len; i++) {
             table.addRow(guilds[i].name, guilds[i].id);
-            embed.addField("Server Name", guilds[i].name, true);
-            embed.addField("Server ID", guilds[i].id, true);
+            embed.addFields(
+                {name: "\u200B", value: guilds[i].name, inline:true},
+                {name: "\u200B", value: guilds[i].id, inline:true},
+                {name: "\u200B", value: '\u200B', inline:true},
+            );
         }
         table.setStyle('unicode-single');
         console.log(table.toString());

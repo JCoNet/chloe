@@ -22,7 +22,6 @@ module.exports = {
             )
         if (message.member.hasPermission("MANAGE_MESSAGES")) {
             helpEmbed.addFields(
-                
                 {name: "Moderator Commands", value: '\u200B', inline:false},
                 {name: `${useprefix}clear <num to delete>`, value: "removes set number of messages from chat.", inline: true},
                 {name: `${useprefix}pingall <message>`, value: "Send the message as Chloe with an everyone tag.", inline: true},
