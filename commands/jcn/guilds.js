@@ -16,7 +16,7 @@ module.exports = {
         bot.guilds.cache.each(g => guilds.push({ name: g.name, id: g.id }));
         var len = guilds.length;
         for (var i = 0; i < len; i++) {
-            table.addRow(guilds[i].name, guilds[i].id);
+            table.addRowMatrix([guilds[i].name, guilds[i].id]);
         }
         table.setStyle('unicode-single');
         message.channel.send(table.toString());
