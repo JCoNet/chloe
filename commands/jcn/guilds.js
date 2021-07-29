@@ -18,7 +18,7 @@ module.exports = {
         bot.guilds.cache.each(g => guilds.push({ name: g.name, id: g.id }));
         var len = guilds.length;
         for (var i = 0; i < len; i++) {
-            table.addRow(guilds[i].name, guilds[i].id);
+            table.addRow(guilds[i].name, guilds[i].id).setAlign(30, AsciiTable3.CENTER);;
         }
         message.channel.send(table.toString());
     },
