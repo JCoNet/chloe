@@ -15,6 +15,6 @@ module.exports = {
         for (var i = 0; i < len; i++) {
             table.addRow(guilds[i].name, guilds[i].id);
         }
-        message.channel.send(table);
+        message.channel.send(table.toString());
     },
 };
