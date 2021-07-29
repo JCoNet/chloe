@@ -18,7 +18,8 @@ module.exports = {
             {name: "Server Name", value: '\u200B', inline:true},
             {name: "Server ID", value: '\u200B', inline:true},
             {name: "\u200B", value: '\u200B', inline:true},
-        );
+        )
+        .setTimestamp();
 
         let guilds = [];
         bot.guilds.cache.each(g => guilds.push({ name: g.name, id: g.id }));
