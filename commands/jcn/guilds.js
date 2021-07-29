@@ -10,7 +10,7 @@ module.exports = {
         table = new ascii().setHeading("Server Name", "Server ID");
 
         let guilds = [];
-        bbot.guilds.cache.each(g => guilds.push({ name: g.name, id: g.id }));
+        bot.guilds.cache.each(g => guilds.push({ name: g.name, id: g.id }));
         var len = guilds.length;
         for (var i = 0; i < len; i++) {
             table.addRow(guilds[i].name, guilds[i].id);
