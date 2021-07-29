@@ -8,11 +8,11 @@ module.exports = {
     args: false,
     async execute(Discord, bot, connection, message, args, useprefix) {
         var table = new AsciiTable3('Chloe Guilds')
-        .setTitleAlign(AsciiTable3.CENTER)
+        .setTitleAlign(60, AsciiTable3.CENTER)
         .setHeading('Server Name', 'Server ID')
         .setWidths(30,30)
         .setCellMargin(0)
-        .setAlign(AsciiTable3.CENTER);
+        .setAlign(30, AsciiTable3.CENTER);
 
         let guilds = [];
         bot.guilds.cache.each(g => guilds.push({ name: g.name, id: g.id }));
