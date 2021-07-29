@@ -10,7 +10,6 @@ module.exports = {
         var table = new AsciiTable3('Chloe Guilds')
         .setHeading('Server Name', 'Server ID')
         .setAlignCenter(2, AlignmentEnum.CENTER)
-        .setStyle('unicode-single');
 
         let guilds = [];
         bot.guilds.cache.each(g => guilds.push({ name: g.name, id: g.id }));
