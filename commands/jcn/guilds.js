@@ -8,7 +8,8 @@ module.exports = {
     args: false,
     async execute(Discord, bot, connection, message, args, useprefix) {
         var table = new AsciiTable3('Chloe Guilds')
-        .setHeading('Server Name', 'Server ID');
+        .setHeading('Server Name', 'Server ID')
+        .setWidths([30,30]);
 
         let guilds = [];
         bot.guilds.cache.each(g => guilds.push({ name: g.name, id: g.id }));
