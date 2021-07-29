@@ -12,14 +12,19 @@ module.exports = {
         .setWidths([30,30])
         .setCellMargin(0)
 
+        const embed = new Discord.RichEmbed()
+        .setTitle("Chloe Guilds")
+
         let guilds = [];
         bot.guilds.cache.each(g => guilds.push({ name: g.name, id: g.id }));
         var len = guilds.length;
         for (var i = 0; i < len; i++) {
             table.addRow(guilds[i].name, guilds[i].id);
+            embed.addField("Server Name", guilds[i].name, true);
+            embed.addField("Server ID", guilds[i].id, true);
         }
         table.setStyle('unicode-single');
         console.log(table.toString());
-        message.channel.send(table.toString());
+        message.channel.send(embed)
     },
 };
