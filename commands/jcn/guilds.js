@@ -1,13 +1,16 @@
 const config = require("../../botconfig.json");
 const stats = require("../../package.json");
-const ascii = require("ascii-table");
+const { AsciiTable3, AlignmentEnum } = require('ascii-table3');
 
 module.exports = {
     name: "guilds",
     description: "JCoNet only command!",
     args: false,
     async execute(Discord, bot, connection, message, args, useprefix) {
-        table = new ascii().setHeading("Server Name", "Server ID");
+        var table = new AsciiTable3('Sample table')
+        .setHeading('Server Name', 'Server ID')
+        .setAlignCenter(12, AlignmentEnum.CENTER)
+        .setStyle('unicode-single');
 
         let guilds = [];
         bot.guilds.cache.each(g => guilds.push({ name: g.name, id: g.id }));
