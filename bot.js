@@ -7,7 +7,7 @@ const stats = require("./package.json");
 const config = require("./botconfig.json");
 const ascii = require("ascii-table");
 
-const Intents = new Discord.Intents();
+const Intents = Discord.Intents;
 const bot = new Discord.Client({ intents: [
   Intents.FLAGS.GUILDS,
   Intents.FLAGS.GUILD_MEMBERS,
