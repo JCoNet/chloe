@@ -9,8 +9,8 @@ module.exports = {
     if (!kUser) return message.channel.send(`<@!${message.author.id}>, The specified user could not be found.`);
     let kReason = args.join(" ").slice(22);
     if (!kReason) return message.channel.send(`<@!${message.author.id}>, Please provide a reason`);
-    if(!message.member.hasPermission("KICK_MEMBERS")) return message.channel.send(`<@!${message.author.id}>, You have not got the right permissions.`);
-    if(kUser.hasPermission("MANAGE_MESSAGES")) return message.channel.send(`<@!${message.author.id}>, That user cannot be kicked.`);
+    if(!message.member.permissions.has("KICK_MEMBERS")) return message.channel.send(`<@!${message.author.id}>, You have not got the right permissions.`);
+    if(kUser.permissions.has("MANAGE_MESSAGES")) return message.channel.send(`<@!${message.author.id}>, That user cannot be kicked.`);
 
     let kickEmbed = new Discord.MessageEmbed()
         .setTitle("Kick")

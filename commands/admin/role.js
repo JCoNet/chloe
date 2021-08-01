@@ -5,7 +5,7 @@ module.exports = {
     usage: "<operation> <user> <role>",
     async execute(Discord, bot, connection, message, args, useprefix) {
         await message.delete();
-        if (!message.member.hasPermission("ADMINISTRATOR")) return message.channel.send(`<@!${message.author.id}>, You do not have the required permissions to run this command.`).then(msg => msg.delete({timeout: 3000})).catch(err => console.error(err));
+        if (!message.member.permissions.has("ADMINISTRATOR")) return message.channel.send(`<@!${message.author.id}>, You do not have the required permissions to run this command.`).then(msg => msg.delete({timeout: 3000})).catch(err => console.error(err));
         let operation = args[0].toLowerCase();
         let s1 = args[1].toLowerCase();
         let s2 = args[2].toLowerCase();

@@ -9,8 +9,8 @@ module.exports = {
     if (!bUser) return message.channel.send(`<@!${message.author.id}>, The specified user could not be found.`);
     let bReason = args.join(" ").slice(22);
     if (!bReason) return message.channel.send(`<@!${message.author.id}>, Please provide a reason`);
-    if(!message.member.hasPermission("BAN_MEMBERS")) return message.channel.send(`<@!${message.author.id}>, You have not got the right permissions.`);
-    if(bUser.hasPermission("MANAGE_MESSAGES")) return message.channel.send(`<@!${message.author.id}>, That user cannot be banned.`);
+    if(!message.member.permissions.has("BAN_MEMBERS")) return message.channel.send(`<@!${message.author.id}>, You have not got the right permissions.`);
+    if(bUser.permissions.has("MANAGE_MESSAGES")) return message.channel.send(`<@!${message.author.id}>, That user cannot be banned.`);
   
     let banEmbed = new Discord.MessageEmbed()
         .setTitle("Ban")
