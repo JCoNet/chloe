@@ -14,15 +14,15 @@ module.exports = {
       .setColor("#33fede")
       .setThumbnail(bicon)
       .addFields([
-        {name: "Name", value: bot.user.username, inline: true},
-        {name: "Created on", value: bot.user.createdAt, inline: true},
-        {name: "Current version", value: stats.version, inline: true},
+        {name: "Name", value: `${bot.user.username}`, inline: true},
+        {name: "Created on", value: `${bot.user.createdAt}`, inline: true},
+        {name: "Current version", value: `${stats.version}`, inline: true},
         {name: "Running On", value: `JCoNet BotFramework Version: ${stats.frmwrk}`, inline: true},
-        {name: "Guild count", value: bot.guilds.cache.size, inline: true},
+        {name: "Guild count", value: `${bot.guilds.cache.size}`, inline: true},
         {name: '\u200B', value: '\u200B', inline: false},
-        {name: "This guild name", value: message.guild.name, inline: true},
-        {name: "This guild prefix", value: useprefix, inline: true},
-        {name: "This guild owner", value: owner.user.username, inline: true},
+        {name: "This guild name", value: `${message.guild.name}`, inline: true},
+        {name: "This guild prefix", value: `${useprefix}`, inline: true},
+        {name: "This guild owner", value: `${owner.user.username}`, inline: true},
         {name: '\u200B', value: '\u200B', inline: false},
         {name: "Save on online retail and support JCoNet!", value: '[Get Honey](https://www.joinhoney.com/ref/k4lomc4 "Get the Honey Extension and start saving on all your online purchases.")', inline: true},
         {name: "Support JCoNet another way!", value: '[Donate Here](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=78GGH2NZ57WUJ&source=url "Donate to JCoNet via PayPal on the JCoNet official website.")', inline: true},
@@ -31,14 +31,5 @@ module.exports = {
       ])
       .setFooter(`Lead developer: ${stats.author}`);
     message.channel.send(statsembed);
-    // console.log(bicon);
-    // console.log(bot.user.username);
-    // console.log(bot.user.createdAt);
-    // console.log(stats.version);
-    // console.log(stats.frmwrk);
-    // console.log(bot.guilds.cache.size);
-    // console.log(message.guild.name);
-    // console.log(useprefix);
-    // console.log(owner.user.username);
   },
 };
