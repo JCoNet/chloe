@@ -30,6 +30,6 @@ module.exports = {
         {name: "Want cool merch?", value: '[Check out our merch store today!](https://merch.jconet.xyz "Visit the JCoNet official merchandise store today to hook yourself up with our latest branded items.")', inline: true},
       ])
       .setFooter(`Lead developer: ${stats.author}`);
-    message.channel.send(statsembed);
+    message.channel.send({ embed: statsembed });
   },
 };
