@@ -16,7 +16,7 @@ module.exports = {
         .setTitle("Chloe New Features")
         .setDescription(`JCoNet Development has been hard at work on some new features, here is a rundown of everything that changed in version ${stats.version}!`)
         .addFields([
-            {name: "[+] Twitch live notifications [alpha]", value: "We added twitch api to Chloe to enable go live notifications in the alpha form of the feature. As this is an alpha feature it is only set up for one user and one server selected due to their massive support of this project. This feature will be adapted and modified to bring it to the beta as soon as possible.", inline: true}
+            {name: "[*] Updated to discord.js v13", value: "This update adds new features for us to test and implement for you. But it also may break some existing commands. Please be careful and report any broken commands to JCoDog ASAP.", inline: true}
         ])
         .setFooter(`Lead developer: ${stats.author}`);
 
