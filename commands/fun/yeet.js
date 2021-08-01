@@ -9,11 +9,11 @@ module.exports = {
         let result = await connection.query(`SELECT coins FROM money WHERE guildID = "${message.guild.id}" AND userID = "${message.author.id}"`).catch(err => console.error(err));
         let results = result[0];
         if (results.length == 0) {
-            return message.reply(`You currently have no coins to use. This command costs ${cost} coins!`);
+            message.reply(`You currently have no coins to use. This command costs ${cost} coins!`);
         };
 
         if (results[0].coins < cost) {
-            return message.reply(`You do not have enough coins to use this command. This command costs ${cost} coins!`);
+            message.reply(`You do not have enough coins to use this command. This command costs ${cost} coins!`);
         };
 
         let newbal = results[0].coins - cost;
