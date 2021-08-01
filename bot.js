@@ -21,6 +21,7 @@ const connection = mysql.createPool({
   connectionLimit: 1,
   queueLimit: 0
 });
+
 if (connection) {
   console.log("Connected to the secure JCoNet DB!");
 };
