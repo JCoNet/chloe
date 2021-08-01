@@ -1,3 +1,5 @@
+const config = require("../../botconfig.json");
+
 module.exports = {
     name: "join",
     description: "JCoNet only command!",
