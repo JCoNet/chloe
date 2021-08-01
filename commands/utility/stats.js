@@ -13,7 +13,7 @@ module.exports = {
       .setDescription(stats.description)
       .setColor("#33fede")
       .setThumbnail(bicon)
-      .addFields(
+      .addFields([
         {name: "Name", value: bot.user.username, inline: true},
         {name: "Created on", value: bot.user.createdAt, inline: true},
         {name: "Current version", value: stats.version, inline: true},
@@ -28,7 +28,7 @@ module.exports = {
         {name: "Support JCoNet another way!", value: '[Donate Here](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=78GGH2NZ57WUJ&source=url "Donate to JCoNet via PayPal on the JCoNet official website.")', inline: true},
         {name: "Affiliated with Streamlabs OBS", value: '[Get Streamlabs OBS Today](https://streamlabs.com/slobs/d/1789520 "Get Streamlabs OBS via our link to get the best streaming software and support future JCoNet streams and development.")', inline: true},
         {name: "Want cool merch?", value: '[Check out our merch store today!](https://merch.jconet.xyz "Visit the JCoNet official merchandise store today to hook yourself up with our latest branded items.")', inline: true},
-      )
+      ])
       .setFooter(`Lead developer: ${stats.author}`);
     message.channel.send(statsembed);
     // console.log(message.guild.owner);
