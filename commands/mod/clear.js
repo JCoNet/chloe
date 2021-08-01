@@ -9,7 +9,7 @@ module.exports = {
     let toDelete = Math.floor(parseInt(args[0])+1);
     // console.log(toDelete)
     message.channel.bulkDelete(toDelete).then(() => {
-      message.channel.send(`Deleted ${args[0]} messages.`).then(msg => msg.delete({timeout: 3000})).catch(err => console.error(err));
+      message.channel.send(`Deleted ${args[0]} messages.`).then(msg => setTimeout(() => msg.delete(), 3000)).catch(err => console.error(err));
     });
   },
 };

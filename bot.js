@@ -216,7 +216,7 @@ bot.on('messageCreate', async message => {
     if (message.content.toLowerCase().includes(blacklist[x].toLowerCase())) {
       let detected = blacklist[x].toLowerCase();
       // word found
-      if (message.member.hasPermission("MANAGE_MESSAGES") || message.member.hasPermission("ADMINISTRATOR")) {
+      if (message.member.permissions.has("MANAGE_MESSAGES") || message.member.permissions.has("ADMINISTRATOR")) {
         let owner = message.guild.owner;
         let staffBL = new Discord.MessageEmbed()
         .setTitle("Your action is required")
@@ -303,7 +303,7 @@ bot.on('messageCreate', async message => {
 //   // generic cancel fucntion for all admin button aided embeds.
 //   if (button.id == "admincancel") {
 //     button.defer();
-//     if (button.clicker.member.hasPermission("ADMINISTRATOR")) {
+//     if (button.clicker.member.permissions.has("ADMINISTRATOR")) {
 //       button.message.delete();
 //       button.channel.send(`Cancelled setup embed for ${button.guild.name}.`).then(msg => msg.delete({timeout: 3000})).catch(err => console.error(err));
 //     } else {
@@ -314,7 +314,7 @@ bot.on('messageCreate', async message => {
 //   // channel setup buttons
 //   if (button.id == "welcome") {
 //     button.defer();
-//     if (button.clicker.member.hasPermission("ADMINISTRATOR")) {
+//     if (button.clicker.member.permissions.has("ADMINISTRATOR")) {
 //       button.message.delete();
 //       // set welcome channel
 //       await connection.query(`UPDATE guildConfig SET welcomeChannelName = "${button.channel.name}", welcomeChannelID ="${button.channel.id}" WHERE guildID = "${button.guild.id}"`).catch(err => console.error(err));
@@ -324,7 +324,7 @@ bot.on('messageCreate', async message => {
 //     };
 //   } else if (button.id == "system") {
 //     button.defer();
-//     if (button.clicker.member.hasPermission("ADMINISTRATOR")) {
+//     if (button.clicker.member.permissions.has("ADMINISTRATOR")) {
 //       button.message.delete();
 //       // set system channel
 //       await connection.query(`UPDATE guildConfig SET systemChannelName = "${button.channel.name}", systemChannelID ="${button.channel.id}" WHERE guildID = "${button.guild.id}"`).catch(err => console.error(err));
@@ -334,7 +334,7 @@ bot.on('messageCreate', async message => {
 //     };
 //   } else if (button.id == "announcement") {
 //     button.defer();
-//     if (button.clicker.member.hasPermission("ADMINISTRATOR")) {
+//     if (button.clicker.member.permissions.has("ADMINISTRATOR")) {
 //       button.message.delete();
 //       // set announcement channel
 //       await connection.query(`UPDATE guildConfig SET announcementChannelName = "${button.channel.name}", announcementChannelID ="${button.channel.id}" WHERE guildID = "${button.guild.id}"`).catch(err => console.error(err));
@@ -347,7 +347,7 @@ bot.on('messageCreate', async message => {
 //   // enable messages
 //   if (button.id == "enablewelc") {
 //     button.defer();
-//     if (button.clicker.member.hasPermission("ADMINISTRATOR")) {
+//     if (button.clicker.member.permissions.has("ADMINISTRATOR")) {
 //       // enable welcome and update the embed to say its enabled and remove button
 //       button.message.delete();
 //       await connection.query(`UPDATE guildConfig SET welcomeEnabled = true WHERE guildID = "${button.guild.id}"`).catch(err => console.error(err));
@@ -357,7 +357,7 @@ bot.on('messageCreate', async message => {
 //     };
 //   } else if (button.id == "enableann") {
 //     button.defer();
-//     if (button.clicker.member.hasPermission("ADMINISTRATOR")) {
+//     if (button.clicker.member.permissions.has("ADMINISTRATOR")) {
 //       // enable annoucnements and update the embed to say its enabled and remove button
 //       button.message.delete();
 //       await connection.query(`UPDATE guildConfig SET announcementEnabled = true WHERE guildID = "${button.guild.id}"`).catch(err => console.error(err));
@@ -367,7 +367,7 @@ bot.on('messageCreate', async message => {
 //     };
 //   } else if (button.id == "enablenewfeat") {
 //     button.defer();
-//     if (button.clicker.member.hasPermission("ADMINISTRATOR")) {
+//     if (button.clicker.member.permissions.has("ADMINISTRATOR")) {
 //       // enable newfeatures and update the embed to say its enabled and remove button
 //       button.message.delete();
 //       await connection.query(`UPDATE guildConfig SET newfeatureEnabled = true WHERE guildID = "${button.guild.id}"`).catch(err => console.error(err));
@@ -380,7 +380,7 @@ bot.on('messageCreate', async message => {
 //   // disable messages
 //   if (button.id == "disablewelc") {
 //     button.defer();
-//     if (button.clicker.member.hasPermission("ADMINISTRATOR")) {
+//     if (button.clicker.member.permissions.has("ADMINISTRATOR")) {
 //       // enable welcome and update the embed to say its enabled and remove button
 //       button.message.delete();
 //       await connection.query(`UPDATE guildConfig SET welcomeEnabled = false WHERE guildID = "${button.guild.id}"`).catch(err => console.error(err));
@@ -390,7 +390,7 @@ bot.on('messageCreate', async message => {
 //     };
 //   } else if (button.id == "disableann") {
 //     button.defer();
-//     if (button.clicker.member.hasPermission("ADMINISTRATOR")) {
+//     if (button.clicker.member.permissions.has("ADMINISTRATOR")) {
 //       // enable annoucnements and update the embed to say its enabled and remove button
 //       button.message.delete();
 //       await connection.query(`UPDATE guildConfig SET announcementEnabled = false WHERE guildID = "${button.guild.id}"`).catch(err => console.error(err));
@@ -400,7 +400,7 @@ bot.on('messageCreate', async message => {
 //     };
 //   } else if (button.id == "disablenewfeat") {
 //     button.defer();
-//     if (button.clicker.member.hasPermission("ADMINISTRATOR")) {
+//     if (button.clicker.member.permissions.has("ADMINISTRATOR")) {
 //       // disable newfeatures and update the embed to say its enabled and remove button
 //       button.message.delete();
 //       await connection.query(`UPDATE guildConfig SET newfeatureEnabled = false WHERE guildID = "${button.guild.id}"`).catch(err => console.error(err));

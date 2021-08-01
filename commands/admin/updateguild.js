@@ -8,6 +8,6 @@ module.exports = {
     // let defaultChannel = message.guild.channels.cache.find(channel => channel.type === 'text' && channel.permissionsFor(message.guild.me).has('SEND_MESSAGES'));
     // await connection.query(`UPDATE guildConfig SET twitchChannelName = "${defaultChannel.name}", twitchChannelID = "${defaultChannel.id}" WHERE guildID = "${message.guild.id}"`).catch(err => console.error(err));
     // message.channel.send("Guild updated and now utilising new features.");
-    message.channel.send("You are not required to run this command, no changes have been made to the database.").then(msg => msg.delete({timeout: 3000})).catch(err => console.error(err));  
+    message.channel.send("You are not required to run this command, no changes have been made to the database.").then(msg => setTimeout(() => msg.delete(), 3000)).catch(err => console.error(err));  
   },
 };
