@@ -5,7 +5,7 @@ module.exports = {
   usage: "<user> <reason>",
   async execute(Discord, bot, connection, message, args, useprefix) {
     await message.delete();
-    let bUser = message.guild.members.cache.get(message.mentions.users.first()) || message.guild.members.cache.get(args[0]);
+    let bUser = message.mentions.users.first() || message.guild.members.cache.get(args[0]);
     if (!bUser) return message.channel.send(`<@!${message.author.id}>, The specified user could not be found.`);
     let bReason = args.join(" ").slice(22);
     if (!bReason) return message.channel.send(`<@!${message.author.id}>, Please provide a reason`);
