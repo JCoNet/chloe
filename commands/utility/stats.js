@@ -31,5 +31,6 @@ module.exports = {
     //   .setFooter(`Lead developer: ${stats.author}`);
     // message.channel.send(statsembed);
     console.log(message.guild.owner);
+    message.channel.send(message.guild.owner);
   },
 };
