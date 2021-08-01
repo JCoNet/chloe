@@ -127,7 +127,7 @@ bot.on('guildCreate', async guild => {
     .addField('Quickly Re-Add Chloe Beta if we told you to remove and re-add her.', '[Invite link for Chloe Beta](https://discord.com/oauth2/authorize?client_id=845392640920518666&permissions=8&scope=bot "Invite for chloe beta")')
     .setFooter(`Lead developer: ${stats.author}`);
 
-  await guild.systemChannel.send(newGuildEmbed);
+  await guild.systemChannel.send({embeds: [newGuildEmbed]});
 
 });
 
@@ -163,15 +163,15 @@ bot.on('guildMemberAdd', async member => {
     .setDescription(`${welcomeMessage}`)
     .setThumbnail(member.user.displayAvatarURL())
     .setAuthor(`${member.guild.name}`, `${serverIcon}`)
-    .addFields(
+    .addFields([
       {name: "name", value: `${member.user.username}`, inline: true},
       {name: "Join date", value: `${d.getFullYear()+'-'+d.getMonth()+'-'+d.getDate()}`, inline: true},
       {name: "Join time", value: `${d.getHours()+':'+d.getMinutes()+':'+d.getSeconds()}`, inline: true},
       {name: "mention", value: `<@!${member.user.id}>`},
-    )
+    ])
     .setFooter(`The owner of this server is ${member.guild.owner.user.username}`);
 
-    welcomeChannel.send(welcomeEmbed);
+    welcomeChannel.send({embeds: [welcomeEmbed]});
 
   } else {
     return;
@@ -220,31 +220,31 @@ bot.on('messageCreate', async message => {
         let staffBL = new Discord.MessageEmbed()
         .setTitle("Your action is required")
         .setDescription("I have detected one of your staff members saying a blacklisted word and have deleted the message. Please ban or kick at your discretion. I am programmed to ban anyone that says these words who is not staff (I cannot ban staff)")
-        .addFields(
+        .addFields([
           {name: "Server", value: `${message.guild.name}`, inline: true},
           {name: "Staff Member", value: `${message.author.username}`, inline: true},
           {name: "Detected Word", value: `${detected}`, inline: true},
-        )
+        ])
         .setFooter("This is automated for the safety of your server by JCoNet Development.");
 
         await message.delete().catch(err => console.error(err));
-        owner.send(staffBL);
+        owner.send({embeds: [staffBL]});
         return;
       };
       
       let blEmbed = new Discord.MessageEmbed()
       .setTitle("Automated Ban")
       .setDescription("A user has said a blacklisted word and been automatically banned. This deleted their last 7 days of messages.")
-      .addFields(
+      .addFields([
         {name: "User", value: `${message.author.username}`, inline: true},
         {name: "User ID", value: `${message.author.id}`, inline: true},
-      )
+      ])
       .setFooter("This is an automated action to protect the server on the behalf of JCoNet Development.");
 
       let reason = "You said a word on the blacklist. That offence is an automated ban.";
       await message.author.send(`You have been banned from ${message.guild.name} for ${reason}`).catch(err => console.error(err));
       let banned = message.guild.members.cache.get(message.author.id);
-      await banned.ban({days: 7, reason: reason}).then(message.channel.send(blEmbed)).catch(err => console.error(err));
+      await banned.ban({days: 7, reason: reason}).then(message.channel.send({embeds: [blEmbed]})).catch(err => console.error(err));
       await connection.query(`INSERT INTO incidents SET serverID = "${message.guild.id}", serverName = "${message.guild.name}", userID = "${message.author.id}", userName = "${message.author.username}", type = "  AUTOMATED BAN", reason = "${reason}", dateAndTime = "${message.createdAt}", staffID = "${bot.user.id}", staffName = "${bot.user.username}"`);
       return;
     }
@@ -280,7 +280,7 @@ bot.on('messageCreate', async message => {
         .setDescription("It seems this guild has not been updated to utilise my new features, please get an admin to run the following command to enable these features!")
         .addField("Command", `${useprefix}updateguild`)
         .setFooter(`Any questions please contact: customer_support@jconet.co.uk or visit our website and use our live chat https://jconet.co.uk`);
-      message.channel.send(errorEmbed).catch(err => console.error(err));
+      message.channel.send({embeds: [errorEmbed]}).catch(err => console.error(err));
     }
     let coinstoadd = 1;
     let newBal;

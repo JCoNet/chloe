@@ -14,11 +14,11 @@ module.exports = {
 
         const embed = new Discord.MessageEmbed()
         .setTitle("Chloe Guilds")
-        .addFields(
+        .addFields([
             {name: "Server Name", value: '\u200B', inline:true},
             {name: "Server ID", value: '\u200B', inline:true},
             {name: "\u200B", value: '\u200B', inline:true},
-        )
+        ])
         .setTimestamp();
 
         let guilds = [];
@@ -26,14 +26,14 @@ module.exports = {
         var len = guilds.length;
         for (var i = 0; i < len; i++) {
             table.addRow(guilds[i].name, guilds[i].id);
-            embed.addFields(
-                {name: "\u200B", value: guilds[i].name, inline:true},
-                {name: "\u200B", value: guilds[i].id, inline:true},
+            embed.addFields([
+                {name: "\u200B", value: `${guilds[i].name}`, inline:true},
+                {name: "\u200B", value: `${guilds[i].id}`, inline:true},
                 {name: "\u200B", value: '\u200B', inline:true},
-            );
+            ]);
         }
         table.setStyle('unicode-single');
         console.log(table.toString());
-        message.channel.send(embed)
+        message.channel.send({embeds: [embed]});
     },
 };

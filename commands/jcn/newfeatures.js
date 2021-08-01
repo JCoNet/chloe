@@ -15,9 +15,9 @@ module.exports = {
         .setThumbnail(bot.user.displayAvatarURL())
         .setTitle("Chloe New Features")
         .setDescription(`JCoNet Development has been hard at work on some new features, here is a rundown of everything that changed in version ${stats.version}!`)
-        .addFields(
+        .addFields([
             {name: "[+] Twitch live notifications [alpha]", value: "We added twitch api to Chloe to enable go live notifications in the alpha form of the feature. As this is an alpha feature it is only set up for one user and one server selected due to their massive support of this project. This feature will be adapted and modified to bring it to the beta as soon as possible.", inline: true}
-        )
+        ])
         .setFooter(`Lead developer: ${stats.author}`);
 
         let result = await connection.query("SELECT systemChannelID, guildID, newfeatureEnabled FROM guildConfig").catch(err => console.error(err));
@@ -28,7 +28,7 @@ module.exports = {
             let sendToGuild = await bot.guilds.cache.get(results[i].guildID);
             let sendTo = await sendToGuild.channels.cache.get(results[i].systemChannelID);
             if (canSend == 1) {
-                sendTo.send(newfeatEmbed).catch(err => console.error(err));;
+                sendTo.send({embeds: [newfeatEmbed]}).catch(err => console.error(err));;
             };
         };
     },

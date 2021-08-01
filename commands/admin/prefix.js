@@ -24,12 +24,12 @@ module.exports = {
         .setAuthor(`${memssage.guild.name}`, `${serverIcon}`)
         .setTitle("Guild Prefix")
         .setDescription("The guild prefix has been changed!")
-        .addFields(
+        .addFields([
             {name: "Old prefix", value: `${useprefix}`, inline: true},
             {name: "New prefix", value: `${args[0]}`, inline: true},
-        )
+        ])
         .setFooter(`To change again please do ${args[0]}prefix <newprefix>`);
     
-        message.channel.send(prefixEmbed).then(msg => msg.delete({timeout: 120000})).catch(err => console.error(err));
+        message.channel.send({embeds: [prefixEmbed]}).then(msg => msg.delete({timeout: 120000})).catch(err => console.error(err));
     },
 };

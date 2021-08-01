@@ -27,13 +27,13 @@ module.exports = {
         .setTitle("Ya Yeet!")
         .setDescription("Enjoy the trip!")
         .setColor("#980098")
-        .addFields(
-            {name: "Thrower", value: message.author.username, inline: true},
-            {name: "Recipient", value: yeetee.user.username, inline: true},
+        .addFields([
+            {name: "Thrower", value: `${message.author.username}`, inline: true},
+            {name: "Recipient", value: `${yeetee.user.username}`, inline: true},
             {name: "Distance", value: `${distance}ft`, inline: true},
-        )
+        ])
         .setFooter(`This command cost ${message.author.username} ${cost} coins to use...`);
 
-        message.channel.send(embed).catch(err => console.error(err));
+        message.channel.send({embeds: [embed]}).catch(err => console.error(err));
     },
 };

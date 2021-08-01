@@ -11,12 +11,12 @@ module.exports = {
         let embed = new Discord.MessageEmbed()
         .setTitle("Bot ping")
         .setDescription("Latency of the server to the bot and the bot to the discord api")
-        .addFields(
+        .addFields([
             {name: "Bot Latency", value: `${latency}ms`, inline: true},
             {name: "API Latency", value: `${apiLatency}ms`, inline: true},
-        )
+        ])
         .setFooter("🏓 PONG!");
 
-        message.channel.send(embed);
+        message.channel.send({embeds: [embed]});
     },
 };

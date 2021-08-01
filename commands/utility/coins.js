@@ -15,10 +15,10 @@ module.exports = {
             .setThumbnail(message.author.displayAvatarURL);
         if(results.length == 0) {
             embed.addField("Total", 0, true);
-            return message.channel.send(embed);
+            return message.channel.send({embeds: [embed]});
         } else {
             embed.addField("Coins", results[0].coins, true);
-            return message.channel.send(embed);
+            return message.channel.send({embeds: [embed]});
         };
     },
 };

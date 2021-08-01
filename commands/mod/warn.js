@@ -10,14 +10,14 @@ module.exports = {
         if(wUser.hasPermission("MANAGE_MESSAGES")) return message.reply("I am not authorised to place a warning on the server record of a moderator.");
         let wReason = args.join(" ").slice(22);
     
-        let kickEmbed = new Discord.MessageEmbed()
+        let warnEmbed = new Discord.MessageEmbed()
             .setTitle("Warn")
             .setDescription("The following warning took place")
             .setColor("#e68a00")
             .addField("Warned User", `${wUser} with the id ${wUser.id}`)
             .addField("Time", message.createdAt)
             .addField("Reason", wReason);
-        await message.channel.send(kickEmbed).catch(err => console.error(err));
+        await message.channel.send({embeds: [warnEmbed]}).catch(err => console.error(err));
     
         await connection.query(`INSERT INTO incidents SET serverID = "${message.guild.id}", serverName = "${message.guild.name}", userID = "${wUser.id}", userName = "${wUser.user.username}", type = "WARNING", reason = "${wReason}", dateAndTime = "${message.createdAt}", staffID = "${message.author.id}", staffName = "${message.author.username}"`);    
     },
