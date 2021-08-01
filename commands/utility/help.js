@@ -35,7 +35,7 @@ module.exports = {
         if (message.member.permissions.has("BAN_MEMBERS")) {
             helpEmbed.addField(`${useprefix}ban @user <reason>`, "Bans the selected user from the server.", true);
         };
-        if (message.member.permissions("ADMINISTRATOR")) {
+        if (message.member.permissions.has("ADMINISTRATOR")) {
             helpEmbed.addFields([
                 {name: "\u200B", value: '\u200B', inline:false},
                 {name: "Administrator Commands", value: "\u200B", inline: false},
