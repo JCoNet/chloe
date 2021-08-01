@@ -47,6 +47,6 @@ module.exports = {
             ]);
         };
             
-        message.channel.send({embeds: [helpEmbed]}).then(msg => msg.delete({timeout: 60000})).catch(err => console.error(err));
+        message.channel.send({embeds: [helpEmbed]}).then(msg => setTimeout(() => msg.delete(), 60000)).catch(err => console.error(err));
     },
 };
