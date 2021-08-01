@@ -6,11 +6,11 @@ module.exports = {
   async execute(Discord, bot, connection, message, args, useprefix) {
     await message.delete();
     let kUser = message.guild.member(message.mentions.users.first() || message.guild.members.cache.get(args[0]));
-    if (!kUser) return message.reply("The specified user could not be found.");
+    if (!kUser) return message.channel.send(`<@!${message.author.id}>, The specified user could not be found.`);
     let kReason = args.join(" ").slice(22);
-    if (!kReason) return message.reply("Please provide a reason");
-    if(!message.member.hasPermission("KICK_MEMBERS")) return message.reply("You have not got the right permissions.");
-    if(kUser.hasPermission("MANAGE_MESSAGES")) return message.reply("That user cannot be kicked.");
+    if (!kReason) return message.channel.send(`<@!${message.author.id}>, Please provide a reason`);
+    if(!message.member.hasPermission("KICK_MEMBERS")) return message.channel.send(`<@!${message.author.id}>, You have not got the right permissions.`);
+    if(kUser.hasPermission("MANAGE_MESSAGES")) return message.channel.send(`<@!${message.author.id}>, That user cannot be kicked.`);
 
     let kickEmbed = new Discord.MessageEmbed()
         .setTitle("Kick")

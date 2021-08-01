@@ -22,7 +22,7 @@ module.exports = {
         let yeetee = message.guild.members.cache.get(message.mentions.users.first()) || message.guild.members.cache.get(args[0]);
         let distance = Math.floor(Math.random() * 1000) +10;
 
-        let msg = message.reply(`you are now yeeting <@!${yeetee.id}>! 🛫.....`);
+        let msg = message.channel.send(`<@!${message.author.id}>, You are now yeeting <@!${yeetee.id}>! 🛫.....`);
         let embed = new Discord.MessageEmbed()
         .setTitle("Ya Yeet!")
         .setDescription("Enjoy the trip!")

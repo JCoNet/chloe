@@ -6,7 +6,7 @@ module.exports = {
     async execute(Discord, bot, connection, message, args, useprefix) {
         await message.delete();
 
-        if(!message.member.hasPermission("ADMINISTRATOR")) return message.reply("Unfortunately, under JCoNet operation policies i am not allowed to let anyone not ranked with permission ADMINISTRATOR to change any of my settings for servers.");
+        if(!message.member.hasPermission("ADMINISTRATOR")) return message.channel.send(`Unfortunately <@!${message.author.id}>, under JCoNet operation policies i am not allowed to let anyone not ranked with permission ADMINISTRATOR to change any of my settings for servers.`);
     
         if (!args[0]) return message.channel.send(`Hello there, you seem to need my help here. Have you tried "${useprefix}prefix <new prefix>" yet?`);
     

@@ -4,10 +4,10 @@ module.exports = {
     args: true,
     usage: "<user> <reason>",
     async execute(Discord, bot, connection, message, args, useprefix) {
-        if(!message.member.hasPermission("MANAGE_MESSAGES")) return message.reply("Sorry, I am not allowed to let non moderator users to run this command.");
+        if(!message.member.hasPermission("MANAGE_MESSAGES")) return message.channel.send(`Sorry <@!${message.author.id}>, I am not allowed to let non moderator users to run this command.`);
         let wUser = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]));
-        if(!wUser) return message.reply("Please remember to add a target user to the command by either mentioning them or typing out their name. Thank you.");
-        if(wUser.hasPermission("MANAGE_MESSAGES")) return message.reply("I am not authorised to place a warning on the server record of a moderator.");
+        if(!wUser) return message.channel.send(`<@!${message.author.id}>, Please remember to add a target user to the command by either mentioning them or typing out their name. Thank you.`);
+        if(wUser.hasPermission("MANAGE_MESSAGES")) return message.channel.send(`<@!${message.author.id}>, I am not authorised to place a warning on the server record of a moderator.`);
         let wReason = args.join(" ").slice(22);
     
         let warnEmbed = new Discord.MessageEmbed()
