@@ -17,8 +17,8 @@ module.exports = {
         .setDescription("The following kick took place")
         .setColor("#e68a00")
         .addField("Kicked User", `${kUser} with the id ${kUser.id}`)
-        .addField("Time", message.createdAt)
-        .addField("Reason", kReason);
+        .addField("Time", `${message.createdAt}`)
+        .addField("Reason", `${kReason}`);
     await kUser.send(`You have been kicked from ${message.guild.name} for ${kReason}`).catch(err => console.error(err));
     await kUser.kick(kReason).then(message.channel.send({embeds: [kickEmbed]})).catch(err => console.error(err));
     

@@ -17,8 +17,8 @@ module.exports = {
         .setDescription("The following ban took place")
         .setColor("#e68a00")
         .addField("Banned User", `${bUser} with the id ${bUser.id}`)
-        .addField("Time", message.createdAt)
-        .addField("Reason", bReason);
+        .addField("Time", `${message.createdAt}`)
+        .addField("Reason", `${bReason}`);
     await bUser.send(`You have been banned from ${message.guild.name} for ${bReason}`).catch(err => console.error(err));
     await bUser.ban({days: 7, reason: bReason}).then(message.channel.send({embeds: [banEmbed]})).catch(err => console.error(err));
   
