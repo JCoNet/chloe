@@ -36,7 +36,7 @@ module.exports = {
     console.log(bot.user.createdAt);
     console.log(stats.version);
     console.log(stats.frmwrk);
-    console.log(bots.guilds.cache.size);
+    console.log(bot.guilds.cache.size);
     console.log(message.guild.name);
     console.log(useprefix);
     console.log(owner.user.username);
