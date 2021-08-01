@@ -157,7 +157,7 @@ bot.on('guildMemberAdd', async member => {
   // console.log(`channel: ${welcomeChannel}`);
   if (welcomeEnabled == 1){
     // welcome embed
-    let owner = member.guild.fetchOwner();
+    let owner = await member.guild.fetchOwner();
     let welcomeEmbed = new Discord.MessageEmbed()
     .setColor("#3efa67")
     .setTitle("New User Joined")
