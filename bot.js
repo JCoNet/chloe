@@ -8,6 +8,7 @@ const config = require("./botconfig.json");
 const ascii = require("ascii-table");
 
 const bot = new Discord.Client();
+Intents = Discord.Intents();
 
 require("discord-buttons")(bot);
 const { MessageButton, MessageActionRow } = require("discord-buttons");
