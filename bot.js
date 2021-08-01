@@ -157,22 +157,23 @@ bot.on('guildMemberAdd', async member => {
   // console.log(`channel: ${welcomeChannel}`);
   if (welcomeEnabled == 1){
     // welcome embed
-    let owner = member.guild.fetchOwner();
-    let welcomeEmbed = new Discord.MessageEmbed()
-    .setColor("#3efa67")
-    .setTitle("New User Joined")
-    .setDescription(`${welcomeMessage}`)
-    .setThumbnail(member.user.displayAvatarURL())
-    .setAuthor(`${member.guild.name}`, `${serverIcon}`)
-    .addFields([
-      {name: "name", value: `${member.user.username}`, inline: true},
-      {name: "Join date", value: `${d.getFullYear()+'-'+d.getMonth()+'-'+d.getDate()}`, inline: true},
-      {name: "Join time", value: `${d.getHours()+':'+d.getMinutes()+':'+d.getSeconds()}`, inline: true},
-      {name: "mention", value: `<@!${member.user.id}>`},
-    ])
-    .setFooter(`The owner of this server is ${owner.user.username}`);
+    // let owner = member.guild.fetchOwner();
+    // let welcomeEmbed = new Discord.MessageEmbed()
+    // .setColor("#3efa67")
+    // .setTitle("New User Joined")
+    // .setDescription(`${welcomeMessage}`)
+    // .setThumbnail(member.user.displayAvatarURL())
+    // .setAuthor(`${member.guild.name}`, `${serverIcon}`)
+    // .addFields([
+    //   {name: "name", value: `${member.user.username}`, inline: true},
+    //   {name: "Join date", value: `${d.getFullYear()+'-'+d.getMonth()+'-'+d.getDate()}`, inline: true},
+    //   {name: "Join time", value: `${d.getHours()+':'+d.getMinutes()+':'+d.getSeconds()}`, inline: true},
+    //   {name: "mention", value: `<@!${member.user.id}>`},
+    // ])
+    // .setFooter(`The owner of this server is ${owner.user.username}`);
 
-    welcomeChannel.send({embeds: [welcomeEmbed]});
+    // welcomeChannel.send({embeds: [welcomeEmbed]});
+    console.log(member);
 
   } else {
     return;
