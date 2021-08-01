@@ -157,6 +157,7 @@ bot.on('guildMemberAdd', async member => {
   // console.log(`channel: ${welcomeChannel}`);
   if (welcomeEnabled == 1){
     // welcome embed
+    let owner = member.guild.fetchOwner();
     let welcomeEmbed = new Discord.MessageEmbed()
     .setColor("#3efa67")
     .setTitle("New User Joined")
@@ -169,7 +170,7 @@ bot.on('guildMemberAdd', async member => {
       {name: "Join time", value: `${d.getHours()+':'+d.getMinutes()+':'+d.getSeconds()}`, inline: true},
       {name: "mention", value: `<@!${member.user.id}>`},
     ])
-    .setFooter(`The owner of this server is ${member.guild.owner.user.username}`);
+    .setFooter(`The owner of this server is ${owner.user.username}`);
 
     welcomeChannel.send({embeds: [welcomeEmbed]});
 

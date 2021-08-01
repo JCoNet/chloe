@@ -9,7 +9,7 @@ module.exports = {
         let operation = args[0].toLowerCase();
         let s1 = args[1].toLowerCase();
         let s2 = args[2].toLowerCase();
-        let user = message.guild.member(message.mentions.members.first() || message.guild.members.cache.get(s1));
+        let user = message.guild.members.cache.get(message.mentions.users.first()) || message.guild.members.cache.get(args[0]);
         let role = message.mentions.roles.first() || message.guild.roles.cache.get(s2);
     
         // check the arguments and variables exist.
