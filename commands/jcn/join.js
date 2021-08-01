@@ -11,6 +11,7 @@ module.exports = {
         // bot.emit('guildMemberAdd', message.author);
         console.log(message.authorid);
         console.log(message.author.name);
+        console.log(message.author.id)
         console.log(config.developer);
 
     },
