@@ -21,7 +21,7 @@ module.exports = {
         {name: '\u200B', value: '\u200B', inline: false},
         {name: "This guild name", value: message.guild.name, inline: true},
         {name: "This guild prefix", value: useprefix, inline: true},
-        {name: "This guild owner", value: message.guild.owner.username, inline: true},
+        {name: "This guild owner", value: message.guild.owner.name, inline: true},
         {name: '\u200B', value: '\u200B', inline: false},
         {name: "Save on online retail and support JCoNet!", value: '[Get Honey](https://www.joinhoney.com/ref/k4lomc4 "Get the Honey Extension and start saving on all your online purchases.")', inline: true},
         {name: "Support JCoNet another way!", value: '[Donate Here](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=78GGH2NZ57WUJ&source=url "Donate to JCoNet via PayPal on the JCoNet official website.")', inline: true},
