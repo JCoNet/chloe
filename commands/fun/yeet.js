@@ -19,7 +19,7 @@ module.exports = {
         let newbal = results[0].coins - cost;
         await connection.query(`UPDATE money SET coins="${newbal}" WHERE guildID="${message.guild.id}" AND userID="${message.author.id}"`).catch(err => console.error(err));
 
-        let yeetee = message.mentions.users.first() || message.guild.members.cache.get(args[0]);
+        let yeetee = message.mentions.members.first() || message.guild.members.cache.get(args[0]);
         let distance = Math.floor(Math.random() * 1000) +10;
 
         let msg = message.channel.send(`<@!${message.author.id}>, You are now yeeting <@!${yeetee.id}>! 🛫.....`);

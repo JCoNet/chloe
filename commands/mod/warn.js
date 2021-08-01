@@ -5,7 +5,7 @@ module.exports = {
     usage: "<user> <reason>",
     async execute(Discord, bot, connection, message, args, useprefix) {
         if(!message.member.permissions.has("MANAGE_MESSAGES")) return message.channel.send(`Sorry <@!${message.author.id}>, I am not allowed to let non moderator users to run this command.`);
-        let wUser = message.mentions.users.first() || message.guild.members.cache.get(args[0]);
+        let wUser = message.mentions.members.first() || message.guild.members.cache.get(args[0]);
         if(!wUser) return message.channel.send(`<@!${message.author.id}>, Please remember to add a target user to the command by either mentioning them or typing out their name. Thank you.`);
         if(wUser.permissions.has("MANAGE_MESSAGES")) return message.channel.send(`<@!${message.author.id}>, I am not authorised to place a warning on the server record of a moderator.`);
         let wReason = args.join(" ").slice(22);

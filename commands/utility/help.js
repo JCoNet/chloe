@@ -20,7 +20,7 @@ module.exports = {
                 {name: `${useprefix}ping`, value: "Check the latency of the bot and server and the bot and api.", inline: true},
                 {name: `${useprefix}yeet @user`, value: "Throw a user a randomly generated distance for 25 of the coins you acquired in this server.", inline: true},
             ]);
-        if (message.member.hasPermission("MANAGE_MESSAGES")) {
+        if (message.member.permissions.has("MANAGE_MESSAGES")) {
             helpEmbed.addFields([
                 {name: "Moderator Commands", value: '\u200B', inline:false},
                 {name: `${useprefix}clear <num to delete>`, value: "removes set number of messages from chat.", inline: true},
@@ -29,13 +29,13 @@ module.exports = {
                 {name: `${useprefix}warn @user <reason>`, value: "Warns the selected user in the server.", inline: true},
             ]);
         };
-        if (message.member.hasPermission("KICK_MEMBERS")) {
+        if (message.member.permissions.has("KICK_MEMBERS")) {
             helpEmbed.addField(`${useprefix}kick @user <reason>`, "Kicks the selected user from the server.", true);
         };
-        if (message.member.hasPermission("BAN_MEMBERS")) {
+        if (message.member.permissions.has("BAN_MEMBERS")) {
             helpEmbed.addField(`${useprefix}ban @user <reason>`, "Bans the selected user from the server.", true);
         };
-        if (message.member.hasPermission("ADMINISTRATOR")) {
+        if (message.member.permissions("ADMINISTRATOR")) {
             helpEmbed.addFields([
                 {name: "\u200B", value: '\u200B', inline:false},
                 {name: "Administrator Commands", value: "\u200B", inline: false},
