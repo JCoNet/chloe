@@ -19,7 +19,10 @@ module.exports = {
                 name: threadName,
                 autoArchiveDuration: 60,
                 reason: threadDescription,
-            }).then(threadChannel => threadChannel.send(threadDescription), threadChannel => threadChannel.add(message.author, "Created Thread!"), threadChannel => console.log(`thread made: ${threadChannel}`)).catch(err => console.error(err.message));
+            })
+            .then(threadChannel => threadChannel.send(threadDescription))
+            .then(threadChannel => console.log(`Thread made: ${threadChannel}`))
+            .catch(err => console.error(err.message));
         };
     },
 };
