@@ -9,11 +9,11 @@ module.exports = {
             let threadName = "New Thread!";
             let threadDescription = "A new thread to chat in!";
 
-            message.reply("What is the desired name of the thread?").then(() => {
+            await message.reply("What is the desired name of the thread?").then(() => {
                 message.channel.awaitMessages(m => m.author.id == message.author.id,
                     { max: 1, time: 30000 }).then(collected => {
                         threadName = collected.first().content;
-                        message.reply("What is the desired description of the thread?").then(() => {
+                        await message.reply("What is the desired description of the thread?").then(() => {
                             message.channel.awaitMessages(m => m.author.id == message.author.id,
                                 { max: 1, time: 30000 }).then(collected => {
                                     threadDescription = collected.first().content;
