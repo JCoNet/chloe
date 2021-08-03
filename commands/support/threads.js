@@ -1,10 +1,10 @@
 module.exports = {
     name: "treads",
-    description: "Warn a user!",
+    description: "Manage threads",
     args: true,
     usage: "<add/remove> <name> [add only: <description -optional>]",
     async execute(Discord, bot, connection, message, args, useprefix) {
-        if(args[0]=="add") {
+        if(args[0].toLowerCase()=="add") {
             // create thread
             let threadName = args[1];
             let threadDescription = "";
@@ -14,7 +14,7 @@ module.exports = {
                 threadDescription = "A new thread!";
             };
 
-            let thread = message.channel.threads.create({
+            message.channel.threads.create({
                 name: threadName,
                 autoArchiveDuration: 60,
                 reason: threadDescription,
