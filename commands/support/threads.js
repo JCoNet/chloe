@@ -11,7 +11,7 @@ module.exports = {
 
             await message.reply("What is the desired name of the thread?").then(() => {
                 message.channel.awaitMessages(m => m.author.id == message.author.id,
-                    { max: 1, time: 30000 }).then(collected => {
+                    { max: 1, time: 30000 }).then(async collected => {
                         threadName = collected.first().content;
                         await message.reply("What is the desired description of the thread?").then(() => {
                             message.channel.awaitMessages(m => m.author.id == message.author.id,
