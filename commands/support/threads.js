@@ -21,7 +21,7 @@ module.exports = {
                 reason: threadDescription,
             })
             .then(threadChannel => threadChannel.send(threadDescription))
-            .then(threadChannel => console.log(`Thread made: ${threadChannel}`))
+            .then(threadChannel => console.log(`Thread made: ${threadChannel.id}`))
             .catch(err => console.error(err.message));
         };
     },
