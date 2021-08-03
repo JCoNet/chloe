@@ -6,14 +6,25 @@ module.exports = {
     async execute(Discord, bot, connection, message, args, useprefix) {
         if(args[0].toLowerCase()=="add") {
             // create thread
-            let threadName = args[1];
-            let threadDescription = "";
-
-            if(args[2]) {
-                threadDescription = args[2];
-            } else {
-                threadDescription = "A new thread!";
-            };
+            let threadName = "New Thread!";
+            let thradDescription = "A new thread to chat in!";
+            
+            message.reply("What is the desired name of the thread?").then(() => {
+                message.channel.awaitMessages(m => m.author.id == message.author.id,
+                    { max: 1, time: 30000 }).then(collected => {
+                        threadName = collected.first().content;
+                        message.reply("What is the desired description of the thread?").then(() => {
+                            message.channel.awaitMessages(m => m.author.id == message.author.id,
+                                { max: 1, time: 30000 }).then(collected => {
+                                    threadDescription = collected.first().content;
+                                }).catch(() => {
+                                    message.reply('No answer after 30 seconds, operation canceled.');
+                                });
+                        });    
+                    }).catch(() => {
+                        message.reply('No answer after 30 seconds, operation canceled.');
+                    });
+            });
 
             message.channel.threads.create({
                 name: threadName,
