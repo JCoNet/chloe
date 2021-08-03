@@ -15,20 +15,11 @@ module.exports = {
                 threadDescription = "A new thread!";
             };
 
-            let threadChannel = message.channel.threads.create({
+            message.channel.threads.create({
                 name: threadName,
                 autoArchiveDuration: 60,
                 reason: threadDescription,
-            }).catch(err => console.error(err.message));
-
-            threadChannel.add({
-                member: message.author,
-                reason: "Created the thread request",
-            }).catch(err => console.error(err));
-
-            threadChannel.send(threadDescription).catch(err => console.error(err));
-
-            console.log(`Thread created: ${threadChannel}`);
+            }).then(threadChannel => threadChannel.send(threadDescription), threadChannel => threadChannel.add(message.author, "Created Thread!"), threadChannel => console.log(`thread made: ${threadChannel}`)).catch(err => console.error(err.message));
         };
     },
 };
