@@ -4,12 +4,12 @@ module.exports = {
     args: true,
     usage: "<add/remove> <name> [add only: <description -optional>]",
     async execute(Discord, bot, connection, message, args, useprefix) {
-        if(args[1]=="add") {
+        if(args[0]=="add") {
             // create thread
-            let threadName = args[2];
+            let threadName = args[1];
             let threadDescription = "";
-            if(args[3]) {
-                threadDescription = args[3];
+            if(args[2]) {
+                threadDescription = args[2];
             } else {
                 threadDescription = "A new thread!";
             };
