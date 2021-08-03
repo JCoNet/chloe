@@ -1,5 +1,5 @@
 module.exports = {
-    name: "treads",
+    name: "threads",
     description: "Manage threads",
     args: true,
     usage: "<add/remove> <name> [add only: <description -optional>]",
