@@ -7,8 +7,8 @@ module.exports = {
         if(args[0].toLowerCase()=="add") {
             // create thread
             let threadName = "New Thread!";
-            let thradDescription = "A new thread to chat in!";
-            
+            let threadDescription = "A new thread to chat in!";
+
             message.reply("What is the desired name of the thread?").then(() => {
                 message.channel.awaitMessages(m => m.author.id == message.author.id,
                     { max: 1, time: 30000 }).then(collected => {
