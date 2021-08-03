@@ -17,7 +17,7 @@ module.exports = {
             message.channel.threads.create({
                 name: threadName,
                 autoArchiveDuration: 60,
-                reason: threadDescription,
+                reason: "test thread",
             }).then(threadChannel => message.channel.send(`<@!${message.author.id}> I have made your selected thread! ${threadChannel}`)).catch(err => console.error(err.message));
         };
     },
