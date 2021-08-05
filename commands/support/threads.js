@@ -8,10 +8,11 @@ module.exports = {
             // create thread
             let threadName = "New Thread!";
             let threadDescription = "A new thread to chat in!";
+            let filter = m => m.author.id == message.author.id;
 
             await message.reply("What is the desired name of the thread?");
             try {
-                threadName = await message.channel.awaitMessages(m => m.author.id == message.author.id,{ time: 30000, max: 1, errors: ['time'] });
+                threadName = await message.channel.awaitMessages({filter, time: 30000, max: 1, errors: ['time'] });
                 console.log(threadName);
             } catch {
                 message.reply("No response was said in time.");
