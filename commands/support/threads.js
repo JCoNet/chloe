@@ -12,7 +12,7 @@ module.exports = {
             let filter = m => m.author.id == message.author.id;
             let constructorMessages = [];
 
-            constructorMessages.push({id: message.channel.id});
+            constructorMessages.push({id: message.id});
 
             let sent1 = await message.reply("What is the desired name of the thread?");
             constructorMessages.push({id: sent1.id});
@@ -27,7 +27,7 @@ module.exports = {
             };
 
             let sent2 = await message.reply("What is the desired description of the thread?");
-            constructorMessages.push({id: sent1.id});
+            constructorMessages.push({id: sent2.id});
             try {
                 let reply2 = await message.channel.awaitMessages({filter, time: 30000, max: 1, errors: ['time'] });
                 constructorMessages.push({id: reply2.first().id});
