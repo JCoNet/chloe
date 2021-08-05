@@ -16,7 +16,7 @@ module.exports = {
         .setTitle("Chloe New Features")
         .setDescription(`JCoNet Development has been hard at work on some new features, here is a rundown of everything that changed in version ${stats.version}!`)
         .addFields([
-            {name: "[*] Updated to discord.js v13", value: "This update adds new features for us to test and implement for you. But it also may break some existing commands. Please be careful and report any broken commands to JCoDog ASAP.", inline: true}
+            {name: "[*] Threads command", value: "Try out our first thread management command. Use the 'threads add' command in your server today (don't forget your prefix)!", inline: true}
         ])
         .setFooter(`Lead developer: ${stats.author}`);
 
@@ -28,7 +28,8 @@ module.exports = {
             let sendToGuild = await bot.guilds.cache.get(results[i].guildID);
             let sendTo = await sendToGuild.channels.cache.get(results[i].systemChannelID);
             if (canSend == 1) {
-                sendTo.send({embeds: [newfeatEmbed]}).catch(err => console.error(err));;
+                let sent = await sendTo.send({embeds: [newfeatEmbed]}).catch(err => console.error(err));
+                await sent.react(":JCNVerifiedMessage:");
             };
         };
     },
