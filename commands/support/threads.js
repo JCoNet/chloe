@@ -13,7 +13,7 @@ module.exports = {
             await message.reply("What is the desired name of the thread?");
             try {
                 await message.channel.awaitMessages({filter, time: 30000, max: 1, errors: ['time'] })
-                .then(collected => threadName = collected.content);
+                .then(collected => threadName = collected[0].content);
                 console.log(threadName);
             } catch {
                 message.reply("No response was said in time.");
