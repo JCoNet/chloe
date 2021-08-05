@@ -38,7 +38,7 @@ module.exports = {
 
             var len = constructorMessages.length;
             for (var i = 0; i < len; i++) {
-                let msg = await message.channel.fetchMessage(constructorMessage[i].id);
+                let msg = await message.channel.fetchMessage(constructorMessages[i].id);
                 await msg.delete();
             }
             
