@@ -5,32 +5,41 @@ module.exports = {
     usage: "<add/remove>",
     async execute(Discord, bot, connection, message, args, useprefix) {
         if(args[0].toLowerCase()=="add") {
-            // create thread
             let threadName;
             let threadDescription;
             let filter = m => m.author.id == message.author.id;
+            let constructorMessages = [];
 
-            await message.reply("What is the desired name of the thread?");
+            constructorMessages.push({id: message.channel.id});
+
+            let sent1 = await message.reply("What is the desired name of the thread?");
+            constructorMessage.push({id: sent1.id});
             try {
                 let reply1 = await message.channel.awaitMessages({filter, time: 30000, max: 1, errors: ['time'] });
                 threadName = reply1.first().content;
                 console.log(threadName);
             } catch {
-                message.reply("No response was said in time. Name not set. Command cancelled.");
+                let error1 = message.reply("No response was said in time. Name not set. Command cancelled.");
+                constructorMessage.push({id: error1.id});
             };
 
-            await message.reply("What is the desired description of the thread?");
+            let sent2 = await message.reply("What is the desired description of the thread?");
+            constructorMessage.push({id: sent1.id});
             try {
                 let reply2 = await message.channel.awaitMessages({filter, time: 30000, max: 1, errors: ['time'] });
                 threadDescription = reply2.first().content;
                 console.log(threadDescription);
             } catch {
-                message.reply("No response was said in time. Description not set. Command cancelled.");
+                let error2 = message.reply("No response was said in time. Description not set. Command cancelled.");
+                constructorMessage.push({id: error1.id});
             };
-            
-            // await message.reply("What is the desired description of the thread?");
-            // threadDescription = await message.channel.awaitMessages(m => m.author.id == message.author.id,{ time: 30000, max: 1, errors: ['time'] }).catch(message.reply("No response was said in time."));
 
+            var len = constructorMessage.length;
+            for (var i = 0; i < len; i++) {
+                let msg = await message.channel.fetchMessage(constructorMessage[i].id);
+                await msg.delete();
+            }
+            
             try {
                 let threadChannel = await message.channel.threads.create({
                     name: threadName,
