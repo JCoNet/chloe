@@ -43,13 +43,14 @@ module.exports = {
             let chan = message.channel;
             for (var i = 0; i < len; i++) {
                 console.log(`array ${i}: ${constructorMessages[i].id}`);
-                let msg = await chan.messages.fetch(constructorMessages[i]);
-                console.log(`message ${i}: ${msg}`);
-                try {
-                    await msg.delete();
-                } catch {
-                    err => console.error(err);
-                };
+                // let msg = await chan.messages.fetch(constructorMessages[i].id);
+                // console.log(`message ${i}: ${msg}`);
+                // try {
+                //     await msg.delete();
+                // } catch {
+                //     err => console.error(err);
+                // };
+                await chan.messages.fetch(constructorMessages[i].id).then(msg => msg.delete()).catch(err => console.log(err));
             };
             
             try {
