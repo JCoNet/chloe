@@ -45,8 +45,12 @@ module.exports = {
                 console.log(`array ${i}: ${constructorMessages[i].id}`);
                 let msg = await chan.messages.fetch(constructorMessages[i]);
                 console.log(`message ${i}: ${msg}`);
-                await msg.delete().catch(err => console.error(err));
-            }
+                try {
+                    await msg.delete();
+                } catch {
+                    err => console.error(err);
+                };
+            };
             
             try {
                 let threadChannel = await message.channel.threads.create({
