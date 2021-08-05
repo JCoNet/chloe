@@ -1,3 +1,5 @@
+const { CommandInteractionOptionResolver } = require("discord.js");
+
 module.exports = {
     name: "threads",
     description: "Manage threads",
@@ -36,6 +38,7 @@ module.exports = {
                 constructorMessages.push({id: error1.id});
             };
 
+            console.log(constructorMessages);
             var len = constructorMessages.length;
             for (var i = 0; i < len; i++) {
                 let msg = await message.channel.messages.fetch(constructorMessages[i].id);
