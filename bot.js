@@ -102,7 +102,7 @@ bot.on('guildCreate', async guild => {
     sysChannelID = guild.sysChannel.id;
   };
 
-  let guildOwner = await guild.members.fetch(guild.ownerID);
+  let guildOwner = await member.guild.fetchOwner();
 
   let result = await connection.query(`SELECT * FROM guildConfig WHERE guildID="${guild.id}"`).catch(err => console.error(err));
   let results = result[0];
