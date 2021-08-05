@@ -38,13 +38,15 @@ module.exports = {
 
             var len = constructorMessages.length;
             let chan = message.channel;
+            let messages = [];
             for (var i = 0; i < len; i++) {
                 let msg = await chan.messages.fetch(constructorMessages[i].id);
-                try {
-                    await msg.delete();
-                } catch {
-                    err => console.error(err);
-                };
+                messages.push(msg);
+            };
+            try {
+                await chan.bulkDelete(messages);
+            } catch {
+                err => console.error(err);
             };
             
             try {
