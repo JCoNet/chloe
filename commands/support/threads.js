@@ -2,7 +2,7 @@ module.exports = {
     name: "threads",
     description: "Manage threads",
     args: true,
-    usage: "<add/remove>",
+    usage: "<add/archive/delete>",
     async execute(Discord, bot, connection, message, args, useprefix) {
         if(args[0].toLowerCase()=="add") {
             let threadName;
@@ -58,6 +58,90 @@ module.exports = {
             } catch {
                 err => console.log(err);
             };
-        };
+
+        } else if (args[0].toLowerCase() == 'archive') {
+            let threadName;
+            let constructorMessages = [];
+
+            constructorMessages.push({id: message.id});
+
+            let sent = await message.reply("What is the name of the thread you wish to archive?");
+            constructorMessages.push({id: sent.id});
+            try {
+                let reply = await message.channel.awaitMessages({filter, time: 30000, max: 1, errors: ['time'] });
+                constructorMessages.push({id: reply.first().id});
+                threadName = reply.first().content;
+            } catch {
+                let error = message.reply("No response was said in time. Name not given. Command cancelled.");
+                constructorMessages.push({id: error.id});
+            };
+
+            var len = constructorMessages.length;
+            let chan = message.channel;
+            let messages = [];
+            for (var i = 0; i < len; i++) {
+                let msg = await chan.messages.fetch(constructorMessages[i].id);
+                messages.push(msg);
+            };
+
+            try {
+                await chan.bulkDelete(messages);
+            } catch {
+                err => console.error(err);
+            };
+
+            try {
+                const thread = message.channel.threads.cache.find(x => x.name == threadName);
+                await thread.setArchived(true);
+                let sent = await message.channel.send(`The thread ${threadName} has been archived.`);
+                await sent.react("<a:JCNVerifiedMessage:872672152313294858>");
+            } catch {
+                err => console.error(err);
+            };
+
+        } else if (args[0].toLowerCase() == 'delete') {
+            let threadName;
+            let constructorMessages = [];
+
+            constructorMessages.push({id: message.id});
+
+            let sent = await message.reply("What is the name of the thread you wish to delete?");
+            constructorMessages.push({id: sent.id});
+            try {
+                let reply = await message.channel.awaitMessages({filter, time: 30000, max: 1, errors: ['time'] });
+                constructorMessages.push({id: reply.first().id});
+                threadName = reply.first().content;
+            } catch {
+                let error = message.reply("No response was said in time. Name not given. Command cancelled.");
+                constructorMessages.push({id: error.id});
+            };
+
+            var len = constructorMessages.length;
+            let chan = message.channel;
+            let messages = [];
+            for (var i = 0; i < len; i++) {
+                let msg = await chan.messages.fetch(constructorMessages[i].id);
+                messages.push(msg);
+            };
+
+            try {
+                await chan.bulkDelete(messages);
+            } catch {
+                err => console.error(err);
+            };
+
+            try {
+                const thread = message.channel.threads.cache.find(x => x.name == threadName);
+                await thread.delete();
+                let sent = await message.channel.send(`The thread ${threadName} has been deleted.`);
+                await sent.react("<a:JCNVerifiedMessage:872672152313294858>");
+            } catch {
+                err => console.error(err);
+            };
+            
+        } else {
+            let sent = await message.reply("Please enter a valid operation type. They are add, archive and delete.");
+            await sent.react("<a:JCNVerifiedMessage:872672152313294858>");
+        }
     },
 };
