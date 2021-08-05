@@ -7,9 +7,9 @@ module.exports = {
     if (!message.member.permissions.has("MANAGE_MESSAGES")) return message.channel.send(`OOF <@!${message.author.id}>. You do not appear to have access to this command, you need to be able to manage messages to do this!`);
     let botmessage = args.join(" ");
     await message.delete().catch(err => console.error(err));
-    let sent = message.channel.send(`@everyone ${botmessage}`).catch(err => console.log(err));
+    let sent = await message.channel.send(`@everyone ${botmessage}`).catch(err => console.log(err));
     if (message.author.username === "JCoDog") {
-      sent.react("<:JCNVerifiedDeveloper:872672468765118544> ");
+      sent.react("<:JCNVerifiedDeveloper:872672468765118544>");
     };
   },
 };

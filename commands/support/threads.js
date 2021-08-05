@@ -1,5 +1,3 @@
-const { CommandInteractionOptionResolver } = require("discord.js");
-
 module.exports = {
     name: "threads",
     description: "Manage threads",
