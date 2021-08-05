@@ -62,6 +62,7 @@ module.exports = {
         } else if (args[0].toLowerCase() == 'archive') {
             let threadName;
             let constructorMessages = [];
+            let filter = m => m.author.id == message.author.id;
 
             constructorMessages.push({id: message.id});
 
@@ -102,6 +103,7 @@ module.exports = {
         } else if (args[0].toLowerCase() == 'delete') {
             let threadName;
             let constructorMessages = [];
+            let filter = m => m.author.id == message.author.id;
 
             constructorMessages.push({id: message.id});
 
@@ -138,7 +140,7 @@ module.exports = {
             } catch {
                 err => console.error(err);
             };
-            
+
         } else {
             let sent = await message.reply("Please enter a valid operation type. They are add, archive and delete.");
             await sent.react("<a:JCNVerifiedMessage:872672152313294858>");
