@@ -21,7 +21,7 @@ module.exports = {
         };
     
         let prefixEmbed = new Discord.MessageEmbed()
-        .setAuthor(`${memssage.guild.name}`, `${serverIcon}`)
+        .setAuthor(`${message.guild.name}`, `${serverIcon}`)
         .setTitle("Guild Prefix")
         .setDescription("The guild prefix has been changed!")
         .addFields([
