@@ -10,9 +10,14 @@ module.exports = {
             let threadDescription = "A new thread to chat in!";
 
             await message.reply("What is the desired name of the thread?");
-            threadName = await message.channel.awaitMessages(m => m.author.id == message.author.id,{ time: 30000, max: 1, errors: ['time'] }).catch(message.reply("No response was said in time."));
-            await message.reply("What is the desired description of the thread?");
-            threadDescription = await message.channel.awaitMessages(m => m.author.id == message.author.id,{ time: 30000, max: 1, errors: ['time'] }).catch(message.reply("No response was said in time."));
+            try {
+                threadName = await message.channel.awaitMessages(m => m.author.id == message.author.id,{ time: 30000, max: 1, errors: ['time'] });
+            } catch {
+                message.reply("No response was said in time.");
+            };
+            
+            // await message.reply("What is the desired description of the thread?");
+            // threadDescription = await message.channel.awaitMessages(m => m.author.id == message.author.id,{ time: 30000, max: 1, errors: ['time'] }).catch(message.reply("No response was said in time."));
 
             message.channel.threads.create({
                 name: threadName,
