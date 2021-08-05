@@ -13,7 +13,7 @@ module.exports = {
             await message.reply("What is the desired name of the thread?");
             try {
                 threadName = await message.channel.awaitMessages({filter, time: 30000, max: 1, errors: ['time'] });
-                console.log(threadName);
+                console.log(threadName.content);
             } catch {
                 message.reply("No response was said in time.");
             };
@@ -24,7 +24,7 @@ module.exports = {
             message.channel.threads.create({
                 name: threadName,
                 autoArchiveDuration: 60,
-                reason: `${message.author.user.username} requested the channel be created.`,
+                reason: `${message.author.username} requested the channel be created.`,
             })
             .then(threadChannel => threadChannel.send(threadDescription))
             .then(threadChannel => console.log(`Thread made: ${threadChannel.id}`))
