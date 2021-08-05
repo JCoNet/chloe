@@ -11,13 +11,10 @@ module.exports = {
             let filter = m => m.author.id == message.author.id;
 
             await message.reply("What is the desired name of the thread?");
-            try {
-                await message.channel.awaitMessages({filter, time: 30000, max: 1, errors: ['time'] })
-                .then(collected => threadName = collected[0].content);
-                console.log(threadName);
-            } catch {
-                message.reply("No response was said in time.");
-            };
+            await message.channel.awaitMessages({filter, time: 30000, max: 1, errors: ['time'] })
+            .then(collected => threadName = collected[0].content)
+            .catch(message.reply("No response was said in time. (30s)"));
+            console.log(threadName);
             
             // await message.reply("What is the desired description of the thread?");
             // threadDescription = await message.channel.awaitMessages(m => m.author.id == message.author.id,{ time: 30000, max: 1, errors: ['time'] }).catch(message.reply("No response was said in time."));
