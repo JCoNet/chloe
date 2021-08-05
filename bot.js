@@ -90,7 +90,7 @@ bot.once('ready', async () => {
 });
 
 bot.on('guildCreate', async guild => {
-  let defaultChannel = guild.channels.cache.find(channel => channel.type === 'text' && channel.permissionsFor(guild.me).has('SEND_MESSAGES'));
+  let defaultChannel = guild.channels.cache.find(channel => channel.type === 'text' && channel.permissionsFor(bot.user).has('SEND_MESSAGES'));
   let sysChannel = guild.sysChannel;
   let sysChannelName;
   let sysChannelID;

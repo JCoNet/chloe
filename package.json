@@ -19,7 +19,6 @@
   "dependencies": {
     "ascii-table": "^0.0.9",
     "ascii-table3": "^0.5.1",
-    "discord-buttons": "^3.2.1",
     "discord.js": "^13.0.0-dev.t1627819382.bb56f17",
     "dotenv": "^10.0.0",
     "ms": "^2.1.3",
