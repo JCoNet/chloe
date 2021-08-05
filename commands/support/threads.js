@@ -53,8 +53,7 @@ module.exports = {
                     autoArchiveDuration: 60,
                     reason: `${message.author.username} requested the channel be created.`,
                 });
-                threadChannel.send(`${message.author.username} requested the channel be created.`);
-                threadChannel.send(`Topic: ${threadDescription}`);
+                threadChannel.send(`${message.author.username} requested this thread be created.\nTopic: ${threadDescription}`);
                 console.log(`Thread made: ${threadChannel.id}`)
             } catch {
                 err => console.log(err);
