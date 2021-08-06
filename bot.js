@@ -300,7 +300,7 @@ bot.on('messageCreate', async message => {
 });
 
 bot.on('interactionCreate', async button => {
-	if (!button.isButton()) {
+	if (button.isButton()) {
 
     button.reply({content: "Working on this, this is a test reply.", ephmeral: true});
     console.log(button);
