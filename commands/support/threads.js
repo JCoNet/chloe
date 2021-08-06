@@ -94,7 +94,7 @@ module.exports = {
             try {
                 const thread = message.channel.threads.cache.find(x => x.name == threadName);
                 await thread.setArchived(true);
-                let sent = await message.channel.send(`The thread ${threadName} has been archived.`);
+                let sent = await message.channel.send(`The thread **${threadName}** has been archived.`);
                 await sent.react("<a:JCNVerifiedMessage:872672152313294858>");
             } catch {
                 err => console.error(err);
@@ -135,7 +135,7 @@ module.exports = {
             try {
                 const thread = message.channel.threads.cache.find(x => x.name == threadName);
                 await thread.delete();
-                let sent = await message.channel.send(`The thread ${threadName} has been deleted.`);
+                let sent = await message.channel.send(`The thread **${threadName}** has been deleted.`);
                 await sent.react("<a:JCNVerifiedMessage:872672152313294858>");
             } catch {
                 err => console.error(err);
