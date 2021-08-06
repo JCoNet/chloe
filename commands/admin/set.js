@@ -4,7 +4,7 @@ module.exports = {
     args: false,
     async execute(Discord, bot, connection, message, args, useprefix) {
         await message.delete();
-        if(!message.member.hasPermission("ADMINISTRATOR")) return message.reply("Unfortunately, under JCoNet operation policies i am not allowed to let anyone not ranked with permission ADMINISTRATOR to change any of my settings for servers.").then(msg => msg.delete({timeout: 9000})).catch(err => console.error(err));
+        if(!message.member.permissions.has("ADMINISTRATOR")) return message.reply("Unfortunately, under JCoNet operation policies i am not allowed to let anyone not ranked with permission ADMINISTRATOR to change any of my settings for servers.").then(msg => msg.delete({timeout: 9000})).catch(err => console.error(err));
         let result = await connection.query(`SELECT welcomeChannelID, systemChannelID, announcementChannelID FROM guildConfig WHERE guildID = "${message.guild.id}"`).catch(err => console.error(err));
         let results = result[0];
         let welcome = await message.guild.channels.cache.get(results[0].welcomeChannelID);
