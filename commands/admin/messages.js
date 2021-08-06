@@ -131,12 +131,12 @@ module.exports = {
     
         if (enable == "true" && disable == "false") {
             message.channel.send({
-                embed: setEmbed,
+                embeds: [setEmbed],
                 components:[emessages, embedcontrol]
             }).catch(err => console.error(err));
         } else if ( enable == "false" && disable == "true") {
             message.channel.send({
-                embed: setEmbed,
+                embeds: [setEmbed],
                 components:[dmessages, embedcontrol]
             }).catch(err => console.error(err));
         } else if ( enable == "true" && disable == "true") {
