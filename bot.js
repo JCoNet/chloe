@@ -299,7 +299,7 @@ bot.on('messageCreate', async message => {
 
 });
 
-client.on('interactionCreate', async button => {
+bot.on('interactionCreate', async button => {
 	if (!button.isButton()) {
     // admin buttons
     // generic cancel fucntion for all admin button aided embeds.
