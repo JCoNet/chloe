@@ -303,7 +303,7 @@ client.on('interactionCreate', async button => {
 	if (!button.isButton()) {
     // admin buttons
     // generic cancel fucntion for all admin button aided embeds.
-    if (button.id == "admincancel") {
+    if (button.customId == "admincancel") {
       button.defer();
       if (button.clicker.member.permissions.has("ADMINISTRATOR")) {
         button.message.delete();
@@ -314,7 +314,7 @@ client.on('interactionCreate', async button => {
     };
     
     // channel setup buttons
-    if (button.id == "welcome") {
+    if (button.customId == "welcome") {
       button.defer();
       if (button.clicker.member.permissions.has("ADMINISTRATOR")) {
         button.message.delete();
@@ -324,7 +324,7 @@ client.on('interactionCreate', async button => {
       } else {
         button.clicker.user.send(`You tried to use admin only buttons in ${button.guild.name} and we thought we would let you know that you cannot do that.`);
       };
-    } else if (button.id == "system") {
+    } else if (button.customId == "system") {
       button.defer();
       if (button.clicker.member.permissions.has("ADMINISTRATOR")) {
         button.message.delete();
@@ -334,7 +334,7 @@ client.on('interactionCreate', async button => {
       } else {
         button.clicker.user.send(`You tried to use admin only buttons in ${button.guild.name} and we thought we would let you know that you cannot do that.`);
       };
-    } else if (button.id == "announcement") {
+    } else if (button.customId == "announcement") {
       button.defer();
       if (button.clicker.member.permissions.has("ADMINISTRATOR")) {
         button.message.delete();
@@ -347,7 +347,7 @@ client.on('interactionCreate', async button => {
     };
   
     // enable messages
-    if (button.id == "enablewelc") {
+    if (button.customId == "enablewelc") {
       button.defer();
       if (button.clicker.member.permissions.has("ADMINISTRATOR")) {
         // enable welcome and update the embed to say its enabled and remove button
@@ -357,7 +357,7 @@ client.on('interactionCreate', async button => {
       } else {
         button.clicker.user.send(`You tried to use admin only buttons in ${button.guild.name} and we thought we would let you know that you cannot do that.`);
       };
-    } else if (button.id == "enableann") {
+    } else if (button.customId == "enableann") {
       button.defer();
       if (button.clicker.member.permissions.has("ADMINISTRATOR")) {
         // enable annoucnements and update the embed to say its enabled and remove button
@@ -367,7 +367,7 @@ client.on('interactionCreate', async button => {
       } else {
         button.clicker.user.send(`You tried to use admin only buttons in ${button.guild.name} and we thought we would let you know that you cannot do that.`);
       };
-    } else if (button.id == "enablenewfeat") {
+    } else if (button.customId == "enablenewfeat") {
       button.defer();
       if (button.clicker.member.permissions.has("ADMINISTRATOR")) {
         // enable newfeatures and update the embed to say its enabled and remove button
@@ -380,7 +380,7 @@ client.on('interactionCreate', async button => {
     };
   
     // disable messages
-    if (button.id == "disablewelc") {
+    if (button.customId == "disablewelc") {
       button.defer();
       if (button.clicker.member.permissions.has("ADMINISTRATOR")) {
         // enable welcome and update the embed to say its enabled and remove button
@@ -390,7 +390,7 @@ client.on('interactionCreate', async button => {
       } else {
         button.clicker.user.send(`You tried to use admin only buttons in ${button.guild.name} and we thought we would let you know that you cannot do that.`);
       };
-    } else if (button.id == "disableann") {
+    } else if (button.customId == "disableann") {
       button.defer();
       if (button.clicker.member.permissions.has("ADMINISTRATOR")) {
         // enable annoucnements and update the embed to say its enabled and remove button
@@ -400,7 +400,7 @@ client.on('interactionCreate', async button => {
       } else {
         button.clicker.user.send(`You tried to use admin only buttons in ${button.guild.name} and we thought we would let you know that you cannot do that.`);
       };
-    } else if (button.id == "disablenewfeat") {
+    } else if (button.customId == "disablenewfeat") {
       button.defer();
       if (button.clicker.member.permissions.has("ADMINISTRATOR")) {
         // disable newfeatures and update the embed to say its enabled and remove button
