@@ -99,35 +99,35 @@ module.exports = {
         if (welcome == 0 || newfeat == 0 || announcement == 0) {
             enable = "true";
             if (welcome == 0) {
-                emessages.addComponent(ewelcbut);
+                emessages.addComponents(ewelcbut);
             };
             
             if (newfeat == 0) {
-                emessages.addComponent(enewfeatbut);
+                emessages.addComponents(enewfeatbut);
             };
             
             if (announcement == 0) {
-                emessages.addComponent(eannouncebut);
+                emessages.addComponents(eannouncebut);
             };
         };
     
         if (welcome == 1 || newfeat == 1 || announcement == 1) {
             disable = "true";
             if (welcome == 1) {
-                dmessages.addComponent(dwelcbut);
+                dmessages.addComponents(dwelcbut);
             };
             
             if (newfeat == 1) {
-                dmessages.addComponent(dnewfeatbut);
+                dmessages.addComponents(dnewfeatbut);
             };
             
             if (announcement == 1) {
-                dmessages.addComponent(dannouncebut);
+                dmessages.addComponents(dannouncebut);
             };
         };
     
         let embedcontrol = new MessageActionRow()
-        .addComponent(cancel);
+        .addComponents(cancel);
     
         if (enable == "true" && disable == "false") {
             message.channel.send({

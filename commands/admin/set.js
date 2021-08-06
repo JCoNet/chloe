@@ -53,12 +53,10 @@ module.exports = {
         .setCustomId("admincancel");
     
         let channels = new Discord.MessageActionRow()
-        .addComponent(welcbut)
-        .addComponent(sysbut)
-        .addComponent(announcebut);
+        .addComponents(welcbut,sysbut,announcebut);
     
         let embedcontrol = new Discord.MessageActionRow()
-        .addComponent(cancel);
+        .addComponents(cancel);
     
         message.channel.send({
             embed: setEmbed,
