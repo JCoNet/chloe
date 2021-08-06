@@ -305,8 +305,8 @@ bot.on('interactionCreate', async button => {
     button.reply({content: "Working on this, this is a test reply.", ephemeral: true});
     console.log(button);
 
-    admin buttons
-    generic cancel fucntion for all admin button aided embeds.
+    // admin buttons
+    // generic cancel fucntion for all admin button aided embeds.
     if (button.customId == "admincancel") {
       button.deferReply();
       if (button.member.permissions.has("ADMINISTRATOR")) {
