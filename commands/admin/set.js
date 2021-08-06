@@ -1,5 +1,3 @@
-const { MessageButton, MessageActionRow } = require("discord-buttons");
-
 module.exports = {
     name: "set",
     description: "Set the channels for messages in this guild!",
