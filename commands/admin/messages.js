@@ -126,7 +126,7 @@ module.exports = {
             };
         };
     
-        let embedcontrol = new MessageActionRow()
+        let embedcontrol = new Discord.MessageActionRow()
         .addComponents(cancel);
     
         if (enable == "true" && disable == "false") {
