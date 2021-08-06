@@ -442,9 +442,9 @@ async function startTwitchListener(userName) {
   const letsgo = bot.emojis.cache.find(emoji => emoji.name === "KiyKillsLetsGo");
 
   const onlineSubscription = await listener.subscribeToStreamOnlineEvents(userId, async e => {
-    let sent = await streamChannel.send(`What is up @everyone? ${e.broadcasterDisplayName} just went live! Catch the good vibes at https://twitch.tv/${userName} ${letsgo} ${bigluv}!!!!`);
+    let sent = await streamChannel.send(`[TESTING] What is up? ${e.broadcasterDisplayName} just went live! Catch the good vibes at https://twitch.tv/${userName} ${letsgo} ${bigluv}!!!!`);
     await sent.react("<a:JCNVerifiedMessage:872672152313294858>");
   });
 };
 
-startTwitchListener('kiykills');
+startTwitchListener('jconet');
