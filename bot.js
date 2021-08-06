@@ -301,8 +301,6 @@ bot.on('messageCreate', async message => {
 
 bot.on('interactionCreate', async button => {
 	if (button.isButton()) {
-
-    button.reply({content: "Working on this, this is a test reply.", ephemeral: true});
     console.log(button);
 
     // admin buttons
