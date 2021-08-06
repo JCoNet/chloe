@@ -141,7 +141,7 @@ module.exports = {
             }).catch(err => console.error(err));
         } else if ( enable == "true" && disable == "true") {
             message.channel.send({
-                embed: setEmbed,
+                embeds: [setEmbed],
                 components:[emessages, dmessages, embedcontrol]
             }).catch(err => console.error(err));
         } else {

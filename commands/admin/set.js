@@ -59,7 +59,7 @@ module.exports = {
         .addComponents(cancel);
     
         message.channel.send({
-            embed: setEmbed,
+            embeds: [setEmbed],
             components:[channels, embedcontrol]
         }).catch(err => console.error(err));
     },
