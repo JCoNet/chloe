@@ -1,5 +1,5 @@
 module.exports = {
-    name: "threads",
+    name: "tickets",
     description: "Manage threads",
     args: true,
     usage: "<new/cancel/close>",
