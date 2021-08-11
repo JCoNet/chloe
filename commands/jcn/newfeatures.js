@@ -16,7 +16,7 @@ module.exports = {
         .setTitle("Chloe New Features")
         .setDescription(`JCoNet Development has been hard at work on some new features, here is a rundown of everything that changed in version ${stats.version}!`)
         .addFields([
-            {name: "[+] Slash Commands", value: "We added slash commands so please go to https://chloe.jconet.co.uk/invite to re-invite Chloe beta to your server with slash commands enabled!", inline: true},
+            {name: "[+] Slash Commands", value: "We added slash commands! So please kick Chloe Beta then go to https://chloe.jconet.co.uk/invite to re-invite Chloe Beta to your server with slash commands enabled!", inline: true},
         ])
         .setFooter(`Lead developer: ${stats.author}`);
 
