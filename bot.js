@@ -411,25 +411,27 @@ bot.on('interactionCreate', async interaction => {
   if (interaction.isCommand()) {
     console.log(interaction.options)
     let command = bot.commands.get(interaction.commandName) || bot.commands.find(cmd => cmd.aliases && cmd.aliases.includes(interaction.commandName));
-    let options = interaction.options.data;
-    if (!command) return;
-    let args = [];
+    if (interaction.options) {
+      let options = interaction.options.data;
+      if (!command) return;
+      let args = [];
 
-    console.log(command);
-    var len = options.length;
-    for (var i = 0; i < (len); i++) {
-      console.log(options[i].value);
-      args.push(options[i].value);
-    };
+      console.log(command);
+      var len = options.length;
+      for (var i = 0; i < (len); i++) {
+        console.log(options[i].value);
+        args.push(options[i].value);
+      };
 
-    console.log(args);
+      console.log(args);
+    }
 
-    // try {
-    //   command.execute(Discord, bot, connection, interaction, args);
-    // } catch (error) {
-    //     console.error(error);
-    //     message.reply('There was an unexpected error in executing that command, please check the bot logs for more information.');
-    // }
+    try {
+      command.execute(Discord, bot, connection, interaction, args);
+    } catch (error) {
+        console.error(error);
+        message.reply('There was an unexpected error in executing that command, please check the bot logs for more information.');
+    }
   };
 });
 
