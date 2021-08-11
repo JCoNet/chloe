@@ -136,10 +136,10 @@ bot.on('guildCreate', async guild => {
 
 });
 
-bot.on('guildDelete', async guild => {
-  connection.query(`DELETE FROM guildConfig WHERE guildID = '${guild.id}'`).catch(err => console.error(err));
-  connection.query(`DELETE FROM money WHERE guildID = '${guild.id}'`).catch(err => console.error(err));
-});
+// bot.on('guildDelete', async guild => {
+//   connection.query(`DELETE FROM guildConfig WHERE guildID = '${guild.id}'`).catch(err => console.error(err));
+//   connection.query(`DELETE FROM money WHERE guildID = '${guild.id}'`).catch(err => console.error(err));
+// });
 
 bot.on('guildMemberAdd', async member => {
   var d = new Date();
@@ -406,6 +406,8 @@ bot.on('interactionCreate', async interaction => {
       };
     };
   };
+
+
 });
 
 // twitch integration
