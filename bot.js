@@ -5,7 +5,7 @@ const mysql = require("mysql2/promise");
 const fs = require("fs");
 const stats = require("./package.json");
 const config = require("./botconfig.json");
-const ascii = require("ascii-table");
+const { AsciiTable3 } = require('ascii-table3');
 
 const Intents = Discord.Intents;
 const bot = new Discord.Client({ intents: [
@@ -42,7 +42,10 @@ if (connection) {
 
 console.log(`${config.test}`);
 
-table = new ascii().setHeading("Command File", "Load Status");
+var table = new AsciiTable3('Chloe Guilds')
+.setHeading('Command File', 'Loaded')
+.setWidths([30,30])
+.setCellMargin(0)
 
 bot.commands = new Discord.Collection();
 const commandFolders = fs.readdirSync('chloe/commands');
@@ -301,50 +304,46 @@ bot.on('messageCreate', async message => {
 
 bot.on('interactionCreate', async button => {
 	if (button.isButton()) {
-    console.log(button);
-
     // admin buttons
     // generic cancel fucntion for all admin button aided embeds.
     if (button.customId == "admincancel") {
-      button.deferReply();
       if (button.member.permissions.has("ADMINISTRATOR")) {
+        button.reply({ content: `Cancelled setup embed for ${button.guild.name}.`, ephemeral: true });
         button.message.delete();
-        button.channel.send(`Cancelled setup embed for ${button.guild.name}.`).then(msg => msg.delete({timeout: 3000})).catch(err => console.error(err));
       } else {
-        button.user.send(`You tried to use admin only buttons in ${button.guild.name} and we thought we would let you know that you cannot do that.`);
+        button.reply({ content: `You tried to use admin only buttons in ${button.guild.name} and we thought we would let you know that you cannot do that.`, ephemeral: true });
       };
     };
     
     // channel setup buttons
     if (button.customId == "welcome") {
-      button.deferReply();
       if (button.member.permissions.has("ADMINISTRATOR")) {
-        button.message.delete();
         // set welcome channel
         await connection.query(`UPDATE guildConfig SET welcomeChannelName = "${button.channel.name}", welcomeChannelID ="${button.channel.id}" WHERE guildID = "${button.guild.id}"`).catch(err => console.error(err));
-        button.channel.send(`Welcome channel set to ${button.channel} in ${button.guild.name}.`).then(msg => msg.delete({timeout: 3000})).catch(err => console.error(err));
+        button.reply({content: `Welcome channel set to ${button.channel} in ${button.guild.name}.`, ephemeral: true}).catch(err => console.error(err));
+        button.message.delete();
       } else {
-        button.user.send(`You tried to use admin only buttons in ${button.guild.name} and we thought we would let you know that you cannot do that.`);
+        button.reply({content: `You tried to use admin only buttons in ${button.guild.name} and we thought we would let you know that you cannot do that.`, ephemeral: true});
       };
     } else if (button.customId == "system") {
-      button.deferReply();
       if (button.member.permissions.has("ADMINISTRATOR")) {
-        button.message.delete();
         // set system channel
         await connection.query(`UPDATE guildConfig SET systemChannelName = "${button.channel.name}", systemChannelID ="${button.channel.id}" WHERE guildID = "${button.guild.id}"`).catch(err => console.error(err));
-        button.channel.send(`System channel set to ${button.channel} in ${button.guild.name}.`).then(msg => msg.delete({timeout: 3000})).catch(err => console.error(err));
+        button.reply({content: `System channel set to ${button.channel} in ${button.guild.name}.`, ephemeral: true}).catch(err => console.error(err));
+        button.message.delete();
       } else {
-        button.user.send(`You tried to use admin only buttons in ${button.guild.name} and we thought we would let you know that you cannot do that.`);
+        button.reply({ content: `You tried to use admin only buttons in ${button.guild.name} and we thought we would let you know that you cannot do that.`, ephemeral: true });
       };
     } else if (button.customId == "announcement") {
       button.deferReply();
       if (button.member.permissions.has("ADMINISTRATOR")) {
-        button.message.delete();
+        
         // set announcement channel
         await connection.query(`UPDATE guildConfig SET announcementChannelName = "${button.channel.name}", announcementChannelID ="${button.channel.id}" WHERE guildID = "${button.guild.id}"`).catch(err => console.error(err));
-        button.channel.send(`Announcement channel set to ${button.channel} in ${button.guild.name}.`).then(msg => msg.delete({timeout: 3000})).catch(err => console.error(err));
+        button.reply({content: `Announcement channel set to ${button.channel} in ${button.guild.name}.`, ephemeral: true}).catch(err => console.error(err));
+        button.message.delete();
       } else {
-        button.user.send(`You tried to use admin only buttons in ${button.guild.name} and we thought we would let you know that you cannot do that.`);
+        button.reply({ content: `You tried to use admin only buttons in ${button.guild.name} and we thought we would let you know that you cannot do that.`, ephemeral: true });
       };
     };
   
@@ -353,31 +352,31 @@ bot.on('interactionCreate', async button => {
       button.deferReply();
       if (button.member.permissions.has("ADMINISTRATOR")) {
         // enable welcome and update the embed to say its enabled and remove button
-        button.message.delete();
         await connection.query(`UPDATE guildConfig SET welcomeEnabled = true WHERE guildID = "${button.guild.id}"`).catch(err => console.error(err));
-        button.channel.send(`You have enabled welcome messages for ${button.guild.name}.`).then(msg => msg.delete({timeout: 3000})).catch(err => console.error(err));
+        button.reply({content: `You have enabled welcome messages for ${button.guild.name}.`, ephemeral: true}).catch(err => console.error(err));
+        button.message.delete();
       } else {
-        button.user.send(`You tried to use admin only buttons in ${button.guild.name} and we thought we would let you know that you cannot do that.`);
+        button.reply({ content: `You tried to use admin only buttons in ${button.guild.name} and we thought we would let you know that you cannot do that.`, ephemeral: true });
       };
     } else if (button.customId == "enableann") {
       button.deferReply();
       if (button.member.permissions.has("ADMINISTRATOR")) {
         // enable annoucnements and update the embed to say its enabled and remove button
-        button.message.delete();
         await connection.query(`UPDATE guildConfig SET announcementEnabled = true WHERE guildID = "${button.guild.id}"`).catch(err => console.error(err));
-        button.channel.send(`You have enabled announcement messages for ${button.guild.name}.`).then(msg => msg.delete({timeout: 3000})).catch(err => console.error(err));
+        button.reply({content: `You have enabled announcement messages for ${button.guild.name}.`, ephemeral: true}).catch(err => console.error(err));
+        button.message.delete();
       } else {
-        button.user.send(`You tried to use admin only buttons in ${button.guild.name} and we thought we would let you know that you cannot do that.`);
+        button.reply({ content: `You tried to use admin only buttons in ${button.guild.name} and we thought we would let you know that you cannot do that.`, ephemeral: true });
       };
     } else if (button.customId == "enablenewfeat") {
       button.deferReply();
       if (button.member.permissions.has("ADMINISTRATOR")) {
         // enable newfeatures and update the embed to say its enabled and remove button
-        button.message.delete();
         await connection.query(`UPDATE guildConfig SET newfeatureEnabled = true WHERE guildID = "${button.guild.id}"`).catch(err => console.error(err));
-        button.channel.send(`You have enabled new features messages for ${button.guild.name}.`).then(msg => msg.delete({timeout: 3000})).catch(err => console.error(err));
+        button.reply({content: `You have enabled new features messages for ${button.guild.name}.`, ephemeral: true}).catch(err => console.error(err));
+        button.message.delete();
       } else {
-        button.user.send(`You tried to use admin only buttons in ${button.guild.name} and we thought we would let you know that you cannot do that.`);
+        button.reply({ content: `You tried to use admin only buttons in ${button.guild.name} and we thought we would let you know that you cannot do that.`, ephemeral: true });
       };
     };
   
@@ -386,31 +385,30 @@ bot.on('interactionCreate', async button => {
       button.deferReply();
       if (button.member.permissions.has("ADMINISTRATOR")) {
         // enable welcome and update the embed to say its enabled and remove button
-        button.message.delete();
         await connection.query(`UPDATE guildConfig SET welcomeEnabled = false WHERE guildID = "${button.guild.id}"`).catch(err => console.error(err));
-        button.channel.send(`You have disabled welcome messages for ${button.guild.name}.`).then(msg => msg.delete({timeout: 3000})).catch(err => console.error(err));
+        button.channel.send({content: `You have disabled welcome messages for ${button.guild.name}.`, ephemeral: true}).catch(err => console.error(err));
+        button.message.delete();
       } else {
-        button.user.send(`You tried to use admin only buttons in ${button.guild.name} and we thought we would let you know that you cannot do that.`);
+        button.reply({ content: `You tried to use admin only buttons in ${button.guild.name} and we thought we would let you know that you cannot do that.`, ephemeral: true });
       };
     } else if (button.customId == "disableann") {
       button.deferReply();
       if (button.member.permissions.has("ADMINISTRATOR")) {
         // enable annoucnements and update the embed to say its enabled and remove button
-        button.message.delete();
         await connection.query(`UPDATE guildConfig SET announcementEnabled = false WHERE guildID = "${button.guild.id}"`).catch(err => console.error(err));
-        button.channel.send(`You have disabled announcement messages for ${button.guild.name}.`).then(msg => msg.delete({timeout: 3000})).catch(err => console.error(err));
+        button.reply({content: `You have disabled announcement messages for ${button.guild.name}.`, ephemeral: true}).catch(err => console.error(err));
+        button.message.delete();
       } else {
-        button.user.send(`You tried to use admin only buttons in ${button.guild.name} and we thought we would let you know that you cannot do that.`);
+        button.reply({ content: `You tried to use admin only buttons in ${button.guild.name} and we thought we would let you know that you cannot do that.`, ephemeral: true });
       };
     } else if (button.customId == "disablenewfeat") {
       button.deferReply();
       if (button.member.permissions.has("ADMINISTRATOR")) {
         // disable newfeatures and update the embed to say its enabled and remove button
-        button.message.delete();
         await connection.query(`UPDATE guildConfig SET newfeatureEnabled = false WHERE guildID = "${button.guild.id}"`).catch(err => console.error(err));
-        button.channel.send(`You have disabled new features messages for ${button.guild.name}.`).then(msg => msg.delete({timeout: 3000})).catch(err => console.error(err));
+        button.reply({content: `You have disabled new features messages for ${button.guild.name}.`, ephemeral: true}).catch(err => console.error(err));
       } else {
-        button.user.send(`You tried to use admin only buttons in ${button.guild.name} and we thought we would let you know that you cannot do that.`);
+        button.reply({ content: `You tried to use admin only buttons in ${button.guild.name} and we thought we would let you know that you cannot do that.`, ephemeral: true });
       };
     };
   };
