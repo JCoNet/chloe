@@ -304,7 +304,7 @@ bot.on('messageCreate', async message => {
 });
 
 bot.on('interactionCreate', async interaction => {
-	if (interaction.isinteraction()) {
+	if (interaction.isButton()) {
     // admin interactions
     // generic cancel fucntion for all admin interaction aided embeds.
     if (interaction.customId == "admincancel") {
