@@ -8,6 +8,6 @@ module.exports = {
             description: 'Test the latency of this bot!'
         });
         console.log(newCommand);
-        msg.reply(`Command created. ${newCommand.name} - ${newCommand.description}. Use it by doing /${newCommand.name}`).then(msg => setTimeout(() => msg.delete(), 3000)).catch(err => console.error(err));      
+        message.reply(`Command created. ${newCommand.name} - ${newCommand.description}. Use it by doing /${newCommand.name}`).then(msg => setTimeout(() => msg.delete(), 3000)).catch(err => console.error(err));      
     },
 };
