@@ -57,10 +57,10 @@ for (const folder of commandFolders) {
         // console.log(`Attempting to load command ${command.name}`);
 		if (command.name) {
             bot.commands.set(command.name, command);
-            table.addRow(file.split('.').slice(0, -1).join('.'), '✅ => This command loaded properly.');
+            table.addRow(file.split('.').slice(0, -1).join('.'), '✅ => Command loaded.');
             continue;
         } else {
-            table.addRow(file.split('.').slice(0, -1).join('.'), '❎ => This command is missing something and cannot be loaded.');
+            table.addRow(file.split('.').slice(0, -1).join('.'), '❎ => Error loading command.');
             continue;
         }
 	}
