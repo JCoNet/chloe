@@ -23,7 +23,7 @@ module.exports = {
         let result = await connection.query("SELECT systemChannelID, guildID, newfeatureEnabled FROM guildConfig").catch(err => console.error(err));
         let results = result[0];
         var len = results.length;
-        for (var i = 0; i < (len+1); i++) {
+        for (var i = 0; i < len; i++) {
             let canSend = await results[i].newfeatureEnabled;
             let sendToGuild = await bot.guilds.cache.get(results[i].guildID);
             let sendTo = await sendToGuild.channels.cache.get(results[i].systemChannelID);

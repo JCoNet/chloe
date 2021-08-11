@@ -411,14 +411,18 @@ bot.on('interactionCreate', async interaction => {
   if (interaction.isCommand()) {
     console.log(interaction.options)
     let command = bot.commands.get(interaction.commandName) || bot.commands.find(cmd => cmd.aliases && cmd.aliases.includes(interaction.commandName));
-    let args = interaction.options.data;
+    let options = interaction.options.data;
     if (!command) return;
+    let args = [];
 
     console.log(command);
-    var len = args.length;
-        for (var i = 0; i < (len+1); i++) {
-          console.log(args[i].value);
-        };
+    var len = options.length;
+    for (var i = 0; i < (len); i++) {
+      console.log(options[i].value);
+      args.push(options[i].value);
+    };
+
+    console.log(args);
 
     // try {
     //   command.execute(Discord, bot, connection, interaction, args);
