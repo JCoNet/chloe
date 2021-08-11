@@ -414,16 +414,6 @@ bot.on('interactionCreate', async interaction => {
     let args = interaction.options;
     if (!command) return;
 
-    if (command.args && !args.length) {
-        let reply = `You didn't provide any arguments!`;
-
-        if (command.usage) {
-            reply += `\nThe proper usage would be: \`/${command.name} ${command.usage}\``;
-        }
-
-        return message.reply(reply);
-    }
-
     try {
       command.execute(Discord, bot, connection, interaction, args);
     } catch (error) {

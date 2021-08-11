@@ -1,10 +1,7 @@
 module.exports = {
     name: "role",
     description: "Add or remove a role from a user!",
-    args: true,
-    usage: "<operation> <user> <role>",
     async execute(Discord, bot, connection, message, args, useprefix) {
-        await message.delete();
         if (!message.member.permissions.has("ADMINISTRATOR")) return message.channel.send(`<@!${message.author.id}>, You do not have the required permissions to run this command.`).then(msg => setTimeout(() => msg.delete(), 3000)).catch(err => console.error(err));
         let operation = args[0].toLowerCase();
         let s1 = args[1].toLowerCase();
