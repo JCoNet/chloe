@@ -4,7 +4,7 @@ module.exports = {
     args: false,
     async execute(Discord, bot, connection, interaction) {
         let msg = await interaction.reply({content: "🏓 Pinging bot and api.....", ephemeral: true});
-        let latency = Math.floor(msg.createdTimestamp - interaction.createdTimestamp);
+        let latency = Math.floor(msg.createdTimestamp - interaction.timestamp);
         let apiLatency = Math.round(bot.ws.ping);
 
         let embed = new Discord.MessageEmbed()
