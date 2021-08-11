@@ -3,7 +3,7 @@ module.exports = {
     description: "JCoNet only command!",
     args: false,
     async execute(Discord, bot, connection, message, args, useprefix) {
-        let data = await [{
+        let newCommand = await bot.application?.commands.create([{
             name: 'ping',
             description: 'Test the latency of this bot!'
         }, {
@@ -18,8 +18,7 @@ module.exports = {
                     choices: ['add', 'remove'],
                 }
             ],
-        }]
-        let newCommand = await bot.application?.commands.create(data);
+        }]);
         console.log(newCommand);      
     },
 };
