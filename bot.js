@@ -411,7 +411,7 @@ bot.on('interactionCreate', async interaction => {
   if (interaction.isCommand()) {
     console.log(interaction.options)
     let command = bot.commands.get(interaction.commandName) || bot.commands.find(cmd => cmd.aliases && cmd.aliases.includes(interaction.commandName));
-    let args = interaction.options.value;
+    let args = interaction.options.data;
     if (!command) return;
 
     console.log(command);
