@@ -7,9 +7,9 @@ module.exports = {
             name: 'ping',
             description: 'Test the latency of this bot!'
         });
-        console.log(newCommand);    
+        await console.log(newCommand);    
         
-        let newCommand = await bot.application?.commands.create({
+        newCommand = await bot.application?.commands.create({
             name: 'role',
             description: 'Add or remove a role from a user.',
             options: [
@@ -32,6 +32,6 @@ module.exports = {
                 }
             ],
         });
-        console.log(newCommand);
+        await console.log(newCommand);
     },
 };
