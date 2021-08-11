@@ -261,6 +261,7 @@ bot.on('messageCreate', async message => {
     let command = bot.commands.get(commandName) || bot.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
     if (!command) return;
     if (command.name === "ping") return;
+    if (command.name === "role") return;
 
     if (command.args && !args.length) {
         let reply = `You didn't provide any arguments!`;
@@ -411,23 +412,8 @@ bot.on('interactionCreate', async interaction => {
   if (interaction.isCommand()) {
     console.log(interaction.options)
     let command = bot.commands.get(interaction.commandName) || bot.commands.find(cmd => cmd.aliases && cmd.aliases.includes(interaction.commandName));
-    if (interaction.options) {
-      let options = interaction.options.data;
-      if (!command) return;
-      let args = [];
-
-      console.log(command);
-      var len = options.length;
-      for (var i = 0; i < (len); i++) {
-        console.log(options[i].value);
-        args.push(options[i].value);
-      };
-
-      console.log(args);
-    }
-
     try {
-      command.execute(Discord, bot, connection, interaction, args);
+      command.execute(Discord, bot, connection, interaction);
     } catch (error) {
         console.error(error);
         message.reply('There was an unexpected error in executing that command, please check the bot logs for more information.');
