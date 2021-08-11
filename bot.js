@@ -415,7 +415,10 @@ bot.on('interactionCreate', async interaction => {
     if (!command) return;
 
     console.log(command);
-    console.log(args.value);
+    var len = args.length;
+        for (var i = 0; i < (len+1); i++) {
+          console.log(args[i].value);
+        };
 
     // try {
     //   command.execute(Discord, bot, connection, interaction, args);
