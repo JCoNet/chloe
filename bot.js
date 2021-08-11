@@ -93,53 +93,53 @@ bot.once('ready', async () => {
   });
 });
 
-// bot.on('guildCreate', async guild => {
-//   let defaultChannel = guild.channels.cache.find(channel => channel.type === 'GUILD_TEXT' && channel.permissionsFor(guild.me).has('SEND_MESSAGES'));
-//   let sysChannel = guild.sysChannel;
-//   let sysChannelName;
-//   let sysChannelID;
-//   if (!sysChannel) {
-//     sysChannelName = defaultChannel.name;
-//     sysChannelID = defaultChannel.id;
-//     sysChannel = defaultChannel;
-//   } else {
-//     sysChannelName = guild.sysChannel.name;
-//     sysChannelID = guild.sysChannel.id;
-//   };
+bot.on('guildCreate', async guild => {
+  let defaultChannel = guild.channels.cache.find(channel => channel.type === 'GUILD_TEXT' && channel.permissionsFor(guild.me).has('SEND_MESSAGES'));
+  let sysChannel = guild.sysChannel;
+  let sysChannelName;
+  let sysChannelID;
+  if (!sysChannel) {
+    sysChannelName = defaultChannel.name;
+    sysChannelID = defaultChannel.id;
+    sysChannel = defaultChannel;
+  } else {
+    sysChannelName = guild.sysChannel.name;
+    sysChannelID = guild.sysChannel.id;
+  };
 
-//   let guildOwner = await guild.fetchOwner();
+  let guildOwner = await guild.fetchOwner();
 
-//   let result = await connection.query(`SELECT * FROM guildConfig WHERE guildID="${guild.id}"`).catch(err => console.error(err));
-//   let results = result[0];
+  let result = await connection.query(`SELECT * FROM guildConfig WHERE guildID="${guild.id}"`).catch(err => console.error(err));
+  let results = result[0];
 
-//   if (results.length == 0) {
-//     await connection.query(`INSERT INTO guildConfig SET guildName = "${guild.name}", guildID = "${guild.id}", prefix = "${botConf[0].defaultPrefix}", ownerName = "${guildOwner.user.username}", ownerID = "${guildOwner.user.id}", systemChannelName = "${sysChannelName}", systemChannelID = "${sysChannelID}", announcementChannelName = "${defaultChannel.name}", announcementChannelID = "${defaultChannel.id}", welcomeChannelName = "${defaultChannel.name}", welcomeChannelID = "${defaultChannel.id}", welcomeMessage = "Welcome to the server!"`).catch(err => console.error(err));
-//   };
+  if (results.length == 0) {
+    await connection.query(`INSERT INTO guildConfig SET guildName = "${guild.name}", guildID = "${guild.id}", prefix = "${botConf[0].defaultPrefix}", ownerName = "${guildOwner.user.username}", ownerID = "${guildOwner.user.id}", systemChannelName = "${sysChannelName}", systemChannelID = "${sysChannelID}", announcementChannelName = "${defaultChannel.name}", announcementChannelID = "${defaultChannel.id}", welcomeChannelName = "${defaultChannel.name}", welcomeChannelID = "${defaultChannel.id}", welcomeMessage = "Welcome to the server!"`).catch(err => console.error(err));
+  };
 
-//   await defaultChannel.send("Thank you for adding me to your server do chloe/help to find out all the commands I offer!").catch(err => console.error(err));
+  await defaultChannel.send("Thank you for adding me to your server do chloe/help to find out all the commands I offer!").catch(err => console.error(err));
 
-//   let newGuildEmbed = new Discord.MessageEmbed()
-//     .setColor('#24d3f2')
-//     .setTitle("Chloe Beta Requirements")
-//     .setDescription("Using Chloe Beta means you are required to follow our requirements including regular feedback about the bot useage and reporting any bugs.")
-//     .setURL("https://chloe.jconet.co.uk/")
-//     .setAuthor('JCoNet Development', 'https://jconet.co.uk/resources/JCN.png', 'https://jconet.co.uk')
-//     .setThumbnail(bot.user.displayAvatarURL())
-//     .addField("Requirements", "The introduction of Chloe Beta opens up many issues such as possibilities of crashes and commands not working. the requirements on you are that you do not spam commands and report any commands not working or not showing the results properly to our proper communication options below. You are also required to give us feedback and thoughts on how the bot is working in your server and how it operates. Other suggestions to changing the command layouts etc are welcomed.")
-//     .addField("Email us", 'chloe_beta@jconet.co.uk')
-//     .addField("Talk to our team", '[JCoNet Live Support](https://tawk.to/jcnsupport "JCoNet Support Live Chat Link")')
-//     .addField("Submit a ticket", '[JCoNet Knowledge Base](https://jconet.tawk.help "JCoNet Knowledge Base Link (tickets submitted through here)")')
-//     .addField('Quickly Re-Add Chloe Beta if we told you to remove and re-add her.', '[Invite link for Chloe Beta](https://discord.com/oauth2/authorize?client_id=845392640920518666&permissions=8&scope=bot "Invite for chloe beta")')
-//     .setFooter(`Lead developer: ${stats.author}`);
+  let newGuildEmbed = new Discord.MessageEmbed()
+    .setColor('#24d3f2')
+    .setTitle("Chloe Beta Requirements")
+    .setDescription("Using Chloe Beta means you are required to follow our requirements including regular feedback about the bot useage and reporting any bugs.")
+    .setURL("https://chloe.jconet.co.uk/")
+    .setAuthor('JCoNet Development', 'https://jconet.co.uk/resources/JCN.png', 'https://jconet.co.uk')
+    .setThumbnail(bot.user.displayAvatarURL())
+    .addField("Requirements", "The introduction of Chloe Beta opens up many issues such as possibilities of crashes and commands not working. the requirements on you are that you do not spam commands and report any commands not working or not showing the results properly to our proper communication options below. You are also required to give us feedback and thoughts on how the bot is working in your server and how it operates. Other suggestions to changing the command layouts etc are welcomed.")
+    .addField("Email us", 'chloe_beta@jconet.co.uk')
+    .addField("Talk to our team", '[JCoNet Live Support](https://tawk.to/jcnsupport "JCoNet Support Live Chat Link")')
+    .addField("Submit a ticket", '[JCoNet Knowledge Base](https://jconet.tawk.help "JCoNet Knowledge Base Link (tickets submitted through here)")')
+    .addField('Quickly Re-Add Chloe Beta if we told you to remove and re-add her.', '[Invite link for Chloe Beta](https://discord.com/oauth2/authorize?client_id=845392640920518666&permissions=8&scope=bot "Invite for chloe beta")')
+    .setFooter(`Lead developer: ${stats.author}`);
 
-//   await sysChannel.send({embeds: [newGuildEmbed]});
+  await sysChannel.send({embeds: [newGuildEmbed]});
 
-// });
+});
 
-// bot.on('guildDelete', async guild => {
-//   connection.query(`DELETE FROM guildConfig WHERE guildID = '${guild.id}'`).catch(err => console.error(err));
-//   connection.query(`DELETE FROM money WHERE guildID = '${guild.id}'`).catch(err => console.error(err));
-// });
+bot.on('guildDelete', async guild => {
+  connection.query(`DELETE FROM guildConfig WHERE guildID = '${guild.id}'`).catch(err => console.error(err));
+  connection.query(`DELETE FROM money WHERE guildID = '${guild.id}'`).catch(err => console.error(err));
+});
 
 bot.on('guildMemberAdd', async member => {
   var d = new Date();
