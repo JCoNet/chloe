@@ -423,7 +423,7 @@ bot.on('interactionCreate', async interaction => {
     }
 
     try {
-      command.execute(Discord, bot, connection, message, args, useprefix);
+      command.execute(Discord, bot, connection, interaction);
     } catch (error) {
         console.error(error);
         message.reply('There was an unexpected error in executing that command, please check the bot logs for more information.');

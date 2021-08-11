@@ -2,9 +2,9 @@ module.exports = {
     name: "ping",
     description: "Test the latency of this bot!",
     args: false,
-    async execute(Discord, bot, connection, message, args, useprefix) {
+    async execute(Discord, bot, connection, interaction) {
         await message.delete();
-        let msg = await message.reply({content: "🏓 Pinging bot and api.....", ephemeral: true});
+        let msg = await interaction.reply({content: "🏓 Pinging bot and api.....", ephemeral: true});
         let latency = Math.floor(msg.createdTimestamp - message.createdTimestamp);
         let apiLatency = Math.round(bot.ws.ping);
 
@@ -17,6 +17,6 @@ module.exports = {
         ])
         .setFooter("🏓 PONG!");
 
-        message.reply({embeds: [embed], ephemeral: true});
+        interaction.reply({embeds: [embed], ephemeral: true});
     },
 };
