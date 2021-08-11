@@ -14,7 +14,7 @@ module.exports = {
             description: 'Add or remove a role from a user.',
             options: [
                 {
-                    type: 'string',
+                    type: 'STRING',
                     name: 'operation',
                     description: 'What would you like to do?',
                     required: true,
@@ -26,12 +26,12 @@ module.exports = {
                         value: 'remove'
                     }],
                 }, {
-                    type: 'string',
+                    type: 'USER',
                     name: 'user',
                     description: 'The user mention or id to target.',
                     required: true,
                 }, {
-                    type: 'string',
+                    type: 'ROLE',
                     name: 'role',
                     description: 'The role mention or id to select.',
                     required: true,
