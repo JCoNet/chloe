@@ -66,6 +66,7 @@ for (const folder of commandFolders) {
 	}
 }
 
+table.setStyle('unicode-single');
 console.log(table.toString());
 
 let botConf;
