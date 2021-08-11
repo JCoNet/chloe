@@ -302,113 +302,106 @@ bot.on('messageCreate', async message => {
 
 });
 
-bot.on('interactionCreate', async button => {
-	if (button.isButton()) {
-    // admin buttons
-    // generic cancel fucntion for all admin button aided embeds.
-    if (button.customId == "admincancel") {
-      if (button.member.permissions.has("ADMINISTRATOR")) {
-        button.reply({ content: `Cancelled setup embed for ${button.guild.name}.`, ephemeral: true });
-        button.message.delete();
+bot.on('interactionCreate', async interaction => {
+	if (interaction.isinteraction()) {
+    // admin interactions
+    // generic cancel fucntion for all admin interaction aided embeds.
+    if (interaction.customId == "admincancel") {
+      if (interaction.member.permissions.has("ADMINISTRATOR")) {
+        await interaction.reply({ content: `Cancelled setup embed for ${interaction.guild.name}.`, ephemeral: true });
+        interaction.message.delete();
       } else {
-        button.reply({ content: `You tried to use admin only buttons in ${button.guild.name} and we thought we would let you know that you cannot do that.`, ephemeral: true });
+        interaction.reply({ content: `You tried to use admin only buttons in ${interaction.guild.name} and we thought we would let you know that you cannot do that.`, ephemeral: true });
       };
     };
     
-    // channel setup buttons
-    if (button.customId == "welcome") {
-      if (button.member.permissions.has("ADMINISTRATOR")) {
+    // channel setup interactions
+    if (interaction.customId == "welcome") {
+      if (interaction.member.permissions.has("ADMINISTRATOR")) {
         // set welcome channel
-        await connection.query(`UPDATE guildConfig SET welcomeChannelName = "${button.channel.name}", welcomeChannelID ="${button.channel.id}" WHERE guildID = "${button.guild.id}"`).catch(err => console.error(err));
-        button.reply({content: `Welcome channel set to ${button.channel} in ${button.guild.name}.`, ephemeral: true}).catch(err => console.error(err));
-        button.message.delete();
+        await connection.query(`UPDATE guildConfig SET welcomeChannelName = "${interaction.channel.name}", welcomeChannelID ="${interaction.channel.id}" WHERE guildID = "${interaction.guild.id}"`).catch(err => console.error(err));
+        await interaction.reply({content: `Welcome channel set to ${interaction.channel} in ${interaction.guild.name}.`, ephemeral: true}).catch(err => console.error(err));
+        interaction.message.delete();
       } else {
-        button.reply({content: `You tried to use admin only buttons in ${button.guild.name} and we thought we would let you know that you cannot do that.`, ephemeral: true});
+        interaction.reply({content: `You tried to use admin only buttons in ${interaction.guild.name} and we thought we would let you know that you cannot do that.`, ephemeral: true});
       };
-    } else if (button.customId == "system") {
-      if (button.member.permissions.has("ADMINISTRATOR")) {
+    } else if (interaction.customId == "system") {
+      if (interaction.member.permissions.has("ADMINISTRATOR")) {
         // set system channel
-        await connection.query(`UPDATE guildConfig SET systemChannelName = "${button.channel.name}", systemChannelID ="${button.channel.id}" WHERE guildID = "${button.guild.id}"`).catch(err => console.error(err));
-        button.reply({content: `System channel set to ${button.channel} in ${button.guild.name}.`, ephemeral: true}).catch(err => console.error(err));
-        button.message.delete();
+        await connection.query(`UPDATE guildConfig SET systemChannelName = "${interaction.channel.name}", systemChannelID ="${interaction.channel.id}" WHERE guildID = "${interaction.guild.id}"`).catch(err => console.error(err));
+        await interaction.reply({content: `System channel set to ${interaction.channel} in ${interaction.guild.name}.`, ephemeral: true}).catch(err => console.error(err));
+        interaction.message.delete();
       } else {
-        button.reply({ content: `You tried to use admin only buttons in ${button.guild.name} and we thought we would let you know that you cannot do that.`, ephemeral: true });
+        interaction.reply({ content: `You tried to use admin only buttons in ${interaction.guild.name} and we thought we would let you know that you cannot do that.`, ephemeral: true });
       };
-    } else if (button.customId == "announcement") {
-      button.deferReply();
-      if (button.member.permissions.has("ADMINISTRATOR")) {
-        
+    } else if (interaction.customId == "announcement") {
+      if (interaction.member.permissions.has("ADMINISTRATOR")) {
         // set announcement channel
-        await connection.query(`UPDATE guildConfig SET announcementChannelName = "${button.channel.name}", announcementChannelID ="${button.channel.id}" WHERE guildID = "${button.guild.id}"`).catch(err => console.error(err));
-        button.reply({content: `Announcement channel set to ${button.channel} in ${button.guild.name}.`, ephemeral: true}).catch(err => console.error(err));
-        button.message.delete();
+        await connection.query(`UPDATE guildConfig SET announcementChannelName = "${interaction.channel.name}", announcementChannelID ="${interaction.channel.id}" WHERE guildID = "${interaction.guild.id}"`).catch(err => console.error(err));
+        await interaction.reply({content: `Announcement channel set to ${interaction.channel} in ${interaction.guild.name}.`, ephemeral: true}).catch(err => console.error(err));
+        interaction.message.delete();
       } else {
-        button.reply({ content: `You tried to use admin only buttons in ${button.guild.name} and we thought we would let you know that you cannot do that.`, ephemeral: true });
+        interaction.reply({ content: `You tried to use admin only buttons in ${interaction.guild.name} and we thought we would let you know that you cannot do that.`, ephemeral: true });
       };
     };
   
     // enable messages
-    if (button.customId == "enablewelc") {
-      button.deferReply();
-      if (button.member.permissions.has("ADMINISTRATOR")) {
-        // enable welcome and update the embed to say its enabled and remove button
-        await connection.query(`UPDATE guildConfig SET welcomeEnabled = true WHERE guildID = "${button.guild.id}"`).catch(err => console.error(err));
-        button.reply({content: `You have enabled welcome messages for ${button.guild.name}.`, ephemeral: true}).catch(err => console.error(err));
-        button.message.delete();
+    if (interaction.customId == "enablewelc") {
+      if (interaction.member.permissions.has("ADMINISTRATOR")) {
+        // enable welcome and update the embed to say its enabled and remove interaction
+        await connection.query(`UPDATE guildConfig SET welcomeEnabled = true WHERE guildID = "${interaction.guild.id}"`).catch(err => console.error(err));
+        await interaction.reply({content: `You have enabled welcome messages for ${interaction.guild.name}.`, ephemeral: true}).catch(err => console.error(err));
+        interaction.message.delete();
       } else {
-        button.reply({ content: `You tried to use admin only buttons in ${button.guild.name} and we thought we would let you know that you cannot do that.`, ephemeral: true });
+        interaction.reply({ content: `You tried to use admin only buttons in ${interaction.guild.name} and we thought we would let you know that you cannot do that.`, ephemeral: true });
       };
-    } else if (button.customId == "enableann") {
-      button.deferReply();
-      if (button.member.permissions.has("ADMINISTRATOR")) {
-        // enable annoucnements and update the embed to say its enabled and remove button
-        await connection.query(`UPDATE guildConfig SET announcementEnabled = true WHERE guildID = "${button.guild.id}"`).catch(err => console.error(err));
-        button.reply({content: `You have enabled announcement messages for ${button.guild.name}.`, ephemeral: true}).catch(err => console.error(err));
-        button.message.delete();
+    } else if (interaction.customId == "enableann") {
+      if (interaction.member.permissions.has("ADMINISTRATOR")) {
+        // enable annoucnements and update the embed to say its enabled and remove interaction
+        await connection.query(`UPDATE guildConfig SET announcementEnabled = true WHERE guildID = "${interaction.guild.id}"`).catch(err => console.error(err));
+        await interaction.reply({content: `You have enabled announcement messages for ${interaction.guild.name}.`, ephemeral: true}).catch(err => console.error(err));
+        interaction.message.delete();
       } else {
-        button.reply({ content: `You tried to use admin only buttons in ${button.guild.name} and we thought we would let you know that you cannot do that.`, ephemeral: true });
+        interaction.reply({ content: `You tried to use admin only buttons in ${interaction.guild.name} and we thought we would let you know that you cannot do that.`, ephemeral: true });
       };
-    } else if (button.customId == "enablenewfeat") {
-      button.deferReply();
-      if (button.member.permissions.has("ADMINISTRATOR")) {
-        // enable newfeatures and update the embed to say its enabled and remove button
-        await connection.query(`UPDATE guildConfig SET newfeatureEnabled = true WHERE guildID = "${button.guild.id}"`).catch(err => console.error(err));
-        button.reply({content: `You have enabled new features messages for ${button.guild.name}.`, ephemeral: true}).catch(err => console.error(err));
-        button.message.delete();
+    } else if (interaction.customId == "enablenewfeat") {
+      if (interaction.member.permissions.has("ADMINISTRATOR")) {
+        // enable newfeatures and update the embed to say its enabled and remove interaction
+        await connection.query(`UPDATE guildConfig SET newfeatureEnabled = true WHERE guildID = "${interaction.guild.id}"`).catch(err => console.error(err));
+        await interaction.reply({content: `You have enabled new features messages for ${interaction.guild.name}.`, ephemeral: true}).catch(err => console.error(err));
+        interaction.message.delete();
       } else {
-        button.reply({ content: `You tried to use admin only buttons in ${button.guild.name} and we thought we would let you know that you cannot do that.`, ephemeral: true });
+        interaction.reply({ content: `You tried to use admin only buttons in ${interaction.guild.name} and we thought we would let you know that you cannot do that.`, ephemeral: true });
       };
     };
   
     // disable messages
-    if (button.customId == "disablewelc") {
-      button.deferReply();
-      if (button.member.permissions.has("ADMINISTRATOR")) {
-        // enable welcome and update the embed to say its enabled and remove button
-        await connection.query(`UPDATE guildConfig SET welcomeEnabled = false WHERE guildID = "${button.guild.id}"`).catch(err => console.error(err));
-        button.channel.send({content: `You have disabled welcome messages for ${button.guild.name}.`, ephemeral: true}).catch(err => console.error(err));
-        button.message.delete();
+    if (interaction.customId == "disablewelc") {
+      if (interaction.member.permissions.has("ADMINISTRATOR")) {
+        // enable welcome and update the embed to say its enabled and remove interaction
+        await connection.query(`UPDATE guildConfig SET welcomeEnabled = false WHERE guildID = "${interaction.guild.id}"`).catch(err => console.error(err));
+        await interaction.reply({content: `You have disabled welcome messages for ${interaction.guild.name}.`, ephemeral: true}).catch(err => console.error(err));
+        interaction.message.delete();
       } else {
-        button.reply({ content: `You tried to use admin only buttons in ${button.guild.name} and we thought we would let you know that you cannot do that.`, ephemeral: true });
+        interaction.reply({ content: `You tried to use admin only buttons in ${interaction.guild.name} and we thought we would let you know that you cannot do that.`, ephemeral: true });
       };
-    } else if (button.customId == "disableann") {
-      button.deferReply();
-      if (button.member.permissions.has("ADMINISTRATOR")) {
-        // enable annoucnements and update the embed to say its enabled and remove button
-        await connection.query(`UPDATE guildConfig SET announcementEnabled = false WHERE guildID = "${button.guild.id}"`).catch(err => console.error(err));
-        button.reply({content: `You have disabled announcement messages for ${button.guild.name}.`, ephemeral: true}).catch(err => console.error(err));
-        button.message.delete();
+    } else if (interaction.customId == "disableann") {
+      if (interaction.member.permissions.has("ADMINISTRATOR")) {
+        // enable annoucnements and update the embed to say its enabled and remove interaction
+        await connection.query(`UPDATE guildConfig SET announcementEnabled = false WHERE guildID = "${interaction.guild.id}"`).catch(err => console.error(err));
+        await interaction.reply({content: `You have disabled announcement messages for ${interaction.guild.name}.`, ephemeral: true}).catch(err => console.error(err));
+        interaction.message.delete();
       } else {
-        button.reply({ content: `You tried to use admin only buttons in ${button.guild.name} and we thought we would let you know that you cannot do that.`, ephemeral: true });
+        interaction.reply({ content: `You tried to use admin only buttons in ${interaction.guild.name} and we thought we would let you know that you cannot do that.`, ephemeral: true });
       };
-    } else if (button.customId == "disablenewfeat") {
-      button.deferReply();
-      if (button.member.permissions.has("ADMINISTRATOR")) {
-        // disable newfeatures and update the embed to say its enabled and remove button
-        await connection.query(`UPDATE guildConfig SET newfeatureEnabled = false WHERE guildID = "${button.guild.id}"`).catch(err => console.error(err));
-        button.reply({content: `You have disabled new features messages for ${button.guild.name}.`, ephemeral: true}).catch(err => console.error(err));
+    } else if (interaction.customId == "disablenewfeat") {
+      if (interaction.member.permissions.has("ADMINISTRATOR")) {
+        // disable newfeatures and update the embed to say its enabled and remove interaction
+        await connection.query(`UPDATE guildConfig SET newfeatureEnabled = false WHERE guildID = "${interaction.guild.id}"`).catch(err => console.error(err));
+        await interaction.reply({content: `You have disabled new features messages for ${interaction.guild.name}.`, ephemeral: true}).catch(err => console.error(err));
+        interaction.message.delete();
       } else {
-        button.reply({ content: `You tried to use admin only buttons in ${button.guild.name} and we thought we would let you know that you cannot do that.`, ephemeral: true });
+        interaction.reply({ content: `You tried to use admin only buttons in ${interaction.guild.name} and we thought we would let you know that you cannot do that.`, ephemeral: true });
       };
     };
   };
