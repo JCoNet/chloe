@@ -3,10 +3,13 @@ module.exports = {
     description: "JCoNet only command!",
     args: false,
     async execute(Discord, bot, connection, message, args, useprefix) {
-        let newCommand = await bot.application?.commands.create([{
+        let newCommand = await bot.application?.commands.create({
             name: 'ping',
             description: 'Test the latency of this bot!'
-        }, {
+        });
+        console.log(newCommand);    
+        
+        let newCommand = await bot.application?.commands.create({
             name: 'role',
             description: 'Add or remove a role from a user.',
             options: [
@@ -16,9 +19,19 @@ module.exports = {
                     description: 'What would you like to do?',
                     required: true,
                     choices: ['add', 'remove'],
+                }, {
+                    type: 'string',
+                    name: 'user',
+                    description: 'The user mention or id to target.',
+                    required: true,
+                }, {
+                    type: 'string',
+                    name: 'role',
+                    description: 'The role mention or id to select.',
+                    required: true,
                 }
             ],
-        }]);
-        console.log(newCommand);      
+        });
+        console.log(newCommand);
     },
 };
