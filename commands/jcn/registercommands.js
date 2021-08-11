@@ -18,7 +18,13 @@ module.exports = {
                     name: 'operation',
                     description: 'What would you like to do?',
                     required: true,
-                    choices: {0: 'add', 1: 'remove'},
+                    choices: [{
+                        name: 'add',
+                        value: 'add'
+                    }, {
+                        name: 'remove',
+                        value: 'remove'
+                    }],
                 }, {
                     type: 'string',
                     name: 'user',
