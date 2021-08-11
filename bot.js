@@ -410,6 +410,7 @@ bot.on('interactionCreate', async interaction => {
 
   if (interaction.isCommand()) {
     let command = bot.commands.get(interaction.commandName) || bot.commands.find(cmd => cmd.aliases && cmd.aliases.includes(interaction.commandName));
+    let args = interaction.data.options;
     if (!command) return;
 
     if (command.args && !args.length) {
@@ -423,7 +424,7 @@ bot.on('interactionCreate', async interaction => {
     }
 
     try {
-      command.execute(Discord, bot, connection, interaction);
+      command.execute(Discord, bot, connection, interaction, args);
     } catch (error) {
         console.error(error);
         message.reply('There was an unexpected error in executing that command, please check the bot logs for more information.');
