@@ -21,7 +21,7 @@ module.exports = {
             interaction.reply({content: `You successfully added ${user.user.username} to the ${role.name} role!`, ephemeral: true}).catch(err => console.error(err));
         } else if (operation == "remove") {
             await user.roles.remove(role.id).catch(err => console.error(err));
-            interaction.channel.send({content: `You successfully removed ${user.user.username} from the ${role.name} role!`, ephemeral: true}).catch(err => console.error(err));
+            interaction.reply({content: `You successfully removed ${user.user.username} from the ${role.name} role!`, ephemeral: true}).catch(err => console.error(err));
         } else {
             return;
         };
