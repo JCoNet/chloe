@@ -260,6 +260,7 @@ bot.on('messageCreate', async message => {
   if (message.content.startsWith(useprefix)) {
     let command = bot.commands.get(commandName) || bot.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
     if (!command) return;
+    if (command.name === "ping") return;
 
     if (command.args && !args.length) {
         let reply = `You didn't provide any arguments!`;
@@ -407,7 +408,27 @@ bot.on('interactionCreate', async interaction => {
     };
   };
 
+  if (interaction.isCommand()) {
+    let command = bot.commands.get(interaction.commandName) || bot.commands.find(cmd => cmd.aliases && cmd.aliases.includes(interaction.commandName));
+    if (!command) return;
 
+    if (command.args && !args.length) {
+        let reply = `You didn't provide any arguments!`;
+
+        if (command.usage) {
+            reply += `\nThe proper usage would be: \`/${command.name} ${command.usage}\``;
+        }
+
+        return message.reply(reply);
+    }
+
+    try {
+      command.execute(Discord, bot, connection, message, args, useprefix);
+    } catch (error) {
+        console.error(error);
+        message.reply('There was an unexpected error in executing that command, please check the bot logs for more information.');
+    }
+  };
 });
 
 // twitch integration

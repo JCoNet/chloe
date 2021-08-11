@@ -4,7 +4,7 @@ module.exports = {
     args: false,
     async execute(Discord, bot, connection, message, args, useprefix) {
         await message.delete();
-        let msg = await message.channel.send("🏓 Pinging bot and api.....");
+        let msg = await message.reply({content: "🏓 Pinging bot and api.....", ephemeral: true});
         let latency = Math.floor(msg.createdTimestamp - message.createdTimestamp);
         let apiLatency = Math.round(bot.ws.ping);
 
@@ -17,6 +17,6 @@ module.exports = {
         ])
         .setFooter("🏓 PONG!");
 
-        message.channel.send({embeds: [embed]});
+        message.reply({embeds: [embed], ephemeral: true});
     },
 };
