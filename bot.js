@@ -44,7 +44,7 @@ console.log(`${config.test}`);
 
 var table = new AsciiTable3('Chloe Guilds')
 .setHeading('Command File', 'Loaded')
-.setWidths([30,30])
+.setWidths([40,40])
 .setCellMargin(0)
 
 bot.commands = new Discord.Collection();
@@ -409,8 +409,9 @@ bot.on('interactionCreate', async interaction => {
   };
 
   if (interaction.isCommand()) {
+    console.log(interaction)
     let command = bot.commands.get(interaction.commandName) || bot.commands.find(cmd => cmd.aliases && cmd.aliases.includes(interaction.commandName));
-    let args = interaction.data.options;
+    let args = interaction.options;
     if (!command) return;
 
     if (command.args && !args.length) {
