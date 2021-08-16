@@ -13,6 +13,11 @@ module.exports = {
             member = interaction.member;
         };
 
-        
+        let now = new Date().toLocaleString('en-GB', { timeZone: 'Europe/London' });
+        let joinDate = new Date(user.joinedAt).toLocaleString('en-GB', { timeZone: 'Europe/London' });
+        let diff = now - joinDate;
+
+        console.log(diff)
+
     },
 };
