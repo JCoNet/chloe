@@ -13,8 +13,9 @@ module.exports = {
             member = interaction.member;
         };
 
-        let now = new Date().toLocaleString('en-GB', { timeZone: 'Europe/London' }).getTime();
-        let joinDate = new Date(member.joinedAt).toLocaleString('en-GB', { timeZone: 'Europe/London' }).getTime();
+        // .toLocaleString('en-GB', { timeZone: 'Europe/London' })
+        let now = new Date();
+        let joinDate = new Date(member.joinedAt);
         let diff = now - joinDate;
 
         console.log(now);
