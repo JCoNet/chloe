@@ -57,10 +57,10 @@ for (const folder of commandFolders) {
         // console.log(`Attempting to load command ${command.name}`);
 		if (command.name) {
             bot.commands.set(command.name, command);
-            table.addRow(file.split('.').slice(0, -1).join('.'), '✅ => Command loaded.');
+            table.addRow(file.split('.').slice(0, -1).join('.'), '✅');
             continue;
         } else {
-            table.addRow(file.split('.').slice(0, -1).join('.'), '❎ => Error loading command.');
+            table.addRow(file.split('.').slice(0, -1).join('.'), '❎');
             continue;
         }
 	}
@@ -77,7 +77,7 @@ bot.login(process.env.betatoken);
 
 bot.once('ready', async () => {
   //set up botConf
-  var d = new Date();
+  var d = new Date(Date.UTC(day, month, year, hour, minute, second));
   let result = await connection.query("SELECT statusMessage, statusType, defaultPrefix FROM defaultConfig");
   botConf = result[0];
   // set up the bot status items when it conencts to api
