@@ -18,22 +18,22 @@ module.exports = {
         let joinDate = member.joinedAt;
         let diff = now - joinDate;
 
-        var yearsDiff = now.getFullYear() - joinDate.getFullYear();
-        var monthsDiff = now.getMonth() - joinDate.getMonth();
-        var daysDiff = now.getDate() - joinDate.getDate();
-        var hoursDiff = now.getHours() - joinDate.getHours();
-        var minutesDiff = now.getMinutes() - joinDate.getMinutes();
-        var secondsDiff = now.getSeconds() - joinDate.getSeconds();
+        var seconds = Math.floor(diff / 1000),
+            minutes = Math.floor(seconds / 60),
+            hours   = Math.floor(minutes / 60),
+            days    = Math.floor(hours / 24),
+            months  = Math.floor(days / 30),
+            years   = Math.floor(days / 365);
 
         console.log(now);
         console.log(joinDate);
         console.log(diff);
-        console.log(yearsDiff);
-        console.log(monthsDiff);
-        console.log(daysDiff);
-        console.log(hoursDiff);
-        console.log(minutesDiff);
-        console.log(secondsDiff);
+        console.log(years);
+        console.log(months);
+        console.log(days);
+        console.log(hours);
+        console.log(minutes);
+        console.log(seconds);
 
     },
 };
