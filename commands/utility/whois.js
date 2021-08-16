@@ -1,3 +1,5 @@
+const { CommandInteractionOptionResolver } = require("discord.js");
+
 module.exports = {
     name: "whois",
     description: "Lookup info about you or another user!",
@@ -17,23 +19,12 @@ module.exports = {
         let now = new Date();
         let joinDate = member.joinedAt;
         let diff = now - joinDate;
-
-        var seconds = Math.floor(diff / 1000),
-            minutes = Math.floor(seconds / 60),
-            hours   = Math.floor(minutes / 60),
-            days    = Math.floor(hours / 24),
-            months  = Math.floor(days / 30),
-            years   = Math.floor(days / 365);
+        let diffDate = new Date(diff);
 
         console.log(now);
         console.log(joinDate);
         console.log(diff);
-        console.log(years);
-        console.log(months);
-        console.log(days);
-        console.log(hours);
-        console.log(minutes);
-        console.log(seconds);
+        console.log(diffDate);
 
     },
 };
