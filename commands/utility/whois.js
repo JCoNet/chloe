@@ -15,7 +15,7 @@ module.exports = {
 
         // .toLocaleString('en-GB', { timeZone: 'Europe/London' })
         let now = new Date();
-        let joinDate = new Date(member.joinedAt);
+        let joinDate = member.joinedAt;
         let diff = now - joinDate;
 
         console.log(now);
