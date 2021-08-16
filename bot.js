@@ -77,7 +77,7 @@ bot.login(process.env.betatoken);
 
 bot.once('ready', async () => {
   //set up botConf
-  var d = new Date(Date.UTC(day, month, year, hour, minute, second));
+  var d = new Date(Date.UTC());
   let result = await connection.query("SELECT statusMessage, statusType, defaultPrefix FROM defaultConfig");
   botConf = result[0];
   // set up the bot status items when it conencts to api
