@@ -1,9 +1,11 @@
-const { CommandInteractionOptionResolver } = require("discord.js");
+const config = require("../../botconfig.json");
 
 module.exports = {
     name: "whois",
     description: "Lookup info about you or another user!",
     async execute(Discord, bot, connection, interaction) {
+        if (!interaction.user.id === config.developer) return interaction.reply({content: "This command is still being worked on and has therefore been disabled.", ephemeral: true});
+        
         let user;
         let member;
 
@@ -19,12 +21,10 @@ module.exports = {
         let now = new Date();
         let joinDate = member.joinedAt;
         let diff = now - joinDate;
-        let diffDate = new Date(diff);
 
         console.log(now);
         console.log(joinDate);
         console.log(diff);
-        console.log(diffDate);
 
     },
 };
