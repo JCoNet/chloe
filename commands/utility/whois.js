@@ -29,5 +29,6 @@ module.exports = {
         console.log(diff);
         console.log(diffFormatted);
 
+        interaction.reply({content: `<@!${user.id}> joined on the date: ${joinDate}! That was ${diffFormatted} ago!`});
     },
 };
