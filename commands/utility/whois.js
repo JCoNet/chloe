@@ -21,14 +21,16 @@ module.exports = {
         // .toLocaleString('en-GB', { timeZone: 'Europe/London' })
         let now = new Date();
         let joined = member.joinedAt;
-        let diff = now - joined;
         let diffFormatted = formatDistance(now, joined, {includeSeconds: true})
 
-        console.log(now);
-        console.log(joined);
-        console.log(diff);
-        console.log(diffFormatted);
+        let whois = new Discord.MessageEmbed()
+        .setAuthor(`${user.username}`, `${user.displayAvatarURL()}`)
+        .setTitle("WhoIs Information")
+        .setDescription("Information about yourself or the mentionned user.")
+        .setThumbnail(`${user.displayAvatarURL}`)
+        .setColor(user.displayHexColor())
+        .setFooter(`User tag: ${user.tag}`);
 
-        interaction.reply({content: `<@!${user.id}> joined on the date: ${joined.toLocaleString('en-GB', { timeZone: 'Europe/London' })}! That was ${diffFormatted} ago!`});
+        interaction.reply({embeds: [whois]});
     },
 };
