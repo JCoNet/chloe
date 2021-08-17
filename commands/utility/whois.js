@@ -22,7 +22,7 @@ module.exports = {
         let now = new Date();
         let joinDate = member.joinedAt;
         let diff = now - joinDate;
-        let diffFormatted = formatDistance(now, joinDate, {includeSeconds: true, addSuffix: true})
+        let diffFormatted = formatDistance(now, joinDate, {includeSeconds: true})
 
         console.log(now);
         console.log(joinDate);
