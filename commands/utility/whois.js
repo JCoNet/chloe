@@ -25,7 +25,7 @@ module.exports = {
         let diffFormatted = formatDistance(now, joined, {includeSeconds: true})
 
         console.log(now);
-        console.log(joinDate);
+        console.log(joined);
         console.log(diff);
         console.log(diffFormatted);
 
