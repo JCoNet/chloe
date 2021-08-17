@@ -24,14 +24,11 @@ module.exports = {
         let diff = now - joined;
         let diffFormatted = formatDistance(now, joined, {includeSeconds: true})
 
-        joinDate = joined.getDate();
-        joinTime = joined.getTime();
-
         console.log(now);
         console.log(joinDate);
         console.log(diff);
         console.log(diffFormatted);
 
-        interaction.reply({content: `<@!${user.id}> joined on the date: ${joinDate} and time: ${joinTime}! That was ${diffFormatted} ago!`});
+        interaction.reply({content: `<@!${user.id}> joined on the date: ${joined.toLocaleString('en-GB', { timeZone: 'Europe/London' })}! That was ${diffFormatted} ago!`});
     },
 };
