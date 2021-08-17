@@ -28,7 +28,7 @@ module.exports = {
         .setTitle("WhoIs Information")
         .setDescription("Information about yourself or the mentionned user.")
         .setThumbnail(`${user.displayAvatarURL()}`)
-        .setColor(user.displayHexColor)
+        .setColor(member.displayHexColor)
         .setFooter(`User tag: ${user.tag}`);
 
         interaction.reply({embeds: [whois]});
