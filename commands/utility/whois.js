@@ -1,4 +1,5 @@
 const config = require("../../botconfig.json");
+var formatDistance = require('date-fns/formatDistance')
 
 module.exports = {
     name: "whois",
@@ -21,10 +22,12 @@ module.exports = {
         let now = new Date();
         let joinDate = member.joinedAt;
         let diff = now - joinDate;
+        let diffFormatted = formatDistance(now, joinDate, {includeSeconds: true, addSuffix: true})
 
         console.log(now);
         console.log(joinDate);
         console.log(diff);
+        console.log(diffFormatted);
 
     },
 };
