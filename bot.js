@@ -422,7 +422,7 @@ bot.on('interactionCreate', async interaction => {
 
 // twitch integration
 
-async function startTwitchListener(userName) {
+async function startTwitchListener() {
   const { ApiClient } = require('twitch');
   const { ClientCredentialsAuthProvider } = require('twitch-auth');
   const { DirectConnectionAdapter, EventSubListener } = require('twitch-eventsub');
