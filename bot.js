@@ -442,6 +442,8 @@ async function startTwitchListener(userName) {
   }), process.env.EVENT_SECRET);
   await listener.listen();
   console.log("Twitch listener started!");
+  let userName = "kiykills";
+  let jcnName = "jconet";
 
   let user = await apiClient.helix.users.getUserByName(userName);
   const userId = user.id;
@@ -454,6 +456,16 @@ async function startTwitchListener(userName) {
     let sent = await streamChannel.send(`What is up @everyone? ${e.broadcasterDisplayName} just went live! Catch the good vibes at https://twitch.tv/${userName} ${letsgo} ${bigluv}!!!!`);
     await sent.react("<a:JCNVerifiedMessage:872672152313294858>");
   });
+
+  let userJCN = await apiClient.helix.users.getUserByName(jcnName);
+  const userIdJCN = userJCN.id;
+
+  const streamChannel = bot.channels.cache.get('818873980131213362');
+
+  const onlineSubscription = await listener.subscribeToStreamOnlineEvents(userIdJCN, async e => {
+    let sent = await streamChannel.send(`What is up @everyone? ${e.broadcasterDisplayName} just went live! Catch the good vibes at https://twitch.tv/${jcnName}!!!!`);
+    await sent.react("<a:JCNVerifiedMessage:872672152313294858>");
+  });
 };
 
-startTwitchListener('kiykills');
+startTwitchListener();
