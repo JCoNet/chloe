@@ -183,6 +183,14 @@ bot.on('guildMemberAdd', async member => {
     return;
   };
 
+  if (member.guild.id === "818873733875236915") {
+    try{
+      member.roles.add("873259003906523227");
+    } catch {
+      err => console.error(err);
+    }
+  }
+
 });
 
 bot.on('messageCreate', async message => {
