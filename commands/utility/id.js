@@ -22,8 +22,8 @@ module.exports = {
 
         let idEmbed = new Discord.MessageEmbed()
         .setTitle(`${results[0].userName}'s Digital ID`)
-        .setAuthor(`${results[0].userName}`, `${results[0].avatarURL}`)
-        .setThumbnail(results[0].avatarURL)
+        .setAuthor(`${results[0].userName}`, `${results[0].avatarURL}`, 'https://jconet.co.uk/account')
+        .setThumbnail(`${results[0].avatarURL}`)
         .setDescription("The official Digital ID from your JCoNet Website linked account!")
         .addFields(
             {name: `ID Number`, value: `${results[0].idNumber}`, inline: true},
