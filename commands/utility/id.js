@@ -34,6 +34,6 @@ module.exports = {
         )
         .setFooter(`Issued: ${results[0].issueDate}`);
 
-        interaction.reply({ embeds: [idEmbed], ephemeral: true});
+        interaction.reply({ content: `${interaction.user.displayAvatarURL()}`, embeds: [idEmbed], ephemeral: true});
     },
 };
