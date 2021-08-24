@@ -34,6 +34,6 @@ module.exports = {
         )
         .setFooter(`Issued: ${results[0].issueDate}`);
 
-        interaction.reply({ content: `${interaction.user.displayAvatarURL()}`, embeds: [idEmbed], ephemeral: true});
+        interaction.reply({content: "Only you can see your JCN Digital ID. If your ID Picture does not match your Discord Profile Picture, please head to https://id.jconet.co.uk to update it.", embeds: [idEmbed], ephemeral: true});
     },
 };
