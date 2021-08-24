@@ -3,6 +3,9 @@ module.exports = {
     description: "View your very own JCoNet Digital ID!",
     async execute(Discord, bot, connection, interaction) {
         let result = await connection.query(`SELECT * FROM digitalID WHERE userID = "${interaction.user.id}"`).catch(err => console.error(err));
+        if (result.length == 0) {
+            return interaction.reply({content: "You do not have a JCN Digital ID to view, you can get one here: https://id.jconet.co.uk", ephemeral: true});
+        }
         let results = result[0];
 
         let verified;
