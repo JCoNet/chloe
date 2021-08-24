@@ -37,6 +37,6 @@ module.exports = {
         )
         .setFooter(`Issued: ${results[0].issueDate}`);
 
-        interaction.reply({content: "Only you can see your JCN Digital ID. If your ID Picture does not match your Discord Profile Picture, please use the /update command!", embeds: [idEmbed], ephemeral: true});
+        interaction.reply({content: "Only you can see your JCN Digital ID. If your ID Picture does not match your Discord Profile Picture, please use the \`/update\` command!", embeds: [idEmbed], ephemeral: true});
     },
 };
