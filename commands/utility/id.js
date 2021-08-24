@@ -5,6 +5,6 @@ module.exports = {
         let result = await connection.query(`SELECT * FROM digitalID WHERE userID = "${interaction.user.id}"`).catch(err => console.error(err));
         let results = result[0];
 
-        interaction.reply({ content: `${results.toString()}`, ephemeral: true});
+        interaction.reply({ content: `${results[0].toString()}`, ephemeral: true});
     },
 };
