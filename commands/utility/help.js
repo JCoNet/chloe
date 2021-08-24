@@ -17,7 +17,6 @@ module.exports = {
                 {name: `${useprefix}coins`, value: "Displays your coin balance for this server.", inline: true},
                 {name: `${useprefix}stats`, value: "General information about the bot and how to support it's development.", inline: true},
                 {name: `${useprefix}help`, value: "Displays a list of commands that you can use in the server for 1 minute.", inline: true},
-                {name: `${useprefix}ping`, value: "Check the latency of the bot and server and the bot and api.", inline: true},
                 {name: `${useprefix}yeet @user`, value: "Throw a user a randomly generated distance for 25 of the coins you acquired in this server.", inline: true},
             ]);
         if (message.member.permissions.has("MANAGE_MESSAGES")) {
@@ -43,7 +42,6 @@ module.exports = {
                 {name: `${useprefix}set`, value: "Will start the configurator for message channels using the channel it is run in as the channel you want the message channel set to.", inline: true},
                 {name: `${useprefix}messages`, value: "Allows you to enable/disable the automated messages Chloe sends in your server.", inline: true},
                 {name: `${useprefix}prefix <new prefix>`, value: "Sets the new prefix for the server", inline: true},
-                {name: `${useprefix}role <add/remove> @user <role>`, value: "Gives/removes the role you specified from the user.", inline: true},
             ]);
         };
             

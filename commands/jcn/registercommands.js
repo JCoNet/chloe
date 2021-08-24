@@ -4,8 +4,8 @@ module.exports = {
     args: false,
     async execute(Discord, bot, connection, message, args, useprefix) {
         bot.application?.commands.create({
-            name: "id",
-            description: "View your very own JCoNet Digital ID!",
+            name: "update",
+            description: "Update your JCoNet Account link!",
         }).then(cmd => console.log(cmd));
     },
 };
