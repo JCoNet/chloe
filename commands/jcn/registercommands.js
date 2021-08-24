@@ -7,7 +7,7 @@ module.exports = {
 
         bot.application?.commands.create({
             name: "verify",
-            description: "Ask Chloe to verify your identity and age in a JCN Verification enabled server to get the verified role!",
+            description: "JCoNet Verification API Command!",
         }).then(cmd => console.log(cmd));
     },
 };
