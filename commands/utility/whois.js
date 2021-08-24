@@ -29,7 +29,7 @@ module.exports = {
         .setDescription("Information about yourself or the mentionned user.")
         .setThumbnail(`${user.displayAvatarURL()}`)
         .setColor(member.displayHexColor)
-        .setFooter(`User tag: ${user.tag}`);
+        .setFooter(`User tag: ${user.tag} ~~~~ Time in server: ${diffFormatted}`);
 
         interaction.reply({embeds: [whois]});
     },
