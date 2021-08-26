@@ -8,7 +8,7 @@ module.exports = {
         }
 
         let results = result[0];
-        let roleID = result[0].integrationRoleID;
+        let roleID = results[0].integrationRoleID;
 
         integration.reply(`${roleID}`);
     },
