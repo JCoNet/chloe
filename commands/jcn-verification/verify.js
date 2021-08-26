@@ -12,7 +12,7 @@ module.exports = {
 
         let role = interaction.guild.roles.cache.find(r => r.id === roleID);
 
-        if (interaction.member.roles.find(r => r.id === role.id)) {
+        if (interaction.member.roles.cache.some(r => r.id === role.id)) {
             return interaction.reply({content: "You are already verified in this server.", ephemeral: true});
         }
 
