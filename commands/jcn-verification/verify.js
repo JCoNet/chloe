@@ -12,6 +12,6 @@ module.exports = {
         // let results = result[0];
         // let roleID = results[0].integrationRoleID;
 
-        integration.reply(`${result[0]}`);
+        interaction.reply(`${result[0]}`);
     },
 };
