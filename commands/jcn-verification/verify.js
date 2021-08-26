@@ -12,6 +12,7 @@ module.exports = {
         console.log(results);
 
         // let results = result[0];
-        // let roleID = results[0].integrationRoleID;
+        let roleID = result[0].integrationRoleID;
+        interaction.reply({content: `${roleID}`, ephemeral: true});
     },
 };
