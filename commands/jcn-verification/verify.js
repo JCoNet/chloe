@@ -25,7 +25,7 @@ module.exports = {
 
         if (verify==true) {
             await interaction.member.roles.add(role.id).catch(err => console.error(err));
-            return interaction.reply({content: `You have been verified and given the role ${role.name}`, ephemeral: true})
+            return interaction.reply({content: `You have been verified and given the role: ${role.name}`, ephemeral: true})
         } else {
             return interaction.reply({content: "You are not eligable to be verified. You must pass age and user verification. do /id to check where you failed.", ephemeral: true});
         }

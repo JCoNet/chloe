@@ -1,6 +1,6 @@
 {
   "name": "chloe",
-  "version": "6.22.2",
+  "version": "6.22.4",
   "frmwrk": "90.2.1",
   "description": "JCoNet Discord presents: Chloe. The new discord moderation tool for your JCoNet Integrated server! Here to help you with most if not all of your discord server administration needs.",
   "main": "bot.js",
