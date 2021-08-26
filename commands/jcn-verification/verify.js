@@ -7,7 +7,7 @@ module.exports = {
             return interaction.reply({content: "This guild does not have the Verification Integratiuon purchased. Please ask the owner to do this if you feel they need it.", ephemeral: true});
         }
 
-        let roleID = result[0][0]["integrationRoleID"];
+        let roleID = result[0]["integrationRoleID"];
 
         integration.reply(`${roleID}`);
     },
