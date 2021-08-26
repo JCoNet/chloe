@@ -12,7 +12,7 @@ module.exports = {
 
         let role = interaction.guild.roles.cache.find(r => r.id === roleID);
 
-        let result = await connection.query(`SELECT userVerified, ageVerified FROM digitalID WHERE userID = '${interaction.user.id}'`);
+        result = await connection.query(`SELECT userVerified, ageVerified FROM digitalID WHERE userID = '${interaction.user.id}'`);
         if (result[0].length == 0) {
             return interaction.reply({content: "You do not have a JCN ID. Please obtain one at https://id.jconet.co.uk", ephemeral: true});
         }
