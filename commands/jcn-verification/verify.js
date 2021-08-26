@@ -7,9 +7,11 @@ module.exports = {
             return interaction.reply({content: "This guild does not have the Verification Integratiuon purchased. Please ask the owner to do this if you feel they need it.", ephemeral: true});
         }
 
-        let results = result[0];
-        let roleID = results[0].integrationRoleID;
+        console.log(result.toString());
 
-        integration.reply(`${roleID}`);
+        // let results = result[0];
+        // let roleID = results[0].integrationRoleID;
+
+        integration.reply(`${result[0]}`);
     },
 };
