@@ -29,6 +29,5 @@ module.exports = {
         } else {
             return interaction.reply({content: "You are not eligable to be verified. You must pass age and user verification. do /id to check where you failed.", ephemeral: true});
         }
-        interaction.reply({content: `${roleID}`, ephemeral: true});
     },
 };
