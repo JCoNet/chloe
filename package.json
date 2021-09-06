@@ -1,11 +1,12 @@
 {
   "name": "chloe",
-  "version": "6.22.4",
+  "version": "6.22.6",
   "frmwrk": "90.2.1",
   "description": "JCoNet Discord presents: Chloe. The new discord moderation tool for your JCoNet Integrated server! Here to help you with most if not all of your discord server administration needs.",
   "main": "bot.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ."
   },
   "repository": {
     "type": "git",

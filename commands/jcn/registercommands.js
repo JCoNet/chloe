@@ -6,8 +6,8 @@ module.exports = {
         await message.delete();
 
         bot.application?.commands.create({
-            name: "verify",
-            description: "JCoNet Verification API Command!",
+            name: "test",
+            description: "A test command",
         }).then(cmd => console.log(cmd));
     },
 };
