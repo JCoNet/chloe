@@ -4,10 +4,9 @@ module.exports = {
   name: "stats",
   description: "Stats about the bot and server!",
   args: false,
-  async execute(Discord, bot, connection, message, args, useprefix) {
-    message.delete().catch();
+  async execute(Discord, bot, connection, interaction, args, useprefix) {
     let bicon = bot.user.displayAvatarURL();
-    let owner = await message.guild.fetchOwner();
+    let owner = await interaction.guild.fetchOwner();
     let statsembed = new Discord.MessageEmbed()
       .setTitle("Bot Statistics")
       .setDescription(stats.description)
@@ -20,7 +19,7 @@ module.exports = {
         {name: "Running On", value: `JCoNet BotFramework Version: ${stats.frmwrk}`, inline: true},
         {name: "Guild count", value: `${bot.guilds.cache.size}`, inline: true},
         {name: '\u200B', value: '\u200B', inline: false},
-        {name: "This guild name", value: `${message.guild.name}`, inline: true},
+        {name: "This guild name", value: `${interaction.guild.name}`, inline: true},
         {name: "This guild prefix", value: `${useprefix}`, inline: true},
         {name: "This guild owner", value: `${owner.user.username}`, inline: true},
         {name: '\u200B', value: '\u200B', inline: false},
@@ -30,6 +29,6 @@ module.exports = {
         {name: "Want cool merch?", value: '[Check out our merch store today!](https://merch.jconet.xyz "Visit the JCoNet official merchandise store today to hook yourself up with our latest branded items.")', inline: true},
       ])
       .setFooter(`Lead developer: ${stats.author}`);
-    message.channel.send({ embeds: [statsembed] });
+    interaction.reply({ embeds: [statsembed] });
   },
 };

@@ -6,8 +6,8 @@ module.exports = {
         await message.delete();
 
         bot.application?.commands.create({
-            name: "test",
-            description: "A test command",
+            name: "stats",
+            description: "Stats about the bot and server!",
         }).then(cmd => console.log(cmd));
     },
 };
