@@ -450,22 +450,22 @@ async function startTwitchListener() {
   }), process.env.EVENT_SECRET);
   await listener.listen();
   console.log("Twitch listener started!");
-  let userName = "kiykills";
+  // let userName = "kiykills";
   let jcnName = "jconet";
 
-  let user = await apiClient.helix.users.getUserByName(userName);
-  const userId = user.id;
+  // let user = await apiClient.helix.users.getUserByName(userName);
+  // const userId = user.id;
 
-  const streamChannel = bot.channels.cache.get('818685046302965801');
-  const bigluv = bot.emojis.cache.find(emoji => emoji.name === "KiyKillsBigLuv");
-  const letsgo = bot.emojis.cache.find(emoji => emoji.name === "KiyKillsLetsGo");
+  // const streamChannel = bot.channels.cache.get('818685046302965801');
+  // const bigluv = bot.emojis.cache.find(emoji => emoji.name === "KiyKillsBigLuv");
+  // const letsgo = bot.emojis.cache.find(emoji => emoji.name === "KiyKillsLetsGo");
 
-  const onlineSubscription = await listener.subscribeToStreamOnlineEvents(userId, async e => {
-    let sent = await streamChannel.send(`What is up @everyone? ${e.broadcasterDisplayName} just went live! Catch the good vibes at https://twitch.tv/${userName} ${letsgo} ${bigluv}!!!!`);
-    await sent.react("<a:JCNVerifiedMessage:872672152313294858>");
-  });
+  // const onlineSubscription = await listener.subscribeToStreamOnlineEvents(userId, async e => {
+  //   let sent = await streamChannel.send(`What is up @everyone? ${e.broadcasterDisplayName} just went live! Catch the good vibes at https://twitch.tv/${userName} ${letsgo} ${bigluv}!!!!`);
+  //   await sent.react("<a:JCNVerifiedMessage:872672152313294858>");
+  // });
 
-  onlineSubscription.stop();
+  // onlineSubscription.stop();
 
   let userJCN = await apiClient.helix.users.getUserByName(jcnName);
   const userIdJCN = userJCN.id;
