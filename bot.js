@@ -270,12 +270,13 @@ bot.on('messageCreate', async message => {
     if (!command) return;
     if (command.name === "ping") return;
     if (command.name === "role") return;
+    if (command.name === "stats") return;
 
     if (command.args && !args.length) {
         let reply = `You didn't provide any arguments!`;
 
         if (command.usage) {
-            reply += `\nThe proper usage would be: \`${useprefix}${command.name} ${command.usage}\``;
+          reply += `\nThe proper usage would be: \`${useprefix}${command.name} ${command.usage}\``;
         }
 
         return message.reply(reply);
