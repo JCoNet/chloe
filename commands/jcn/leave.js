@@ -7,6 +7,7 @@ module.exports = {
         await message.delete().catch(err => console.error(err));
         if (message.author.id !== config.developer) return message.author.send("You are not allowed to use a JCoNet Developer only command.").catch(err => console.error(err));
         
+        message.channel.send({content: "Goodbye, I have been instructed to leave this server."});
         message.guild.leave();
     }
 }
