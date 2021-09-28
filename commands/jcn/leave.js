@@ -1,3 +1,4 @@
+const config = require("../../botconfig.json");
 
 module.exports = {
     name: "leave",
