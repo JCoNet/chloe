@@ -84,6 +84,8 @@ bot.once('ready', async () => {
   console.log(`Chloe sucessfully activated on ${d}, now ready for service. Operating on version ${stats.version} and framework ${stats.frmwrk}.`);
   // bot.user.setActivity(`${botConf[0].statusMessage}`, {type: `${botConf[0].statusType}`});
   // bot.user.setStatus("dnd");
+
+  // Figure out why this keeps reverting to basic online and removing message and presence status
   bot.user.setPresence({
     status: "dnd",  // You can show online, idle... Do not disturb is dnd
     activities: [{
