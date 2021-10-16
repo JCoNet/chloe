@@ -421,12 +421,13 @@ bot.on('interactionCreate', async interaction => {
   };
 
   if (interaction.isCommand()) {
+    if (message.channel.type === "dm") return interaction.reply({content: 'JCoNet Development is restricting the number of variables that might cause me issues, meaning I am prohibited from running commands in DM. Sorry for the inconvenience.', ephemeral: true});
     let command = bot.commands.get(interaction.commandName) || bot.commands.find(cmd => cmd.aliases && cmd.aliases.includes(interaction.commandName));
     try {
       command.execute(Discord, bot, connection, interaction);
     } catch (error) {
       console.error(error);
-      interaction.reply('There was an unexpected error in executing that command, please check the bot logs for more information.');
+      interaction.reply({content: 'There was an unexpected error in executing that command, please check the bot logs for more information.', ephemeral: true});
     }
   };
 });
