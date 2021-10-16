@@ -197,7 +197,7 @@ bot.on('guildMemberAdd', async member => {
 
 bot.on('messageCreate', async message => {
   if (message.author.bot) return;
-  if (message.channel.type === "dm") return message.channel.send("JCoNet Development is restricting the number of variables that might cause me issues, meaning I am prohibited from running commands in DM. Sorry for the inconvenience.");
+  if (message.channel.type === "dm") return message.reply({content: "JCoNet Development is restricting the number of variables that might cause me issues, meaning I am prohibited from running commands in DM. Sorry for the inconvenience.", ephemeral: true});
   
   // find and set prefix
   let useprefix;
@@ -421,7 +421,7 @@ bot.on('interactionCreate', async interaction => {
   };
 
   if (interaction.isCommand()) {
-    if (interaction.channel.type === "dm") return interaction.reply({content: 'JCoNet Development is restricting the number of variables that might cause me issues, meaning I am prohibited from running commands in DM. Sorry for the inconvenience.', ephemeral: true});
+    if (interaction.channel === "dm") return interaction.reply({content: 'JCoNet Development is restricting the number of variables that might cause me issues, meaning I am prohibited from running commands in DM. Sorry for the inconvenience.', ephemeral: true});
     let command = bot.commands.get(interaction.commandName) || bot.commands.find(cmd => cmd.aliases && cmd.aliases.includes(interaction.commandName));
     try {
       command.execute(Discord, bot, connection, interaction);
