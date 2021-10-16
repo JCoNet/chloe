@@ -197,7 +197,7 @@ bot.on('guildMemberAdd', async member => {
 
 bot.on('messageCreate', async message => {
   if (message.author.bot) return;
-  if (message.channel.DMChannel) return message.reply({content: "JCoNet Development is restricting the number of variables that might cause me issues, meaning I am prohibited from running commands in DM. Sorry for the inconvenience."});
+  if (message.channel.type == "dm") return message.author.send({content: "JCoNet Development is restricting the number of variables that might cause me issues, meaning I am prohibited from running commands in DM. Sorry for the inconvenience."});
   
   // find and set prefix
   let useprefix;
@@ -258,7 +258,7 @@ bot.on('messageCreate', async message => {
       .setFooter("This is an automated action to protect the server on the behalf of JCoNet Development.");
 
       let reason = "You said a word on the blacklist. That offence is an automated ban.";
-      await message.author.send(`You have been banned from ${message.guild.name} for ${reason}`).catch(err => console.error(err));
+      await message.author.send(`You have been banned from ${message.guild.name} for ${reason} with the duration of 7 days.`).catch(err => console.error(err));
       let banned = message.guild.members.cache.get(message.author.id);
       await banned.ban({days: 7, reason: reason}).then(message.channel.send({embeds: [blEmbed]})).catch(err => console.error(err));
       await connection.query(`INSERT INTO incidents SET serverID = "${message.guild.id}", serverName = "${message.guild.name}", userID = "${message.author.id}", userName = "${message.author.username}", type = "  AUTOMATED BAN", reason = "${reason}", dateAndTime = "${message.createdAt}", staffID = "${bot.user.id}", staffName = "${bot.user.username}"`);
@@ -421,7 +421,6 @@ bot.on('interactionCreate', async interaction => {
   };
 
   if (interaction.isCommand()) {
-    if (interaction.channel.DMChannel) return interaction.reply({content: 'JCoNet Development is restricting the number of variables that might cause me issues, meaning I am prohibited from running commands in DM. Sorry for the inconvenience.', ephemeral: true});
     let command = bot.commands.get(interaction.commandName) || bot.commands.find(cmd => cmd.aliases && cmd.aliases.includes(interaction.commandName));
     try {
       command.execute(Discord, bot, connection, interaction);
