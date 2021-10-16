@@ -197,7 +197,7 @@ bot.on('guildMemberAdd', async member => {
 
 bot.on('messageCreate', async message => {
   if (message.author.bot) return;
-  if (message.channel.type === "dm") return message.reply({content: "JCoNet Development is restricting the number of variables that might cause me issues, meaning I am prohibited from running commands in DM. Sorry for the inconvenience.", ephemeral: true});
+  if (message.channel.type === "dm") return message.reply({content: "JCoNet Development is restricting the number of variables that might cause me issues, meaning I am prohibited from running commands in DM. Sorry for the inconvenience."});
   
   // find and set prefix
   let useprefix;
