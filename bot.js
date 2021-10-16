@@ -87,7 +87,7 @@ bot.once('ready', async () => {
 
   // Figure out why this keeps reverting to basic online and removing message and presence status
   bot.user.setPresence({
-    status: "dnd",  // You can show online, idle... Do not disturb is dnd
+    status: "online",  // You can show online, idle... Do not disturb is dnd
     activities: [{
         name: `${botConf[0].statusMessage}`,  // The message shown
         type: `${botConf[0].statusType}` // PLAYING, WATCHING, LISTENING, STREAMING,
