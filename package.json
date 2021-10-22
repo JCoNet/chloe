@@ -16,6 +16,9 @@
   "bugs": {
     "url": "https://github.com/blingdude1324/michelle/issues"
   },
+  "engines" : { 
+    "node" : ">=0.12" 
+  },
   "dependencies": {
     "ascii-table": "^0.0.9",
     "ascii-table3": "^0.5.1",
