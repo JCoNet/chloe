@@ -472,10 +472,10 @@ async function startTwitchListener() {
   let userJCN = await apiClient.helix.users.getUserByName(jcnName);
   const userIdJCN = userJCN.id;
 
-  const streamChannelJCN = bot.channels.cache.get('818873980131213362');
+  const streamChannelJCN = await bot.channels.cache.get('818873980131213362');
 
   const onlineSubscriptionJCN = await listener.subscribeToStreamOnlineEvents(userIdJCN, async e => {
-    let sent = await streamChannelJCN.send(`What is up @everyone? ${e.broadcasterDisplayName} just went live! Catch the good vibes at https://twitch.tv/${jcnName} 🎮!!!!`);
+    let sent = await streamChannelJCN.send({ content: `What is up @everyone? ${e.broadcasterDisplayName} just went live! Catch the good vibes at https://twitch.tv/${jcnName} 🎮!!!!`});
     await sent.react("<a:JCNVerifiedMessage:872672152313294858>");
   });
 };
