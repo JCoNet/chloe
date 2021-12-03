@@ -231,7 +231,7 @@ bot.on('messageCreate', async message => {
       let detected = blacklist[x].toLowerCase();
       // word found
       if (message.member.permissions.has("MANAGE_MESSAGES") || message.member.permissions.has("ADMINISTRATOR")) {
-        let owner = message.guild.owner;
+        let owner = await message.guild.fetchOwner();
         let staffBL = new Discord.MessageEmbed()
         .setTitle("Your action is required")
         .setDescription("I have detected one of your staff members saying a blacklisted word and have deleted the message. Please ban or kick at your discretion. I am programmed to ban anyone that says these words who is not staff (I cannot ban staff)")
