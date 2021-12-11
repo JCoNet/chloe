@@ -173,7 +173,7 @@ bot.on('guildMemberAdd', async member => {
     .setAuthor(`${member.guild.name}`, `${serverIcon}`)
     .addFields([
       {name: "name", value: `${member.user.username}`, inline: true},
-      {name: "Join date", value: `${date.getFullYear()+'-'+(date.getMonth().toString().padStart(2, '0')+1)+'-'+date.getDate().toString().padStart(2, '0')}`, inline: true},
+      {name: "Join date", value: `${date.getFullYear()+'-'+(date.getMonth()+1).toString().padStart(2, '0')+'-'+date.getDate().toString().padStart(2, '0')}`, inline: true},
       {name: "Join time", value: `${date.getHours().toString().padStart(2, '0')+':'+date.getMinutes().toString().padStart(2, '0')+':'+date.getSeconds().toString().padStart(2, '0')}`, inline: true},
       {name: "mention", value: `<@!${member.user.id}>`},
     ])
