@@ -5,6 +5,18 @@ module.exports = {
   description: "Stats about the bot and server!",
   args: false,
   async execute(Discord, bot, connection, interaction, args, useprefix) {
+    let useprefix;
+
+    let result = await connection.query(`SELECT prefix FROM guildConfig WHERE guildID = "${interaction.guild.id}"`).catch(err => console.error(err));
+    let results = result[0];
+    if (results.length == 0) {
+      useprefix = botConf[0].defaultPrefix;
+      updated = "no";
+    } else {
+      useprefix = results[0].prefix;
+      updated = "yes";
+    };
+
     let bicon = bot.user.displayAvatarURL();
     let owner = await interaction.guild.fetchOwner();
     let statsembed = new Discord.MessageEmbed()
