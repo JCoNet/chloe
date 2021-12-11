@@ -4,7 +4,7 @@ module.exports = {
   name: "stats",
   description: "Stats about the bot and server!",
   args: false,
-  async execute(Discord, bot, connection, interaction, args, useprefix) {
+  async execute(Discord, bot, connection, interaction, args) {
     let useprefix;
 
     let result = await connection.query(`SELECT prefix FROM guildConfig WHERE guildID = "${interaction.guild.id}"`).catch(err => console.error(err));
