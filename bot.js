@@ -144,7 +144,7 @@ bot.on('guildDelete', async guild => {
 });
 
 bot.on('guildMemberAdd', async member => {
-  var d = new Date();
+  var date = new Date();
   // member.guild.channels.get('channelID').send("Welcome"); 
   let result = await connection.query(`SELECT welcomeChannelID, welcomeMessage, welcomeEnabled FROM guildConfig WHERE guildID="${member.guild.id}"`).catch(err => console.error(err));
   let results = result[0];
@@ -173,8 +173,8 @@ bot.on('guildMemberAdd', async member => {
     .setAuthor(`${member.guild.name}`, `${serverIcon}`)
     .addFields([
       {name: "name", value: `${member.user.username}`, inline: true},
-      {name: "Join date", value: `${d.getFullYear()+'-'+d.getMonth()+'-'+d.getDate()}`, inline: true},
-      {name: "Join time", value: `${d.getHours()+':'+d.getMinutes()+':'+d.getSeconds()}`, inline: true},
+      {name: "Join date", value: `${date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate()}`, inline: true},
+      {name: "Join time", value: `${date.getHours()+':'+date.getMinutes()+':'+date.getSeconds()}`, inline: true},
       {name: "mention", value: `<@!${member.user.id}>`},
     ])
     .setFooter(`The owner of this server is ${owner.user.username}`);
