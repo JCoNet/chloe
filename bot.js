@@ -141,11 +141,11 @@ bot.once('ready', async () => {
     let results = result[0];
     var len = results.length;
     for (var i = 0; i < (len); i++) {
-      await rest.put(Routes.applicationGuildCommands(botID, result[i].guildID), {
+      await rest.put(Routes.applicationGuildCommands(botID, results[i].guildID), {
         body: guildCommands
       }).then(console.log("Guild Commands set"));
 
-      // let guild = await bot.guilds.cache.get(result[i].guildID);
+      // let guild = await bot.guilds.cache.get(results[i].guildID);
 
       // let permission1 = {
       //   id: guild.roles.everyone.id,
