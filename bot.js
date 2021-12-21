@@ -127,23 +127,7 @@ bot.once('ready', async () => {
       });
 
       console.log("Chloe has globally registered all commands.");
-    } else {
-      rest.get(Routes.applicationGuildCommands(botID, process.env.testserver)).then(data => {
-        const promises = [];
-        for (const command of data) {
-            try {
-                const deleteUrl = `${Routes.applicationGuildCommands(botID, process.env.testserver)}/${command.id}`;
-                promises.push(rest.delete(deleteUrl));
-                console.log(command.name + " " + command.description + " Removed.");
-            } catch {
-                if (err) {
-                    console.error(err);
-                }
-            };
-        }
-        return Promise.all(promises);
-      });
-      
+    } else {    
       await rest.put(Routes.applicationGuildCommands(botID, process.env.testserver), {
         body: commands
       });
