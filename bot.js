@@ -60,8 +60,8 @@ for (const folder of commandFolders) {
 		const command = require(`./commands/${folder}/${file}`);
 
 		if (command.data.name) {
-      commands.push(command.data.toJSON());
-      bot.commands.set(command.data.name, command);
+      // commands.push(command.data.toJSON());
+      bot.commands.set(command.name, command);
       table.addRow(file.split('.').slice(0, -1).join('.'), '✅');
       continue;
     } else {
