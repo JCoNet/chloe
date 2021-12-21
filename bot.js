@@ -1,6 +1,9 @@
 require('dotenv').config({ path: 'chloe/.env' });
 
 const Discord = require("discord.js");
+const { REST } = require("@discordjs/rest");
+const { Routes } = require("discord-api-types/v9");
+
 const mysql = require("mysql2/promise");
 const fs = require("fs");
 const stats = require("./package.json");
@@ -47,16 +50,18 @@ var table = new AsciiTable3('Chloe Guilds')
 .setWidths([40,40])
 .setCellMargin(0)
 
+const commands = [];
 bot.commands = new Discord.Collection();
-const commandFolders = fs.readdirSync('chloe/commands');
+const commandFolders = fs.readdirSync('chloe/newCommands');
 
 for (const folder of commandFolders) {
-	const commandFiles = fs.readdirSync(`chloe/commands/${folder}`).filter(file => file.endsWith('.js'));
+	const commandFiles = fs.readdirSync(`chloe/newCommands/${folder}`).filter(file => file.endsWith('.js'));
 	for (const file of commandFiles) {
-		const command = require(`./commands/${folder}/${file}`);
-        // console.log(`Attempting to load command ${command.name}`);
-		if (command.name) {
-      bot.commands.set(command.name, command);
+		const command = require(`./newCommands/${folder}/${file}`);
+
+		if (command.data.name) {
+      commands.push(command.data.toJSON());
+      bot.commands.set(command.data.name, command);
       table.addRow(file.split('.').slice(0, -1).join('.'), '✅');
       continue;
     } else {
@@ -93,6 +98,39 @@ bot.once('ready', async () => {
         type: `${botConf[0].statusType}` // PLAYING, WATCHING, LISTENING, STREAMING,
     }]
   });
+
+  // register commands
+  // const botID = process.env.botid;
+  const botID = process.env.botbetaid;
+
+  // const rest = new REST({
+  //   version: "9",
+  // }).setToken(process.env.token)
+
+  // const rest = new REST({
+  //   version: "9",
+  // }).setToken(process.env.betatoken)
+
+  // try {
+  //   if (process.env.ENV === "production") {
+  //     await rest.put(Routes.applicationCommands(botID), {
+  //       body: commands
+  //     });
+
+  //     console.log("Chloe has globally registered all commands.");
+  //   } else {
+  //     await rest.put(Routes.applicationGuildCommands(botID, process.env.testserver), {
+  //       body: commands
+  //     });
+
+  //     console.log("Chloe has locally registered all commands.");
+  //   }
+  // } catch {
+  //   if (err) {
+  //     console.error(err);
+  //   };
+  // };
+
 });
 
 bot.on('guildCreate', async guild => {
@@ -424,7 +462,7 @@ bot.on('interactionCreate', async interaction => {
       command.execute(Discord, bot, connection, interaction);
     } catch (error) {
       console.error(error);
-      interaction.reply({content: 'There was an unexpected error in executing that command, please check the bot logs for more information.', ephemeral: true});
+      interaction.reply({content: `There was an unexpected error in executing that command. Error:\n\`${error}\`\nPlease alert JCoNet to this error by screenshotting this message or telling them to check console at timestamp:\n\`${Date.getUTCDate()}/${Date.getUTCMonth()+1}/${Date.getUTCFullYear()} @ ${Date.getUTCHours()}:${Date.getUTCMinutes()}:${Date.getUTCSeconds()}:${Date.getUTCMilliseconds()}\``, ephemeral: true});
     }
   };
 });
