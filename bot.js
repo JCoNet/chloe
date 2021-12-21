@@ -162,7 +162,10 @@ bot.once('ready', async () => {
 
       const permissions = commands.map(command => ({ id: command.id, permissions: [permission1, permission2] }));
 
-      await guild.commands.permissions.set({ fullPermissions: permissions }).t;
+      await guild.commands.permissions.set({ fullPermissions: permissions });
+      console.log("Guild command permissions set")
+
+
 
       // let commandsList = await guild.commands.fetch();
       // await commandsList.forEach(slashCommand => {
