@@ -204,7 +204,8 @@ bot.once('ready', async () => {
               command: slashCommand.id,
               permissions: [permission1, permission2],
           });
-        }).then(console.log("Cuild command permissions Set"));
+        });
+        console.log("Guild command permissions set")
       };
 
       await rest.put(Routes.applicationGuildCommands(botID, process.env.testserver), {
