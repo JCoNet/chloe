@@ -104,7 +104,7 @@ bot.once('ready', async () => {
     }]
   });
 
-  const botID = '';
+  let botID;
   // register commands
   if (process.env.ENV === "production") {
     botID = process.env.botid;
