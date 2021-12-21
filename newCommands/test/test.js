@@ -8,10 +8,8 @@ module.exports = {
     async execute (Discord, bot, connection, interaction) {
         const streamChannel = bot.channels.cache.get('818685046302965801');
         let msg = await interaction.reply({content: `Channel: ${JSON.stringify(streamChannel)}`, ephemeral: true});
-        console.log(msg);
+        interaction.channel.send({content: `\`${msg}\``})
         msg = await interaction.editReply({content: msg + `\nCurrent guild: ${interaction.guild.name}`, ephemeral: true});
-        console.log(msg);
         msg = await interaction.editReply({content: msg + `\nBot mode: ${process.env.ENV}`, ephemeral: true});
-        console.log(msg);
     }
 }
