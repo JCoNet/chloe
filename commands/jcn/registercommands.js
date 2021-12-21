@@ -12,11 +12,11 @@ module.exports = {
         await message.delete();
 
         const rest = new REST({ version: '9' }).setToken(process.env.betatoken);
-        rest.get(Routes.applicationGuildCommands(process.env.botbetaid,process.env.testserver)).then(data => {
+        rest.get(Routes.applicationCommands(process.env.botbetaid)).then(data => {
             const promises = [];
             for (const command of data) {
                 try {
-                    const deleteUrl = `${Routes.applicationCommands(clientId)}/${command.id}`;
+                    const deleteUrl = `${Routes.applicationCommands(process.env.botbetaid)}/${command.id}`;
                     promises.push(rest.delete(deleteUrl));
                     console.log(command.name + " " + command.description + " Removed.");
                 } catch {
