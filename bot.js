@@ -59,7 +59,7 @@ for (const folder of commandFolders) {
 	for (const file of commandFiles) {
 		const command = require(`./commands/${folder}/${file}`);
 
-		if (command.data.name) {
+		if (command.name) {
       // commands.push(command.data.toJSON());
       bot.commands.set(command.name, command);
       table.addRow(file.split('.').slice(0, -1).join('.'), '✅');
