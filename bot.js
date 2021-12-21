@@ -76,7 +76,7 @@ for (const folder of globalCommandFolders) {
 
 const guildCommandFiles = fs.readdirSync(`chloe/guildCommands`).filter(file => file.endsWith('.js'));
 for (const file of guildCommandFiles) {
-  const command = require(`./guildCommands/${folder}/${file}`);
+  const command = require(`./guildCommands/${file}`);
 
   if (command.data.name) {
     guildCommands.push(command.data.toJSON());
