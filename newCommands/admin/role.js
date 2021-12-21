@@ -35,7 +35,8 @@ module.exports = {
         // check roles and permissions
         if (user.roles.highest.position >= interaction.member.roles.highest.position) return interaction.reply({content: "The specified user is ranked the same or higher than you, therefore I cannot allow you to modify this user's roles.", ephemeral: true}).catch(err => console.error(err));
         if (interaction.member.roles.highest.position <= role.position) return interaction.reply({content: "The specified role is ranked the same as or higher than your highest ranked role, therefore I cannot let you assign it to anyone.", ephemeral: true}).catch(err => console.error(err));
-    
+        if interaction.client.roles.highest.position <= role.position) return interaction.reply({content: "The specified role is placed higher than my highest placed role and therefore I cannot manage it or its members. Please correct this.", ephemeral: true}).catch(err => console.error(err));
+
         // add/remove the role
         if (operation == "add") {
             await user.roles.add(role.id).catch(err => console.error(err));
