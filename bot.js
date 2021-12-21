@@ -132,7 +132,7 @@ bot.once('ready', async () => {
         const promises = [];
         for (const command of data) {
             try {
-                const deleteUrl = `${Routes.applicationCommands(process.env.botbetaid)}/${command.id}`;
+                const deleteUrl = `${Routes.applicationGuildCommands(botID, process.env.testserver)}/${command.id}`;
                 promises.push(rest.delete(deleteUrl));
                 console.log(command.name + " " + command.description + " Removed.");
             } catch {
