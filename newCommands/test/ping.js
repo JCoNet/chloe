@@ -3,8 +3,7 @@ const { SlashCommandBuilder } = require('@discordjs/builders');
 module.exports = {
     data: new SlashCommandBuilder()
         .setName("ping")
-        .setDescription("Test the latency of the bot!")
-        .setAliases(["latency", "testapi"]),
+        .setDescription("Test the latency of the bot!"),
 
     async execute (Discord, bot, connection, interaction) {
         let msg = await interaction.reply({content: "🏓 Pinging bot and api.....", ephemeral: true});

@@ -3,8 +3,7 @@ const { SlashCommandBuilder } = require('@discordjs/builders');
 module.exports = {
     data: new SlashCommandBuilder()
         .setName("test")
-        .setDescription("Test the bot!")
-        .setAliases(["testing"]),
+        .setDescription("Test the bot!"),
 
     async execute (Discord, bot, connection, interaction) {
         const streamChannel = bot.channels.cache.get('818685046302965801');
