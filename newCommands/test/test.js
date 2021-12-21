@@ -8,10 +8,10 @@ module.exports = {
     async execute (Discord, bot, connection, interaction) {
         let msg = [];
         msg.push(`Channel: ${interaction.channel.name}`);
-        await interaction.reply({content: msg, ephemeral: true});
+        await interaction.reply({content: msg.toString(), ephemeral: true});
         msg.push(`\nCurrent guild: ${interaction.guild.name}`);
-        await interaction.editReply({content: msg, ephemeral: true});
+        await interaction.editReply({content: msg.toString(), ephemeral: true});
         msg.push(`\nBot mode: ${process.env.ENV}`);
-        await interaction.editReply({content: msg, ephemeral: true});
+        await interaction.editReply({content: msg.toString(), ephemeral: true});
     }
 }
