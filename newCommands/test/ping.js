@@ -1,13 +1,14 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
+const Discord = require('discord.js');
 
 module.exports = {
     data: new SlashCommandBuilder()
         .setName("ping")
         .setDescription("Test the latency of the bot!"),
 
-    async execute (Discord, bot, connection, interaction) {
+    async execute (interaction) {
         let msg = await interaction.reply({content: "🏓 Pinging bot and api.....", ephemeral: true});
-        let apiLatency = Math.round(bot.ws.ping);
+        let apiLatency = Math.round(interaction.client.ws.ping);
 
         let embed = new Discord.MessageEmbed()
         .setTitle("Bot ping")

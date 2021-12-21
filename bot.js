@@ -140,6 +140,8 @@ bot.once('ready', async () => {
     };
   };
 
+  bot.database = connecton;
+
 });
 
 bot.on('guildCreate', async guild => {
@@ -468,7 +470,7 @@ bot.on('interactionCreate', async interaction => {
   if (interaction.isCommand()) {
     let command = bot.commands.get(interaction.commandName) || bot.commands.find(cmd => cmd.aliases && cmd.aliases.includes(interaction.commandName));
     try {
-      command.execute(Discord, bot, connection, interaction);
+      command.execute(interaction);
     } catch (error) {
       console.error(error);
       interaction.reply({content: `There was an unexpected error in executing that command. Error:\n\`${error}\`\nPlease alert JCoNet to this error by screenshotting this message or telling them to check console at timestamp:\n\`${Date.getUTCDate()}/${Date.getUTCMonth()+1}/${Date.getUTCFullYear()} @ ${Date.getUTCHours()}:${Date.getUTCMinutes()}:${Date.getUTCSeconds()}:${Date.getUTCMilliseconds()}\``, ephemeral: true});

@@ -5,7 +5,7 @@ module.exports = {
         .setName("test")
         .setDescription("Test the bot!"),
 
-    async execute (Discord, bot, connection, interaction) {
+    async execute (interaction) {
         let msg = [];
         msg.push(`Channel: ${interaction.channel.name}`);
         await interaction.reply({content: msg.toString(), ephemeral: true});
