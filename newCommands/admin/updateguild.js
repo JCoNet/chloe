@@ -2,8 +2,8 @@ const { SlashCommandBuilder } = require('@discordjs/builders');
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName("ping")
-        .setDescription("Test the latency of the bot!"),
+        .setName("updateguild")
+        .setDescription("Update your guild info with JCoNet!"),
 
     async execute (interaction) {
         if(!interaction.member.permissions.has("ADMINISTRATOR")) {
