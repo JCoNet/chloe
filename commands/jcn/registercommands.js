@@ -2,6 +2,7 @@
 const token = process.env.betatoken;
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { REST } = require("@discordjs/rest");
+const { Routes } = require("discord-api-types/v9");
 
 module.exports = {
     name: "registercommands",
