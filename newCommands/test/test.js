@@ -14,7 +14,7 @@ module.exports = {
         msg.push(`\nBot mode: ${process.env.ENV}`);
         await interaction.editReply({content: msg.toString(), ephemeral: true});
         msg.push(`\nDatabase guild info:`);
-        let result = await connection.query("SELECT * FROM guildConfig");
+        let result = await interaction.client.database.query("SELECT * FROM guildConfig");
         let guildConfig = result[0][0];
         msg.push(`\nName: ${guildConfig.guildName} Owner: ${guildConfig.ownerName}`);
         await interaction.editReply({content: msg.toString(), ephemeral: true});
