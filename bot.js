@@ -182,7 +182,7 @@ bot.once('ready', async () => {
       for (var i = 0; i < (len); i++) {
         await rest.put(Routes.applicationGuildCommands(botID, process.env.testserver), {
           body: guildCommands
-        });
+        }).then(console.log("Guild Commands set"));
 
         let guild = await bot.guilds.cache.get(process.env.testserver);
 
@@ -204,12 +204,12 @@ bot.once('ready', async () => {
               command: slashCommand.id,
               permissions: [permission1, permission2],
           });
-        });
+        }).then(console.log("Cuild command permissions Set"));
       };
 
       await rest.put(Routes.applicationGuildCommands(botID, process.env.testserver), {
         body:  globalCommands
-      });
+      }).then(console.log("Global Commands set"));
 
       console.log("Chloe has registered all commands. (test)");
     }
