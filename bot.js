@@ -104,11 +104,12 @@ bot.once('ready', async () => {
     }]
   });
 
+  const botID;
   // register commands
   if (process.env.ENV === "production") {
-    const botID = process.env.botid;
+    botID = process.env.botid;
   } else {
-    const botID = process.env.botbetaid;
+    botID = process.env.botbetaid;
   };
 
   // const rest = new REST({
