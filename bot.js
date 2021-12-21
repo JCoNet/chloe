@@ -55,6 +55,7 @@ const globalCommands = [];
 const guildCommands = [];
 bot.commands = new Discord.Collection();
 const globalCommandFolders = fs.readdirSync('chloe/globalCommands');
+const guildCommandFolders = fs.readdirSync('chloe/guildCommands');
 
 for (const folder of globalCommandFolders) {
 	const globalCommandFiles = fs.readdirSync(`chloe/globalCommands/${folder}`).filter(file => file.endsWith('.js'));
@@ -73,18 +74,21 @@ for (const folder of globalCommandFolders) {
 	}
 }
 
-const guildCommandFiles = fs.readdirSync(`chloe/guildCommands`).filter(file => file.endsWith('.js'));
-for (const file of guildCommandFiles) {
-  const command = require(`./guildCommands/${file}`);
+for (const folder of guildCommandFolders) {
+	const globalCommandFiles = fs.readdirSync(`chloe/guildCommands/${folder}`).filter(file => file.endsWith('.js'));
+  const guildCommandFiles = fs.readdirSync(`chloe/guildCommands`).filter(file => file.endsWith('.js'));
+  for (const file of guildCommandFiles) {
+    const command = require(`./guildCommands/${file}`);
 
-  if (command.data.name) {
-    guildCommands.push(command.data.toJSON());
-    bot.commands.set(command.data.name, command);
-    table.addRow(file.split('.').slice(0, -1).join('.'), 'Success');
-    continue;
-  } else {
-    table.addRow(file.split('.').slice(0, -1).join('.'), 'Error');
-    continue;
+    if (command.data.name) {
+      guildCommands.push(command.data.toJSON());
+      bot.commands.set(command.data.name, command);
+      table.addRow(file.split('.').slice(0, -1).join('.'), 'Success');
+      continue;
+    } else {
+      table.addRow(file.split('.').slice(0, -1).join('.'), 'Error');
+      continue;
+    }
   }
 }
 
@@ -143,7 +147,7 @@ bot.once('ready', async () => {
     for (var i = 0; i < (len); i++) {
       let guild = bot.guilds.cache.get(results[i].guildID);
 
-      const commands = await guild.commands.set(guildCommands).then(console.log("Guild commands set"));
+      const commands = await guild.commands.set(guildCommands).then(console.log("Guild commands set."));
 
       // await rest.put(Routes.applicationGuildCommands(botID, results[i].guildID), {
       //   body: guildCommands
@@ -163,19 +167,7 @@ bot.once('ready', async () => {
       const permissions = commands.map(command => ({ id: command.id, permissions: [permission1, permission2] }));
 
       await guild.commands.permissions.set({ fullPermissions: permissions });
-      console.log("Guild command permissions set")
-
-
-
-      // let commandsList = await guild.commands.fetch();
-      // await commandsList.forEach(slashCommand => {
-      //   //set the permissions for each slashCommand
-      //   guild.commands.permissions.add({
-      //       command: slashCommand.id,
-      //       permissions: [permission1, permission2],
-      //   });
-      // });
-      // console.log("Guild command permissions set.")
+      console.log("Guild command permissions set.")
     };
 
 
@@ -186,13 +178,7 @@ bot.once('ready', async () => {
 
       console.log("Chloe has registered all commands.");
     } else {
-      // await rest.put(Routes.applicationGuildCommands(botID, process.env.testserver), {
-      //   body:  globalCommands
-      // }).then(console.log("Global Commands set"));
-
-      // console.log("Chloe has registered all commands. (test)");
-
-      return;
+      return console.log("No global commands can be set as currently in test mode.");
     }
   } catch (error) {
     if (error) {
