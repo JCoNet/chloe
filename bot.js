@@ -51,25 +51,44 @@ var table = new AsciiTable3('Chloe Guilds')
 .setWidths([40,40])
 .setCellMargin(0)
 
-const commands = [];
+const globalCommands = [];
+const guildCommands = [];
 bot.commands = new Discord.Collection();
-const commandFolders = fs.readdirSync('chloe/newCommands');
+const globalCommandFolders = fs.readdirSync('chloe/globalCommands');
+const guildCommandFolders = fs.readdirSync('chloe/guildCommands');
 
-for (const folder of commandFolders) {
-	const commandFiles = fs.readdirSync(`chloe/newCommands/${folder}`).filter(file => file.endsWith('.js'));
-	for (const file of commandFiles) {
-		const command = require(`./newCommands/${folder}/${file}`);
+for (const folder of globalCommandFolders) {
+	const globalCommandFiles = fs.readdirSync(`chloe/globalCommands/${folder}`).filter(file => file.endsWith('.js'));
+	for (const file of globalCommandFiles) {
+		const command = require(`./globalCommands/${folder}/${file}`);
 
 		if (command.data.name) {
-      commands.push(command.data.toJSON());
+      globalCommands.push(command.data.toJSON());
       bot.commands.set(command.data.name, command);
-      table.addRow(file.split('.').slice(0, -1).join('.'), '✅');
+      table.addRow(file.split('.').slice(0, -1).join('.'), 'Success');
       continue;
     } else {
-      table.addRow(file.split('.').slice(0, -1).join('.'), '❎');
+      table.addRow(file.split('.').slice(0, -1).join('.'), 'Error');
       continue;
     }
 	}
+}
+
+for (const folder of guildCommandFolders) {
+  const guildCommandFiles = fs.readdirSync(`chloe/guildCommands/${folder}`).filter(file => file.endsWith('.js'));
+  for (const file of guildCommandFiles) {
+    const command = require(`./guildCommands/${folder}/${file}`);
+
+    if (command.data.name) {
+      guildCommands.push(command.data.toJSON());
+      bot.commands.set(command.data.name, command);
+      table.addRow(file.split('.').slice(0, -1).join('.'), 'Success');
+      continue;
+    } else {
+      table.addRow(file.split('.').slice(0, -1).join('.'), 'Error');
+      continue;
+    }
+  }
 }
 
 table.setStyle('unicode-single');
@@ -123,16 +142,80 @@ bot.once('ready', async () => {
   try {
     if (process.env.ENV === "production") {
       await rest.put(Routes.applicationCommands(botID), {
-        body: commands
+        body: globalCommands
       });
 
-      console.log("Chloe has globally registered all commands.");
+      let result = await connection.query("SELECT guildID, administratorRoleID FROM guildConfig").catch(err => console.error(err));
+      let results = result[0];
+      var len = results.length;
+      for (var i = 0; i < (len); i++) {
+        await rest.put(Routes.applicationGuildCommands(botID, results[i].guildID), {
+          body: guildCommands
+        });
+
+        let guild = await bot.guilds.cache.get(results[i].guildID);
+
+        let permissions = [
+          {
+            id: guild.roles.everyone.id,
+            type: 'ROLE',
+            permission: false,
+          }, {
+            id: results[i].administratorRoleID,
+            type: 'ROLE',
+            permission: true,
+          }
+        ];
+
+        let commandsList = await guild.commands.fetch();
+        await commandsList.forEach(slashCommand => {
+          //set the permissions for each slashCommand
+          guild.commands.permissions.add({
+              command: slashCommand.id,
+              permissions: permissions,
+          });
+        });
+      };
+
+      console.log("Chloe has registered all commands.");
     } else {
       await rest.put(Routes.applicationGuildCommands(botID, process.env.testserver), {
-        body: commands
+        body:  globalCommands
       });
 
-      console.log("Chloe has locally registered all commands.");
+      let result = await connection.query("SELECT guildID, administratorRoleID FROM guildConfig").catch(err => console.error(err));
+      let results = result[0];
+      var len = results.length;
+      for (var i = 0; i < (len); i++) {
+        await rest.put(Routes.applicationGuildCommands(botID, results[i].guildID), {
+          body: guildCommands
+        });
+
+        let guild = await bot.guilds.cache.get(results[i].guildID);
+
+        let permissions = [
+          {
+            id: guild.roles.everyone.id,
+            type: 'ROLE',
+            permission: false,
+          }, {
+            id: results[i].administratorRoleID,
+            type: 'ROLE',
+            permission: true,
+          }
+        ];
+
+        let commandsList = await guild.commands.fetch();
+        await commandsList.forEach(slashCommand => {
+          //set the permissions for each slashCommand
+          guild.commands.permissions.add({
+              command: slashCommand.id,
+              permissions: permissions,
+          });
+        });
+      };
+
+      console.log("Chloe has registered all commands. (test)");
     }
   } catch (error) {
     if (error) {

@@ -1,0 +1,31 @@
+const { SlashCommandBuilder } = require('@discordjs/builders');
+
+module.exports = {
+    data: new SlashCommandBuilder()
+        .setName("")
+        .setDescription(")
+        .addStringOption(option => 
+            option.setName("")
+            .setDescription("")
+            .setType("STRING")
+            .addChoice("Add role", "add")
+            .addChoice("Remove role", "remove")
+            .setRequired(true)
+        )
+        .addStringOption(option =>
+            option.setName("")
+            .setDescription("")
+            .setType("USER")
+            .setRequired(true)
+        )
+        .addStringOption(option => 
+            option.setName("")
+            .setDescription("")
+            .setType("ROLE")
+            .setRequired(true)    
+        ),
+
+    async execute (interaction) {
+        // Code to run when executed.
+    }
+};
