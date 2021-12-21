@@ -55,7 +55,6 @@ const globalCommands = [];
 const guildCommands = [];
 bot.commands = new Discord.Collection();
 const globalCommandFolders = fs.readdirSync('chloe/globalCommands');
-const guildCommandFolders = fs.readdirSync('chloe/guildCommands');
 
 for (const folder of globalCommandFolders) {
 	const globalCommandFiles = fs.readdirSync(`chloe/globalCommands/${folder}`).filter(file => file.endsWith('.js'));
@@ -177,10 +176,6 @@ bot.once('ready', async () => {
 
       console.log("Chloe has registered all commands.");
     } else {
-      await rest.put(Routes.applicationGuildCommands(botID, process.env.testserver), {
-        body:  globalCommands
-      });
-
       let result = await connection.query(`SELECT guildID, administratorRoleID FROM guildConfig WHERE guildID = ${process.env.testserver}`).catch(err => console.error(err));
       let results = result[0];
       var len = results.length;
@@ -211,6 +206,10 @@ bot.once('ready', async () => {
           });
         });
       };
+
+      await rest.put(Routes.applicationGuildCommands(botID, process.env.testserver), {
+        body:  globalCommands
+      });
 
       console.log("Chloe has registered all commands. (test)");
     }
