@@ -15,7 +15,7 @@ module.exports = {
         rest.get(Routes.applicationGuildCommands(process.env.botbetaid,process.env.testserver)).then(data => {
             const promises = [];
             for (const command of data) {
-                const deleteUrl = `${Routes.applicationGuildCommands(clientId, guildId)}/${command.id}`;
+                const deleteUrl = `${Routes.applicationCommands(clientId, guildId)}/${command.id}`;
                 promises.push(rest.delete(deleteUrl));
             }
             return Promise.all(promises);
