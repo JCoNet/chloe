@@ -74,20 +74,18 @@ for (const folder of globalCommandFolders) {
 	}
 }
 
-for (const folder of guildCommandFolders) {
-  const guildCommandFiles = fs.readdirSync(`chloe/guildCommands/${folder}`).filter(file => file.endsWith('.js'));
-  for (const file of guildCommandFiles) {
-    const command = require(`./guildCommands/${folder}/${file}`);
+const guildCommandFiles = fs.readdirSync(`chloe/guildCommands`).filter(file => file.endsWith('.js'));
+for (const file of guildCommandFiles) {
+  const command = require(`./guildCommands/${folder}/${file}`);
 
-    if (command.data.name) {
-      guildCommands.push(command.data.toJSON());
-      bot.commands.set(command.data.name, command);
-      table.addRow(file.split('.').slice(0, -1).join('.'), 'Success');
-      continue;
-    } else {
-      table.addRow(file.split('.').slice(0, -1).join('.'), 'Error');
-      continue;
-    }
+  if (command.data.name) {
+    guildCommands.push(command.data.toJSON());
+    bot.commands.set(command.data.name, command);
+    table.addRow(file.split('.').slice(0, -1).join('.'), 'Success');
+    continue;
+  } else {
+    table.addRow(file.split('.').slice(0, -1).join('.'), 'Error');
+    continue;
   }
 }
 
