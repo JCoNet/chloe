@@ -56,9 +56,9 @@ bot.commands = new Discord.Collection();
 const commandFolders = fs.readdirSync('chloe/newCommands');
 
 for (const folder of commandFolders) {
-	const globalCommandFiles = fs.readdirSync(`chloe/globalCommands/${folder}`).filter(file => file.endsWith('.js'));
+	const commandFiles = fs.readdirSync(`chloe/newCommands/${folder}`).filter(file => file.endsWith('.js'));
 	for (const file of commandFiles) {
-		const command = require(`./globalCommands/${folder}/${file}`);
+		const command = require(`./newCommands/${folder}/${file}`);
 
 		if (command.data.name) {
       commands.push(command.data.toJSON());
@@ -66,7 +66,7 @@ for (const folder of commandFolders) {
       table.addRow(file.split('.').slice(0, -1).join('.'), 'Success');
       continue;
     } else {
-      table.addRow(file.split('.').slice(0, -1).join('.'), 'Error');
+      table.addRow(file.split('.').slice(0, -1).join('.'), 'Error Loading');
       continue;
     }
 	}
