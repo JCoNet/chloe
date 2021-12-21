@@ -149,16 +149,20 @@ bot.once('ready', async () => {
       //   body: guildCommands
       // }).then(console.log("Guild Commands set"));
 
-      // let permission1 = {
-      //   id: guild.roles.everyone.id,
-      //   type: 'ROLE',
-      //   permission: false,
-      // };
-      // let permission2 = {
-      //   id: results[i].administratorRoleID,
-      //   type: 'ROLE',
-      //   permission: true,
-      // };
+      let permission1 = {
+        id: guild.roles.everyone.id,
+        type: 'ROLE',
+        permission: false,
+      };
+      let permission2 = {
+        id: results[i].administratorRoleID,
+        type: 'ROLE',
+        permission: true,
+      };
+      
+      const permissions = commands.map(command => ({ id: command.id, permissions: [permission1, permission2] }));
+
+      await guild.commands.permissions.set({ fullPermissions: permissions }).t;
 
       // let commandsList = await guild.commands.fetch();
       // await commandsList.forEach(slashCommand => {
