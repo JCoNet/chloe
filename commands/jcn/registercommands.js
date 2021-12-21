@@ -15,9 +15,15 @@ module.exports = {
         rest.get(Routes.applicationGuildCommands(process.env.botbetaid,process.env.testserver)).then(data => {
             const promises = [];
             for (const command of data) {
-                console.log(command.name + " " + command.description + " Removed.");
-                const deleteUrl = `${Routes.applicationCommands(clientId)}/${command.id}`;
-                promises.push(rest.delete(deleteUrl));
+                try {
+                    const deleteUrl = `${Routes.applicationCommands(clientId)}/${command.id}`;
+                    promises.push(rest.delete(deleteUrl));
+                    console.log(command.name + " " + command.description + " Removed.");
+                } catch {
+                    if (err) {
+                        console.error(err);
+                    }
+                };
             }
             return Promise.all(promises);
         });
