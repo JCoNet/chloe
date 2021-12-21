@@ -7,7 +7,7 @@ module.exports = {
         .addStringOption(option => 
             option.setName("operation")
             .setDescription("The operaton this command should perform.")
-            .setType("STRING")
+            .type("STRING")
             .addChoice("Add role", "add")
             .addChoice("Remove role", "remove")
             .setRequired(true)
@@ -15,13 +15,13 @@ module.exports = {
         .addStringOption(option =>
             option.setName("user")
             .setDescription("The user this command should target.")
-            .setType("USER")
+            .tType("USER")
             .setRequired(true)
         )
         .addStringOption(option => 
             option.setName("role")
             .setDescription("The role this command should use when running the operation.")
-            .setType("ROLE")
+            .type("ROLE")
             .setRequired(true)    
         ),
 
