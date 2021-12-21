@@ -9,6 +9,7 @@ const fs = require("fs");
 const stats = require("./package.json");
 const config = require("./botconfig.json");
 const { AsciiTable3 } = require('ascii-table3');
+const { isError } = require('util');
 
 const Intents = Discord.Intents;
 const bot = new Discord.Client({ intents: [
@@ -132,9 +133,9 @@ bot.once('ready', async () => {
 
       console.log("Chloe has locally registered all commands.");
     }
-  } catch {
-    if (err) {
-      console.error(err);
+  } catch (error) {
+    if (error) {
+      console.error(error);
     };
   };
 
