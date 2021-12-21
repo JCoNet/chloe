@@ -143,7 +143,7 @@ bot.once('ready', async () => {
     for (var i = 0; i < (len); i++) {
       let guild = bot.guilds.cache.get(results[i].guildID);
 
-      await guild.commands.set(guildCommands).then(console.log("Guild commands set"));
+      const commands = await guild.commands.set(guildCommands).then(console.log("Guild commands set"));
 
       // await rest.put(Routes.applicationGuildCommands(botID, results[i].guildID), {
       //   body: guildCommands
@@ -159,7 +159,7 @@ bot.once('ready', async () => {
         type: 'ROLE',
         permission: true,
       };
-      
+
       const permissions = commands.map(command => ({ id: command.id, permissions: [permission1, permission2] }));
 
       await guild.commands.permissions.set({ fullPermissions: permissions }).t;
