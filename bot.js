@@ -137,7 +137,7 @@ bot.once('ready', async () => {
   }).setToken(process.env.betatoken)
 
   try {
-    let result = await connection.query(`SELECT guildID, administratorRoleID FROM guildConfig`).catch(err => console.error(err));
+    let result = await connection.query(`SELECT guildID, administratorRoleID FROM guildConfig WHERE guildID = "${interaction.guild.id}"`).catch(err => console.error(err));
     let results = result[0];
     var len = results.length;
     for (var i = 0; i < (len); i++) {
