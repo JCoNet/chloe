@@ -52,12 +52,12 @@ var table = new AsciiTable3('Chloe Guilds')
 
 const commands = [];
 bot.commands = new Discord.Collection();
-const commandFolders = fs.readdirSync('chloe/newCommands');
+const commandFolders = fs.readdirSync('chloe/commands');
 
 for (const folder of commandFolders) {
-	const commandFiles = fs.readdirSync(`chloe/newCommands/${folder}`).filter(file => file.endsWith('.js'));
+	const commandFiles = fs.readdirSync(`chloe/commands/${folder}`).filter(file => file.endsWith('.js'));
 	for (const file of commandFiles) {
-		const command = require(`./newCommands/${folder}/${file}`);
+		const command = require(`./commands/${folder}/${file}`);
 
 		if (command.data.name) {
       commands.push(command.data.toJSON());
