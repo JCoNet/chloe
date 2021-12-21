@@ -179,11 +179,13 @@ bot.once('ready', async () => {
 
       console.log("Chloe has registered all commands.");
     } else {
-      await rest.put(Routes.applicationGuildCommands(botID, process.env.testserver), {
-        body:  globalCommands
-      }).then(console.log("Global Commands set"));
+      // await rest.put(Routes.applicationGuildCommands(botID, process.env.testserver), {
+      //   body:  globalCommands
+      // }).then(console.log("Global Commands set"));
 
-      console.log("Chloe has registered all commands. (test)");
+      // console.log("Chloe has registered all commands. (test)");
+
+      return;
     }
   } catch (error) {
     if (error) {
