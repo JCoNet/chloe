@@ -149,26 +149,26 @@ bot.once('ready', async () => {
       //   body: guildCommands
       // }).then(console.log("Guild Commands set"));
 
-      let permission1 = {
-        id: guild.roles.everyone.id,
-        type: 'ROLE',
-        permission: false,
-      };
-      let permission2 = {
-        id: results[i].administratorRoleID,
-        type: 'ROLE',
-        permission: true,
-      };
+      // let permission1 = {
+      //   id: guild.roles.everyone.id,
+      //   type: 'ROLE',
+      //   permission: false,
+      // };
+      // let permission2 = {
+      //   id: results[i].administratorRoleID,
+      //   type: 'ROLE',
+      //   permission: true,
+      // };
 
-      let commandsList = await guild.commands.fetch();
-      await commandsList.forEach(slashCommand => {
-        //set the permissions for each slashCommand
-        guild.commands.permissions.add({
-            command: slashCommand.id,
-            permissions: [permission1, permission2],
-        });
-      });
-      console.log("Guild command permissions set.")
+      // let commandsList = await guild.commands.fetch();
+      // await commandsList.forEach(slashCommand => {
+      //   //set the permissions for each slashCommand
+      //   guild.commands.permissions.add({
+      //       command: slashCommand.id,
+      //       permissions: [permission1, permission2],
+      //   });
+      // });
+      // console.log("Guild command permissions set.")
     };
 
 
@@ -176,38 +176,6 @@ bot.once('ready', async () => {
       await rest.put(Routes.applicationCommands(botID), {
         body: globalCommands
       });
-
-      let result = await connection.query("SELECT guildID, administratorRoleID FROM guildConfig").catch(err => console.error(err));
-      let results = result[0];
-      var len = results.length;
-      for (var i = 0; i < (len); i++) {
-        await rest.put(Routes.applicationGuildCommands(botID, results[i].guildID), {
-          body: guildCommands
-        });
-
-        let guild = await bot.guilds.cache.get(results[i].guildID);
-
-        let permissions = [
-          {
-            id: guild.roles.everyone.id,
-            type: 'ROLE',
-            permission: false,
-          }, {
-            id: results[i].administratorRoleID,
-            type: 'ROLE',
-            permission: true,
-          }
-        ];
-
-        let commandsList = await guild.commands.fetch();
-        await commandsList.forEach(slashCommand => {
-          //set the permissions for each slashCommand
-          guild.commands.permissions.add({
-              command: slashCommand.id,
-              permissions: permissions,
-          });
-        });
-      };
 
       console.log("Chloe has registered all commands.");
     } else {
