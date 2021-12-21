@@ -128,7 +128,7 @@ bot.once('ready', async () => {
 
       console.log("Chloe has globally registered all commands.");
     } else {
-      rest.get(Routes.applicationCommands(process.env.botbetaid)).then(data => {
+      rest.get(Routes.applicationGuildCommands(botID, process.env.testserver)).then(data => {
         const promises = [];
         for (const command of data) {
             try {
