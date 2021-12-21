@@ -15,7 +15,8 @@ module.exports = {
         await interaction.editReply({content: msg.toString(), ephemeral: true});
         let result = await interaction.client.database.query("SELECT * FROM guildConfig");
         let guildConfig = result[0][0];
-        msg.push(`\nDatabase guild info:\nName: ${guildConfig.guildName}\nOwner: ${guildConfig.ownerName}`);
+        msg.push(`\nDatabase guild info:\n- Name: ${guildConfig.guildName}`);
+        msg.push(`\n- Owner: ${guildConfig.ownerName}`);
         await interaction.editReply({content: msg.toString(), ephemeral: true});
 
     }
