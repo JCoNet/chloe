@@ -191,24 +191,23 @@ bot.once('ready', async () => {
 
         let guild = await bot.guilds.cache.get(process.env.testserver);
 
-        let permissions = [
-          {
-            id: guild.roles.everyone.id,
-            type: 'ROLE',
-            permission: false,
-          }, {
-            id: results[i].administratorRoleID,
-            type: 'ROLE',
-            permission: true,
-          }
-        ];
+        let permission1 = {
+          id: guild.roles.everyone.id,
+          type: 'ROLE',
+          permission: false,
+        };
+        let permission2 = {
+          id: results[i].administratorRoleID,
+          type: 'ROLE',
+          permission: true,
+        };
 
         let commandsList = await guild.commands.fetch();
         await commandsList.forEach(slashCommand => {
           //set the permissions for each slashCommand
           guild.commands.permissions.add({
               command: slashCommand.id,
-              permissions: permissions,
+              permissions: [permission1, permission2],
           });
         });
       };
