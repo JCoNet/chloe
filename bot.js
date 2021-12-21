@@ -140,7 +140,7 @@ bot.once('ready', async () => {
     };
   };
 
-  bot.database = connecton;
+  bot.database = connection;
 
 });
 
