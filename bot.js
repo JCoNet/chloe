@@ -136,91 +136,92 @@ bot.once('ready', async () => {
     version: "9",
   }).setToken(process.env.betatoken)
 
-  console.log(guildCommands);
-  // try {
-    // let result = await connection.query(`SELECT guildID, administratorRoleID FROM guildConfig WHERE guildID = "${process.env.testserver}"`).catch(err => console.error(err));
-    // let results = result[0];
-    // var len = results.length;
-    // for (var i = 0; i < (len); i++) {
-    //   await rest.put(Routes.applicationGuildCommands(botID, results[i].guildID), {
-    //     body: guildCommands
-    //   }).then(console.log("Guild Commands set"));
+  try {
+    let result = await connection.query(`SELECT guildID, administratorRoleID FROM guildConfig WHERE guildID = "${process.env.testserver}"`).catch(err => console.error(err));
+    let results = result[0];
+    var len = results.length;
+    for (var i = 0; i < (len); i++) {
+      let guild = bot.guilds.cache.get(results[i].guildID);
 
-    //   // let guild = await bot.guilds.cache.get(results[i].guildID);
+      await guild.commands.set(guildCommands).then(console.log("Guild commands set"));
 
-    //   // let permission1 = {
-    //   //   id: guild.roles.everyone.id,
-    //   //   type: 'ROLE',
-    //   //   permission: false,
-    //   // };
-    //   // let permission2 = {
-    //   //   id: results[i].administratorRoleID,
-    //   //   type: 'ROLE',
-    //   //   permission: true,
-    //   // };
+      // await rest.put(Routes.applicationGuildCommands(botID, results[i].guildID), {
+      //   body: guildCommands
+      // }).then(console.log("Guild Commands set"));
 
-    //   // let commandsList = await guild.commands.fetch();
-    //   // await commandsList.forEach(slashCommand => {
-    //   //   //set the permissions for each slashCommand
-    //   //   guild.commands.permissions.add({
-    //   //       command: slashCommand.id,
-    //   //       permissions: [permission1, permission2],
-    //   //   });
-    //   // });
-    //   // console.log("Guild command permissions set.")
-    // };
+      let permission1 = {
+        id: guild.roles.everyone.id,
+        type: 'ROLE',
+        permission: false,
+      };
+      let permission2 = {
+        id: results[i].administratorRoleID,
+        type: 'ROLE',
+        permission: true,
+      };
+
+      let commandsList = await guild.commands.fetch();
+      await commandsList.forEach(slashCommand => {
+        //set the permissions for each slashCommand
+        guild.commands.permissions.add({
+            command: slashCommand.id,
+            permissions: [permission1, permission2],
+        });
+      });
+      console.log("Guild command permissions set.")
+    };
 
 
-  //   if (process.env.ENV === "production") {
-  //     await rest.put(Routes.applicationCommands(botID), {
-  //       body: globalCommands
-  //     });
+    if (process.env.ENV === "production") {
+      await rest.put(Routes.applicationCommands(botID), {
+        body: globalCommands
+      });
 
-  //     let result = await connection.query("SELECT guildID, administratorRoleID FROM guildConfig").catch(err => console.error(err));
-  //     let results = result[0];
-  //     var len = results.length;
-  //     for (var i = 0; i < (len); i++) {
-  //       await rest.put(Routes.applicationGuildCommands(botID, results[i].guildID), {
-  //         body: guildCommands
-  //       });
+      let result = await connection.query("SELECT guildID, administratorRoleID FROM guildConfig").catch(err => console.error(err));
+      let results = result[0];
+      var len = results.length;
+      for (var i = 0; i < (len); i++) {
+        await rest.put(Routes.applicationGuildCommands(botID, results[i].guildID), {
+          body: guildCommands
+        });
 
-  //       let guild = await bot.guilds.cache.get(results[i].guildID);
+        let guild = await bot.guilds.cache.get(results[i].guildID);
 
-  //       let permissions = [
-  //         {
-  //           id: guild.roles.everyone.id,
-  //           type: 'ROLE',
-  //           permission: false,
-  //         }, {
-  //           id: results[i].administratorRoleID,
-  //           type: 'ROLE',
-  //           permission: true,
-  //         }
-  //       ];
+        let permissions = [
+          {
+            id: guild.roles.everyone.id,
+            type: 'ROLE',
+            permission: false,
+          }, {
+            id: results[i].administratorRoleID,
+            type: 'ROLE',
+            permission: true,
+          }
+        ];
 
-  //       let commandsList = await guild.commands.fetch();
-  //       await commandsList.forEach(slashCommand => {
-  //         //set the permissions for each slashCommand
-  //         guild.commands.permissions.add({
-  //             command: slashCommand.id,
-  //             permissions: permissions,
-  //         });
-  //       });
-  //     };
+        let commandsList = await guild.commands.fetch();
+        await commandsList.forEach(slashCommand => {
+          //set the permissions for each slashCommand
+          guild.commands.permissions.add({
+              command: slashCommand.id,
+              permissions: permissions,
+          });
+        });
+      };
 
-  //     console.log("Chloe has registered all commands.");
-  //   } else {
-  //     await rest.put(Routes.applicationGuildCommands(botID, process.env.testserver), {
-  //       body:  globalCommands
-  //     }).then(console.log("Global Commands set"));
+      console.log("Chloe has registered all commands.");
+    } else {
+      await rest.put(Routes.applicationGuildCommands(botID, process.env.testserver), {
+        body:  globalCommands
+      }).then(console.log("Global Commands set"));
 
-  //     console.log("Chloe has registered all commands. (test)");
-  //   }
-  // } catch (error) {
-  //   if (error) {
-  //     console.error(error);
-  //   };
-  // };
+      console.log("Chloe has registered all commands. (test)");
+    }
+  } catch (error) {
+    if (error) {
+      console.error(error);
+    };
+  };
 
   bot.database = connection;
 
