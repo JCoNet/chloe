@@ -52,16 +52,16 @@ var table = new AsciiTable3('Chloe Guilds')
 
 const commands = [];
 bot.commands = new Discord.Collection();
-const commandFolders = fs.readdirSync('chloe/commands');
+const commandFolders = fs.readdirSync('chloe/newCommands');
 
 for (const folder of commandFolders) {
-	const commandFiles = fs.readdirSync(`chloe/commands/${folder}`).filter(file => file.endsWith('.js'));
+	const commandFiles = fs.readdirSync(`chloe/newCommands/${folder}`).filter(file => file.endsWith('.js'));
 	for (const file of commandFiles) {
-		const command = require(`./commands/${folder}/${file}`);
+		const command = require(`./newCommands/${folder}/${file}`);
 
-		if (command.name) {
-      // commands.push(command.data.toJSON());
-      bot.commands.set(command.name, command);
+		if (command.data.name) {
+      commands.push(command.data.toJSON());
+      bot.commands.set(command.data.name, command);
       table.addRow(file.split('.').slice(0, -1).join('.'), '✅');
       continue;
     } else {
@@ -77,8 +77,12 @@ console.log(table.toString());
 let botConf;
 
 // connect to correct bot with login token
-// bot.login(process.env.token);
-bot.login(process.env.betatoken);
+if (process.env.ENV === "production") {
+  bot.login(process.env.token);
+} else {
+  bot.login(process.env.betatoken);
+}
+
 
 bot.once('ready', async () => {
   //set up botConf
@@ -86,7 +90,7 @@ bot.once('ready', async () => {
   let result = await connection.query("SELECT statusMessage, statusType, defaultPrefix FROM defaultConfig");
   botConf = result[0];
   // set up the bot status items when it conencts to api
-  console.log(`Chloe sucessfully activated on ${d}, now ready for service. Operating on version ${stats.version} and framework ${stats.frmwrk}.`);
+  console.log(`Chloe sucessfully activated on ${d}, now ready for service. Operating on version ${stats.version} and framework ${stats.frmwrk}. Environment: ${process.env.ENV}`);
   // bot.user.setActivity(`${botConf[0].statusMessage}`, {type: `${botConf[0].statusType}`});
   // bot.user.setStatus("dnd");
 
@@ -100,36 +104,39 @@ bot.once('ready', async () => {
   });
 
   // register commands
-  // const botID = process.env.botid;
-  const botID = process.env.botbetaid;
+  if (process.env.ENV === "production") {
+    const botID = process.env.botid;
+  } else {
+    const botID = process.env.botbetaid;
+  };
 
   // const rest = new REST({
   //   version: "9",
   // }).setToken(process.env.token)
 
-  // const rest = new REST({
-  //   version: "9",
-  // }).setToken(process.env.betatoken)
+  const rest = new REST({
+    version: "9",
+  }).setToken(process.env.betatoken)
 
-  // try {
-  //   if (process.env.ENV === "production") {
-  //     await rest.put(Routes.applicationCommands(botID), {
-  //       body: commands
-  //     });
+  try {
+    if (process.env.ENV === "production") {
+      await rest.put(Routes.applicationCommands(botID), {
+        body: commands
+      });
 
-  //     console.log("Chloe has globally registered all commands.");
-  //   } else {
-  //     await rest.put(Routes.applicationGuildCommands(botID, process.env.testserver), {
-  //       body: commands
-  //     });
+      console.log("Chloe has globally registered all commands.");
+    } else {
+      await rest.put(Routes.applicationGuildCommands(botID, process.env.testserver), {
+        body: commands
+      });
 
-  //     console.log("Chloe has locally registered all commands.");
-  //   }
-  // } catch {
-  //   if (err) {
-  //     console.error(err);
-  //   };
-  // };
+      console.log("Chloe has locally registered all commands.");
+    }
+  } catch {
+    if (err) {
+      console.error(err);
+    };
+  };
 
 });
 
