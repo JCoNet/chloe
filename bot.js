@@ -196,7 +196,7 @@ bot.once('ready', async () => {
 
   // try WOKCommands here
   new WOKCommands(bot, {
-    commandsDir: path.join(__dirname, 'chloe/newCommands'),
+    commandsDir: path.join(__dirname, 'newCommands'),
     testServers: [process.env.testserver],
   });
 });
