@@ -2,7 +2,7 @@ module.exports = {
     category: 'Testing',
     description: 'Replies with pong', // Required for slash commands
     
-    slash: 'slash', // Create both a slash and legacy command
+    slash: true, // Create both a slash and legacy command
     testOnly: true, // Only register a slash command for the testing guilds
     
     callback: ({ interaction }) => {
