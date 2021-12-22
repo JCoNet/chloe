@@ -7,9 +7,9 @@ module.exports = {
     
     callback: ({ interaction }) => {
         let result = interaction.client.database.query('SELECT * FROM guildConfig WHERE guildID = ' + interaction.guild.id);
-        let results = result[0][0];
+        let results = result[0];
 
-        let reply = `${results.guildName}`;
+        let reply = `${results[0].guildName}`;
 
         // interaction is provided only for a slash command
         interaction.reply({
