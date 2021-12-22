@@ -4,12 +4,14 @@ const Discord = require("discord.js");
 const { REST } = require("@discordjs/rest");
 const { Routes } = require("discord-api-types/v9");
 
+const WOKCommands = require("wokcommands");
+const path = require("path");
+
 const mysql = require("mysql2/promise");
 const fs = require("fs");
 const stats = require("./package.json");
 const config = require("./botconfig.json");
 const { AsciiTable3 } = require('ascii-table3');
-const { isError } = require('util');
 
 const Intents = Discord.Intents;
 const bot = new Discord.Client({ intents: [
@@ -46,53 +48,53 @@ if (connection) {
 
 console.log(`${config.test}`);
 
-var table = new AsciiTable3('Chloe Guilds')
-.setHeading('Command File', 'Loaded')
-.setWidths([40,40])
-.setCellMargin(0)
+// var table = new AsciiTable3('Chloe Guilds')
+// .setHeading('Command File', 'Loaded')
+// .setWidths([40,40])
+// .setCellMargin(0)
 
-const globalCommands = [];
-const guildCommands = [];
-bot.commands = new Discord.Collection();
-const globalCommandFolders = fs.readdirSync('chloe/globalCommands');
-const guildCommandFolders = fs.readdirSync('chloe/guildCommands');
+// const globalCommands = [];
+// const guildCommands = [];
+// bot.commands = new Discord.Collection();
+// const globalCommandFolders = fs.readdirSync('chloe/globalCommands');
+// const guildCommandFolders = fs.readdirSync('chloe/guildCommands');
 
-for (const folder of globalCommandFolders) {
-	const globalCommandFiles = fs.readdirSync(`chloe/globalCommands/${folder}`).filter(file => file.endsWith('.js'));
-	for (const file of globalCommandFiles) {
-		const command = require(`./globalCommands/${folder}/${file}`);
+// for (const folder of globalCommandFolders) {
+// 	const globalCommandFiles = fs.readdirSync(`chloe/globalCommands/${folder}`).filter(file => file.endsWith('.js'));
+// 	for (const file of globalCommandFiles) {
+// 		const command = require(`./globalCommands/${folder}/${file}`);
 
-		if (command.data.name) {
-      globalCommands.push(command.data.toJSON());
-      bot.commands.set(command.data.name, command);
-      table.addRow(file.split('.').slice(0, -1).join('.'), 'Success');
-      continue;
-    } else {
-      table.addRow(file.split('.').slice(0, -1).join('.'), 'Error');
-      continue;
-    }
-	}
-}
+// 		if (command.data.name) {
+//       globalCommands.push(command.data.toJSON());
+//       bot.commands.set(command.data.name, command);
+//       table.addRow(file.split('.').slice(0, -1).join('.'), 'Success');
+//       continue;
+//     } else {
+//       table.addRow(file.split('.').slice(0, -1).join('.'), 'Error');
+//       continue;
+//     }
+// 	}
+// }
 
-for (const folder of guildCommandFolders) {
-	const guildCommandFiles = fs.readdirSync(`chloe/guildCommands/${folder}`).filter(file => file.endsWith('.js'));
-  for (const file of guildCommandFiles) {
-    const command = require(`./guildCommands/${folder}/${file}`);
+// for (const folder of guildCommandFolders) {
+// 	const guildCommandFiles = fs.readdirSync(`chloe/guildCommands/${folder}`).filter(file => file.endsWith('.js'));
+//   for (const file of guildCommandFiles) {
+//     const command = require(`./guildCommands/${folder}/${file}`);
 
-    if (command.data.name) {
-      guildCommands.push(command.data.toJSON());
-      bot.commands.set(command.data.name, command);
-      table.addRow(file.split('.').slice(0, -1).join('.'), 'Success');
-      continue;
-    } else {
-      table.addRow(file.split('.').slice(0, -1).join('.'), 'Error');
-      continue;
-    }
-  }
-}
+//     if (command.data.name) {
+//       guildCommands.push(command.data.toJSON());
+//       bot.commands.set(command.data.name, command);
+//       table.addRow(file.split('.').slice(0, -1).join('.'), 'Success');
+//       continue;
+//     } else {
+//       table.addRow(file.split('.').slice(0, -1).join('.'), 'Error');
+//       continue;
+//     }
+//   }
+// }
 
-table.setStyle('unicode-single');
-console.log(table.toString());
+// table.setStyle('unicode-single');
+// console.log(table.toString());
 
 let botConf;
 
@@ -135,58 +137,68 @@ bot.once('ready', async () => {
   //   version: "9",
   // }).setToken(process.env.token)
 
-  const rest = new REST({
-    version: "9",
-  }).setToken(process.env.betatoken)
+  // const rest = new REST({
+  //   version: "9",
+  // }).setToken(process.env.betatoken)
 
-  try {
-    let result = await connection.query(`SELECT guildID, administratorRoleID FROM guildConfig WHERE guildID = "${process.env.testserver}"`).catch(err => console.error(err));
-    let results = result[0];
-    var len = results.length;
-    for (var i = 0; i < (len); i++) {
-      let guild = bot.guilds.cache.get(results[i].guildID);
+  // try {
+  //   let result = await connection.query(`SELECT guildID, administratorRoleID, moderatorRoleID FROM guildConfig WHERE guildID = "${process.env.testserver}"`).catch(err => console.error(err));
+  //   let results = result[0];
+  //   var len = results.length;
+  //   for (var i = 0; i < (len); i++) {
+  //     let guild = bot.guilds.cache.get(results[i].guildID);
 
-      const commands = await guild.commands.set(guildCommands).then(console.log("Guild commands set."));
+  //     const commands = await guild.commands.set(guildCommands).then(console.log("Guild commands set."));
 
-      // await rest.put(Routes.applicationGuildCommands(botID, results[i].guildID), {
-      //   body: guildCommands
-      // }).then(console.log("Guild Commands set"));
+  //     // await rest.put(Routes.applicationGuildCommands(botID, results[i].guildID), {
+  //     //   body: guildCommands
+  //     // }).then(console.log("Guild Commands set"));
 
-      let permission1 = {
-        id: guild.roles.everyone.id,
-        type: 'ROLE',
-        permission: false,
-      };
-      let permission2 = {
-        id: results[i].administratorRoleID,
-        type: 'ROLE',
-        permission: true,
-      };
+  //     let permission1 = {
+  //       id: guild.roles.everyone.id,
+  //       type: 'ROLE',
+  //       permission: false,
+  //     };
+  //     let permission2 = {
+  //       id: results[i].administratorRoleID,
+  //       type: 'ROLE',
+  //       permission: true,
+  //     };
+  //     let permission3 = {
+  //       id: results[i].moderatorRoleID,
+  //       type: 'ROLE',
+  //       permission: true,
+  //     };
 
-      const permissions = commands.map(command => ({ id: command.id, permissions: [permission1, permission2] }));
+  //     const permissions = commands.map(command => ({ id: command.id, permissions: [permission1, permission2, permission3] }));
 
-      await guild.commands.permissions.set({ fullPermissions: permissions });
-      console.log("Guild command permissions set.")
-    };
+  //     await guild.commands.permissions.set({ fullPermissions: permissions });
+  //     console.log("Guild command permissions set.")
+  //   };
 
 
-    if (process.env.ENV === "production") {
-      await rest.put(Routes.applicationCommands(botID), {
-        body: globalCommands
-      });
+  //   if (process.env.ENV === "production") {
+  //     await rest.put(Routes.applicationCommands(botID), {
+  //       body: globalCommands
+  //     });
 
-      console.log("Chloe has registered all commands.");
-    } else {
-      return console.log("No global commands can be set as currently in test mode.");
-    }
-  } catch (error) {
-    if (error) {
-      console.error(error);
-    };
-  };
+  //     console.log("Chloe has registered all commands.");
+  //   } else {
+  //     return console.log("No global commands can be set as currently in test mode.");
+  //   }
+  // } catch (error) {
+  //   if (error) {
+  //     console.error(error);
+  //   };
+  // };
 
   bot.database = connection;
 
+  // try WOKCommands here
+  new WOKCommands(bot, {
+    commandsDir: path.join(__dirname, 'chloe/newCommands'),
+    testServers: [process.env.testserver],
+  });
 });
 
 bot.on('guildCreate', async guild => {
@@ -212,7 +224,7 @@ bot.on('guildCreate', async guild => {
     await connection.query(`INSERT INTO guildConfig SET guildName = "${guild.name}", guildID = "${guild.id}", prefix = "${botConf[0].defaultPrefix}", ownerName = "${guildOwner.user.username}", ownerID = "${guildOwner.user.id}", systemChannelName = "${sysChannelName}", systemChannelID = "${sysChannelID}", announcementChannelName = "${defaultChannel.name}", announcementChannelID = "${defaultChannel.id}", welcomeChannelName = "${defaultChannel.name}", welcomeChannelID = "${defaultChannel.id}", welcomeMessage = "Welcome to the server!"`).catch(err => console.error(err));
   };
 
-  await defaultChannel.send("Thank you for adding me to your server do chloe/help to find out all the commands I offer!").catch(err => console.error(err));
+  await defaultChannel.send("Thank you for adding me to your server do chloe/help to find out all the commands I offer! Please do /set admin and /set mod to complete setup for this guild.").catch(err => console.error(err));
 
   let newGuildEmbed = new Discord.MessageEmbed()
     .setColor('#24d3f2')
@@ -512,15 +524,15 @@ bot.on('interactionCreate', async interaction => {
     };
   };
 
-  if (interaction.isCommand()) {
-    let command = bot.commands.get(interaction.commandName) || bot.commands.find(cmd => cmd.aliases && cmd.aliases.includes(interaction.commandName));
-    try {
-      command.execute(interaction);
-    } catch (error) {
-      console.error(error);
-      interaction.reply({content: `There was an unexpected error in executing that command. Error:\n\`${error}\`\nPlease alert JCoNet to this error by screenshotting this message or telling them to check console at timestamp:\n\`${Date.getUTCDate()}/${Date.getUTCMonth()+1}/${Date.getUTCFullYear()} @ ${Date.getUTCHours()}:${Date.getUTCMinutes()}:${Date.getUTCSeconds()}:${Date.getUTCMilliseconds()}\``, ephemeral: true});
-    }
-  };
+  // if (interaction.isCommand()) {
+  //   let command = bot.commands.get(interaction.commandName) || bot.commands.find(cmd => cmd.aliases && cmd.aliases.includes(interaction.commandName));
+  //   try {
+  //     command.execute(interaction);
+  //   } catch (error) {
+  //     console.error(error);
+  //     interaction.reply({content: `There was an unexpected error in executing that command. Error:\n\`${error}\`\nPlease alert JCoNet to this error by screenshotting this message or telling them to check console at timestamp:\n\`${Date.getUTCDate()}/${Date.getUTCMonth()+1}/${Date.getUTCFullYear()} @ ${Date.getUTCHours()}:${Date.getUTCMinutes()}:${Date.getUTCSeconds()}:${Date.getUTCMilliseconds()}\``, ephemeral: true});
+  //   }
+  // };
 });
 
 // twitch integration
