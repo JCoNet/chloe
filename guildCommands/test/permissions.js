@@ -12,7 +12,6 @@ module.exports = {
                 .setDescription("The channel to check")
                 .setRequired(true),
             )
-            .setRequired(true),
         )
         .addSubcmmand(subcommand => subcommand
             .setName("role")
@@ -21,8 +20,7 @@ module.exports = {
                 .setName("target")
                 .setDescription("The role to check")
                 .setRequired(true),   
-            )
-            .setRequired(true),  
+            ) 
         )
         .addSubcommand(subcommand => subcommand
             .setName("user")
@@ -32,7 +30,6 @@ module.exports = {
                 .setDescription("The user to check")
                 .setRequired(true),    
             )
-            .setRequired(true)
         ),
 
     async execute (interaction) {
