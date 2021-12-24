@@ -133,13 +133,16 @@ bot.once('ready', async () => {
     botID = process.env.botbetaid;
   };
 
-  const rest = new REST({
-    version: "9",
-  }).setToken(process.env.token)
+  if (process.env.END === "production") {
+    const rest = new REST({
+      version: "9",
+    }).setToken(process.env.token)
+  } else {
+    const rest = new REST({
+      version: "9",
+    }).setToken(process.env.betatoken)
+  }
 
-  const rest = new REST({
-    version: "9",
-  }).setToken(process.env.betatoken)
 
   try {
     let result = await connection.query(`SELECT guildID, administratorRoleID, moderatorRoleID FROM guildConfig WHERE guildID = "${process.env.testserver}"`).catch(err => console.error(err));
