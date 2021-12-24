@@ -35,6 +35,7 @@ module.exports = {
 
     async execute (interaction) {
         // Code to run when executed.
+        var d = new Date().toLocaleString('en-GB', { timeZone: 'Europe/London' });
         let option = interaction.options.getSubcommand();
 
         if (option === "channel") {
@@ -42,21 +43,49 @@ module.exports = {
             let permissions = target.permissionOverwrites;
 
             let permEmbed = new Discord.MessageEmbed()
-            .setcolor()
+            .setcolor("#a7fa48")
+            .setTitle("Channel Permissions Info")
+            .setAuthor(target.name)
+            .setDescription("The permissions we could find for this channel.")
+            .addFields(
+                { name: 'Permissions', value: permissions[0].permissionOverwrites },
+                { name: 'NSFW', value: permissions[0].nsfw }
+            )
+            .setFooter(`This information is true as of: ${d}`)
 
-            console.log(permissions);
-            interaction.reply({content: `The permissions of the channel **${target.name}** are as follows.\nPermissions: \`${JSON.stringify(permissions[0].permissionOverwrites)}\`\nNSFW: \`${JSON.stringify(permissions[0].nsfw)}\``});
+            interaction.reply({embeds: permEmbed, ephemeral: true});
         } else if (option === "user") {
             let target = interaction.options.getMember("target");
             let permissions = target.permissions.toArray().sort().join(" ");
-            let roles = target.roles.cache.map(role => role.name.toString()).join(" ");
-            console.log(permissions);
-            interaction.reply({content: `The permissions of the user **${target.displayName}** are as follows:\n\`${permissions}\`\nRoles: \`${roles}\``});
+            let roles = target.roles.cache.map(role => role.toString()).join(" ");
+
+            let permEmbed = new Discord.MessageEmbed()
+            .setcolor("#a7fa48")
+            .setTitle("User Permissions Info")
+            .setAuthor(target.name)
+            .setDescription("The permissions we could find for this channel.")
+            .addFields(
+                { name: 'Permissions', value: permissions },
+                { name: 'Roles', value: roles },
+            )
+            .setFooter(`This information is true as of: ${d}`)
+
+            interaction.reply({embeds: permEmbed, ephemeral: true});
         } else if (option === "role") {
             let target = interaction.options.getRole("target");
             let permissions = target.permissions.toArray().sort().join(" ");
-            console.log(permissions);
-            interaction.reply({content: `The permissions of the role **${target.name}** are as follows:\n\`${permissions}\``});
+
+            let permEmbed = new Discord.MessageEmbed()
+            .setcolor("#a7fa48")
+            .setTitle("Role Permissions Info")
+            .setAuthor(target.name)
+            .setDescription("The permissions we could find for this role.")
+            .addFields(
+                { name: 'Permissions', value: permissions },
+            )
+            .setFooter(`This information is true as of: ${d}`)
+
+            interaction.reply({embeds: permEmbed, ephemeral: true});
         } else {
             interaction.reply({content: "There was no selected operation to perform.", ephemeral: true});
         }
