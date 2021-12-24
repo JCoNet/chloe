@@ -106,7 +106,6 @@ if (process.env.ENV === "production") {
 
 bot.once('ready', async () => {
   bot.database = connection;
-  console.log(bot.database);
 
   //set up botConf
   var d = new Date().toLocaleString('en-GB', { timeZone: 'Europe/London' });
