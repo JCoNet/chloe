@@ -36,15 +36,15 @@ module.exports = {
         // Code to run when executed.
         let option = interaction.options.getSubcommand();
 
-        if (option.getName() === "channel") {
+        if (option === "channel") {
             let target = interaction.options.getChannel("target");
             let permissions = target.permissionOverwrites;
             interaction.reply({content: `The permissions of the channel **${target.name}** are as follows:\n\`${permissions.toString()}\``})
-        } else if (option.getName() === "user") {
+        } else if (option === "user") {
             let target = interaction.options.getUser("target");
             let permissions = channel.permissions;
             interaction.reply({content: `The permissions of the user **${target.username}** are as follows:\n\`${permissions.toString()}\``})
-        } else if (option.getName() === "role") {
+        } else if (option === "role") {
             let target = interaction.options.getRole("target");
             let permissions = channel.permissions;
             interaction.reply({content: `The permissions of the role **${target.name}** are as follows:\n\`${permissions.toString()}\``})
