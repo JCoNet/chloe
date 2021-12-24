@@ -4,14 +4,12 @@ const Discord = require("discord.js");
 const { REST } = require("@discordjs/rest");
 const { Routes } = require("discord-api-types/v9");
 
-// const WOKCommands = require("wokcommands");
-// const path = require("path");
-
 const mysql = require("mysql2/promise");
 const fs = require("fs");
 const stats = require("./package.json");
 const config = require("./botconfig.json");
 const { AsciiTable3 } = require('ascii-table3');
+const { brotliCompressSync } = require('zlib');
 
 const Intents = Discord.Intents;
 const bot = new Discord.Client({ intents: [
@@ -107,6 +105,9 @@ if (process.env.ENV === "production") {
 
 
 bot.once('ready', async () => {
+  bot.database = connection;
+  console.log(bot.database);
+
   //set up botConf
   var d = new Date().toLocaleString('en-GB', { timeZone: 'Europe/London' });
   let result = await connection.query("SELECT statusMessage, statusType, defaultPrefix FROM defaultConfig");
@@ -133,13 +134,16 @@ bot.once('ready', async () => {
     botID = process.env.botbetaid;
   };
 
-  const rest = new REST({
-    version: "9",
-  }).setToken(process.env.token)
+  if (process.env.ENV === "production") {
+    const rest = new REST({
+      version: "9",
+    }).setToken(process.env.token)
+  } else {
+    const rest = new REST({
+      version: "9",
+    }).setToken(process.env.betatoken)
+  }
 
-  const rest = new REST({
-    version: "9",
-  }).setToken(process.env.betatoken)
 
   try {
     let result = await connection.query(`SELECT guildID, administratorRoleID, moderatorRoleID FROM guildConfig WHERE guildID = "${process.env.testserver}"`).catch(err => console.error(err));
@@ -191,14 +195,6 @@ bot.once('ready', async () => {
       console.error(error);
     };
   };
-
-  bot.database = connection;
-
-  // // try WOKCommands here
-  // new WOKCommands(bot, {
-  //   commandsDir: path.join(__dirname, 'newCommands'),
-  //   testServers: [process.env.testserver],
-  // });
 });
 
 bot.on('guildCreate', async guild => {
@@ -524,15 +520,15 @@ bot.on('interactionCreate', async interaction => {
     };
   };
 
-  // if (interaction.isCommand()) {
-  //   let command = bot.commands.get(interaction.commandName) || bot.commands.find(cmd => cmd.aliases && cmd.aliases.includes(interaction.commandName));
-  //   try {
-  //     command.execute(interaction);
-  //   } catch (error) {
-  //     console.error(error);
-  //     interaction.reply({content: `There was an unexpected error in executing that command. Error:\n\`${error}\`\nPlease alert JCoNet to this error by screenshotting this message or telling them to check console at timestamp:\n\`${Date.getUTCDate()}/${Date.getUTCMonth()+1}/${Date.getUTCFullYear()} @ ${Date.getUTCHours()}:${Date.getUTCMinutes()}:${Date.getUTCSeconds()}:${Date.getUTCMilliseconds()}\``, ephemeral: true});
-  //   }
-  // };
+  if (interaction.isCommand()) {
+    let command = bot.commands.get(interaction.commandName) || bot.commands.find(cmd => cmd.aliases && cmd.aliases.includes(interaction.commandName));
+    try {
+      command.execute(interaction);
+    } catch (error) {
+      console.error(error);
+      interaction.reply({content: `There was an unexpected error in executing that command. Error:\n\`${error}\`\nPlease alert JCoNet to this error by screenshotting this message or telling them to check console at timestamp:\n\`${Date.getUTCDate()}/${Date.getUTCMonth()+1}/${Date.getUTCFullYear()} @ ${Date.getUTCHours()}:${Date.getUTCMinutes()}:${Date.getUTCSeconds()}:${Date.getUTCMilliseconds()}\``, ephemeral: true});
+    }
+  };
 });
 
 // twitch integration
