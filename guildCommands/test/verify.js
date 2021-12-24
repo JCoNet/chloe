@@ -2,8 +2,8 @@ const { SlashCommandBuilder } = require('@discordjs/builders');
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName("update")
-        .setDescription("Update your JCN Digital ID"),
+        .setName("verify")
+        .setDescription("JCoNet Verification API Command!"),
 
     async execute (interaction) {
         let result = await interaction.client.database.query(`SELECT integrationRoleID FROM guildConfig WHERE guildID = '${interaction.guild.id}' AND integrationEnabled = 1`);
