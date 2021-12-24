@@ -8,7 +8,7 @@ module.exports = {
     async execute (interaction) {
         let result = await interaction.client.database.query(`SELECT integrationRoleID FROM guildConfig WHERE guildID = '${interaction.guild.id}' AND integrationEnabled = 1`);
         if (result[0].length == 0) {
-            return interaction.reply({content: "This guild does not have the Verification Integratiuon purchased. Please ask the owner to do this if you feel they need it.", ephemeral: true});
+            return interaction.reply({content: "This guild does not yet have the Verification Integration purchased. Please ask the owner to do this if you feel they need it.", ephemeral: true});
         }
 
         // let results = result[0];
@@ -33,9 +33,9 @@ module.exports = {
 
         if (verify==true) {
             await interaction.member.roles.add(role.id).catch(err => console.error(err));
-            return interaction.reply({content: `You have been verified and given the role: ${role.name}`, ephemeral: true});
+            return interaction.reply({content: `You have been verified and given the role: **${role.name}**`, ephemeral: true});
         } else {
-            return interaction.reply({content: "You are not eligable to be verified. You must pass age and user verification. do /id to check where you failed.", ephemeral: true});
+            return interaction.reply({content: "You are not eligable to be verified. **You must pass age and user verification**. do /id to check where you failed.", ephemeral: true});
         }
     }
 };
