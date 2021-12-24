@@ -45,8 +45,9 @@ module.exports = {
         } else if (option === "user") {
             let target = interaction.options.getMember("target");
             let permissions = target.permissions;
+            let roles = target.roles.cache.map(role => role.toString()).join(" ");
             console.log(permissions);
-            interaction.reply({content: `The permissions of the user **${target.username}** are as follows:\n\`${JSON.stringify(permissions)}\``})
+            interaction.reply({content: `The permissions of the user **${target.username}** are as follows:\n\`Bitfield: ${JSON.stringify(permissions)}\`\nRoles: \`${roles}\``})
         } else if (option === "role") {
             let target = interaction.options.getRole("target");
             let permissions = target.permissions;
