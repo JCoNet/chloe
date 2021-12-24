@@ -60,9 +60,9 @@ module.exports = {
             let roles = target.roles.cache.map(role => role.toString()).join(" ");
 
             let permEmbed = new Discord.MessageEmbed()
-            .setcolor("#a7fa48")
+            .setcolor(target.displayColor)
             .setTitle("User Permissions Info")
-            .setAuthor(target.name)
+            .setAuthor(target.displayName)
             .setDescription("The permissions we could find for this channel.")
             .addFields(
                 { name: 'Permissions', value: permissions },
@@ -76,7 +76,7 @@ module.exports = {
             let permissions = target.permissions.toArray().sort().join(" ");
 
             let permEmbed = new Discord.MessageEmbed()
-            .setcolor("#a7fa48")
+            .setColor(target.color)
             .setTitle("Role Permissions Info")
             .setAuthor(target.name)
             .setDescription("The permissions we could find for this role.")
