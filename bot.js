@@ -4,8 +4,8 @@ const Discord = require("discord.js");
 const { REST } = require("@discordjs/rest");
 const { Routes } = require("discord-api-types/v9");
 
-const WOKCommands = require("wokcommands");
-const path = require("path");
+// const WOKCommands = require("wokcommands");
+// const path = require("path");
 
 const mysql = require("mysql2/promise");
 const fs = require("fs");
@@ -48,53 +48,53 @@ if (connection) {
 
 console.log(`${config.test}`);
 
-// var table = new AsciiTable3('Chloe Guilds')
-// .setHeading('Command File', 'Loaded')
-// .setWidths([40,40])
-// .setCellMargin(0)
+var table = new AsciiTable3('Chloe Guilds')
+.setHeading('Command File', 'Loaded')
+.setWidths([40,40])
+.setCellMargin(0)
 
-// const globalCommands = [];
-// const guildCommands = [];
-// bot.commands = new Discord.Collection();
-// const globalCommandFolders = fs.readdirSync('chloe/globalCommands');
-// const guildCommandFolders = fs.readdirSync('chloe/guildCommands');
+const globalCommands = [];
+const guildCommands = [];
+bot.commands = new Discord.Collection();
+const globalCommandFolders = fs.readdirSync('chloe/globalCommands');
+const guildCommandFolders = fs.readdirSync('chloe/guildCommands');
 
-// for (const folder of globalCommandFolders) {
-// 	const globalCommandFiles = fs.readdirSync(`chloe/globalCommands/${folder}`).filter(file => file.endsWith('.js'));
-// 	for (const file of globalCommandFiles) {
-// 		const command = require(`./globalCommands/${folder}/${file}`);
+for (const folder of globalCommandFolders) {
+	const globalCommandFiles = fs.readdirSync(`chloe/globalCommands/${folder}`).filter(file => file.endsWith('.js'));
+	for (const file of globalCommandFiles) {
+		const command = require(`./globalCommands/${folder}/${file}`);
 
-// 		if (command.data.name) {
-//       globalCommands.push(command.data.toJSON());
-//       bot.commands.set(command.data.name, command);
-//       table.addRow(file.split('.').slice(0, -1).join('.'), 'Success');
-//       continue;
-//     } else {
-//       table.addRow(file.split('.').slice(0, -1).join('.'), 'Error');
-//       continue;
-//     }
-// 	}
-// }
+		if (command.data.name) {
+      globalCommands.push(command.data.toJSON());
+      bot.commands.set(command.data.name, command);
+      table.addRow(file.split('.').slice(0, -1).join('.'), 'Success');
+      continue;
+    } else {
+      table.addRow(file.split('.').slice(0, -1).join('.'), 'Error');
+      continue;
+    }
+	}
+}
 
-// for (const folder of guildCommandFolders) {
-// 	const guildCommandFiles = fs.readdirSync(`chloe/guildCommands/${folder}`).filter(file => file.endsWith('.js'));
-//   for (const file of guildCommandFiles) {
-//     const command = require(`./guildCommands/${folder}/${file}`);
+for (const folder of guildCommandFolders) {
+	const guildCommandFiles = fs.readdirSync(`chloe/guildCommands/${folder}`).filter(file => file.endsWith('.js'));
+  for (const file of guildCommandFiles) {
+    const command = require(`./guildCommands/${folder}/${file}`);
 
-//     if (command.data.name) {
-//       guildCommands.push(command.data.toJSON());
-//       bot.commands.set(command.data.name, command);
-//       table.addRow(file.split('.').slice(0, -1).join('.'), 'Success');
-//       continue;
-//     } else {
-//       table.addRow(file.split('.').slice(0, -1).join('.'), 'Error');
-//       continue;
-//     }
-//   }
-// }
+    if (command.data.name) {
+      guildCommands.push(command.data.toJSON());
+      bot.commands.set(command.data.name, command);
+      table.addRow(file.split('.').slice(0, -1).join('.'), 'Success');
+      continue;
+    } else {
+      table.addRow(file.split('.').slice(0, -1).join('.'), 'Error');
+      continue;
+    }
+  }
+}
 
-// table.setStyle('unicode-single');
-// console.log(table.toString());
+table.setStyle('unicode-single');
+console.log(table.toString());
 
 let botConf;
 
@@ -133,72 +133,72 @@ bot.once('ready', async () => {
     botID = process.env.botbetaid;
   };
 
-  // const rest = new REST({
-  //   version: "9",
-  // }).setToken(process.env.token)
+  const rest = new REST({
+    version: "9",
+  }).setToken(process.env.token)
 
-  // const rest = new REST({
-  //   version: "9",
-  // }).setToken(process.env.betatoken)
+  const rest = new REST({
+    version: "9",
+  }).setToken(process.env.betatoken)
 
-  // try {
-  //   let result = await connection.query(`SELECT guildID, administratorRoleID, moderatorRoleID FROM guildConfig WHERE guildID = "${process.env.testserver}"`).catch(err => console.error(err));
-  //   let results = result[0];
-  //   var len = results.length;
-  //   for (var i = 0; i < (len); i++) {
-  //     let guild = bot.guilds.cache.get(results[i].guildID);
+  try {
+    let result = await connection.query(`SELECT guildID, administratorRoleID, moderatorRoleID FROM guildConfig WHERE guildID = "${process.env.testserver}"`).catch(err => console.error(err));
+    let results = result[0];
+    var len = results.length;
+    for (var i = 0; i < (len); i++) {
+      let guild = bot.guilds.cache.get(results[i].guildID);
 
-  //     const commands = await guild.commands.set(guildCommands).then(console.log("Guild commands set."));
+      const commands = await guild.commands.set(guildCommands).then(console.log("Guild commands set."));
 
-  //     // await rest.put(Routes.applicationGuildCommands(botID, results[i].guildID), {
-  //     //   body: guildCommands
-  //     // }).then(console.log("Guild Commands set"));
+      // await rest.put(Routes.applicationGuildCommands(botID, results[i].guildID), {
+      //   body: guildCommands
+      // }).then(console.log("Guild Commands set"));
 
-  //     let permission1 = {
-  //       id: guild.roles.everyone.id,
-  //       type: 'ROLE',
-  //       permission: false,
-  //     };
-  //     let permission2 = {
-  //       id: results[i].administratorRoleID,
-  //       type: 'ROLE',
-  //       permission: true,
-  //     };
-  //     let permission3 = {
-  //       id: results[i].moderatorRoleID,
-  //       type: 'ROLE',
-  //       permission: true,
-  //     };
+      let permission1 = {
+        id: guild.roles.everyone.id,
+        type: 'ROLE',
+        permission: false,
+      };
+      let permission2 = {
+        id: results[i].administratorRoleID,
+        type: 'ROLE',
+        permission: true,
+      };
+      let permission3 = {
+        id: results[i].moderatorRoleID,
+        type: 'ROLE',
+        permission: true,
+      };
 
-  //     const permissions = commands.map(command => ({ id: command.id, permissions: [permission1, permission2, permission3] }));
+      const permissions = commands.map(command => ({ id: command.id, permissions: [permission1, permission2, permission3] }));
 
-  //     await guild.commands.permissions.set({ fullPermissions: permissions });
-  //     console.log("Guild command permissions set.")
-  //   };
+      await guild.commands.permissions.set({ fullPermissions: permissions });
+      console.log("Guild command permissions set.")
+    };
 
 
-  //   if (process.env.ENV === "production") {
-  //     await rest.put(Routes.applicationCommands(botID), {
-  //       body: globalCommands
-  //     });
+    if (process.env.ENV === "production") {
+      await rest.put(Routes.applicationCommands(botID), {
+        body: globalCommands
+      });
 
-  //     console.log("Chloe has registered all commands.");
-  //   } else {
-  //     return console.log("No global commands can be set as currently in test mode.");
-  //   }
-  // } catch (error) {
-  //   if (error) {
-  //     console.error(error);
-  //   };
-  // };
+      console.log("Chloe has registered all commands.");
+    } else {
+      return console.log("No global commands can be set as currently in test mode.");
+    }
+  } catch (error) {
+    if (error) {
+      console.error(error);
+    };
+  };
 
   bot.database = connection;
 
-  // try WOKCommands here
-  new WOKCommands(bot, {
-    commandsDir: path.join(__dirname, 'newCommands'),
-    testServers: [process.env.testserver],
-  });
+  // // try WOKCommands here
+  // new WOKCommands(bot, {
+  //   commandsDir: path.join(__dirname, 'newCommands'),
+  //   testServers: [process.env.testserver],
+  // });
 });
 
 bot.on('guildCreate', async guild => {
