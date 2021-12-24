@@ -51,7 +51,7 @@ module.exports = {
             let permissions = target.permissions.toArray().sort().join(" ");
             let roles = target.roles.cache.map(role => role.name.toString()).join(" ");
             console.log(permissions);
-            interaction.reply({content: `The permissions of the user **${target.name}** are as follows:\n\`${permissions}\`\nRoles: \`${roles}\``});
+            interaction.reply({content: `The permissions of the user **${target.displayName}** are as follows:\n\`${permissions}\`\nRoles: \`${roles}\``});
         } else if (option === "role") {
             let target = interaction.options.getRole("target");
             let permissions = target.permissions.toArray().sort().join(" ");
