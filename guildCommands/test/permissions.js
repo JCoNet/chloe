@@ -53,7 +53,7 @@ module.exports = {
             )
             .setFooter(`This information is true as of: ${d}`)
 
-            interaction.reply({embeds: permEmbed, ephemeral: true});
+            interaction.reply({embeds: [permEmbed], ephemeral: true});
         } else if (option === "user") {
             let target = interaction.options.getMember("target");
             let permissions = target.permissions.toArray().sort().join(" ");
@@ -70,7 +70,7 @@ module.exports = {
             )
             .setFooter(`This information is true as of: ${d}`)
 
-            interaction.reply({embeds: permEmbed, ephemeral: true});
+            interaction.reply({embeds: [permEmbed], ephemeral: true});
         } else if (option === "role") {
             let target = interaction.options.getRole("target");
             let permissions = target.permissions.toArray().sort().join(" ");
@@ -85,7 +85,7 @@ module.exports = {
             )
             .setFooter(`This information is true as of: ${d}`)
 
-            interaction.reply({embeds: permEmbed, ephemeral: true});
+            interaction.reply({embeds: [permEmbed], ephemeral: true});
         } else {
             interaction.reply({content: "There was no selected operation to perform.", ephemeral: true});
         }
