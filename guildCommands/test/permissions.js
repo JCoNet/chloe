@@ -43,7 +43,7 @@ module.exports = {
             let permissions = target.permissionOverwrites;
 
             let permEmbed = new Discord.MessageEmbed()
-            .setcolor("#a7fa48")
+            .setColor("#a7fa48")
             .setTitle("Channel Permissions Info")
             .setAuthor(target.name)
             .setDescription("The permissions we could find for this channel.")
@@ -60,7 +60,7 @@ module.exports = {
             let roles = target.roles.cache.map(role => role.toString()).join(" ");
 
             let permEmbed = new Discord.MessageEmbed()
-            .setcolor(target.displayColor)
+            .setColor(target.displayColor)
             .setTitle("User Permissions Info")
             .setAuthor(target.displayName)
             .setDescription("The permissions we could find for this channel.")
