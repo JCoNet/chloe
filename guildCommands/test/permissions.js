@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { Permissions } = require('discord.js');
+const Discord = require('discord.js');
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -40,17 +40,21 @@ module.exports = {
         if (option === "channel") {
             let target = interaction.options.getChannel("target");
             let permissions = target.permissionOverwrites;
+
+            let permEmbed = new Discord.MessageEmbed()
+            .setcolor()
+
             console.log(permissions);
             interaction.reply({content: `The permissions of the channel **${target.name}** are as follows.\nPermissions: \`${JSON.stringify(permissions[0].permissionOverwrites)}\`\nNSFW: \`${JSON.stringify(permissions[0].nsfw)}\``});
         } else if (option === "user") {
             let target = interaction.options.getMember("target");
-            let permissions = target.permissions;
+            let permissions = target.permissions.toArray().sort().join(" ");
             let roles = target.roles.cache.map(role => role.name.toString()).join(" ");
             console.log(permissions);
             interaction.reply({content: `The permissions of the user **${target.username}** are as follows:\n\`${permissions.toArray()}\`\nRoles: \`${roles}\``});
         } else if (option === "role") {
             let target = interaction.options.getRole("target");
-            let permissions = target.permissions;
+            let permissions = target.permissions.toArray().sort().join(" ");
             console.log(permissions);
             interaction.reply({content: `The permissions of the role **${target.name}** are as follows:\n\`${permissions.toArray()}\``});
         } else {
