@@ -4,14 +4,12 @@ const Discord = require("discord.js");
 const { REST } = require("@discordjs/rest");
 const { Routes } = require("discord-api-types/v9");
 
-// const WOKCommands = require("wokcommands");
-// const path = require("path");
-
 const mysql = require("mysql2/promise");
 const fs = require("fs");
 const stats = require("./package.json");
 const config = require("./botconfig.json");
 const { AsciiTable3 } = require('ascii-table3');
+const { brotliCompressSync } = require('zlib');
 
 const Intents = Discord.Intents;
 const bot = new Discord.Client({ intents: [
@@ -107,6 +105,9 @@ if (process.env.ENV === "production") {
 
 
 bot.once('ready', async () => {
+  bot.database = connection;
+  console.log(bot.database);
+
   //set up botConf
   var d = new Date().toLocaleString('en-GB', { timeZone: 'Europe/London' });
   let result = await connection.query("SELECT statusMessage, statusType, defaultPrefix FROM defaultConfig");
@@ -133,7 +134,7 @@ bot.once('ready', async () => {
     botID = process.env.botbetaid;
   };
 
-  if (process.env.END === "production") {
+  if (process.env.ENV === "production") {
     const rest = new REST({
       version: "9",
     }).setToken(process.env.token)
@@ -194,14 +195,6 @@ bot.once('ready', async () => {
       console.error(error);
     };
   };
-
-  bot.database = connection;
-
-  // // try WOKCommands here
-  // new WOKCommands(bot, {
-  //   commandsDir: path.join(__dirname, 'newCommands'),
-  //   testServers: [process.env.testserver],
-  // });
 });
 
 bot.on('guildCreate', async guild => {
