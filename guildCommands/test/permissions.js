@@ -62,7 +62,7 @@ module.exports = {
             let permEmbed = new Discord.MessageEmbed()
             .setColor(target.displayColor)
             .setTitle("User Permissions Info")
-            .setAuthor(target.displayName, target.avatarURL(true))
+            .setAuthor(target.displayName, target.user.displayAvatarURL(true))
             .setDescription("The permissions we could find for this channel.")
             .addFields(
                 { name: 'Permissions', value: permissions },
