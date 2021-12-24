@@ -43,7 +43,7 @@ module.exports = {
             console.log(permissions);
             interaction.reply({content: `The permissions of the channel **${target.name}** are as follows.\nPermissions: \`${JSON.stringify(permissions[0].permissionOverwrites)}\`\nNSFW: \`${JSON.stringify(permissions[0].nsfw)}\``});
         } else if (option === "user") {
-            let target = interaction.options.getUser("target");
+            let target = interaction.options.getMember("target");
             let permissions = target.permissions;
             console.log(permissions);
             interaction.reply({content: `The permissions of the user **${target.username}** are as follows:\n\`${JSON.stringify(permissions)}\``})
