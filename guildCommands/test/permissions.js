@@ -51,12 +51,12 @@ module.exports = {
             let permissions = target.permissions.toArray().sort().join(" ");
             let roles = target.roles.cache.map(role => role.name.toString()).join(" ");
             console.log(permissions);
-            interaction.reply({content: `The permissions of the user **${target.username}** are as follows:\n\`${permissions.toArray()}\`\nRoles: \`${roles}\``});
+            interaction.reply({content: `The permissions of the user **${target.username}** are as follows:\n\`${permissions}\`\nRoles: \`${roles}\``});
         } else if (option === "role") {
             let target = interaction.options.getRole("target");
             let permissions = target.permissions.toArray().sort().join(" ");
             console.log(permissions);
-            interaction.reply({content: `The permissions of the role **${target.name}** are as follows:\n\`${permissions.toArray()}\``});
+            interaction.reply({content: `The permissions of the role **${target.name}** are as follows:\n\`${permissions}\``});
         } else {
             interaction.reply({content: "There was no selected operation to perform.", ephemeral: true});
         }
