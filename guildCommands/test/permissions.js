@@ -40,17 +40,17 @@ module.exports = {
             let target = interaction.options.getChannel("target");
             let permissions = target.permissionOverwrites;
             console.log(permissions);
-            interaction.reply({content: `The permissions of the channel **${target.name}** are as follows:\n\`${permissions.toString()}\``})
+            interaction.reply({content: `The permissions of the channel **${target.name}** are as follows:\n\`${permissions.toJSON()}\``})
         } else if (option === "user") {
             let target = interaction.options.getUser("target");
             let permissions = channel.permissions;
             console.log(permissions);
-            interaction.reply({content: `The permissions of the user **${target.username}** are as follows:\n\`${permissions.toString()}\``})
+            interaction.reply({content: `The permissions of the user **${target.username}** are as follows:\n\`${permissions.toJSON()}\``})
         } else if (option === "role") {
             let target = interaction.options.getRole("target");
             let permissions = channel.permissions;
             console.log(permissions);
-            interaction.reply({content: `The permissions of the role **${target.name}** are as follows:\n\`${permissions.toString()}\``})
+            interaction.reply({content: `The permissions of the role **${target.name}** are as follows:\n\`${permissions.toJSON()}\``})
         } else {
             interaction.reply({content: "There was no selected operation to perform.", ephemeral: true});
         }
