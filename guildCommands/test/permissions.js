@@ -11,16 +11,16 @@ module.exports = {
                 .setName("target")
                 .setDescription("The channel to check")
                 .setRequired(true),
-            )
+            ),
         )
-        .addSubcmmand(subcommand => subcommand
+        .addSubcommand(subcommand => subcommand
             .setName("role")
             .setDescription("Get permissions of a role")
             .addRoleOption(option => option
                 .setName("target")
                 .setDescription("The role to check")
                 .setRequired(true),   
-            ) 
+            ), 
         )
         .addSubcommand(subcommand => subcommand
             .setName("user")
@@ -29,7 +29,7 @@ module.exports = {
                 .setName("target")
                 .setDescription("The user to check")
                 .setRequired(true),    
-            )
+            ),
         ),
 
     async execute (interaction) {
