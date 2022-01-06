@@ -219,7 +219,7 @@ bot.on('guildCreate', async guild => {
     await connection.query(`INSERT INTO guildConfig SET guildName = "${guild.name}", guildID = "${guild.id}", prefix = "${botConf[0].defaultPrefix}", ownerName = "${guildOwner.user.username}", ownerID = "${guildOwner.user.id}", systemChannelName = "${sysChannelName}", systemChannelID = "${sysChannelID}", announcementChannelName = "${defaultChannel.name}", announcementChannelID = "${defaultChannel.id}", welcomeChannelName = "${defaultChannel.name}", welcomeChannelID = "${defaultChannel.id}", welcomeMessage = "Welcome to the server!"`).catch(err => console.error(err));
   };
 
-  await defaultChannel.send("Thank you for adding me to your server do chloe/help to find out all the commands I offer! Please do /set admin and /set mod to complete setup for this guild.").catch(err => console.error(err));
+  await defaultChannel.send("Thank you for adding me to your server do chloe/help to find out all the commands I offer! Owner or admin please do /configure to complete my setup for this guild.").catch(err => console.error(err));
 
   let newGuildEmbed = new Discord.MessageEmbed()
     .setColor('#24d3f2')
@@ -422,36 +422,6 @@ bot.on('interactionCreate', async interaction => {
     if (interaction.customId == "admincancel") {
       if (interaction.member.permissions.has("ADMINISTRATOR")) {
         await interaction.reply({ content: `Cancelled setup embed for ${interaction.guild.name}.`, ephemeral: true });
-        interaction.message.delete();
-      } else {
-        interaction.reply({ content: `You tried to use admin only buttons in ${interaction.guild.name} and we thought we would let you know that you cannot do that.`, ephemeral: true });
-      };
-    };
-    
-    // channel setup interactions
-    if (interaction.customId == "welcome") {
-      if (interaction.member.permissions.has("ADMINISTRATOR")) {
-        // set welcome channel
-        await connection.query(`UPDATE guildConfig SET welcomeChannelName = "${interaction.channel.name}", welcomeChannelID ="${interaction.channel.id}" WHERE guildID = "${interaction.guild.id}"`).catch(err => console.error(err));
-        await interaction.reply({content: `Welcome channel set to ${interaction.channel} in ${interaction.guild.name}.`, ephemeral: true}).catch(err => console.error(err));
-        interaction.message.delete();
-      } else {
-        interaction.reply({content: `You tried to use admin only buttons in ${interaction.guild.name} and we thought we would let you know that you cannot do that.`, ephemeral: true});
-      };
-    } else if (interaction.customId == "system") {
-      if (interaction.member.permissions.has("ADMINISTRATOR")) {
-        // set system channel
-        await connection.query(`UPDATE guildConfig SET systemChannelName = "${interaction.channel.name}", systemChannelID ="${interaction.channel.id}" WHERE guildID = "${interaction.guild.id}"`).catch(err => console.error(err));
-        await interaction.reply({content: `System channel set to ${interaction.channel} in ${interaction.guild.name}.`, ephemeral: true}).catch(err => console.error(err));
-        interaction.message.delete();
-      } else {
-        interaction.reply({ content: `You tried to use admin only buttons in ${interaction.guild.name} and we thought we would let you know that you cannot do that.`, ephemeral: true });
-      };
-    } else if (interaction.customId == "announcement") {
-      if (interaction.member.permissions.has("ADMINISTRATOR")) {
-        // set announcement channel
-        await connection.query(`UPDATE guildConfig SET announcementChannelName = "${interaction.channel.name}", announcementChannelID ="${interaction.channel.id}" WHERE guildID = "${interaction.guild.id}"`).catch(err => console.error(err));
-        await interaction.reply({content: `Announcement channel set to ${interaction.channel} in ${interaction.guild.name}.`, ephemeral: true}).catch(err => console.error(err));
         interaction.message.delete();
       } else {
         interaction.reply({ content: `You tried to use admin only buttons in ${interaction.guild.name} and we thought we would let you know that you cannot do that.`, ephemeral: true });

@@ -31,6 +31,6 @@ module.exports = {
         .setColor(member.displayHexColor)
         .setFooter(`User tag: ${user.tag} ~~~~ Time in server: ${diffFormatted}`);
 
-        interaction.reply({embeds: [whois]});
+        interaction.reply({embeds: [whois], ephemeral: true});
     },
 };
