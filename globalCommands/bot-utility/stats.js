@@ -5,8 +5,8 @@ const Discord = require("discord.js");
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName("")
-        .setDescription(""),
+        .setName("stats")
+        .setDescription("View the information of this bot"),
 
     async execute (interaction) {
         // Code to run when executed.

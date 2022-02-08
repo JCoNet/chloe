@@ -12,7 +12,6 @@ module.exports = {
         .addUserOption(option =>
             option.setName("user")
             .setDescription("The user to target")
-            .setType("USER")
         ),
 
     async execute (interaction) {

@@ -7,13 +7,11 @@ module.exports = {
         .addRoleOption(option => 
             option.setName("admin")
             .setDescription("The role for users in your server with the ADMINISTRATOR permission")
-            .setType("ROLE")
             .setRequired(true)    
         )
         .addRoleOption(option => 
             option.setName("mod")
             .setDescription("The role for users in your server with the MANAGE_MESSAGES permission")
-            .setType("ROLE")
             .setRequired(true)    
         ),
 

@@ -2,8 +2,8 @@ const { SlashCommandBuilder } = require('@discordjs/builders');
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName("")
-        .setDescription("")
+        .setName("messages")
+        .setDescription("Manage the automated messages of the bot for this server")
         .addSubcommand(subcommand => subcommand
             .setName("status")
             .setDescription("Show the current status of the automated messages."),

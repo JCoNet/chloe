@@ -1,4 +1,4 @@
-require('dotenv').config({ path: 'chloe/.env' });
+require('dotenv').config({ path: '.env' });
 
 const Discord = require("discord.js");
 const { REST } = require("@discordjs/rest");
@@ -9,9 +9,9 @@ const fs = require("fs");
 const stats = require("./package.json");
 const config = require("./botconfig.json");
 const { AsciiTable3 } = require('ascii-table3');
-const { brotliCompressSync } = require('zlib');
 
 const Intents = Discord.Intents;
+const Permissions = Discord.Permissions;
 const bot = new Discord.Client({ intents: [
   Intents.FLAGS.GUILDS,
   Intents.FLAGS.GUILD_MEMBERS,
@@ -54,11 +54,11 @@ var table = new AsciiTable3('Chloe Guilds')
 const globalCommands = [];
 const guildCommands = [];
 bot.commands = new Discord.Collection();
-const globalCommandFolders = fs.readdirSync('chloe/globalCommands');
-const guildCommandFolders = fs.readdirSync('chloe/guildCommands');
+const globalCommandFolders = fs.readdirSync('globalCommands');
+const guildCommandFolders = fs.readdirSync('guildCommands');
 
 for (const folder of globalCommandFolders) {
-	const globalCommandFiles = fs.readdirSync(`chloe/globalCommands/${folder}`).filter(file => file.endsWith('.js'));
+	const globalCommandFiles = fs.readdirSync(`globalCommands/${folder}`).filter(file => file.endsWith('.js'));
 	for (const file of globalCommandFiles) {
 		const command = require(`./globalCommands/${folder}/${file}`);
 
@@ -75,7 +75,7 @@ for (const folder of globalCommandFolders) {
 }
 
 for (const folder of guildCommandFolders) {
-	const guildCommandFiles = fs.readdirSync(`chloe/guildCommands/${folder}`).filter(file => file.endsWith('.js'));
+	const guildCommandFiles = fs.readdirSync(`guildCommands/${folder}`).filter(file => file.endsWith('.js'));
   for (const file of guildCommandFiles) {
     const command = require(`./guildCommands/${folder}/${file}`);
 
@@ -366,129 +366,31 @@ bot.on('messageCreate', async message => {
   };
 
 
-  if (message.content.startsWith(useprefix)) {
-    let command = bot.commands.get(commandName) || bot.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
-    if (!command) return;
-    if (command.name === "ping") return;
-    if (command.name === "role") return;
-    if (command.name === "stats") return;
+  // isn't command, affect balance by message
+  if (updated == "no") {
+    let errorEmbed = new Discord.MessageEmbed()
+      .setTitle("Important Notice")
+      .setColor("#ff0000")
+      .setDescription("It seems this guild has not been updated to utilise my new features, please get an admin to run the following command to enable these features!")
+      .addField("Command", `/updateguild`)
+      .setFooter({text: `Any questions please contact: customer_support@jconet.co.uk or visit our website and use our live chat https://jconet.co.uk`});
+    message.channel.send({embeds: [errorEmbed]}).catch(err => console.error(err));
+  }
+  let coinstoadd = 1;
+  let newBal;
 
-    if (command.args && !args.length) {
-        let reply = `You didn't provide any arguments!`;
-
-        if (command.usage) {
-          reply += `\nThe proper usage would be: \`${useprefix}${command.name} ${command.usage}\``;
-        }
-
-        return message.reply(reply);
-    }
-
-    try {
-      command.execute(Discord, bot, connection, message, args, useprefix);
-    } catch (error) {
-        console.error(error);
-        message.reply('There was an unexpected error in executing that command, please check the bot logs for more information.');
-    }
+  let coinresult = await connection.query(`SELECT coins FROM money WHERE guildID = "${message.guild.id}" AND userID = "${message.author.id}"`).catch(err => console.error(err));
+  let coinresults = coinresult[0];
+  if (coinresults.length == 0) {
+    await connection.query(`INSERT INTO money SET guildID = "${message.guild.id}", guildName = "${message.guild.name}", userID = "${message.author.id}", userName = "${message.author.username}", coins = ${coinstoadd}`).catch(err => console.error(err));
   } else {
-    // isn't command, affect balance by message
-    if (updated == "no") {
-      let errorEmbed = new Discord.MessageEmbed()
-        .setTitle("Important Notice")
-        .setColor("#ff0000")
-        .setDescription("It seems this guild has not been updated to utilise my new features, please get an admin to run the following command to enable these features!")
-        .addField("Command", `${useprefix}updateguild`)
-        .setFooter(`Any questions please contact: customer_support@jconet.co.uk or visit our website and use our live chat https://jconet.co.uk`);
-      message.channel.send({embeds: [errorEmbed]}).catch(err => console.error(err));
-    }
-    let coinstoadd = 1;
-    let newBal;
-
-    let result = await connection.query(`SELECT coins FROM money WHERE guildID = "${message.guild.id}" AND userID = "${message.author.id}"`).catch(err => console.error(err));
-    let results = result[0];
-    if (results.length == 0) {
-      await connection.query(`INSERT INTO money SET guildID = "${message.guild.id}", guildName = "${message.guild.name}", userID = "${message.author.id}", userName = "${message.author.username}", coins = ${coinstoadd}`).catch(err => console.error(err));
-    } else {
-      newBal = results[0].coins + coinstoadd;
-      await connection.query(`UPDATE money SET coins = ${newBal} WHERE guildID = "${message.guild.id}" AND userID = "${message.author.id}"`).catch(err => console.error(err));
-    };
+    newBal = coinresults[0].coins + coinstoadd;
+    await connection.query(`UPDATE money SET coins = ${newBal} WHERE guildID = "${message.guild.id}" AND userID = "${message.author.id}"`).catch(err => console.error(err));
   };
 
 });
 
 bot.on('interactionCreate', async interaction => {
-	if (interaction.isButton()) {
-    // admin interactions
-    // generic cancel fucntion for all admin interaction aided embeds.
-    if (interaction.customId == "admincancel") {
-      if (interaction.member.permissions.has("ADMINISTRATOR")) {
-        await interaction.reply({ content: `Cancelled setup embed for ${interaction.guild.name}.`, ephemeral: true });
-        interaction.message.delete();
-      } else {
-        interaction.reply({ content: `You tried to use admin only buttons in ${interaction.guild.name} and we thought we would let you know that you cannot do that.`, ephemeral: true });
-      };
-    };
-  
-    // enable messages
-    if (interaction.customId == "enablewelc") {
-      if (interaction.member.permissions.has("ADMINISTRATOR")) {
-        // enable welcome and update the embed to say its enabled and remove interaction
-        await connection.query(`UPDATE guildConfig SET welcomeEnabled = true WHERE guildID = "${interaction.guild.id}"`).catch(err => console.error(err));
-        await interaction.reply({content: `You have enabled welcome messages for ${interaction.guild.name}.`, ephemeral: true}).catch(err => console.error(err));
-        interaction.message.delete();
-      } else {
-        interaction.reply({ content: `You tried to use admin only buttons in ${interaction.guild.name} and we thought we would let you know that you cannot do that.`, ephemeral: true });
-      };
-    } else if (interaction.customId == "enableann") {
-      if (interaction.member.permissions.has("ADMINISTRATOR")) {
-        // enable annoucnements and update the embed to say its enabled and remove interaction
-        await connection.query(`UPDATE guildConfig SET announcementEnabled = true WHERE guildID = "${interaction.guild.id}"`).catch(err => console.error(err));
-        await interaction.reply({content: `You have enabled announcement messages for ${interaction.guild.name}.`, ephemeral: true}).catch(err => console.error(err));
-        interaction.message.delete();
-      } else {
-        interaction.reply({ content: `You tried to use admin only buttons in ${interaction.guild.name} and we thought we would let you know that you cannot do that.`, ephemeral: true });
-      };
-    } else if (interaction.customId == "enablenewfeat") {
-      if (interaction.member.permissions.has("ADMINISTRATOR")) {
-        // enable newfeatures and update the embed to say its enabled and remove interaction
-        await connection.query(`UPDATE guildConfig SET newfeatureEnabled = true WHERE guildID = "${interaction.guild.id}"`).catch(err => console.error(err));
-        await interaction.reply({content: `You have enabled new features messages for ${interaction.guild.name}.`, ephemeral: true}).catch(err => console.error(err));
-        interaction.message.delete();
-      } else {
-        interaction.reply({ content: `You tried to use admin only buttons in ${interaction.guild.name} and we thought we would let you know that you cannot do that.`, ephemeral: true });
-      };
-    };
-  
-    // disable messages
-    if (interaction.customId == "disablewelc") {
-      if (interaction.member.permissions.has("ADMINISTRATOR")) {
-        // enable welcome and update the embed to say its enabled and remove interaction
-        await connection.query(`UPDATE guildConfig SET welcomeEnabled = false WHERE guildID = "${interaction.guild.id}"`).catch(err => console.error(err));
-        await interaction.reply({content: `You have disabled welcome messages for ${interaction.guild.name}.`, ephemeral: true}).catch(err => console.error(err));
-        interaction.message.delete();
-      } else {
-        interaction.reply({ content: `You tried to use admin only buttons in ${interaction.guild.name} and we thought we would let you know that you cannot do that.`, ephemeral: true });
-      };
-    } else if (interaction.customId == "disableann") {
-      if (interaction.member.permissions.has("ADMINISTRATOR")) {
-        // enable annoucnements and update the embed to say its enabled and remove interaction
-        await connection.query(`UPDATE guildConfig SET announcementEnabled = false WHERE guildID = "${interaction.guild.id}"`).catch(err => console.error(err));
-        await interaction.reply({content: `You have disabled announcement messages for ${interaction.guild.name}.`, ephemeral: true}).catch(err => console.error(err));
-        interaction.message.delete();
-      } else {
-        interaction.reply({ content: `You tried to use admin only buttons in ${interaction.guild.name} and we thought we would let you know that you cannot do that.`, ephemeral: true });
-      };
-    } else if (interaction.customId == "disablenewfeat") {
-      if (interaction.member.permissions.has("ADMINISTRATOR")) {
-        // disable newfeatures and update the embed to say its enabled and remove interaction
-        await connection.query(`UPDATE guildConfig SET newfeatureEnabled = false WHERE guildID = "${interaction.guild.id}"`).catch(err => console.error(err));
-        await interaction.reply({content: `You have disabled new features messages for ${interaction.guild.name}.`, ephemeral: true}).catch(err => console.error(err));
-        interaction.message.delete();
-      } else {
-        interaction.reply({ content: `You tried to use admin only buttons in ${interaction.guild.name} and we thought we would let you know that you cannot do that.`, ephemeral: true });
-      };
-    };
-  };
-
   if (interaction.isCommand()) {
     let command = bot.commands.get(interaction.commandName) || bot.commands.find(cmd => cmd.aliases && cmd.aliases.includes(interaction.commandName));
     try {
@@ -499,55 +401,3 @@ bot.on('interactionCreate', async interaction => {
     }
   };
 });
-
-// twitch integration
-
-async function startTwitchListener() {
-  const { ApiClient } = require('twitch');
-  const { ClientCredentialsAuthProvider } = require('twitch-auth');
-  const { DirectConnectionAdapter, EventSubListener } = require('twitch-eventsub');
-
-  const clientId = process.env.CLIENT_ID;
-  const clientSecret = process.env.CLIENT_SECRET;
-
-  const authProvider = new ClientCredentialsAuthProvider(clientId, clientSecret);
-  const apiClient = new ApiClient({ authProvider });
-
-  const listener = new EventSubListener(apiClient, new DirectConnectionAdapter({
-    hostName: 'chloe-host-1.jconet.co.uk',
-    sslCert: {
-      key: fs.readFileSync('/etc/letsencrypt/live/chloe-host-1.jconet.co.uk/privkey.pem'),
-      cert: fs.readFileSync('/etc/letsencrypt/live/chloe-host-1.jconet.co.uk/fullchain.pem')
-    }
-  }), process.env.EVENT_SECRET);
-  await listener.listen();
-  console.log("Twitch listener started!");
-  // let userName = "kiykills";
-  let jcnName = "jconet";
-
-  // let user = await apiClient.helix.users.getUserByName(userName);
-  // const userId = user.id;
-
-  // const streamChannel = bot.channels.cache.get('818685046302965801');
-  // const bigluv = bot.emojis.cache.find(emoji => emoji.name === "KiyKillsBigLuv");
-  // const letsgo = bot.emojis.cache.find(emoji => emoji.name === "KiyKillsLetsGo");
-
-  // const onlineSubscription = await listener.subscribeToStreamOnlineEvents(userId, async e => {
-  //   let sent = await streamChannel.send(`What is up @everyone? ${e.broadcasterDisplayName} just went live! Catch the good vibes at https://twitch.tv/${userName} ${letsgo} ${bigluv}!!!!`);
-  //   await sent.react("<a:JCNVerifiedMessage:872672152313294858>");
-  // });
-
-  // onlineSubscription.stop();
-
-  let userJCN = await apiClient.helix.users.getUserByName(jcnName);
-  const userIdJCN = userJCN.id;
-
-  const streamChannelJCN = await bot.channels.cache.get('818873980131213362');
-
-  const onlineSubscriptionJCN = await listener.subscribeToStreamOnlineEvents(userIdJCN, async e => {
-    let sent = await streamChannelJCN.send({ content: `What is up @everyone? ${e.broadcasterDisplayName} just went live! Catch the good vibes at https://twitch.tv/${jcnName} 🎮!!!!`});
-    await sent.react("<a:JCNVerifiedMessage:872672152313294858>");
-  });
-};
-
-startTwitchListener();
